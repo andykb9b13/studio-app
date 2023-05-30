@@ -17,6 +17,7 @@ const studentSchema = new Schema({
   },
   primaryContactEmail: {
     type: String,
+    required: true,
   },
   instrument: {
     type: String,
