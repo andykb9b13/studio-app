@@ -11,18 +11,23 @@ const resolvers = {
     addStudent: async (
       parent,
       {
+        _id,
         firstName,
         lastName,
         email,
         primaryContact,
         primaryContactEmail,
         instrument,
+        lessonDay,
+        lessonTime,
+        grade,
         school,
         lessonLocation,
         isActive,
       }
     ) => {
       return await Student.create({
+        _id,
         firstName,
         lastName,
         email,
@@ -36,6 +41,9 @@ const resolvers = {
         lessonLocation,
         isActive,
       });
+    },
+    removeStudent: async (parent, { studentId }) => {
+      return Student.findOneAndDelete({ _id: studentId });
     },
   },
 };

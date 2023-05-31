@@ -30,7 +30,7 @@ const studentSchema = new Schema({
     type: String,
   },
   grade: {
-    type: Number,
+    type: String,
   },
   school: {
     type: String,
