@@ -19,7 +19,7 @@ const typeDefs = gql`
 
   type Query {
     students: [Student]!
-    student(studentID: ID!): Student
+    student(studentId: ID!): Student
   }
 
   type Mutation {
@@ -37,7 +37,22 @@ const typeDefs = gql`
       lessonLocation: String
       isActive: Boolean
     ): Student
-    removeStudent(studentId: ID!): Student
+    removeStudent(studentId: ID!): Student!
+    editStudent(
+      studentId: ID!
+      firstName: String
+      lastName: String
+      email: String
+      primaryContact: String
+      primaryContactEmail: String
+      instrument: String
+      lessonDay: String
+      lessonTime: String
+      grade: String
+      school: String
+      lessonLocation: String
+      isActive: Boolean
+    ): Student!
   }
 `;
 
