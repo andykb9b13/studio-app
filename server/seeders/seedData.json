@@ -2,7 +2,9 @@
   {
     "firstName": "Will",
     "lastName": "Allen",
-    "email": "",
+    "email": "tina.l.allen@gmail.com",
+    "username": "willAllen",
+    "password": "studioApp1234",
     "primaryContact": "Tina Allen",
     "primaryContactEmail": "tina.l.allen@gmail.com",
     "instrument": "trombone",
@@ -11,12 +13,15 @@
     "grade": "6",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Liam",
     "lastName": "Vetterkind",
-    "email": "",
+    "email": "melissa.vetterkind@gmail.com",
+    "username": "liam1234",
+    "password": "studioApp1234",
     "primaryContact": "Melissa Vetterkind",
     "primaryContactEmail": "melissa.vetterkind@gmail.com",
     "instrument": "trombone",
@@ -25,12 +30,15 @@
     "grade": "7",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Rachel",
     "lastName": "Bentley",
-    "email": "",
+    "email": "ann.pfirsch@gmail.com",
+    "username": "bentleyR",
+    "password": "studioApp1234",
     "primaryContact": "Ann Pfirsh",
     "primaryContactEmail": "ann.pfirsch@gmail.com",
     "instrument": "bass",
@@ -39,12 +47,15 @@
     "grade": "8",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Oliver",
     "lastName": "Zhang",
-    "email": "",
+    "email": "weitingz@gmail.com",
+    "username": "oliverAndCo",
+    "password": "studioApp1234",
     "primaryContact": "Weiting Zhang",
     "primaryContactEmail": "weitingz@gmail.com",
     "instrument": "trombone",
@@ -53,14 +64,17 @@
     "grade": "6",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Eli",
     "lastName": "Russel",
-    "email": "",
-    "primaryContact": "Kelly",
-    "primaryContactEmail": "Marks",
+    "email": "kellymarks@gmail.com",
+    "username": "kidTrombone",
+    "password": "studioApp1234",
+    "primaryContact": "Kelly Marks",
+    "primaryContactEmail": "",
     "instrument": "trombone",
     "lessonDay": "Tuesday",
     "lessonTime": "5:00pm",
@@ -72,7 +86,9 @@
   {
     "firstName": "Parker",
     "lastName": "Hamilton",
-    "email": "",
+    "email": "michelle@alexandermillerandschupp.com",
+    "username": "badPiggies",
+    "password": "studioApp1234",
     "primaryContact": "Michelle Hamilton",
     "primaryContactEmail": "michelle@alexandermillerandschupp.com",
     "instrument": "trombone",
@@ -81,12 +97,15 @@
     "grade": "5",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Hudson",
     "lastName": "Brown",
-    "email": "",
+    "email": "kbrown617@gmail.com",
+    "username": "Hudson123",
+    "password": "studioApp1234",
     "primaryContact": "Kirstin Brown",
     "primaryContactEmail": "kbrown617@gmail.com",
     "instrument": "trombone",
@@ -95,12 +114,15 @@
     "grade": "6",
     "school": "Pollard",
     "lessonLocation": "zoom",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Annabeth",
     "lastName": "Bass",
     "email": "annabethbass@gmail.com",
+    "username": "annabeth",
+    "password": "studioApp1234",
     "primaryContact": "Dave Bass",
     "primaryContactEmail": "fiddlerdavebass@gmail.com",
     "instrument": "trombone",
@@ -109,12 +131,15 @@
     "grade": "10",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Graham",
     "lastName": "Wood",
     "email": "gswood@student.wcpss.net",
+    "username": "slurpyTheDog",
+    "password": "studioApp1234",
     "primaryContact": "Lisa Wood",
     "primaryContactEmail": "lisaveronicawood@gmail.com",
     "instrument": "trombone",
@@ -123,12 +148,15 @@
     "grade": "11",
     "school": "Enloe",
     "lessonLocation": "zoom",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Roger",
     "lastName": "Brooks",
     "email": "23brooks@da.org",
+    "username": "23brooks",
+    "password": "studioApp1234",
     "primaryContact": "Ann Brooks",
     "primaryContactEmail": "annjbrooks@gmail.com",
     "instrument": "trombone",
@@ -137,12 +165,15 @@
     "grade": "12",
     "school": "Durham Academy",
     "lessonLocation": "studio",
-    "isActive": false
+    "isActive": false,
+    "teacherId": "1"
   },
   {
     "firstName": "Casey",
     "lastName": "Brekke",
     "email": "casey.h.brekke@gmail.com",
+    "username": "brekke23",
+    "password": "studioApp1234",
     "primaryContact": "Katherine Brekke",
     "primaryContactEmail": "katherine.brekke@gmail.com",
     "instrument": "trombone",
@@ -151,12 +182,15 @@
     "grade": "10",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Sam",
     "lastName": "Sipe",
     "email": "samuelcsipe@icloud.com",
+    "username": "sammySipe",
+    "password": "studioApp1234",
     "primaryContact": "Scott Sipe",
     "primaryContactEmail": "cscotts@gmail.com",
     "instrument": "trombone",
@@ -165,12 +199,15 @@
     "grade": "8",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Kai",
     "lastName": "Kubal-Komoto",
     "email": "kakuko2006@gmail.com",
+    "username": "kakuko",
+    "password": "studioApp1234",
     "primaryContact": "James Kubal-Komoto",
     "primaryContactEmail": "jakuko@gmail.com",
     "instrument": "trombone",
@@ -179,12 +216,15 @@
     "grade": "11",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Henry",
     "lastName": "Sallard",
     "email": "henrycanuck@gmail.com",
+    "username": "henrycanuck",
+    "password": "studioApp1234",
     "primaryContact": "Candace Marles",
     "primaryContactEmail": "candace.marles@sas.com",
     "instrument": "trombone",
@@ -193,12 +233,15 @@
     "grade": "",
     "school": "NC State",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Amaan",
     "lastName": "Khan",
     "email": "amaanskhan2@gmail.com",
+    "username": "amaankhan",
+    "password": "studioApp1234",
     "primaryContact": "Farzeen Khan",
     "primaryContactEmail": "farzeenanwar@gmail.com",
     "instrument": "trombone",
@@ -207,12 +250,15 @@
     "grade": "10",
     "school": "Green Level",
     "lessonLocation": "zoom",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Ian",
     "lastName": "Ware",
     "email": "ianware2009@gmail.com",
+    "username": "boyWonder",
+    "password": "studioApp1234",
     "primaryContact": "Kristi Hendrickson-Ware",
     "primaryContactEmail": "sunnydays77@aol.com",
     "instrument": "trombone",
@@ -221,12 +267,15 @@
     "grade": "8",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Ada",
     "lastName": "Stewart",
     "email": "adavstewart@gmail.com",
+    "username": "adaStewart",
+    "password": "studioApp1234",
     "primaryContact": "Kristen Boekelheide",
     "primaryContactEmail": "kristenboek@gmail.com",
     "instrument": "trombone",
@@ -235,12 +284,15 @@
     "grade": "11",
     "school": "",
     "lessonLocation": "studio",
-    "isActive": true
+    "isActive": true,
+    "teacherId": "1"
   },
   {
     "firstName": "Max",
     "lastName": "Roselli",
     "email": "maxross595@gmail.com",
+    "username": "duke2027",
+    "password": "studioApp1234",
     "primaryContact": "Jinky Roselli",
     "primaryContactEmail": "angroselli@gmail.com",
     "instrument": "trombone",
@@ -249,6 +301,7 @@
     "grade": "12",
     "school": "Durham School of the Arts",
     "lessonLocation": "studio",
-    "isActive": false
+    "isActive": false,
+    "teacherId": "1"
   }
 ]

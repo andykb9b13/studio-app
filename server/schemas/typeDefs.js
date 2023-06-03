@@ -5,16 +5,18 @@ const typeDefs = gql`
     _id: ID
     firstName: String!
     lastName: String!
-    email: String
+    email: String!
+    username: String!
     primaryContact: String
-    primaryContactEmail: String!
-    instrument: String!
+    primaryContactEmail: String
+    instrument: String
     lessonDay: String
     lessonTime: String
     grade: String
     school: String
     lessonLocation: String
     isActive: Boolean
+    teacherId: String
   }
 
   type Query {
@@ -26,23 +28,9 @@ const typeDefs = gql`
     addStudent(
       firstName: String!
       lastName: String!
-      email: String
-      primaryContact: String!
-      primaryContactEmail: String!
-      instrument: String!
-      lessonDay: String
-      lessonTime: String
-      grade: String
-      school: String
-      lessonLocation: String
-      isActive: Boolean
-    ): Student
-    removeStudent(studentId: ID!): Student!
-    editStudent(
-      studentId: ID!
-      firstName: String
-      lastName: String
-      email: String
+      email: String!
+      username: String!
+      password: String!
       primaryContact: String
       primaryContactEmail: String
       instrument: String
@@ -52,6 +40,26 @@ const typeDefs = gql`
       school: String
       lessonLocation: String
       isActive: Boolean
+      teacherId: String
+    ): Student
+    removeStudent(studentId: ID!): Student!
+    editStudent(
+      studentId: ID!
+      firstName: String
+      lastName: String
+      email: String
+      username: String
+      password: String
+      primaryContact: String
+      primaryContactEmail: String
+      instrument: String
+      lessonDay: String
+      lessonTime: String
+      grade: String
+      school: String
+      lessonLocation: String
+      isActive: Boolean
+      teacherId: String
     ): Student!
   }
 `;

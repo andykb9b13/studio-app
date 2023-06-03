@@ -18,6 +18,8 @@ const resolvers = {
         firstName,
         lastName,
         email,
+        username,
+        password,
         primaryContact,
         primaryContactEmail,
         instrument,
@@ -27,6 +29,7 @@ const resolvers = {
         school,
         lessonLocation,
         isActive,
+        teacherId,
       }
     ) => {
       return await Student.create({
@@ -34,6 +37,8 @@ const resolvers = {
         firstName,
         lastName,
         email,
+        username,
+        password,
         primaryContact,
         primaryContactEmail,
         instrument,
@@ -43,6 +48,7 @@ const resolvers = {
         school,
         lessonLocation,
         isActive,
+        teacherId,
       });
     },
     removeStudent: async (parent, { studentId }) => {
@@ -55,6 +61,8 @@ const resolvers = {
         firstName,
         lastName,
         email,
+        username,
+        password,
         primaryContact,
         primaryContactEmail,
         instrument,
@@ -64,6 +72,7 @@ const resolvers = {
         school,
         lessonLocation,
         isActive,
+        teacherId,
       }
     ) => {
       const student = await Student.findById(studentId);
@@ -79,6 +88,12 @@ const resolvers = {
       }
       if (email) {
         student.email = email;
+      }
+      if (username) {
+        student.userName = userName;
+      }
+      if (password) {
+        student.password = password;
       }
       if (primaryContact) {
         student.primaryContact = primaryContact;
@@ -106,6 +121,9 @@ const resolvers = {
       }
       if (isActive) {
         student.isActive = isActive;
+      }
+      if (teacherId) {
+        student.teacherId = teacherId;
       }
 
       await student.save();
