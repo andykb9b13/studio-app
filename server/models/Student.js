@@ -20,6 +20,14 @@ const studentSchema = new Schema({
       "Please fill a valid email address",
     ],
   },
+  username: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+    maxLength: 20,
+    minLength: 6,
+  },
   password: {
     type: String,
     maxLength: 20,
@@ -31,11 +39,9 @@ const studentSchema = new Schema({
   },
   primaryContactEmail: {
     type: String,
-    required: true,
   },
   instrument: {
     type: String,
-    required: true,
   },
   lessonDay: {
     type: String,
@@ -56,8 +62,7 @@ const studentSchema = new Schema({
     type: Boolean,
   },
   teacherId: {
-    type: Schema.Types.ObjectId,
-    ref: "Teacher",
+    type: String,
   },
   practiceHistory: {
     type: Schema.Types.ObjectId,
