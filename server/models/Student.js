@@ -46,7 +46,7 @@ const studentSchema = new Schema({
     type: String,
   },
   grade: {
-    type: String,
+    type: Number,
   },
   school: {
     type: String,
