@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const Teacher = require("./Teacher");
-const PracticeHistory = require("./PracticeHistory");
 
 const studentSchema = new Schema({
   firstName: {
@@ -46,7 +44,7 @@ const studentSchema = new Schema({
     type: String,
   },
   grade: {
-    type: String,
+    type: Number,
   },
   school: {
     type: String,
