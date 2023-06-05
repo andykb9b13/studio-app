@@ -1,4 +1,6 @@
 const { Student, Teacher } = require("../models");
+const { AuthenticationError } = require("apollo-server-express");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -17,6 +19,39 @@ const resolvers = {
   },
 
   Mutation: {
+    addTeacher: async (
+      _,
+      { firstName, lastName, email, username, password }
+    ) => {
+      const teacher = new Teacher({
+        firstName,
+        lastName,
+        username,
+        email,
+        password,
+      });
+      await teacher.save();
+      const token = signToken({ _id: teacher._id }, process.env.SECRET);
+      return { token, teacher };
+    },
+
+    teacherLogin: async (parent, { username, password }) => {
+      const teacher = await Teacher.findOne({ username });
+
+      if (!teacher) {
+        throw new AuthenticationError("No profile with this email found!");
+      }
+
+      const correctPw = await teacher.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password!");
+      }
+
+      const token = signToken(teacher);
+      return { token, teacher };
+    },
+
     addStudent: async (
       parent,
       {
