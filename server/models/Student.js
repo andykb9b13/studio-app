@@ -30,7 +30,6 @@ const studentSchema = new Schema({
   },
   password: {
     type: String,
-    maxLength: 20,
     minLength: 8,
     required: true,
   },

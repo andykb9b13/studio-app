@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const Student = require("./Student");
-const PracticeHistory = require("./PracticeHistory");
 
 const teacherSchema = new Schema({
   firstName: {
@@ -22,7 +20,7 @@ const teacherSchema = new Schema({
       "Please fill a valid email address",
     ],
   },
-  userName: {
+  username: {
     type: String,
     required: true,
     trie: true,
@@ -31,7 +29,6 @@ const teacherSchema = new Schema({
   },
   password: {
     type: String,
-    maxLength: 20,
     minLength: 8,
     required: true,
   },
