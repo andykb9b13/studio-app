@@ -19,9 +19,20 @@ const typeDefs = gql`
     teacherId: String
   }
 
+  type Teacher {
+    _id: ID
+    firstName: String!
+    lastName: String!
+    email: String!
+    userName: String!
+    students: [Student]
+  }
+
   type Query {
     students: [Student]!
     student(studentId: ID!): Student
+    teachers: [Teacher]!
+    teacher(teacherId: ID!): Teacher
   }
 
   type Mutation {

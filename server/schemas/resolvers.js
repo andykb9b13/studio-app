@@ -1,4 +1,4 @@
-const { Student } = require("../models");
+const { Student, Teacher } = require("../models");
 
 const resolvers = {
   Query: {
@@ -6,8 +6,14 @@ const resolvers = {
       return await Student.find({});
     },
     student: async (parent, { studentId: _id }) => {
-      return await Student.findById(studentId);
+      return await Student.findById(_id);
     },
+    teachers: async () => {
+      return await Teacher.find({}).populate("students");
+    },
+    // teacher: async (parent, { teacherId: _id }) => {
+    //   return await Teacher.findById(_id);
+    // },
   },
 
   Mutation: {
