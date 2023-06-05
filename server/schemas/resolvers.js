@@ -13,9 +13,9 @@ const resolvers = {
     teachers: async () => {
       return await Teacher.find({}).populate("students");
     },
-    // teacher: async (parent, { teacherId: _id }) => {
-    //   return await Teacher.findById(_id);
-    // },
+    teacher: async (parent, { teacherId: _id }) => {
+      return await Teacher.findById(_id);
+    },
   },
 
   Mutation: {
@@ -35,21 +35,23 @@ const resolvers = {
       return { token, teacher };
     },
 
-    teacherLogin: async (parent, { username, password }) => {
+    login: async (parent, { username, password }) => {
       const teacher = await Teacher.findOne({ username });
+      const student = await Student.findOne({ username });
 
-      if (!teacher) {
-        throw new AuthenticationError("No profile with this email found!");
+      const user = teacher || student;
+      if (!user || !(await bcrypt.compare(password, user.password))) {
+        throw new AuthenticationError("Invalid username or password");
       }
 
-      const correctPw = await teacher.isCorrectPassword(password);
+      const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
         throw new AuthenticationError("Incorrect password!");
       }
 
-      const token = signToken(teacher);
-      return { token, teacher };
+      const token = signToken(user);
+      return { token, teacher: user };
     },
 
     addStudent: async (
@@ -73,7 +75,7 @@ const resolvers = {
         teacherId,
       }
     ) => {
-      return await Student.create({
+      const student = await Student.create({
         _id,
         firstName,
         lastName,
@@ -91,6 +93,13 @@ const resolvers = {
         isActive,
         teacherId,
       });
+      await Teacher.findByIdAndUpdate(
+        teacherId,
+        { $addToSet: { students: student._id } },
+        { new: true }
+      );
+      const token = signToken(student);
+      return { token, student };
     },
     removeStudent: async (parent, { studentId }) => {
       return Student.findOneAndDelete({ _id: studentId });

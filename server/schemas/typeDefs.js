@@ -24,8 +24,13 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    userName: String!
+    username: String!
     students: [Student]
+  }
+
+  type Auth {
+    token: ID!
+    teacher: Teacher
   }
 
   type Query {
@@ -36,6 +41,16 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    login(username: String!, password: String!): Auth
+
+    addTeacher(
+      firstName: String!
+      lastName: String!
+      email: String!
+      username: String!
+      password: String!
+    ): Teacher
+
     addStudent(
       firstName: String!
       lastName: String!
@@ -53,7 +68,11 @@ const typeDefs = gql`
       isActive: Boolean
       teacherId: String
     ): Student
+
     removeStudent(studentId: ID!): Student!
+
+    removeTeacher(teacherId: ID!): Teacher!
+
     editStudent(
       studentId: ID!
       firstName: String
@@ -72,6 +91,15 @@ const typeDefs = gql`
       isActive: Boolean
       teacherId: String
     ): Student!
+
+    editTeacher(
+      teacherId: ID!
+      firstName: String
+      lastName: String
+      email: String
+      username: String
+      password: String
+    ): Teacher!
   }
 `;
 
