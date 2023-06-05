@@ -51,7 +51,12 @@ const resolvers = {
       }
 
       const token = signToken(user);
-      return { token, teacher: user };
+      if (teacher) {
+        return { token, teacher: user };
+      }
+      if (student) {
+        return { token, student, user };
+      }
     },
 
     addStudent: async (

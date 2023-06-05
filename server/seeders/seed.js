@@ -19,7 +19,6 @@ db.once("open", async () => {
       );
     }
 
-    console.log("newTeacher", newTeacher);
     console.log("Seeding Completed");
     process.exit(0);
   } catch (err) {
