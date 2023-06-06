@@ -63,10 +63,24 @@ const studentSchema = new Schema({
   teacherId: {
     type: String,
   },
-  practiceHistory: {
-    type: Schema.Types.ObjectId,
-    ref: "PracticeHistory",
-  },
+  assignments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Assignment",
+    },
+  ],
+  goals: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Goal",
+    },
+  ],
+  skillSheets: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "SkillSheet",
+    },
+  ],
 });
 
 // hash user password

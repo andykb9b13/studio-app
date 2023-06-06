@@ -19,7 +19,7 @@ const assignmentSchema = new Schema({
     type: String,
   },
   metronome: {
-    type: Number,
+    type: String,
   },
   pages: {
     type: String,

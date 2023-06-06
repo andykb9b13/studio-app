@@ -1,7 +1,8 @@
 const db = require("../config/connection");
-const { Student, Teacher } = require("../models");
+const { Student, Teacher, Assignment } = require("../models");
 const studentData = require("./studentData.json");
 const teacherData = require("./teacherData.json");
+const assignmentData = require("./assignmentData.json");
 
 db.once("open", async () => {
   try {
@@ -10,6 +11,17 @@ db.once("open", async () => {
 
     await Student.deleteMany({});
     const studentArr = await Student.create(studentData);
+
+    await Assignment.deleteMany({});
+    const assignmentArr = await Assignment.create(assignmentData);
+    for (const assignment of assignmentArr) {
+      let randomStudent = Math.floor(Math.random() * studentArr.length);
+      await Student.findByIdAndUpdate(
+        studentArr[randomStudent]._id,
+        { $addToSet: { assignments: assignment } },
+        { new: true }
+      );
+    }
 
     for (const student of studentArr) {
       await Teacher.findByIdAndUpdate(
