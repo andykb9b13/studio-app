@@ -5,8 +5,7 @@ const streakSchema = new Schema({
     type: String,
   },
   assignmentId: {
-    type: Schema.Types.ObjectId,
-    ref: "Assignment",
+    type: String,
   },
   numTries: {
     type: Number,

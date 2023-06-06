@@ -17,6 +17,9 @@ const typeDefs = gql`
     lessonLocation: String
     isActive: Boolean
     teacherId: String
+    assignments: [Assignment]
+    goals: [Goal]
+    skillSheets: [SkillSheet]
   }
 
   type Teacher {
@@ -26,6 +29,49 @@ const typeDefs = gql`
     email: String!
     username: String!
     students: [Student]
+  }
+
+  type Assignment {
+    _id: ID
+    date: String!
+    exerciseName: String!
+    source: String
+    assignmentType: String
+    specialNotes: String
+    metronome: String
+    pages: String
+    streaks: [Streak]
+  }
+
+  type Streak {
+    _id: ID
+    date: String!
+    assignmentId: String!
+    numTries: Int
+    numSuccess: Int
+    numFail: Int
+  }
+
+  type Goal {
+    _id: ID
+    practiceTime: Int
+    practiceDays: Int
+    skillSheet: SkillSheet
+  }
+
+  type SkillSheet {
+    _id: ID
+    sheetNumber: Int!
+    sheetName: String!
+    scales: [String]
+    arpeggios: [String]
+    articulation: [String]
+    slurs: [String]
+    longTones: [String]
+    exercises: [String]
+    etudes: [String]
+    pieces: [String]
+    completed: Boolean
   }
 
   type Auth {
