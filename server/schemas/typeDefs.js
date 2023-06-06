@@ -84,6 +84,10 @@ const typeDefs = gql`
     student(studentId: ID!): Student
     teachers: [Teacher]!
     teacher(teacherId: ID!): Teacher
+    assignments: [Assignment]!
+    assignment(assignmentId: ID!): Assignment
+    goals: [Goal]!
+    goal(goalId: ID!): Goal
   }
 
   type Mutation {
@@ -115,9 +119,51 @@ const typeDefs = gql`
       teacherId: String
     ): Student
 
+    addAssignment(
+      date: String!
+      exerciseName: String!
+      source: String
+      assignmentType: String
+      specialNotes: String
+      metronome: String
+      pages: String
+    ): Assignment
+
+    addStreak(
+      date: String
+      assignmentId: String
+      numTries: Int
+      numSuccess: Int
+      numFail: Int
+    ): Streak
+
+    addGoal(practiceTime: Int, practiceDays: Int): Goal
+
+    addSkillSheet(
+      sheetNumber: Int!
+      sheetName: String!
+      scales: [String]
+      arpeggios: [String]
+      articulation: [String]
+      slurs: [String]
+      longTones: [String]
+      exercises: [String]
+      etudes: [String]
+      pieces: [String]
+      completed: Boolean
+    ): SkillSheet
+
+    removeAssignment(assignmentId: ID!): Assignment!
+
+    removeGoal(goalId: ID!): Goal!
+
+    removeStreak(streakId: ID!): Streak!
+
     removeStudent(studentId: ID!): Student!
 
     removeTeacher(teacherId: ID!): Teacher!
+
+    removeSkillSheet(skillSheetId: ID!): SkillSheet!
 
     editStudent(
       studentId: ID!
@@ -146,6 +192,34 @@ const typeDefs = gql`
       username: String
       password: String
     ): Teacher!
+
+    editAssignment(
+      assignmentId: ID!
+      date: String
+      exerciseName: String
+      source: String
+      assignmentType: String
+      specialNotes: String
+      metronome: String
+      pages: String
+    ): Assignment!
+
+    editGoal(goalId: ID!, practiceTime: Int, practiceDays: Int): Goal!
+
+    editSkillSheet(
+      skillSheetId: ID!
+      sheetNumber: Int
+      sheetName: String
+      scales: [String]
+      arpeggios: [String]
+      articulation: [String]
+      slurs: [String]
+      longTones: [String]
+      exercises: [String]
+      etudes: [String]
+      pieces: [String]
+      completed: Boolean
+    ): SkillSheet!
   }
 `;
 
