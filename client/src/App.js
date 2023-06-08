@@ -27,6 +27,7 @@ import Visual from "./pages/virtualTutor/Visual";
 import StudentDatabase from "./pages/StudentDatabase";
 import TeacherDashboard from "./pages/teacherDashboard";
 import CreateSkillSheet from "./pages/CreateSkillSheet";
+import SkillSheetView from "./pages/SkillSheetView";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -63,6 +64,10 @@ function App() {
           <Route path="/student/:id/weeklyPlan" element={<WeeklyPlan />} />
           <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
           <Route
+            path="/student/:id/skillSheetView"
+            element={<SkillSheetView />}
+          />
+          <Route
             path="/student/:id/streakPractice"
             element={<StreakPractice />}
           />
@@ -87,11 +92,11 @@ function App() {
             path="/teacher/:id/createSkillSheet"
             element={<CreateSkillSheet />}
           />
-          <Route path="/tutor/" element={<TutorHome />} />
-          <Route path="/tutor/aural/" element={<Aural />} />
-          <Route path="/tutor/conceptual/" element={<Conceptual />} />
-          <Route path="/tutor/physical/" element={<Physical />} />
-          <Route path="/tutor/visual/" element={<Visual />} />
+          <Route path="/tutor" element={<TutorHome />} />
+          <Route path="/tutor/aural" element={<Aural />} />
+          <Route path="/tutor/conceptual" element={<Conceptual />} />
+          <Route path="/tutor/physical" element={<Physical />} />
+          <Route path="/tutor/visual" element={<Visual />} />
         </Routes>
       </Router>
     </ApolloProvider>
