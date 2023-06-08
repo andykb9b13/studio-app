@@ -51,7 +51,38 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Routes></Routes>
+        <Routes>
+          <Route path="/" element={<landingPage />} />
+          <Route path="/login" element={<loginPage />} />
+          <Route path="/signup" element={<signUpPage />} />
+          <Route path="/teacher/:id" element={<teacherDashboard />} />
+          <Route path="/student/:id" element={<studentDashboard />} />
+          <Route path="/student/:id/details" element={<studentDetails />} />
+          <Route path="/student/:id/weeklyplan" element={<weeklyPlan />} />
+          <Route path="/student/:id/practicehub" element={<practiceHub />} />
+          <Route
+            path="/student/:id/streakpractice"
+            element={<streakPractice />}
+          />
+          <Route
+            path="/student/:id/timedpractice"
+            element={<timedPractice />}
+          />
+          <Route
+            path="/student/:id/assignmentview"
+            element={<assignmentView />}
+          />
+          <Route path="/teacher/:id/addstudent" element={<addStudent />} />
+          <Route
+            path="/teacher/:id/createassignment"
+            element={<createAssignment />}
+          />
+          <Route path="/tutor/" element={<tutorHome />} />
+          <Route path="/tutor/aural/" element={<auralHome />} />
+          <Route path="/tutor/conceptual/" element={<conceptualHome />} />
+          <Route path="/tutor/physical/" element={<physicalHome />} />
+          <Route path="/tutor/visual/" element={<visualHome />} />
+        </Routes>
       </Router>
     </ApolloProvider>
   );
