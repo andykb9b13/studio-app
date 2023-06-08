@@ -8,6 +8,8 @@ const WeeklyPlan = () => {
       <div>
         {/* add so that the week display is dynamic */}
         <h2>Week Of ... </h2>
+        <button>View Previous Week</button>
+        <button>View Next Week</button>
         {/* Insert assignmentcomponent here */}
         <Link to="/student/:id">
           <button>Back to Dashboard</button>
