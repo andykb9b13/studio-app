@@ -92,11 +92,11 @@ function App() {
             path="/teacher/:id/createSkillSheet"
             element={<CreateSkillSheet />}
           />
-          <Route path="/tutor/" element={<TutorHome />} />
-          <Route path="/tutor/aural/" element={<Aural />} />
-          <Route path="/tutor/conceptual/" element={<Conceptual />} />
-          <Route path="/tutor/physical/" element={<Physical />} />
-          <Route path="/tutor/visual/" element={<Visual />} />
+          <Route path="/tutor" element={<TutorHome />} />
+          <Route path="/tutor/aural" element={<Aural />} />
+          <Route path="/tutor/conceptual" element={<Conceptual />} />
+          <Route path="/tutor/physical" element={<Physical />} />
+          <Route path="/tutor/visual" element={<Visual />} />
         </Routes>
       </Router>
     </ApolloProvider>
