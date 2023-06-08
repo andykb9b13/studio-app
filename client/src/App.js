@@ -11,7 +11,6 @@ import AddStudent from "./pages/AddStudent";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import TeacherDashboard from "./pages/TeacherDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentDetails from "./pages/StudentDetails";
 import WeeklyPlan from "./pages/WeeklyPlan";
@@ -25,6 +24,9 @@ import Aural from "./pages/virtualTutor/Aural";
 import Conceptual from "./pages/virtualTutor/Conceptual";
 import Physical from "./pages/virtualTutor/Physical";
 import Visual from "./pages/virtualTutor/Visual";
+import StudentDatabase from "./pages/StudentDatabase";
+import TeacherDashboard from "./pages/teacherDashboard";
+import CreateSkillSheet from "./pages/CreateSkillSheet";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -58,24 +60,32 @@ function App() {
           <Route path="/teacher/:id" element={<TeacherDashboard />} />
           <Route path="/student/:id" element={<StudentDashboard />} />
           <Route path="/student/:id/details" element={<StudentDetails />} />
-          <Route path="/student/:id/weeklyplan" element={<WeeklyPlan />} />
-          <Route path="/student/:id/practicehub" element={<PracticeHub />} />
+          <Route path="/student/:id/weeklyPlan" element={<WeeklyPlan />} />
+          <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
           <Route
-            path="/student/:id/streakpractice"
+            path="/student/:id/streakPractice"
             element={<StreakPractice />}
           />
           <Route
-            path="/student/:id/timedpractice"
+            path="/student/:id/timedPractice"
             element={<TimedPractice />}
           />
           <Route
-            path="/student/:id/assignmentview"
+            path="/student/:id/assignmentView"
             element={<AssignmentView />}
           />
-          <Route path="/teacher/:id/addstudent" element={<AddStudent />} />
+          <Route path="/teacher/:id/addStudent" element={<AddStudent />} />
           <Route
-            path="/teacher/:id/createassignment"
+            to="teacher/:id/studentDatabase"
+            element={<StudentDatabase />}
+          />
+          <Route
+            path="/teacher/:id/createAssignment"
             element={<CreateAssignment />}
+          />
+          <Route
+            path="/teacher/:id/createSkillSheet"
+            element={<CreateSkillSheet />}
           />
           <Route path="/tutor/" element={<TutorHome />} />
           <Route path="/tutor/aural/" element={<Aural />} />
