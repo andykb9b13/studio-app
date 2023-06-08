@@ -1,12 +1,10 @@
 const { Schema, model } = require("mongoose");
 
-const practiceHistorySchema = new Schema({
-  weeklyPlans: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "WeeklyPlan",
-    },
-  ],
+const weeklyPlanSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   assignments: [
     {
       type: Schema.Types.ObjectId,
@@ -27,7 +25,6 @@ const practiceHistorySchema = new Schema({
   ],
 });
 
-// create a virtual that shows days practiced and hours practiced
-const PracticeHistory = model("PracticeHistory", practiceHistorySchema);
+const weeklyPlan = model("WeeklyPlan", weeklyPlanSchema);
 
-module.exports = PracticeHistory;
+module.exports = weeklyPlan;
