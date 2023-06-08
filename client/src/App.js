@@ -7,24 +7,24 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import addStudent from "./pages/addStudent";
-import assignmentView from "./pages/assignmentView";
-import createAssignment from "./pages/createAssignment";
-import landingPage from "./pages/landingPage";
-import loginPage from "./pages/loginPage";
-import practiceHub from "./pages/practiceHub";
-import signUpPage from "./pages/signUpPage";
-import streakPractice from "./pages/streakPractice";
-import studentDashboard from "./pages/studentDashboard";
-import studentDetails from "./pages/studentDetails";
-import teacherDashboard from "./pages/teacherDashboard";
-import timedPractice from "./pages/timedPractice";
-import weeklyPlan from "./pages/weeklyPlan";
-import tutorHome from "./pages/virtualTutor/tutorHome";
-import auralHome from ".pages/virtualTutor/auralHome";
-import conceptualHome from ".pages/virtualTutor/conceptualHome";
-import physicalHome from ".pages/virtualTutor/physicalHome";
-import visualHome from ".pages/virtualTutor/visualHome";
+import AddStudent from "./pages/AddStudent";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import TeacherDashboard from "./pages/TeacherDashboard";
+import StudentDashboard from "./pages/StudentDashboard";
+import StudentDetails from "./pages/StudentDetails";
+import WeeklyPlan from "./pages/WeeklyPlan";
+import PracticeHub from "./pages/PracticeHub";
+import StreakPractice from "./pages/StreakPractice";
+import TimedPractice from "./pages/TimedPractice";
+import AssignmentView from "./pages/AssignmentView";
+import CreateAssignment from "./pages/CreateAssignment";
+import TutorHome from "./pages/virtualTutor/TutorHome";
+import Aural from "./pages/virtualTutor/Aural";
+import Conceptual from "./pages/virtualTutor/Conceptual";
+import Physical from "./pages/virtualTutor/Physical";
+import Visual from "./pages/virtualTutor/Visual";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -52,36 +52,36 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Routes>
-          <Route path="/" element={<landingPage />} />
-          <Route path="/login" element={<loginPage />} />
-          <Route path="/signup" element={<signUpPage />} />
-          <Route path="/teacher/:id" element={<teacherDashboard />} />
-          <Route path="/student/:id" element={<studentDashboard />} />
-          <Route path="/student/:id/details" element={<studentDetails />} />
-          <Route path="/student/:id/weeklyplan" element={<weeklyPlan />} />
-          <Route path="/student/:id/practicehub" element={<practiceHub />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/teacher/:id" element={<TeacherDashboard />} />
+          <Route path="/student/:id" element={<StudentDashboard />} />
+          <Route path="/student/:id/details" element={<StudentDetails />} />
+          <Route path="/student/:id/weeklyplan" element={<WeeklyPlan />} />
+          <Route path="/student/:id/practicehub" element={<PracticeHub />} />
           <Route
             path="/student/:id/streakpractice"
-            element={<streakPractice />}
+            element={<StreakPractice />}
           />
           <Route
             path="/student/:id/timedpractice"
-            element={<timedPractice />}
+            element={<TimedPractice />}
           />
           <Route
             path="/student/:id/assignmentview"
-            element={<assignmentView />}
+            element={<AssignmentView />}
           />
-          <Route path="/teacher/:id/addstudent" element={<addStudent />} />
+          <Route path="/teacher/:id/addstudent" element={<AddStudent />} />
           <Route
             path="/teacher/:id/createassignment"
-            element={<createAssignment />}
+            element={<CreateAssignment />}
           />
-          <Route path="/tutor/" element={<tutorHome />} />
-          <Route path="/tutor/aural/" element={<auralHome />} />
-          <Route path="/tutor/conceptual/" element={<conceptualHome />} />
-          <Route path="/tutor/physical/" element={<physicalHome />} />
-          <Route path="/tutor/visual/" element={<visualHome />} />
+          <Route path="/tutor/" element={<TutorHome />} />
+          <Route path="/tutor/aural/" element={<Aural />} />
+          <Route path="/tutor/conceptual/" element={<Conceptual />} />
+          <Route path="/tutor/physical/" element={<Physical />} />
+          <Route path="/tutor/visual/" element={<Visual />} />
         </Routes>
       </Router>
     </ApolloProvider>
