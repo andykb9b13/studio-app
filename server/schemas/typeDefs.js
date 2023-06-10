@@ -102,7 +102,7 @@ const typeDefs = gql`
       email: String!
       username: String!
       password: String!
-    ): Teacher
+    ): Auth
 
     addStudent(
       firstName: String!

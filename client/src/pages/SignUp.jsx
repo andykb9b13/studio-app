@@ -63,6 +63,8 @@ const SignUp = () => {
       errors.confirmPassword = "Passwords do not match";
       isValid = false;
     }
+    console.log("isValid", isValid);
+    console.log("formData", formData);
 
     setFormErrors(errors);
     return isValid;
@@ -76,7 +78,7 @@ const SignUp = () => {
         const { data } = await createTeacher({
           variables: { ...formData },
         });
-        console.log("data", data);
+        console.log("form data", ...formData);
         Auth.login(data.addTeacher.token);
         alert("Account created!");
       } catch (err) {
