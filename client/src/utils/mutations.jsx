@@ -6,21 +6,18 @@ export const ADD_TEACHER = gql`
     $lastName: String!
     $email: String!
     $password: String!
-    $username: String!
   ) {
     addTeacher(
       firstName: $firstName
       lastName: $lastName
       email: $email
       password: $password
-      username: $username
     ) {
       token
       teacher {
         _id
         firstName
         lastName
-        username
         email
       }
     }

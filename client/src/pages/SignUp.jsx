@@ -11,7 +11,6 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    username: "",
   });
   const [formErrors, setFormErrors] = useState({
     firstName: "",
@@ -19,7 +18,6 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    username: "",
   });
   const [createTeacher, { error }] = useMutation(ADD_TEACHER);
   const validated = useState(false);
@@ -73,13 +71,15 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("in handle submit");
+    console.log("...formData", formData);
     if (validateForm()) {
       try {
         const { data } = await createTeacher({
           variables: { ...formData },
         });
-        console.log("form data", ...formData);
-        Auth.login(data.addTeacher.token);
+        console.log("data", data);
+        const authorization = Auth.login(data.addTeacher.token);
+        console.log("authorization", authorization);
         alert("Account created!");
       } catch (err) {
         console.error(err);
@@ -89,7 +89,6 @@ const SignUp = () => {
         firstName: "",
         lastName: "",
         email: "",
-        username: "",
         password: "",
         confirmPassword: "",
       });
@@ -97,13 +96,15 @@ const SignUp = () => {
   };
   const handleClear = () => {
     setFormData({
-      username: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
     });
     setFormErrors({
-      username: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -157,14 +158,6 @@ const SignUp = () => {
         {formErrors.confirmPassword && (
           <span className="error">{formErrors.confirmPassword}</span>
         )}
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
         <button type="submit">Sign Up</button>
       </form>
       <Link to="/">

@@ -20,13 +20,6 @@ const teacherSchema = new Schema({
       "Please fill a valid email address",
     ],
   },
-  username: {
-    type: String,
-    required: true,
-    trie: true,
-    unique: true,
-    // need to make it unique
-  },
   password: {
     type: String,
     minLength: 8,

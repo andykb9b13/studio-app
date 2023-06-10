@@ -29,7 +29,6 @@ const typeDefs = gql`
     lastName: String
     email: String
     password: String
-    username: String
     students: [Student]
   }
 
@@ -100,7 +99,6 @@ const typeDefs = gql`
       firstName: String!
       lastName: String!
       email: String!
-      username: String!
       password: String!
     ): Auth
 
@@ -192,7 +190,6 @@ const typeDefs = gql`
       firstName: String
       lastName: String
       email: String
-      username: String
       password: String
     ): Teacher!
 

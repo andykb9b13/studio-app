@@ -62,14 +62,10 @@ const resolvers = {
     //   }
     // },
 
-    addTeacher: async (
-      _,
-      { firstName, lastName, email, username, password }
-    ) => {
+    addTeacher: async (_, { firstName, lastName, email, password }) => {
       const teacher = new Teacher({
         firstName,
         lastName,
-        username,
         email,
         password,
       });
@@ -159,7 +155,7 @@ const resolvers = {
 
     editTeacher: async (
       parent,
-      { teacherId, firstName, lastName, email, username, password, students }
+      { teacherId, firstName, lastName, email, password, students }
     ) => {
       const teacher = await Teacher.findById(teacherId);
 
@@ -174,9 +170,6 @@ const resolvers = {
       }
       if (email) {
         teacher.email = email;
-      }
-      if (username) {
-        teacher.username = username;
       }
       if (password) {
         teacher.password = password;
@@ -204,7 +197,7 @@ const resolvers = {
         student.email = email;
       }
       if (username) {
-        student.userName = userName;
+        student.username = username;
       }
       if (password) {
         student.password = password;
