@@ -38,38 +38,34 @@ const resolvers = {
   },
 
   Mutation: {
-    login: async (parent, { username, password }) => {
-      const teacher = await Teacher.findOne({ username });
-      const student = await Student.findOne({ username });
+    // login: async (parent, { username, password }) => {
+    //   const teacher = await Teacher.findOne({ username });
+    //   const student = await Student.findOne({ username });
 
-      const user = teacher || student;
-      if (!user || !(await bcrypt.compare(password, user.password))) {
-        throw new AuthenticationError("Invalid username or password");
-      }
+    //   const user = teacher || student;
+    //   if (!user || !(await bcrypt.compare(password, user.password))) {
+    //     throw new AuthenticationError("Invalid username or password");
+    //   }
 
-      const correctPw = await user.isCorrectPassword(password);
+    //   const correctPw = await user.isCorrectPassword(password);
 
-      if (!correctPw) {
-        throw new AuthenticationError("Incorrect password!");
-      }
+    //   if (!correctPw) {
+    //     throw new AuthenticationError("Incorrect password!");
+    //   }
 
-      const token = signToken(user);
-      if (teacher) {
-        return { token, teacher: user };
-      }
-      if (student) {
-        return { token, student, user };
-      }
-    },
+    //   const token = signToken(user);
+    //   if (teacher) {
+    //     return { token, teacher: user };
+    //   }
+    //   if (student) {
+    //     return { token, student, user };
+    //   }
+    // },
 
-    addTeacher: async (
-      _,
-      { firstName, lastName, email, username, password }
-    ) => {
+    addTeacher: async (_, { firstName, lastName, email, password }) => {
       const teacher = new Teacher({
         firstName,
         lastName,
-        username,
         email,
         password,
       });
@@ -159,7 +155,7 @@ const resolvers = {
 
     editTeacher: async (
       parent,
-      { teacherId, firstName, lastName, email, username, password, students }
+      { teacherId, firstName, lastName, email, password, students }
     ) => {
       const teacher = await Teacher.findById(teacherId);
 
@@ -174,9 +170,6 @@ const resolvers = {
       }
       if (email) {
         teacher.email = email;
-      }
-      if (username) {
-        teacher.username = username;
       }
       if (password) {
         teacher.password = password;
@@ -204,7 +197,7 @@ const resolvers = {
         student.email = email;
       }
       if (username) {
-        student.userName = userName;
+        student.username = username;
       }
       if (password) {
         student.password = password;

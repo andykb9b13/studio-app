@@ -19,13 +19,13 @@ import StreakPractice from "./pages/StreakPractice";
 import TimedPractice from "./pages/TimedPractice";
 import AssignmentView from "./pages/AssignmentView";
 import CreateAssignment from "./pages/CreateAssignment";
-import TutorHome from "./pages/virtualTutor/TutorHome";
+import VirtualHome from "./pages/virtualTutor/VirtualHome";
 import Aural from "./pages/virtualTutor/Aural";
 import Conceptual from "./pages/virtualTutor/Conceptual";
 import Physical from "./pages/virtualTutor/Physical";
 import Visual from "./pages/virtualTutor/Visual";
-import StudentDatabase from "./pages/StudentDatabase";
-import TeacherDashboard from "./pages/teacherDashboard";
+import StudentDatabase from "./pages/StudentDatabse";
+import TeacherDashboard from "./pages/TeacherDashboard";
 import CreateSkillSheet from "./pages/CreateSkillSheet";
 import SkillSheetView from "./pages/SkillSheetView";
 
@@ -92,7 +92,7 @@ function App() {
             path="/teacher/:id/createSkillSheet"
             element={<CreateSkillSheet />}
           />
-          <Route path="/tutor" element={<TutorHome />} />
+          <Route path="/tutor" element={<VirtualHome />} />
           <Route path="/tutor/aural" element={<Aural />} />
           <Route path="/tutor/conceptual" element={<Conceptual />} />
           <Route path="/tutor/physical" element={<Physical />} />
