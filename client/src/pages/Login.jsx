@@ -45,8 +45,7 @@ const Login = () => {
         const { data } = await login({
           variables: { ...formData },
         });
-        Auth.login(data.login.token);
-        console.log("data", data);
+        Auth.login(data);
         alert("Successfully logged in!");
       } catch (err) {
         console.error(err);
@@ -98,8 +97,8 @@ const Login = () => {
         <button type="submit">Login</button>
       </form>
       <p>Not a User?</p>
-      {/* <Link to="/signup">Sign Up</Link>
-      <Link to="/">Back to Homepage</Link> */}
+      <Link to="/signup">Sign Up</Link>
+      <Link to="/">Back to Homepage</Link>
     </div>
   );
 };
