@@ -38,29 +38,29 @@ const resolvers = {
   },
 
   Mutation: {
-    // login: async (parent, { username, password }) => {
-    //   const teacher = await Teacher.findOne({ username });
-    //   const student = await Student.findOne({ username });
+    login: async (parent, { email, password }) => {
+      const teacher = await Teacher.findOne({ email });
+      const student = await Student.findOne({ email });
 
-    //   const user = teacher || student;
-    //   if (!user || !(await bcrypt.compare(password, user.password))) {
-    //     throw new AuthenticationError("Invalid username or password");
-    //   }
+      const user = teacher || student;
+      if (!user) {
+        throw new Error("No user with that email");
+      }
 
-    //   const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await user.isCorrectPassword(password);
 
-    //   if (!correctPw) {
-    //     throw new AuthenticationError("Incorrect password!");
-    //   }
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password!");
+      }
 
-    //   const token = signToken(user);
-    //   if (teacher) {
-    //     return { token, teacher: user };
-    //   }
-    //   if (student) {
-    //     return { token, student, user };
-    //   }
-    // },
+      const token = signToken(user);
+      if (teacher) {
+        return { token, teacher: user };
+      }
+      if (student) {
+        return { token, student, user };
+      }
+    },
 
     addTeacher: async (_, { firstName, lastName, email, password }) => {
       const teacher = new Teacher({
