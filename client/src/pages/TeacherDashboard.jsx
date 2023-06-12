@@ -17,7 +17,7 @@ const TeacherDashboard = () => {
     }
   };
 
-  const { students, updateStudents } = useStudentContext();
+  const { updateStudents } = useStudentContext();
 
   const { id } = useParams();
   const { data } = useQuery(QUERY_TEACHER, {

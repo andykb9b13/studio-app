@@ -13,9 +13,19 @@ const StudentDatabase = () => {
         {students &&
           students.map((student, i) => (
             <div key={i}>
-              <h2>Student Info</h2>
-              <p>Student First Name: {student.firstName}</p>
-              <p>Student Last Name: {student.lastName}</p>
+              <h2>
+                {student.firstName} {student.lastName}
+              </h2>
+              <p>Email: {student.email}</p>
+              <p>Primary Contact: {student.primaryContact}</p>
+              <p>Primary Contact Email: {student.primaryContactEmail}</p>
+              <p>Instrument: {student.instrument}</p>
+              <p>Lesson Day: {student.lessonDay}</p>
+              <p>Lesson Time: {student.lessonTime}</p>
+              <p>Grade: {student.grade}</p>
+              <p>School: {student.school}</p>
+              <p>Lesson Location: {student.lessonLocation}</p>
+              <p>Is Active: {student.isActive}</p>
             </div>
           ))}
       </div>
