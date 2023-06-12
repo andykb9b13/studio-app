@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
+import { useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@apollo/client";
+import { QUERY_TEACHER } from "../utils/queries";
 
 const TeacherDashboard = () => {
   const logout = (event) => {
@@ -12,6 +15,20 @@ const TeacherDashboard = () => {
       alert("Logout unsuccessful");
     }
   };
+
+  const { id } = useParams();
+  console.log("This is id from useParams()", id);
+  const { data } = useQuery(QUERY_TEACHER, {
+    variables: {
+      teacherId: id,
+    },
+  });
+
+  console.log("This is data from useQuery()", data);
+
+  const teacher = data?.teacher || [];
+  console.log(teacher);
+
   return (
     <div>
       {Auth.loggedIn() ? (

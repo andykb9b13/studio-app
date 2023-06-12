@@ -21,7 +21,7 @@ const resolvers = {
       return await Teacher.find({}).populate("students");
     },
     teacher: async (parent, { teacherId: _id }) => {
-      return await Teacher.findById(_id);
+      return await Teacher.findById(_id).populate("students");
     },
     assignments: async () => {
       return await Assignment.find({});
@@ -35,6 +35,14 @@ const resolvers = {
     goal: async ([parent, { goalId: _id }]) => {
       return await Goal.findById(_id);
     },
+    // me: async (parent, args, context) => {
+    //   if (context.teacher) {
+    //     return Teacher.findOne({ _id: context.teacher._id }).populate(
+    //       "students"
+    //     );
+    //   }
+    //   throw new AuthenticationError("You are not logged in.");
+    // },
   },
 
   Mutation: {
