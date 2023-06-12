@@ -20,7 +20,7 @@ const Login = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const [loginUser, { errors }] = useMutation(LOGIN);
+  const [login, { errors }] = useMutation(LOGIN);
   const validateForm = () => {
     let errors = {};
     let isValid = true;
@@ -34,7 +34,7 @@ const Login = () => {
       errors.password = "Please enter your password";
       isValid = false;
     }
-    setFormErrors();
+    setFormErrors(errors);
     return isValid;
   };
 
@@ -42,14 +42,16 @@ const Login = () => {
     event.preventDefault();
     if (validateForm()) {
       try {
-        const { data } = await loginUser({
+        const { data } = await login({
           variables: { ...formData },
         });
-        Auth.login(data.loginUser.token);
-        alert("Login Successful");
+        Auth.login(data.login.token);
+        console.log("data", data);
+        alert("Successfully logged in!");
       } catch (err) {
         console.error(err);
-        alert("Login Failed");
+        alert(err);
+        alert("Login failed. Please try again.");
       }
       setFormData({
         email: "",
@@ -96,8 +98,8 @@ const Login = () => {
         <button type="submit">Login</button>
       </form>
       <p>Not a User?</p>
-      <Link to="/signup">Sign Up</Link>
-      <Link to="/">Back to Homepage</Link>
+      {/* <Link to="/signup">Sign Up</Link>
+      <Link to="/">Back to Homepage</Link> */}
     </div>
   );
 };
