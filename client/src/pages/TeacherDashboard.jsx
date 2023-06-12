@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
+import { useStudentContext } from "../utils/StudentContext";
 
 const TeacherDashboard = () => {
   const logout = (event) => {
@@ -16,43 +17,48 @@ const TeacherDashboard = () => {
     }
   };
 
+  const { students, updateStudents } = useStudentContext();
+
   const { id } = useParams();
-  console.log("This is id from useParams()", id);
   const { data } = useQuery(QUERY_TEACHER, {
     variables: {
       teacherId: id,
     },
   });
 
-  console.log("This is data from useQuery()", data);
-
   const teacher = data?.teacher || [];
-  console.log(teacher);
+  console.log("This is teacher", teacher.students);
+
+  updateStudents(teacher.students);
 
   return (
     <div>
       {Auth.loggedIn() ? (
         <div>
-          <h1>Teacher Dashboard</h1>
+          <h1>
+            {teacher.firstName} {teacher.lastName}'s Dashboard
+          </h1>
           <h2>Date...insert day.js functionality here</h2>
           <div>
             <h2>Actions</h2>
-            <Link to="/teacher/:id/createAssignment">
+
+            <Link to="/teacher/createAssignment">
               <button>Create Assignment</button>
             </Link>
+
             <button>Bookkeeping/Invoices</button>
-            <Link to="/teacher/:id/studentDatabase">
+
+            <Link to="/teacher/studentDatabase">
               <button>View Student Database</button>
             </Link>
+
             <button>View Calendar</button>
-            <Link to="/teacher/:id/createSkillSheet">
+
+            <Link to="/teacher/createSkillSheet">
               <button>Create Skill Sheet</button>
             </Link>
+
             <button onClick={logout}>Logout</button>
-          </div>
-          <div>
-            <h2>Studio Info</h2>
-            {/* Insert studio info component here */}
           </div>
           <div>
             <h2>Today's Schedule</h2>

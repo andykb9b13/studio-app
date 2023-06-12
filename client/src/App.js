@@ -24,10 +24,11 @@ import Aural from "./pages/virtualTutor/Aural";
 import Conceptual from "./pages/virtualTutor/Conceptual";
 import Physical from "./pages/virtualTutor/Physical";
 import Visual from "./pages/virtualTutor/Visual";
-import StudentDatabase from "./pages/StudentDatabse";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import CreateSkillSheet from "./pages/CreateSkillSheet";
 import SkillSheetView from "./pages/SkillSheetView";
+import StudentDatabase from "./pages/StudentDatabase";
+import { StudentProvider } from "./utils/StudentContext";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -58,7 +59,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/teacher/:id" element={<TeacherDashboard />} />
+          <Route
+            path="/teacher/:id"
+            element={
+              <StudentProvider>
+                <TeacherDashboard />
+              </StudentProvider>
+            }
+          />
           <Route path="/student/:id" element={<StudentDashboard />} />
           <Route path="/student/:id/details" element={<StudentDetails />} />
           <Route path="/student/:id/weeklyPlan" element={<WeeklyPlan />} />
@@ -81,15 +89,19 @@ function App() {
           />
           <Route path="/teacher/:id/addStudent" element={<AddStudent />} />
           <Route
-            to="teacher/:id/studentDatabase"
-            element={<StudentDatabase />}
+            path="/teacher/studentDatabase"
+            element={
+              <StudentProvider>
+                <StudentDatabase />
+              </StudentProvider>
+            }
           />
           <Route
-            path="/teacher/:id/createAssignment"
+            path="/teacher/createAssignment"
             element={<CreateAssignment />}
           />
           <Route
-            path="/teacher/:id/createSkillSheet"
+            path="/teacher/createSkillSheet"
             element={<CreateSkillSheet />}
           />
           <Route path="/tutor" element={<VirtualHome />} />

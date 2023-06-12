@@ -15,7 +15,12 @@ const Home = () => {
       <Link to="/login">
         <button>Login</button>
       </Link>
-      {Auth.loggedIn() && <button onClick={logout}>Logout</button>}
+      {Auth.loggedIn() && (
+        <div>
+          <button onClick={logout}>Logout</button>
+          <button>Go to profile "not active yet"</button>
+        </div>
+      )}
       <div>
         <h2>Stuff about what the app is</h2>
         <p>
