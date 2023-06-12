@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Auth from "../utils/auth";
 
 const Home = () => {
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+    alert("You are successfully logged out");
+  };
+
   return (
     <div>
       <h1>Home</h1>
-      <button>Login</button>
+      <Link to="/login">
+        <button>Login</button>
+      </Link>
+      {Auth.loggedIn() && (
+        <div>
+          <button onClick={logout}>Logout</button>
+          <button>Go to profile "not active yet"</button>
+        </div>
+      )}
       <div>
         <h2>Stuff about what the app is</h2>
         <p>

@@ -21,7 +21,7 @@ const resolvers = {
       return await Teacher.find({}).populate("students");
     },
     teacher: async (parent, { teacherId: _id }) => {
-      return await Teacher.findById(_id);
+      return await Teacher.findById(_id).populate("students");
     },
     assignments: async () => {
       return await Assignment.find({});
@@ -35,32 +35,40 @@ const resolvers = {
     goal: async ([parent, { goalId: _id }]) => {
       return await Goal.findById(_id);
     },
+    // me: async (parent, args, context) => {
+    //   if (context.teacher) {
+    //     return Teacher.findOne({ _id: context.teacher._id }).populate(
+    //       "students"
+    //     );
+    //   }
+    //   throw new AuthenticationError("You are not logged in.");
+    // },
   },
 
   Mutation: {
-    // login: async (parent, { username, password }) => {
-    //   const teacher = await Teacher.findOne({ username });
-    //   const student = await Student.findOne({ username });
+    login: async (parent, { email, password }) => {
+      const teacher = await Teacher.findOne({ email });
+      const student = await Student.findOne({ email });
 
-    //   const user = teacher || student;
-    //   if (!user || !(await bcrypt.compare(password, user.password))) {
-    //     throw new AuthenticationError("Invalid username or password");
-    //   }
+      const user = teacher || student;
+      if (!user) {
+        throw new Error("No user with that email");
+      }
 
-    //   const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await user.isCorrectPassword(password);
 
-    //   if (!correctPw) {
-    //     throw new AuthenticationError("Incorrect password!");
-    //   }
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password!");
+      }
 
-    //   const token = signToken(user);
-    //   if (teacher) {
-    //     return { token, teacher: user };
-    //   }
-    //   if (student) {
-    //     return { token, student, user };
-    //   }
-    // },
+      const token = signToken(user);
+      if (teacher) {
+        return { token, teacher: user };
+      }
+      if (student) {
+        return { token, student, user };
+      }
+    },
 
     addTeacher: async (_, { firstName, lastName, email, password }) => {
       const teacher = new Teacher({
