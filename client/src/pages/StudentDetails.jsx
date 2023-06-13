@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
+import CreateAssignment from "../components/CreateAssignment";
 
 const StudentDetails = () => {
   const { id } = useParams();
@@ -18,10 +19,16 @@ const StudentDetails = () => {
   const assignments = data?.student.assignments || [];
   console.log(assignments);
   const [clicked, setClicked] = useState(false);
+  const [assignClicked, setAssignClicked] = useState(false);
 
   const handleClick = (event) => {
     event.preventDefault();
     setClicked(!clicked);
+  };
+
+  const handleAssignClick = (event) => {
+    event.preventDefault();
+    setAssignClicked(!assignClicked);
   };
 
   return (
@@ -62,13 +69,19 @@ const StudentDetails = () => {
                 <p>Assignment Type: {assignment.assignmentType}</p>
                 <p>Metronome: {assignment.metronome}</p>
                 <p>Special Notes: {assignment.specialNotes}</p>
-
-                <p></p>
               </div>
             ))}
         </div>
       ) : (
         <h2>Click To See Assignments</h2>
+      )}
+      <button onClick={handleAssignClick}>
+        {!assignClicked ? "Create Assignment" : "Cancel"}
+      </button>
+      {assignClicked ? (
+        <CreateAssignment studentId={id} />
+      ) : (
+        <h2>Click to create an assignment</h2>
       )}
     </div>
   );
