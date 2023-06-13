@@ -12,7 +12,7 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     students: async () => {
-      return await Student.find({});
+      return await Student.find({}).populate("assignments");
     },
     student: async (parent, { studentId: _id }) => {
       return await Student.findById(_id).populate("assignments");

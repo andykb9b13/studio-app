@@ -44,6 +44,15 @@ export const QUERY_STUDENT = gql`
       lessonLocation
       isActive
       teacherId
+      assignments {
+        date
+        exerciseName
+        source
+        assignmentType
+        specialNotes
+        metronome
+        pages
+      }
     }
   }
 `;

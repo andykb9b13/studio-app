@@ -15,6 +15,8 @@ const StudentDetails = () => {
   });
 
   const student = data?.student || [];
+  const assignments = data?.student.assignments || [];
+  console.log(assignments);
   const [clicked, setClicked] = useState(false);
 
   const handleClick = (event) => {
@@ -50,7 +52,20 @@ const StudentDetails = () => {
       </button>
       {clicked ? (
         <div>
-          <h2>Assignments</h2>
+          {assignments &&
+            assignments.map((assignment, i) => (
+              <div key={i}>
+                <h2>{assignment.exerciseName}</h2>
+                <p>Date: {assignment.date}</p>
+                <p>Source: {assignment.source}</p>
+                <p>Pages: {assignment.pages}</p>
+                <p>Assignment Type: {assignment.assignmentType}</p>
+                <p>Metronome: {assignment.metronome}</p>
+                <p>Special Notes: {assignment.specialNotes}</p>
+
+                <p></p>
+              </div>
+            ))}
         </div>
       ) : (
         <h2>Click To See Assignments</h2>
