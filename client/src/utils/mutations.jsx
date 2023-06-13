@@ -35,3 +35,33 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const ADD_ASSIGNMENT = gql`
+  mutation addAssignment(
+    $date: String!
+    $exerciseName: String!
+    $source: String
+    $assignmentType: String
+    $specialNotes: String
+    $metronome: String
+    $pages: String
+  ) {
+    addAssignment(
+      date: $date
+      exerciseName: $exerciseName
+      source: $source
+      assignmentType: $assignmentType
+      specialNotes: $specialNotes
+      metronome: $metronome
+      pages: $pages
+    ) {
+      date
+      exerciseName
+      source
+      assignmentType
+      specialNotes
+      metronome
+      pages
+    }
+  }
+`;

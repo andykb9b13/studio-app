@@ -18,7 +18,6 @@ import PracticeHub from "./pages/PracticeHub";
 import StreakPractice from "./pages/StreakPractice";
 import TimedPractice from "./pages/TimedPractice";
 import AssignmentView from "./pages/AssignmentView";
-import CreateAssignment from "./pages/CreateAssignment";
 import VirtualHome from "./pages/virtualTutor/VirtualHome";
 import Aural from "./pages/virtualTutor/Aural";
 import Conceptual from "./pages/virtualTutor/Conceptual";
@@ -99,10 +98,6 @@ function App() {
                 <StudentDatabase />
               </StudentProvider>
             }
-          />
-          <Route
-            path="/teacher/createAssignment"
-            element={<CreateAssignment />}
           />
           <Route
             path="/teacher/createSkillSheet"
