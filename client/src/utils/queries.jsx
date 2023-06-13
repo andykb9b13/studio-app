@@ -26,3 +26,33 @@ export const QUERY_TEACHER = gql`
     }
   }
 `;
+
+export const QUERY_STUDENT = gql`
+  query Student($studentId: ID!) {
+    student(studentId: $studentId) {
+      _id
+      firstName
+      lastName
+      email
+      primaryContact
+      primaryContactEmail
+      instrument
+      lessonDay
+      lessonTime
+      grade
+      school
+      lessonLocation
+      isActive
+      teacherId
+      assignments {
+        date
+        exerciseName
+        source
+        assignmentType
+        specialNotes
+        metronome
+        pages
+      }
+    }
+  }
+`;
