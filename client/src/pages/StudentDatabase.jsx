@@ -1,10 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useStudentContext } from "../utils/StudentContext";
+import { Link, useParams } from "react-router-dom";
+// import { useStudentContext } from "../utils/StudentContext";
+import { useQuery } from "@apollo/client";
+import { QUERY_TEACHER } from "../utils/queries";
 
 const StudentDatabase = () => {
-  const { students } = useStudentContext();
-  console.log("This is students", students);
+  // getting the students using StudentContext.jsx
+  // const { students } = useStudentContext();
+  // console.log("This is students", students);
+
+  const { id } = useParams();
+  const { data } = useQuery(QUERY_TEACHER, {
+    variables: {
+      teacherId: id,
+    },
+  });
+
+  const teacher = data?.teacher || [];
+  const students = data?.teacher.students || [];
+
   return (
     <div>
       <h1>Student Database</h1>
@@ -16,22 +30,12 @@ const StudentDatabase = () => {
               <h2>
                 {student.firstName} {student.lastName}
               </h2>
-              <p>Email: {student.email}</p>
-              <p>Primary Contact: {student.primaryContact}</p>
-              <p>Primary Contact Email: {student.primaryContactEmail}</p>
-              <p>Instrument: {student.instrument}</p>
-              <p>Lesson Day: {student.lessonDay}</p>
-              <p>Lesson Time: {student.lessonTime}</p>
-              <p>Grade: {student.grade}</p>
-              <p>School: {student.school}</p>
-              <p>Lesson Location: {student.lessonLocation}</p>
-              <p>Is Active: {student.isActive}</p>
+              <Link to={`/teacher/studentDetails/${student._id}`}>
+                <button>View Student Info</button>
+              </Link>
             </div>
           ))}
       </div>
-      <Link>
-        <button>Back</button>
-      </Link>
       <Link>
         <button>Add Student</button>
       </Link>

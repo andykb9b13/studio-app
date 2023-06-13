@@ -15,7 +15,7 @@ const resolvers = {
       return await Student.find({});
     },
     student: async (parent, { studentId: _id }) => {
-      return await Student.findById(_id);
+      return await Student.findById(_id).populate("assignments");
     },
     teachers: async () => {
       return await Teacher.find({}).populate("students");

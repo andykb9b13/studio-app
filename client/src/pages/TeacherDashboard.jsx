@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
@@ -17,8 +17,10 @@ const TeacherDashboard = () => {
     }
   };
 
+  // getting the function update students from the global context StudentContext.jsx
   const { updateStudents } = useStudentContext();
 
+  // getting the teacher info using the id from the URL parameters
   const { id } = useParams();
   const { data } = useQuery(QUERY_TEACHER, {
     variables: {
@@ -29,6 +31,7 @@ const TeacherDashboard = () => {
   const teacher = data?.teacher || [];
   console.log("This is teacher", teacher.students);
 
+  // setting the global context of the students using the function updateStudents
   updateStudents(teacher.students);
 
   return (
@@ -48,7 +51,7 @@ const TeacherDashboard = () => {
 
             <button>Bookkeeping/Invoices</button>
 
-            <Link to="/teacher/studentDatabase">
+            <Link to={`/teacher/studentDatabase/${id}`}>
               <button>View Student Database</button>
             </Link>
 

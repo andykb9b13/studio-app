@@ -67,8 +67,12 @@ function App() {
               </StudentProvider>
             }
           />
+          Copy code
+          <Route
+            path="/teacher/studentDetails/:id"
+            element={<StudentDetails />}
+          />
           <Route path="/student/:id" element={<StudentDashboard />} />
-          <Route path="/student/:id/details" element={<StudentDetails />} />
           <Route path="/student/:id/weeklyPlan" element={<WeeklyPlan />} />
           <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
           <Route
@@ -89,7 +93,7 @@ function App() {
           />
           <Route path="/teacher/:id/addStudent" element={<AddStudent />} />
           <Route
-            path="/teacher/studentDatabase"
+            path="/teacher/studentDatabase/:id"
             element={
               <StudentProvider>
                 <StudentDatabase />
