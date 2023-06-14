@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { ADD_ASSIGNMENT } from "../utils/mutations";
 
 const CreateAssignment = ({ studentId }) => {
+  console.log("studentId", studentId);
+
   const [formData, setFormData] = useState({
     date: "",
     exerciseName: "",
@@ -50,15 +52,34 @@ const CreateAssignment = ({ studentId }) => {
   };
 
   const handleSubmit = async (event) => {
+    console.log("This is studentId", studentId);
     if (validateForm) {
       event.preventDefault();
       try {
         const { data } = await createAssignment({
           variables: { studentId: studentId, ...formData },
         });
+        console.log("This is formData", { ...formData });
+
+        console.log("This is data", data);
         alert("Assignment Created");
-      } catch (err) {}
+      } catch (err) {
+        console.error(err);
+        alert("Could not create assignment");
+      }
     }
+  };
+
+  const clearForm = () => {
+    setFormData({
+      date: "",
+      exerciseName: "",
+      source: "",
+      assignmentType: "",
+      specialNotes: "",
+      metronome: "",
+      pages: "",
+    });
   };
 
   return (

@@ -40,6 +40,7 @@ export const ADD_ASSIGNMENT = gql`
   mutation addAssignment(
     $date: String!
     $exerciseName: String!
+    $studentId: String
     $source: String
     $assignmentType: String
     $specialNotes: String
@@ -49,6 +50,7 @@ export const ADD_ASSIGNMENT = gql`
     addAssignment(
       date: $date
       exerciseName: $exerciseName
+      studentId: $studentId
       source: $source
       assignmentType: $assignmentType
       specialNotes: $specialNotes
@@ -57,6 +59,7 @@ export const ADD_ASSIGNMENT = gql`
     ) {
       date
       exerciseName
+      studentId
       source
       assignmentType
       specialNotes

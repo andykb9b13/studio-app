@@ -36,6 +36,7 @@ const typeDefs = gql`
     _id: ID
     date: String!
     exerciseName: String!
+    studentId: String
     source: String
     assignmentType: String
     specialNotes: String
@@ -122,6 +123,7 @@ const typeDefs = gql`
     addAssignment(
       date: String!
       exerciseName: String!
+      studentId: String
       source: String
       assignmentType: String
       specialNotes: String
@@ -196,6 +198,7 @@ const typeDefs = gql`
       assignmentId: ID!
       date: String
       exerciseName: String
+      studentId: String
       source: String
       assignmentType: String
       specialNotes: String

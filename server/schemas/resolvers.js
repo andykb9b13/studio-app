@@ -95,16 +95,19 @@ const resolvers = {
       return { token, student };
     },
 
-    addAssignment: async (parent, { date, studentId, ...args }) => {
+    addAssignment: async (parent, { studentId, ...args }) => {
+      console.log("studentId in resolver", studentId);
       const assignment = await Assignment.create({
-        date,
+        studentId,
         ...args,
       });
-      await Student.findByIdAndUpdate(
+      console.log("assignment in resolver", assignment);
+      const student = await Student.findByIdAndUpdate(
         studentId,
         { $addToSet: { assignments: assignment._id } },
         { new: true }
       );
+      console.log("student in resolver", student);
       return assignment;
     },
 

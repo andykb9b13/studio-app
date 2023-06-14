@@ -9,6 +9,9 @@ const assignmentSchema = new Schema({
     type: String,
     required: true,
   },
+  studentId: {
+    type: String,
+  },
   source: {
     type: String,
   },
