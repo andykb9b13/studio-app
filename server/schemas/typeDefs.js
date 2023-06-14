@@ -30,12 +30,14 @@ const typeDefs = gql`
     email: String
     password: String
     students: [Student]
+    skillSheets: [SkillSheet]
   }
 
   type Assignment {
     _id: ID
     date: String!
     exerciseName: String!
+    studentId: String
     source: String
     assignmentType: String
     specialNotes: String
@@ -62,16 +64,16 @@ const typeDefs = gql`
 
   type SkillSheet {
     _id: ID
-    sheetNumber: Int!
     sheetName: String!
-    scales: [String]
-    arpeggios: [String]
-    articulation: [String]
-    slurs: [String]
-    longTones: [String]
-    exercises: [String]
-    etudes: [String]
-    pieces: [String]
+    teacherId: String
+    scales: String
+    arpeggios: String
+    articulation: String
+    slurs: String
+    longTones: String
+    exercises: String
+    etudes: String
+    pieces: String
     completed: Boolean
   }
 
@@ -122,6 +124,7 @@ const typeDefs = gql`
     addAssignment(
       date: String!
       exerciseName: String!
+      studentId: String
       source: String
       assignmentType: String
       specialNotes: String
@@ -140,16 +143,16 @@ const typeDefs = gql`
     addGoal(practiceTime: Int, practiceDays: Int): Goal
 
     addSkillSheet(
-      sheetNumber: Int!
       sheetName: String!
-      scales: [String]
-      arpeggios: [String]
-      articulation: [String]
-      slurs: [String]
-      longTones: [String]
-      exercises: [String]
-      etudes: [String]
-      pieces: [String]
+      teacherId: String
+      scales: String
+      arpeggios: String
+      articulation: String
+      slurs: String
+      longTones: String
+      exercises: String
+      etudes: String
+      pieces: String
       completed: Boolean
     ): SkillSheet
 
@@ -196,6 +199,7 @@ const typeDefs = gql`
       assignmentId: ID!
       date: String
       exerciseName: String
+      studentId: String
       source: String
       assignmentType: String
       specialNotes: String
@@ -207,16 +211,15 @@ const typeDefs = gql`
 
     editSkillSheet(
       skillSheetId: ID!
-      sheetNumber: Int
       sheetName: String
-      scales: [String]
-      arpeggios: [String]
-      articulation: [String]
-      slurs: [String]
-      longTones: [String]
-      exercises: [String]
-      etudes: [String]
-      pieces: [String]
+      scales: String
+      arpeggios: String
+      articulation: String
+      slurs: String
+      longTones: String
+      exercises: String
+      etudes: String
+      pieces: String
       completed: Boolean
     ): SkillSheet!
   }

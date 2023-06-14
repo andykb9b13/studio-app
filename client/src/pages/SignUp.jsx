@@ -70,16 +70,12 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("in handle submit");
-    console.log("...formData", formData);
     if (validateForm()) {
       try {
         const { data } = await createTeacher({
           variables: { ...formData },
         });
-        console.log("data", data);
-        const authorization = Auth.login(data.addTeacher.token);
-        console.log("authorization", authorization);
+        Auth.login(data.addTeacher.token);
         alert("Account created!");
       } catch (err) {
         console.error(err);

@@ -1,11 +1,21 @@
 const db = require("../config/connection");
-const { Student, Teacher, Assignment } = require("../models");
+const {
+  Student,
+  Teacher,
+  Assignment,
+  SkillSheet,
+  Goal,
+  Streak,
+} = require("../models");
 const studentData = require("./studentData.json");
 const teacherData = require("./teacherData.json");
 const assignmentData = require("./assignmentData.json");
 
 db.once("open", async () => {
   try {
+    await SkillSheet.deleteMany({});
+    await Goal.deleteMany({});
+    await Streak.deleteMany({});
     await Teacher.deleteMany({});
     const newTeacher = await Teacher.create(teacherData);
 

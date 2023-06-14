@@ -100,7 +100,7 @@ function App() {
             }
           />
           <Route
-            path="/teacher/createSkillSheet"
+            path="/teacher/createSkillSheet/:id"
             element={<CreateSkillSheet />}
           />
           <Route path="/tutor" element={<VirtualHome />} />

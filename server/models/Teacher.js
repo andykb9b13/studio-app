@@ -35,6 +35,12 @@ const teacherSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "PracticeHistory",
   },
+  skillSheets: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "SkillSheet",
+    },
+  ],
 });
 
 // hash user password
