@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 import { ADD_SKILLSHEET } from "../utils/mutations";
 
 const CreateSkillSheet = () => {
-  const teacherId = useParams();
+  const { id } = useParams();
+  console.log("teacherId in CreateSkillSheet", id);
 
   const [formData, setFormData] = useState({
     sheetName: "",
@@ -52,18 +53,18 @@ const CreateSkillSheet = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      if (validateForm()) {
+    if (validateForm()) {
+      event.preventDefault();
+      try {
         const { data } = await createSkillSheet({
-          variables: { teacherId, ...formData },
+          variables: { teacherId: id, ...formData },
         });
         console.log(data);
         alert("Skill sheet successfully created!");
+      } catch (err) {
+        alert("Could not create skill sheet");
+        console.error(err);
       }
-    } catch (err) {
-      alert("Could not create skill sheet");
-      console.error(err);
     }
   };
 
@@ -116,7 +117,7 @@ const CreateSkillSheet = () => {
         <input type="text" name="pieces" id="pieces" onChange={handleChange} />
         <button type="submit">Create Skill Sheet</button>
       </form>
-      <Link to={`/teacher/${teacherId}`}>
+      <Link to={`/teacher/${id}`}>
         <button>Cancel</button>
       </Link>
     </div>
