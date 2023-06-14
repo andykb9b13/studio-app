@@ -44,20 +44,12 @@ const TeacherDashboard = () => {
           <h2>Date...insert day.js functionality here</h2>
           <div>
             <h2>Actions</h2>
-
-            <Link to="/teacher/createAssignment">
-              <button>Create Assignment</button>
-            </Link>
-
             <button>Bookkeeping/Invoices</button>
-
             <Link to={`/teacher/studentDatabase/${id}`}>
               <button>View Student Database</button>
             </Link>
-
             <button>View Calendar</button>
-
-            <Link to="/teacher/createSkillSheet">
+            <Link to={`/teacher/createSkillSheet/${id}`}>
               <button>Create Skill Sheet</button>
             </Link>
 

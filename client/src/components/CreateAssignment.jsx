@@ -52,16 +52,12 @@ const CreateAssignment = ({ studentId }) => {
   };
 
   const handleSubmit = async (event) => {
-    console.log("This is studentId", studentId);
     if (validateForm) {
       event.preventDefault();
       try {
         const { data } = await createAssignment({
           variables: { studentId: studentId, ...formData },
         });
-        console.log("This is formData", { ...formData });
-
-        console.log("This is data", data);
         alert("Assignment Created");
       } catch (err) {
         console.error(err);

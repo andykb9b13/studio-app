@@ -8,6 +8,7 @@ const {
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
+const { findById } = require("../models/Student");
 
 const resolvers = {
   Query: {
@@ -18,7 +19,9 @@ const resolvers = {
       return await Student.findById(_id).populate("assignments");
     },
     teachers: async () => {
-      return await Teacher.find({}).populate("students");
+      return await Teacher.find({})
+        .populate("students")
+        .populate("skillSheets");
     },
     teacher: async (parent, { teacherId: _id }) => {
       return await Teacher.findById(_id).populate("students");
@@ -137,10 +140,20 @@ const resolvers = {
       return goal;
     },
 
-    addSkillSheet: async (parent, { ...args }) => {
+    addSkillSheet: async (parent, { teacherId, ...args }) => {
+      console.log("teacherId in resolver", teacherId);
       const skillSheet = await SkillSheet.create({
+        teacherId,
         ...args,
       });
+      console.log("skillSheet in resolver", skillSheet);
+
+      const teacher = await Teacher.findByIdAndUpdate(
+        teacherId,
+        { $addToSet: { skillSheets: skillSheet._id } },
+        { new: true }
+      );
+      console.log("teacher in resolver", teacher);
       return skillSheet;
     },
 
