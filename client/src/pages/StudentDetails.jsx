@@ -17,9 +17,11 @@ const StudentDetails = () => {
 
   const student = data?.student || [];
   const assignments = data?.student.assignments || [];
+  const practicePlans = data?.student.practicePlans;
   console.log(assignments);
   const [clicked, setClicked] = useState(false);
   const [assignClicked, setAssignClicked] = useState(false);
+  const [planClicked, setPlanClicked] = useState(false);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -29,6 +31,11 @@ const StudentDetails = () => {
   const handleAssignClick = (event) => {
     event.preventDefault();
     setAssignClicked(!assignClicked);
+  };
+
+  const handlePlanClick = (event) => {
+    event.preventDefault();
+    setPlanClicked(!planClicked);
   };
 
   return (
@@ -73,28 +80,22 @@ const StudentDetails = () => {
             ))}
         </div>
       ) : (
-        <h2>Click To See Assignments</h2>
+        <h2>Assignments</h2>
       )}
-      <button onClick={handleClick}>
-        {!clicked ? "View Weekly Plans" : "Close"}
+      <button onClick={handlePlanClick}>
+        {!planClicked ? "View Practice Plans" : "Close"}
       </button>
-      {clicked ? (
+      {planClicked ? (
         <div>
-          {assignments &&
-            assignments.map((assignment, i) => (
+          {practicePlans &&
+            practicePlans.map((practicePlan, i) => (
               <div key={i}>
-                <h2>{assignment.exerciseName}</h2>
-                <p>Date: {assignment.date}</p>
-                <p>Source: {assignment.source}</p>
-                <p>Pages: {assignment.pages}</p>
-                <p>Assignment Type: {assignment.assignmentType}</p>
-                <p>Metronome: {assignment.metronome}</p>
-                <p>Special Notes: {assignment.specialNotes}</p>
+                <h2>{practicePlan.name}</h2>
               </div>
             ))}
         </div>
       ) : (
-        <h2>Click To See Assignments</h2>
+        <h2>Practice Plans</h2>
       )}
       <button onClick={handleAssignClick}>
         {!assignClicked ? "Create Assignment" : "Cancel"}
@@ -102,7 +103,7 @@ const StudentDetails = () => {
       {assignClicked ? (
         <CreateAssignment studentId={id} />
       ) : (
-        <h2>Click to create an assignment</h2>
+        <h2>Create an assignment</h2>
       )}
     </div>
   );

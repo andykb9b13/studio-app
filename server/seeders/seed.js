@@ -11,28 +11,45 @@ const {
 const studentData = require("./studentData.json");
 const teacherData = require("./teacherData.json");
 const assignmentData = require("./assignmentData.json");
+const practicePlanData = require("./practicePlanData.json");
 
 db.once("open", async () => {
   try {
     await SkillSheet.deleteMany({});
     await Goal.deleteMany({});
     await Streak.deleteMany({});
-    await PracticePlan.deleteMany({});
+
     await Teacher.deleteMany({});
     const newTeacher = await Teacher.create(teacherData);
 
     await Student.deleteMany({});
     const studentArr = await Student.create(studentData);
 
-    await Assignment.deleteMany({});
-    const assignmentArr = await Assignment.create(assignmentData);
-    for (const assignment of assignmentArr) {
+    await PracticePlan.deleteMany({});
+    const practicePlanArr = await PracticePlan.create(practicePlanData);
+    for (const practicePlan of practicePlanArr) {
       let randomStudent = Math.floor(Math.random() * studentArr.length);
       await Student.findByIdAndUpdate(
         studentArr[randomStudent]._id,
+        { $addToSet: { practicePlans: practicePlan } },
+        { new: true }
+      );
+    }
+
+    await Assignment.deleteMany({});
+    const assignmentArr = await Assignment.create(assignmentData);
+    for (const assignment of assignmentArr) {
+      let randomPracticePlan = Math.floor(
+        Math.random() * practicePlanArr.length
+      );
+      console.log("random Practice Plan", randomPracticePlan);
+      const practicePlan = await PracticePlan.findByIdAndUpdate(
+        practicePlanArr[randomPracticePlan]._id,
         { $addToSet: { assignments: assignment } },
         { new: true }
       );
+
+      console.log("Practice Plan", practicePlan);
     }
 
     for (const student of studentArr) {

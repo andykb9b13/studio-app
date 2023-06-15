@@ -81,10 +81,10 @@ const studentSchema = new Schema({
       ref: "SkillSheet",
     },
   ],
-  weeklyPlans: [
+  practicePlans: [
     {
       type: Schema.Types.ObjectId,
-      ref: "WeeklyPlan",
+      ref: "PracticePlan",
     },
   ],
 });
