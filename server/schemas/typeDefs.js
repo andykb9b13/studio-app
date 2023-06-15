@@ -21,6 +21,7 @@ const typeDefs = gql`
     assignments: [Assignment]
     goals: [Goal]
     skillSheets: [SkillSheet]
+    weeklyPlans: [WeeklyPlan]
   }
 
   type Teacher {
@@ -77,6 +78,14 @@ const typeDefs = gql`
     completed: Boolean
   }
 
+  type WeeklyPlan {
+    _id: ID
+    name: String!
+    assignments: [Assignment]
+    goals: [Goal]
+    skillSheets: [SkillSheet]
+  }
+
   type Auth {
     token: ID!
     teacher: Teacher
@@ -91,6 +100,8 @@ const typeDefs = gql`
     assignment(assignmentId: ID!): Assignment
     goals: [Goal]!
     goal(goalId: ID!): Goal
+    weeklyPlans: [WeeklyPlan]
+    weeklyPlan(planId: ID!): WeeklyPlan
   }
 
   type Mutation {
@@ -156,6 +167,8 @@ const typeDefs = gql`
       completed: Boolean
     ): SkillSheet
 
+    addWeeklyPlan(name: String!): WeeklyPlan
+
     removeAssignment(assignmentId: ID!): Assignment!
 
     removeGoal(goalId: ID!): Goal!
@@ -167,6 +180,8 @@ const typeDefs = gql`
     removeTeacher(teacherId: ID!): Teacher!
 
     removeSkillSheet(skillSheetId: ID!): SkillSheet!
+
+    removeWeeklyPlan(planId: ID!): WeeklyPlan!
 
     editStudent(
       studentId: ID!

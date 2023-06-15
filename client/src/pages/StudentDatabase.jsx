@@ -33,6 +33,9 @@ const StudentDatabase = () => {
               <Link to={`/teacher/studentDetails/${student._id}`}>
                 <button>View Student Info</button>
               </Link>
+              <Link to={`/student/${student._id}/weeklyPlan`}>
+                <button>View Weekly Plans</button>
+              </Link>
             </div>
           ))}
       </div>

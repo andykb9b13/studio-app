@@ -5,6 +5,7 @@ const {
   Goal,
   SkillSheet,
   Streak,
+  WeeklyPlan,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -13,10 +14,14 @@ const { findById } = require("../models/Student");
 const resolvers = {
   Query: {
     students: async () => {
-      return await Student.find({}).populate("assignments");
+      return await Student.find({})
+        .populate("assignments")
+        .populate("weeklyPlans");
     },
     student: async (parent, { studentId: _id }) => {
-      return await Student.findById(_id).populate("assignments");
+      return await Student.findById(_id)
+        .populate("assignments")
+        .populate("weeklyPlans");
     },
     teachers: async () => {
       return await Teacher.find({})
@@ -38,14 +43,12 @@ const resolvers = {
     goal: async ([parent, { goalId: _id }]) => {
       return await Goal.findById(_id);
     },
-    // me: async (parent, args, context) => {
-    //   if (context.teacher) {
-    //     return Teacher.findOne({ _id: context.teacher._id }).populate(
-    //       "students"
-    //     );
-    //   }
-    //   throw new AuthenticationError("You are not logged in.");
-    // },
+    weeklyPlans: async () => {
+      return await WeeklyPlan.find({});
+    },
+    weeklyPlan: async ([parent, { planId: _id }]) => {
+      return WeeklyPlan.findById(_id);
+    },
   },
 
   Mutation: {
@@ -155,6 +158,20 @@ const resolvers = {
       );
       console.log("teacher in resolver", teacher);
       return skillSheet;
+    },
+
+    addWeeklyPlan: async (parent, { studentId, ...args }) => {
+      const weeklyPlan = await WeeklyPlan.create({
+        studentId,
+        ...args,
+      });
+
+      const student = await Student.findByIdAndUpdate(
+        studentId,
+        { $addToSet: { weeklyPlans: weeklyPlan._id } },
+        { new: true }
+      );
+      return weeklyPlan;
     },
 
     removeTeacher: async (parent, { teacherId }) => {

@@ -6,6 +6,7 @@ const {
   SkillSheet,
   Goal,
   Streak,
+  WeeklyPlan,
 } = require("../models");
 const studentData = require("./studentData.json");
 const teacherData = require("./teacherData.json");
@@ -16,6 +17,7 @@ db.once("open", async () => {
     await SkillSheet.deleteMany({});
     await Goal.deleteMany({});
     await Streak.deleteMany({});
+    await WeeklyPlan.deleteMany({});
     await Teacher.deleteMany({});
     const newTeacher = await Teacher.create(teacherData);
 
