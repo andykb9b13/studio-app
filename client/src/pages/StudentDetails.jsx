@@ -75,6 +75,27 @@ const StudentDetails = () => {
       ) : (
         <h2>Click To See Assignments</h2>
       )}
+      <button onClick={handleClick}>
+        {!clicked ? "View Weekly Plans" : "Close"}
+      </button>
+      {clicked ? (
+        <div>
+          {assignments &&
+            assignments.map((assignment, i) => (
+              <div key={i}>
+                <h2>{assignment.exerciseName}</h2>
+                <p>Date: {assignment.date}</p>
+                <p>Source: {assignment.source}</p>
+                <p>Pages: {assignment.pages}</p>
+                <p>Assignment Type: {assignment.assignmentType}</p>
+                <p>Metronome: {assignment.metronome}</p>
+                <p>Special Notes: {assignment.specialNotes}</p>
+              </div>
+            ))}
+        </div>
+      ) : (
+        <h2>Click To See Assignments</h2>
+      )}
       <button onClick={handleAssignClick}>
         {!assignClicked ? "Create Assignment" : "Cancel"}
       </button>

@@ -13,7 +13,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentDetails from "./pages/StudentDetails";
-import WeeklyPlan from "./pages/WeeklyPlan";
+import PracticePlan from "./pages/PracticePlan";
 import PracticeHub from "./pages/PracticeHub";
 import StreakPractice from "./pages/StreakPractice";
 import TimedPractice from "./pages/TimedPractice";
@@ -72,7 +72,7 @@ function App() {
             element={<StudentDetails />}
           />
           <Route path="/student/:id" element={<StudentDashboard />} />
-          <Route path="/student/:id/weeklyPlan" element={<WeeklyPlan />} />
+          <Route path="/student/:id/practicePlan" element={<PracticePlan />} />
           <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
           <Route
             path="/student/:id/skillSheetView"

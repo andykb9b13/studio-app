@@ -21,7 +21,7 @@ const typeDefs = gql`
     assignments: [Assignment]
     goals: [Goal]
     skillSheets: [SkillSheet]
-    weeklyPlans: [WeeklyPlan]
+    practicePlans: [PracticePlan]
   }
 
   type Teacher {
@@ -78,7 +78,7 @@ const typeDefs = gql`
     completed: Boolean
   }
 
-  type WeeklyPlan {
+  type PracticePlan {
     _id: ID
     name: String!
     assignments: [Assignment]
@@ -100,8 +100,8 @@ const typeDefs = gql`
     assignment(assignmentId: ID!): Assignment
     goals: [Goal]!
     goal(goalId: ID!): Goal
-    weeklyPlans: [WeeklyPlan]
-    weeklyPlan(planId: ID!): WeeklyPlan
+    practicePlans(studentId: ID!): [PracticePlan]
+    practicePlan(planId: ID!): PracticePlan
   }
 
   type Mutation {
@@ -167,7 +167,7 @@ const typeDefs = gql`
       completed: Boolean
     ): SkillSheet
 
-    addWeeklyPlan(name: String!): WeeklyPlan
+    addPracticePlan(name: String!): PracticePlan
 
     removeAssignment(assignmentId: ID!): Assignment!
 
@@ -181,7 +181,7 @@ const typeDefs = gql`
 
     removeSkillSheet(skillSheetId: ID!): SkillSheet!
 
-    removeWeeklyPlan(planId: ID!): WeeklyPlan!
+    removePracticePlan(planId: ID!): PracticePlan!
 
     editStudent(
       studentId: ID!

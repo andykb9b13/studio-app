@@ -5,7 +5,7 @@ const {
   Goal,
   SkillSheet,
   Streak,
-  WeeklyPlan,
+  PracticePlan,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -16,12 +16,12 @@ const resolvers = {
     students: async () => {
       return await Student.find({})
         .populate("assignments")
-        .populate("weeklyPlans");
+        .populate("practicePlans");
     },
     student: async (parent, { studentId: _id }) => {
       return await Student.findById(_id)
         .populate("assignments")
-        .populate("weeklyPlans");
+        .populate("practicePlans");
     },
     teachers: async () => {
       return await Teacher.find({})
@@ -43,11 +43,8 @@ const resolvers = {
     goal: async ([parent, { goalId: _id }]) => {
       return await Goal.findById(_id);
     },
-    weeklyPlans: async () => {
-      return await WeeklyPlan.find({});
-    },
-    weeklyPlan: async ([parent, { planId: _id }]) => {
-      return WeeklyPlan.findById(_id);
+    practicePlan: async ([parent, { planId: _id }]) => {
+      return PracticePlan.findById(_id);
     },
   },
 
@@ -160,18 +157,18 @@ const resolvers = {
       return skillSheet;
     },
 
-    addWeeklyPlan: async (parent, { studentId, ...args }) => {
-      const weeklyPlan = await WeeklyPlan.create({
+    addPracticePlan: async (parent, { studentId, ...args }) => {
+      const practicePlan = await PracticePlan.create({
         studentId,
         ...args,
       });
 
       const student = await Student.findByIdAndUpdate(
         studentId,
-        { $addToSet: { weeklyPlans: weeklyPlan._id } },
+        { $addToSet: { practicePlans: practicePlan._id } },
         { new: true }
       );
-      return weeklyPlan;
+      return practicePlan;
     },
 
     removeTeacher: async (parent, { teacherId }) => {
