@@ -34,17 +34,74 @@ export const QUERY_STUDENT = gql`
       firstName
       lastName
       email
+      instrument
       primaryContact
       primaryContactEmail
-      instrument
-      lessonDay
-      lessonTime
-      grade
-      school
-      lessonLocation
-      isActive
       teacherId
+      grade
+      isActive
+      lessonDay
+      lessonLocation
+      lessonTime
+      school
+      practicePlans {
+        _id
+        name
+        assignments {
+          _id
+          exerciseName
+          date
+          assignmentType
+          source
+          pages
+          metronome
+          specialNotes
+          studentId
+          planId
+          streaks {
+            _id
+            assignmentId
+            date
+            numFail
+            numSuccess
+            numTries
+          }
+        }
+        skillSheets {
+          _id
+          sheetName
+          completed
+          arpeggios
+          articulation
+          etudes
+          exercises
+          longTones
+          pieces
+          scales
+          slurs
+          teacherId
+        }
+        goals {
+          _id
+          practiceDays
+          practiceTime
+          skillSheet {
+            _id
+            sheetName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_PRACTICEPLAN = gql`
+  query practicePlan($planId: ID!) {
+    practicePlan(planId: $planId) {
+      _id
+      name
       assignments {
+        _id
         date
         exerciseName
         source
@@ -52,6 +109,23 @@ export const QUERY_STUDENT = gql`
         specialNotes
         metronome
         pages
+      }
+      goals {
+        practiceTime
+        practiceDays
+      }
+      skillSheets {
+        sheetName
+        teacherId
+        scales
+        arpeggios
+        articulation
+        slurs
+        longTones
+        exercises
+        etudes
+        pieces
+        completed
       }
     }
   }

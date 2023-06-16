@@ -5,6 +5,7 @@ const {
   Goal,
   SkillSheet,
   Streak,
+  PracticePlan,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -13,10 +14,20 @@ const { findById } = require("../models/Student");
 const resolvers = {
   Query: {
     students: async () => {
-      return await Student.find({}).populate("assignments");
+      return await Student.find({})
+        .populate({
+          path: "practicePlans",
+          populate: {
+            path: "assignments",
+            model: "Assignment",
+          },
+        })
+        .populate("assignments");
     },
     student: async (parent, { studentId: _id }) => {
-      return await Student.findById(_id).populate("assignments");
+      return await Student.findById(_id)
+        .populate("practicePlans")
+        .populate("assignments");
     },
     teachers: async () => {
       return await Teacher.find({})
@@ -38,14 +49,9 @@ const resolvers = {
     goal: async ([parent, { goalId: _id }]) => {
       return await Goal.findById(_id);
     },
-    // me: async (parent, args, context) => {
-    //   if (context.teacher) {
-    //     return Teacher.findOne({ _id: context.teacher._id }).populate(
-    //       "students"
-    //     );
-    //   }
-    //   throw new AuthenticationError("You are not logged in.");
-    // },
+    practicePlan: async ([parent, { planId: _id }]) => {
+      return PracticePlan.findById(_id);
+    },
   },
 
   Mutation: {
@@ -98,10 +104,11 @@ const resolvers = {
       return { token, student };
     },
 
-    addAssignment: async (parent, { studentId, ...args }) => {
+    addAssignment: async (parent, { studentId, planId, ...args }) => {
       console.log("studentId in resolver", studentId);
       const assignment = await Assignment.create({
         studentId,
+        planId,
         ...args,
       });
       console.log("assignment in resolver", assignment);
@@ -110,7 +117,13 @@ const resolvers = {
         { $addToSet: { assignments: assignment._id } },
         { new: true }
       );
+      const practicePlan = await PracticePlan.findByIdAndUpdate(
+        planId,
+        { $addToSet: { assignments: assignment._id } },
+        { new: true }
+      );
       console.log("student in resolver", student);
+      console.log("practice plan in resolver", practicePlan);
       return assignment;
     },
 
@@ -155,6 +168,20 @@ const resolvers = {
       );
       console.log("teacher in resolver", teacher);
       return skillSheet;
+    },
+
+    addPracticePlan: async (parent, { studentId, ...args }) => {
+      const practicePlan = await PracticePlan.create({
+        studentId,
+        ...args,
+      });
+
+      const student = await Student.findByIdAndUpdate(
+        studentId,
+        { $addToSet: { practicePlans: practicePlan._id } },
+        { new: true }
+      );
+      return practicePlan;
     },
 
     removeTeacher: async (parent, { teacherId }) => {

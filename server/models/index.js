@@ -5,6 +5,7 @@ const Goal = require("./Goal");
 const PracticeHistory = require("./PracticeHistory");
 const SkillSheet = require("./SkillSheet");
 const Streak = require("./Streak");
+const PracticePlan = require("./PracticePlan");
 
 module.exports = {
   Student,
@@ -14,4 +15,5 @@ module.exports = {
   PracticeHistory,
   SkillSheet,
   Streak,
+  PracticePlan,
 };

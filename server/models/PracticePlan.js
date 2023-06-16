@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const weeklyPlanSchema = new Schema({
+const practicePlanSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -25,6 +25,6 @@ const weeklyPlanSchema = new Schema({
   ],
 });
 
-const weeklyPlan = model("WeeklyPlan", weeklyPlanSchema);
+const practicePlan = model("PracticePlan", practicePlanSchema);
 
-module.exports = weeklyPlan;
+module.exports = practicePlan;

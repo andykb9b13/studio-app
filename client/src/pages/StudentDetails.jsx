@@ -17,9 +17,11 @@ const StudentDetails = () => {
 
   const student = data?.student || [];
   const assignments = data?.student.assignments || [];
+  const practicePlans = data?.student.practicePlans;
   console.log(assignments);
   const [clicked, setClicked] = useState(false);
   const [assignClicked, setAssignClicked] = useState(false);
+  const [planClicked, setPlanClicked] = useState(false);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -29,6 +31,11 @@ const StudentDetails = () => {
   const handleAssignClick = (event) => {
     event.preventDefault();
     setAssignClicked(!assignClicked);
+  };
+
+  const handlePlanClick = (event) => {
+    event.preventDefault();
+    setPlanClicked(!planClicked);
   };
 
   return (
@@ -73,7 +80,22 @@ const StudentDetails = () => {
             ))}
         </div>
       ) : (
-        <h2>Click To See Assignments</h2>
+        <h2>Assignments Here</h2>
+      )}
+      <button onClick={handlePlanClick}>
+        {!planClicked ? "View Practice Plans" : "Close"}
+      </button>
+      {planClicked ? (
+        <div>
+          {practicePlans &&
+            practicePlans.map((practicePlan, i) => (
+              <div key={i}>
+                <h2>{practicePlan.name}</h2>
+              </div>
+            ))}
+        </div>
+      ) : (
+        <h2>Practice Plans Here</h2>
       )}
       <button onClick={handleAssignClick}>
         {!assignClicked ? "Create Assignment" : "Cancel"}
@@ -81,8 +103,9 @@ const StudentDetails = () => {
       {assignClicked ? (
         <CreateAssignment studentId={id} />
       ) : (
-        <h2>Click to create an assignment</h2>
+        <h2>Create an assignment</h2>
       )}
+      <button onClick={handlePlanClick}></button>
     </div>
   );
 };

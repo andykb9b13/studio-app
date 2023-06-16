@@ -81,6 +81,12 @@ const studentSchema = new Schema({
       ref: "SkillSheet",
     },
   ],
+  practicePlans: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "PracticePlan",
+    },
+  ],
 });
 
 // hash user password
