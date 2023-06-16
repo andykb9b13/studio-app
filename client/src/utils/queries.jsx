@@ -44,7 +44,7 @@ export const QUERY_STUDENT = gql`
       lessonLocation
       lessonTime
       school
-      weeklyPlans {
+      practicePlans {
         _id
         name
         assignments {
@@ -57,6 +57,7 @@ export const QUERY_STUDENT = gql`
           metronome
           specialNotes
           studentId
+          planId
           streaks {
             _id
             assignmentId

@@ -80,7 +80,7 @@ const StudentDetails = () => {
             ))}
         </div>
       ) : (
-        <h2>Assignments</h2>
+        <h2>Assignments Here</h2>
       )}
       <button onClick={handlePlanClick}>
         {!planClicked ? "View Practice Plans" : "Close"}
@@ -95,7 +95,7 @@ const StudentDetails = () => {
             ))}
         </div>
       ) : (
-        <h2>Practice Plans</h2>
+        <h2>Practice Plans Here</h2>
       )}
       <button onClick={handleAssignClick}>
         {!assignClicked ? "Create Assignment" : "Cancel"}
@@ -105,6 +105,7 @@ const StudentDetails = () => {
       ) : (
         <h2>Create an assignment</h2>
       )}
+      <button onClick={handlePlanClick}></button>
     </div>
   );
 };

@@ -15,13 +15,19 @@ const resolvers = {
   Query: {
     students: async () => {
       return await Student.find({})
-        .populate("assignments")
-        .populate("practicePlans");
+        .populate({
+          path: "practicePlans",
+          populate: {
+            path: "assignments",
+            model: "Assignment",
+          },
+        })
+        .populate("assignments");
     },
     student: async (parent, { studentId: _id }) => {
       return await Student.findById(_id)
-        .populate("assignments")
-        .populate("practicePlans");
+        .populate("practicePlans")
+        .populate("assignments");
     },
     teachers: async () => {
       return await Teacher.find({})
@@ -98,10 +104,11 @@ const resolvers = {
       return { token, student };
     },
 
-    addAssignment: async (parent, { studentId, ...args }) => {
+    addAssignment: async (parent, { studentId, planId, ...args }) => {
       console.log("studentId in resolver", studentId);
       const assignment = await Assignment.create({
         studentId,
+        planId,
         ...args,
       });
       console.log("assignment in resolver", assignment);
@@ -110,7 +117,13 @@ const resolvers = {
         { $addToSet: { assignments: assignment._id } },
         { new: true }
       );
+      const practicePlan = await PracticePlan.findByIdAndUpdate(
+        planId,
+        { $addToSet: { assignments: assignment._id } },
+        { new: true }
+      );
       console.log("student in resolver", student);
+      console.log("practice plan in resolver", practicePlan);
       return assignment;
     },
 

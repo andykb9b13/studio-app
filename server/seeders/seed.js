@@ -27,14 +27,6 @@ db.once("open", async () => {
 
     await PracticePlan.deleteMany({});
     const practicePlanArr = await PracticePlan.create(practicePlanData);
-    for (const practicePlan of practicePlanArr) {
-      let randomStudent = Math.floor(Math.random() * studentArr.length);
-      await Student.findByIdAndUpdate(
-        studentArr[randomStudent]._id,
-        { $addToSet: { practicePlans: practicePlan } },
-        { new: true }
-      );
-    }
 
     await Assignment.deleteMany({});
     const assignmentArr = await Assignment.create(assignmentData);
@@ -42,14 +34,22 @@ db.once("open", async () => {
       let randomPracticePlan = Math.floor(
         Math.random() * practicePlanArr.length
       );
-      console.log("random Practice Plan", randomPracticePlan);
       const practicePlan = await PracticePlan.findByIdAndUpdate(
         practicePlanArr[randomPracticePlan]._id,
         { $addToSet: { assignments: assignment } },
         { new: true }
       );
+      console.log("asignment", assignment);
+      console.log("practicePlan", practicePlan);
+    }
 
-      console.log("Practice Plan", practicePlan);
+    for (const practicePlan of practicePlanArr) {
+      let randomStudent = Math.floor(Math.random() * studentArr.length);
+      await Student.findByIdAndUpdate(
+        studentArr[randomStudent]._id,
+        { $addToSet: { practicePlans: practicePlan } },
+        { new: true }
+      );
     }
 
     for (const student of studentArr) {
