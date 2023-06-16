@@ -1,8 +1,16 @@
-import { useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+// import { QUERY_PRACTICEPLANS } from "../utils/queries";
+import { useLocation } from "react-router-dom";
 
-const WeeklyPlan = () => {
+const PracticePlanView = () => {
+  // const { id } = useParams();
+  // const practicePlans = useQuery(QUERY_PRACTICEPLANS);
+
+  const location = useLocation();
+  console.log(location);
+
   return (
     <div>
       <h1>Weekly Plan</h1>
@@ -20,4 +28,4 @@ const WeeklyPlan = () => {
   );
 };
 
-export default WeeklyPlan;
+export default PracticePlanView;

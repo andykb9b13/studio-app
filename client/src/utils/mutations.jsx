@@ -24,6 +24,59 @@ export const ADD_TEACHER = gql`
   }
 `;
 
+export const ADD_STUDENT = gql`
+  mutation addStudent(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $username: String!
+    $password: String!
+    $primaryContact: String
+    $primaryContactEmail: String
+    $instrument: String
+    $lessonDay: String
+    $lessonTime: String
+    $grade: String
+    $school: String
+    $lessonLocation: String
+    $teacherId: String
+  ) {
+    addStudent(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      username: $username
+      password: $password
+      primaryContact: $primaryContact
+      primaryContactEmail: $primaryContactEmail
+      instrument: $instrument
+      lessonDay: $lessonDay
+      lessonTime: $lessonTime
+      grade: $grade
+      school: $school
+      lessonLocation: $lessonLocation
+      teacherId: $teacherId
+    ) {
+      _id
+      email
+      firstName
+      grade
+      instrument
+      isActive
+      lastName
+      lessonDay
+      lessonLocation
+      lessonTime
+      password
+      primaryContact
+      primaryContactEmail
+      school
+      teacherId
+      username
+    }
+  }
+`;
+
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -117,6 +170,63 @@ export const ADD_PRACTICEPLAN = gql`
       _id
       name
       studentId
+    }
+  }
+`;
+
+export const EDIT_STUDENT = gql`
+  mutation editStudent(
+    $studentId: ID!
+    $firstName: String
+    $lastName: String
+    $email: String
+    $username: String
+    $password: String
+    $primaryContact: String
+    $primaryContactEmail: String
+    $instrument: String
+    $lessonDay: String
+    $lessonTime: String
+    $grade: String
+    $school: String
+    $lessonLocation: String
+    $teacherId: String
+    $isActive: Boolean
+  ) {
+    editStudent(
+      studentId: $studentId
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      username: $username
+      password: $password
+      primaryContact: $primaryContact
+      primaryContactEmail: $primaryContactEmail
+      instrument: $instrument
+      lessonDay: $lessonDay
+      lessonTime: $lessonTime
+      grade: $grade
+      school: $school
+      lessonLocation: $lessonLocation
+      teacherId: $teacherId
+      isActive: $isActive
+    ) {
+      _id
+      email
+      firstName
+      grade
+      instrument
+      isActive
+      lastName
+      lessonDay
+      lessonLocation
+      lessonTime
+      password
+      primaryContact
+      primaryContactEmail
+      school
+      teacherId
+      username
     }
   }
 `;

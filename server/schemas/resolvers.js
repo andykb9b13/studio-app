@@ -58,6 +58,9 @@ const resolvers = {
     practicePlan: async ([parent, { planId: _id }]) => {
       return PracticePlan.findById(_id);
     },
+    practicePlans: async ([parent, { studentId: _id }]) => {
+      return PracticePlan.find({ studentId: _id });
+    },
   },
 
   Mutation: {
@@ -106,8 +109,8 @@ const resolvers = {
         { $addToSet: { students: student._id } },
         { new: true }
       );
-      const token = signToken(student);
-      return { token, student };
+      // const token = signToken(student);
+      // return { token, student };
     },
 
     addAssignment: async (parent, { studentId, planId, ...args }) => {
@@ -239,7 +242,7 @@ const resolvers = {
     },
 
     editStudent: async (parent, { studentId, ...args }) => {
-      const student = await Student.findById(studentId);
+      const student = await Student.findByIdAndUpdate(studentId);
       // do I need to add args to the conditionals?
       if (!student) {
         throw new Error("Student not found");
@@ -290,7 +293,7 @@ const resolvers = {
         student.teacherId = teacherId;
       }
 
-      await student.save();
+      // await student.save();
 
       return student;
     },
