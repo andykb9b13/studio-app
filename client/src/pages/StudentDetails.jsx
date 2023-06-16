@@ -77,7 +77,7 @@ const StudentDetails = () => {
         <h2>Practice Plans Here</h2>
       )}
 
-      {planClicked ? <CreatePracticePlan /> : ""}
+      {planClicked ? <CreatePracticePlan studentId={id} /> : ""}
     </div>
   );
 };

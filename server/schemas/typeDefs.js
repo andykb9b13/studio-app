@@ -82,6 +82,7 @@ const typeDefs = gql`
   type PracticePlan {
     _id: ID
     name: String!
+    studentId: String
     assignments: [Assignment]
     goals: [Goal]
     skillSheets: [SkillSheet]
@@ -169,7 +170,7 @@ const typeDefs = gql`
       completed: Boolean
     ): SkillSheet
 
-    addPracticePlan(name: String!): PracticePlan
+    addPracticePlan(name: String!, studentId: String): PracticePlan
 
     removeAssignment(assignmentId: ID!): Assignment!
 

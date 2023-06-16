@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../utils/mutations";
 import CreateAssignment from "./CreateAssignment";
 
-const CreatePracticePlan = (studentId) => {
+const CreatePracticePlan = ({ studentId }) => {
   console.log("studentId", studentId);
 
   const [formData, setFormData] = useState({
