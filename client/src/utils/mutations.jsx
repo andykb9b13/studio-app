@@ -41,6 +41,7 @@ export const ADD_ASSIGNMENT = gql`
     $date: String!
     $exerciseName: String!
     $studentId: String
+    $planId: String
     $source: String
     $assignmentType: String
     $specialNotes: String
@@ -51,6 +52,7 @@ export const ADD_ASSIGNMENT = gql`
       date: $date
       exerciseName: $exerciseName
       studentId: $studentId
+      planId: $planId
       source: $source
       assignmentType: $assignmentType
       specialNotes: $specialNotes
@@ -60,6 +62,7 @@ export const ADD_ASSIGNMENT = gql`
       date
       exerciseName
       studentId
+      planId
       source
       assignmentType
       specialNotes

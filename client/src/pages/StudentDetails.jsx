@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
 import CreatePracticePlan from "../components/CreatePracticePlan";
+import PracticePlan from "../components/PracticePlan";
 
 const StudentDetails = () => {
   const { id } = useParams();
@@ -65,22 +66,11 @@ const StudentDetails = () => {
         <div>
           {practicePlans &&
             practicePlans.map((practicePlan, i) => (
-              <div key={i}>
-                <h2>{practicePlan.name}</h2>
-                {practicePlan.assignments &&
-                  practicePlan.assignments.map((assignment, i) => (
-                    <div key={i}>
-                      <h3>Exercise Name: {assignment.exerciseName}</h3>
-                      <p>Date: {assignment.date}</p>
-                      <p>Assignment Type: {assignment.assignmentType}</p>
-                      <p>Source: {assignment.source}</p>
-                      <p>Pages: {assignment.pages}</p>
-                      <p>Metronome: {assignment.metronome}</p>
-                      <p>Special Notes: {assignment.specialNotes}</p>
-                    </div>
-                  ))}
-                <p>{practicePlan.assignments[0].exerciseName}</p>
-              </div>
+              <PracticePlan
+                practicePlan={practicePlan}
+                studentId={id}
+                key={i}
+              />
             ))}
         </div>
       ) : (

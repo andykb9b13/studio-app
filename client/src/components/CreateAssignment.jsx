@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ADD_ASSIGNMENT } from "../utils/mutations";
 
-const CreateAssignment = ({ studentId }) => {
+const CreateAssignment = ({ studentId, planId }) => {
   console.log("studentId", studentId);
-
+  console.log("planId", planId);
   const [formData, setFormData] = useState({
     date: "",
     exerciseName: "",
@@ -56,7 +56,7 @@ const CreateAssignment = ({ studentId }) => {
       event.preventDefault();
       try {
         const { data } = await createAssignment({
-          variables: { studentId: studentId, ...formData },
+          variables: { studentId: studentId, planId: planId, ...formData },
         });
         alert("Assignment Created");
       } catch (err) {

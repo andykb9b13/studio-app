@@ -90,17 +90,9 @@ const CreatePracticePlan = (studentId) => {
       <h1>Create a Practice Plan</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <input type="text" name="name" value={handleChange} id="name" />
+        <input type="text" name="name" onChange={handleChange} id="name" />
+        <button>Create Practice Plan</button>
       </form>
-
-      <button onClick={handleClick}>
-        {!clicked ? "Create Assignment" : "Cancel"}
-      </button>
-      {clicked ? (
-        <CreateAssignment studentId={studentId} />
-      ) : (
-        <h2>Create an assignment</h2>
-      )}
     </div>
   );
 };
