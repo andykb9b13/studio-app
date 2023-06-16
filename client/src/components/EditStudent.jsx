@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { ADD_STUDENT } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import { EDIT_STUDENT } from "../utils/mutations";
 
-const CreateStudent = ({ teacherId }) => {
-  const [createStudent, { errors }] = useMutation(ADD_STUDENT);
-
+const EditStudent = ({ studentId }) => {
+  const [editStudent] = useMutation(EDIT_STUDENT);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -80,24 +78,23 @@ const CreateStudent = ({ teacherId }) => {
     event.preventDefault();
     if (validateForm) {
       try {
-        const { data } = await createStudent({
+        const { data } = await editStudent({
           variables: {
-            teacherId: teacherId,
+            studentId: studentId,
             ...formData,
           },
         });
         console.log("Data from createStudent", data);
-        alert("Student Successfully Created!");
+        alert("Student Successfully Edited!");
       } catch (err) {
         console.error(err);
-        alert("Could Not Create Student");
+        alert("Could Not Edit Student");
       }
     }
   };
-
   return (
     <div>
-      <h1>Add Student</h1>
+      <h1>Edit Student</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>
         <input
@@ -191,13 +188,10 @@ const CreateStudent = ({ teacherId }) => {
           id="lessonLocation"
           onChange={handleChange}
         />
-        <button>Add Student</button>
+        <button>Edit Student</button>
       </form>
-      <Link to="/teacher/:id">
-        <button>Cancel</button>
-      </Link>
     </div>
   );
 };
 
-export default CreateStudent;
+export default EditStudent;

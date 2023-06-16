@@ -5,14 +5,14 @@ const StudentContext = createContext();
 export const useStudentContext = () => useContext(StudentContext);
 
 export const StudentProvider = ({ children }) => {
-  const [students, setStudents] = useState([]);
+  const [student, setStudent] = useState([]);
 
-  const updateStudents = (newValue) => {
-    setStudents(newValue);
+  const updateStudent = (newValue) => {
+    setStudent(newValue);
   };
 
   return (
-    <StudentContext.Provider value={{ students, updateStudents }}>
+    <StudentContext.Provider value={{ student, updateStudent }}>
       {children}
     </StudentContext.Provider>
   );

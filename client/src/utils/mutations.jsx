@@ -173,3 +173,60 @@ export const ADD_PRACTICEPLAN = gql`
     }
   }
 `;
+
+export const EDIT_STUDENT = gql`
+  mutation editStudent(
+    $studentId: ID!
+    $firstName: String
+    $lastName: String
+    $email: String
+    $username: String
+    $password: String
+    $primaryContact: String
+    $primaryContactEmail: String
+    $instrument: String
+    $lessonDay: String
+    $lessonTime: String
+    $grade: String
+    $school: String
+    $lessonLocation: String
+    $teacherId: String
+    $isActive: Boolean
+  ) {
+    editStudent(
+      studentId: $studentId
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      username: $username
+      password: $password
+      primaryContact: $primaryContact
+      primaryContactEmail: $primaryContactEmail
+      instrument: $instrument
+      lessonDay: $lessonDay
+      lessonTime: $lessonTime
+      grade: $grade
+      school: $school
+      lessonLocation: $lessonLocation
+      teacherId: $teacherId
+      isActive: $isActive
+    ) {
+      _id
+      email
+      firstName
+      grade
+      instrument
+      isActive
+      lastName
+      lessonDay
+      lessonLocation
+      lessonTime
+      password
+      primaryContact
+      primaryContactEmail
+      school
+      teacherId
+      username
+    }
+  }
+`;

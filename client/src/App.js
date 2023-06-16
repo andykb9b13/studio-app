@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentDetails from "./pages/StudentDetails";
-import PracticePlan from "./pages/PracticePlan";
+import PracticePlanView from "./pages/PracticePlanView";
 import PracticeHub from "./pages/PracticeHub";
 import StreakPractice from "./pages/StreakPractice";
 import TimedPractice from "./pages/TimedPractice";
@@ -57,21 +57,16 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route
-            path="/teacher/:id"
-            element={
-              <StudentProvider>
-                <TeacherDashboard />
-              </StudentProvider>
-            }
-          />
-          Copy code
+          <Route path="/teacher/:id" element={<TeacherDashboard />} />
           <Route
             path="/teacher/studentDetails/:id"
             element={<StudentDetails />}
           />
           <Route path="/student/:id" element={<StudentDashboard />} />
-          <Route path="/student/:id/practicePlan" element={<PracticePlan />} />
+          <Route
+            path="/student/:id/practicePlanView"
+            element={<PracticePlanView />}
+          />
           <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
           <Route
             path="/student/:id/skillSheetView"

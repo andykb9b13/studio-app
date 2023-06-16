@@ -5,8 +5,13 @@ import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
 import CreatePracticePlan from "../components/CreatePracticePlan";
 import PracticePlan from "../components/PracticePlan";
+import EditStudent from "../components/EditStudent";
+// import { useStudentContext } from "../utils/StudentContext";
 
 const StudentDetails = () => {
+  // const { student } = useStudentContext();
+  // console.log("This is student", student);
+
   const { id } = useParams();
   console.log("this is the id from params", id);
 
@@ -21,6 +26,7 @@ const StudentDetails = () => {
 
   const [clicked, setClicked] = useState(false);
   const [planClicked, setPlanClicked] = useState(false);
+  const [editClicked, setEditClicked] = useState(false);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -30,6 +36,11 @@ const StudentDetails = () => {
   const handlePlanClick = (event) => {
     event.preventDefault();
     setPlanClicked(!planClicked);
+  };
+
+  const handleEditClick = (event) => {
+    event.preventDefault();
+    setEditClicked(!editClicked);
   };
 
   return (
@@ -52,15 +63,19 @@ const StudentDetails = () => {
         <p>Teacher ID: {student.teacherId}</p>
       </div>
       {/* Need to create Edit student page and add it to App.js */}
-      <Link to="/teacher/studentDatabase/editStudent">
-        <button>Edit Student</button>
-      </Link>
+
+      <button onClick={handleEditClick}>
+        {!editClicked ? "Edit Student" : "Close"}
+      </button>
+
       <button onClick={handleClick}>
         {!clicked ? "View Practice Plans" : "Close"}
       </button>
       <button onClick={handlePlanClick}>
         {!planClicked ? "Create Practice Plan" : "Close"}
       </button>
+
+      {editClicked ? <EditStudent studentId={id} /> : ""}
 
       {clicked ? (
         <div>

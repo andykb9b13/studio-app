@@ -95,9 +95,9 @@ export const QUERY_STUDENT = gql`
   }
 `;
 
-export const QUERY_PRACTICEPLAN = gql`
-  query practicePlan($planId: ID!) {
-    practicePlan(planId: $planId) {
+export const QUERY_PRACTICEPLANS = gql`
+  query practicePlans($studentId: ID!) {
+    practicePlans(studentId: $student) {
       _id
       name
       assignments {
