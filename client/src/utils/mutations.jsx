@@ -24,6 +24,59 @@ export const ADD_TEACHER = gql`
   }
 `;
 
+export const ADD_STUDENT = gql`
+  mutation Mutation(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $username: String!
+    $password: String!
+    $primaryContact: String
+    $primaryContactEmail: String
+    $instrument: String
+    $lessonDay: String
+    $lessonTime: String
+    $grade: String
+    $school: String
+    $lessonLocation: String
+    $teacherId: String
+  ) {
+    addStudent(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      username: $username
+      password: $password
+      primaryContact: $primaryContact
+      primaryContactEmail: $primaryContactEmail
+      instrument: $instrument
+      lessonDay: $lessonDay
+      lessonTime: $lessonTime
+      grade: $grade
+      school: $school
+      lessonLocation: $lessonLocation
+      teacherId: $teacherId
+    ) {
+      _id
+      email
+      firstName
+      grade
+      instrument
+      isActive
+      lastName
+      lessonDay
+      lessonLocation
+      lessonTime
+      password
+      primaryContact
+      primaryContactEmail
+      school
+      teacherId
+      username
+    }
+  }
+`;
+
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {

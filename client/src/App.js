@@ -7,7 +7,6 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import AddStudent from "./pages/AddStudent";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -90,7 +89,6 @@ function App() {
             path="/student/:id/assignmentView"
             element={<AssignmentView />}
           />
-          <Route path="/teacher/:id/addStudent" element={<AddStudent />} />
           <Route
             path="/teacher/studentDatabase/:id"
             element={

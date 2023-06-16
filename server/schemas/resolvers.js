@@ -106,8 +106,8 @@ const resolvers = {
         { $addToSet: { students: student._id } },
         { new: true }
       );
-      const token = signToken(student);
-      return { token, student };
+      // const token = signToken(student);
+      // return { token, student };
     },
 
     addAssignment: async (parent, { studentId, planId, ...args }) => {
