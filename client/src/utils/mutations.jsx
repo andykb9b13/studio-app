@@ -25,7 +25,7 @@ export const ADD_TEACHER = gql`
 `;
 
 export const ADD_STUDENT = gql`
-  mutation Mutation(
+  mutation addStudent(
     $firstName: String!
     $lastName: String!
     $email: String!

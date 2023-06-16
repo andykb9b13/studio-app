@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 
 const CreateStudent = ({ teacherId }) => {
   const [createStudent, { errors }] = useMutation(ADD_STUDENT);
+  console.log(teacherId._id);
 
   const [formData, setFormData] = useState({
     firstName: "",

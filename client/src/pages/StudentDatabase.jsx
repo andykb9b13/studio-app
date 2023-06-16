@@ -32,7 +32,7 @@ const StudentDatabase = () => {
       <div>
         <h2>Studio Info</h2>
         <button onClick={handleClick}>Add Student</button>
-        {clicked ? <CreateStudent teacherId={teacherId} /> : ""}
+        {clicked ? <CreateStudent teacherId={id} /> : ""}
 
         {students &&
           students.map((student, i) => (
