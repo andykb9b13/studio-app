@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
-import CreateAssignment from "../components/CreateAssignment";
+import CreatePracticePlan from "../components/CreatePracticePlan";
+import PracticePlan from "../components/PracticePlan";
 
 const StudentDetails = () => {
   const { id } = useParams();
@@ -16,21 +17,14 @@ const StudentDetails = () => {
   });
 
   const student = data?.student || [];
-  const assignments = data?.student.assignments || [];
   const practicePlans = data?.student.practicePlans;
-  console.log(assignments);
+
   const [clicked, setClicked] = useState(false);
-  const [assignClicked, setAssignClicked] = useState(false);
   const [planClicked, setPlanClicked] = useState(false);
 
   const handleClick = (event) => {
     event.preventDefault();
     setClicked(!clicked);
-  };
-
-  const handleAssignClick = (event) => {
-    event.preventDefault();
-    setAssignClicked(!assignClicked);
   };
 
   const handlePlanClick = (event) => {
@@ -62,50 +56,28 @@ const StudentDetails = () => {
         <button>Edit Student</button>
       </Link>
       <button onClick={handleClick}>
-        {!clicked ? "View Assignments" : "Close"}
+        {!clicked ? "View Practice Plans" : "Close"}
       </button>
-      {clicked ? (
-        <div>
-          {assignments &&
-            assignments.map((assignment, i) => (
-              <div key={i}>
-                <h2>{assignment.exerciseName}</h2>
-                <p>Date: {assignment.date}</p>
-                <p>Source: {assignment.source}</p>
-                <p>Pages: {assignment.pages}</p>
-                <p>Assignment Type: {assignment.assignmentType}</p>
-                <p>Metronome: {assignment.metronome}</p>
-                <p>Special Notes: {assignment.specialNotes}</p>
-              </div>
-            ))}
-        </div>
-      ) : (
-        <h2>Assignments Here</h2>
-      )}
       <button onClick={handlePlanClick}>
-        {!planClicked ? "View Practice Plans" : "Close"}
+        {!planClicked ? "Create Practice Plan" : "Close"}
       </button>
-      {planClicked ? (
+
+      {clicked ? (
         <div>
           {practicePlans &&
             practicePlans.map((practicePlan, i) => (
-              <div key={i}>
-                <h2>{practicePlan.name}</h2>
-              </div>
+              <PracticePlan
+                practicePlan={practicePlan}
+                studentId={id}
+                key={i}
+              />
             ))}
         </div>
       ) : (
         <h2>Practice Plans Here</h2>
       )}
-      <button onClick={handleAssignClick}>
-        {!assignClicked ? "Create Assignment" : "Cancel"}
-      </button>
-      {assignClicked ? (
-        <CreateAssignment studentId={id} />
-      ) : (
-        <h2>Create an assignment</h2>
-      )}
-      <button onClick={handlePlanClick}></button>
+
+      {planClicked ? <CreatePracticePlan studentId={id} /> : ""}
     </div>
   );
 };

@@ -26,7 +26,13 @@ const resolvers = {
     },
     student: async (parent, { studentId: _id }) => {
       return await Student.findById(_id)
-        .populate("practicePlans")
+        .populate({
+          path: "practicePlans",
+          populate: {
+            path: "assignments",
+            model: "Assignment",
+          },
+        })
         .populate("assignments");
     },
     teachers: async () => {
@@ -112,18 +118,18 @@ const resolvers = {
         ...args,
       });
       console.log("assignment in resolver", assignment);
-      const student = await Student.findByIdAndUpdate(
-        studentId,
-        { $addToSet: { assignments: assignment._id } },
-        { new: true }
-      );
+      // const student = await Student.findByIdAndUpdate(
+      //   studentId,
+      //   { $addToSet: { assignments: assignment._id } },
+      //   { new: true }
+      // );
       const practicePlan = await PracticePlan.findByIdAndUpdate(
         planId,
         { $addToSet: { assignments: assignment._id } },
         { new: true }
       );
-      console.log("student in resolver", student);
       console.log("practice plan in resolver", practicePlan);
+      console.log("Practice plan assignments", practicePlan.assignments);
       return assignment;
     },
 

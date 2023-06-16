@@ -5,6 +5,9 @@ const practicePlanSchema = new Schema({
     type: String,
     required: true,
   },
+  studentId: {
+    type: String,
+  },
   assignments: [
     {
       type: Schema.Types.ObjectId,
