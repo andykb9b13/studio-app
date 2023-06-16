@@ -26,7 +26,13 @@ const resolvers = {
     },
     student: async (parent, { studentId: _id }) => {
       return await Student.findById(_id)
-        .populate("practicePlans")
+        .populate({
+          path: "practicePlans",
+          populate: {
+            path: "assignments",
+            model: "Assignment",
+          },
+        })
         .populate("assignments");
     },
     teachers: async () => {

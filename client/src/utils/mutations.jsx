@@ -107,3 +107,12 @@ export const ADD_SKILLSHEET = gql`
     }
   }
 `;
+
+export const ADD_PRACTICEPLAN = gql`
+  mutation addPracticePlan($name: String!) {
+    addPracticePlan(name: $name) {
+      _id
+      name
+    }
+  }
+`;
