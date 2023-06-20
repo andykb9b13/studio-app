@@ -1,18 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const PracticeHub = () => {
+  const { id } = useParams();
+
   return (
     <div>
       <h1>Practice Hub</h1>
       <div>
-        <Link to="/student/:id/timedPractice">
+        <Link to={`/student/${id}/timedPractice`}>
           <button>Timed Practice</button>
         </Link>
-        <Link to="/student/:id/streakPractice">
+        <Link to={`/student/${id}/streakPractice`}>
           <button>Streak Practice</button>
         </Link>
-        <Link to="/student/:id/skillSheetView">
+        <Link to={`/student/${id}/skillSheetView`}>
           <button>Skill Sheets</button>
         </Link>
         <Link to="/teacher/:id/createAssignment">
@@ -20,7 +23,7 @@ const PracticeHub = () => {
         </Link>
         <button>Track Your Progress</button>
         <button>Resources</button>
-        <Link to="/student/:id/assignmentVie">
+        <Link to="/student/:id/assignmentView">
           <button>View Assignments</button>
         </Link>
         <Link to="/tutor">

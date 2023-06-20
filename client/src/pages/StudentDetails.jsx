@@ -74,6 +74,9 @@ const StudentDetails = () => {
       <button onClick={handlePlanClick}>
         {!planClicked ? "Create Practice Plan" : "Close"}
       </button>
+      <Link to={`/student/${id}/practiceHub`}>
+        <button>To Practice Hub</button>
+      </Link>
 
       {editClicked ? <EditStudent studentId={id} /> : ""}
 
