@@ -4,7 +4,7 @@ import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
-import { useStudentContext } from "../utils/StudentContext";
+// import { useStudentContext } from "../utils/StudentContext";
 
 const TeacherDashboard = () => {
   const logout = (event) => {
@@ -18,7 +18,7 @@ const TeacherDashboard = () => {
   };
 
   // getting the function update students from the global context StudentContext.jsx
-  const { updateStudents } = useStudentContext();
+  // const { updateStudents } = useStudentContext();
 
   // getting the teacher info using the id from the URL parameters
   const { id } = useParams();
@@ -32,7 +32,7 @@ const TeacherDashboard = () => {
   console.log("This is teacher", teacher.students);
 
   // setting the global context of the students using the function updateStudents
-  updateStudents(teacher.students);
+  // updateStudents(teacher.students);
 
   return (
     <div>
@@ -52,7 +52,6 @@ const TeacherDashboard = () => {
             <Link to={`/teacher/createSkillSheet/${id}`}>
               <button>Create Skill Sheet</button>
             </Link>
-
             <button onClick={logout}>Logout</button>
           </div>
           <div>
