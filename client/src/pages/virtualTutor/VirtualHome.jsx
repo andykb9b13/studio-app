@@ -5,9 +5,6 @@ const VirtualTutor = () => {
   return (
     <div>
       <h1>Virtual Tutor</h1>
-      <Link to="/student/:id/practiceHub">
-        <button>Back to Practice Hub</button>
-      </Link>
       <h2>You've got this!!! Let's figure out what's going on.</h2>
       <p>
         Sometimes it can be hard to figure out what you need to work on. These
@@ -16,7 +13,7 @@ const VirtualTutor = () => {
         it until you don't have hesitation.
       </p>
       <div>
-        <Link to="/tutor/physical">
+        <Link to="/tutor/visual">
           <button>Visual</button>
         </Link>
         <p>
