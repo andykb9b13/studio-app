@@ -12,19 +12,14 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentDetails from "./pages/StudentDetails";
-import PracticePlanView from "./pages/PracticePlanView";
 import PracticeHub from "./pages/PracticeHub";
-import StreakPractice from "./pages/StreakPractice";
-import TimedPractice from "./pages/TimedPractice";
-import AssignmentView from "./pages/AssignmentView";
-import VirtualHome from "./pages/virtualTutor/VirtualHome";
+import VirtualTutor from "./pages/virtualTutor/VirtualTutor";
 import Aural from "./pages/virtualTutor/Aural";
 import Conceptual from "./pages/virtualTutor/Conceptual";
 import Physical from "./pages/virtualTutor/Physical";
 import Visual from "./pages/virtualTutor/Visual";
 import TeacherDashboard from "./pages/TeacherDashboard";
-import CreateSkillSheet from "./pages/CreateSkillSheet";
-import SkillSheetView from "./pages/SkillSheetView";
+import CreateSkillSheet from "./components/CreateSkillSheet";
 import StudentDatabase from "./pages/StudentDatabase";
 import { StudentProvider } from "./utils/StudentContext";
 
@@ -63,27 +58,7 @@ function App() {
             element={<StudentDetails />}
           />
           <Route path="/student/:id" element={<StudentDashboard />} />
-          <Route
-            path="/student/:id/practicePlanView"
-            element={<PracticePlanView />}
-          />
           <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
-          <Route
-            path="/student/:id/skillSheetView"
-            element={<SkillSheetView />}
-          />
-          <Route
-            path="/student/:id/streakPractice"
-            element={<StreakPractice />}
-          />
-          <Route
-            path="/student/:id/timedPractice"
-            element={<TimedPractice />}
-          />
-          <Route
-            path="/student/:id/assignmentView"
-            element={<AssignmentView />}
-          />
           <Route
             path="/teacher/studentDatabase/:id"
             element={
@@ -96,11 +71,7 @@ function App() {
             path="/teacher/createSkillSheet/:id"
             element={<CreateSkillSheet />}
           />
-          <Route path="/tutor" element={<VirtualHome />} />
-          <Route path="/tutor/aural" element={<Aural />} />
-          <Route path="/tutor/conceptual" element={<Conceptual />} />
-          <Route path="/tutor/physical" element={<Physical />} />
-          <Route path="/tutor/visual" element={<Visual />} />
+          <Route path="/tutor" element={<VirtualTutor />} />
         </Routes>
       </Router>
     </ApolloProvider>

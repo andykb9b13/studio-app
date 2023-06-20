@@ -5,37 +5,26 @@ import { useParams } from "react-router-dom";
 const PracticeHub = () => {
   const { id } = useParams();
 
+  const buttonInfo = [
+    { label: "Timed Practice", link: `/student${id}/timedPractice` },
+    { label: "Streak Practice", link: `/student/${id}/streakPractice` },
+    { label: "Skill Sheets", link: `/student/${id}/skillSheetView` },
+    { label: "Create Assignment", link: `/teacher/${id}/createAssignment` },
+    { label: "Track Your Progress", link: "" },
+    { label: "Resources", link: "" },
+    { label: "View Assignments", link: `/student/:id/assignmentView` },
+    { label: "Tutor", link: `/tutor` },
+    { label: "Back to Student Details", link: `/teacher/studentDetails/${id}` },
+  ];
+
   return (
     <div>
       <h1>Practice Hub</h1>
-      <div>
-        <Link to={`/student/${id}/timedPractice`}>
-          <button>Timed Practice</button>
+      {buttonInfo.map((button, i) => (
+        <Link to={button.link} key={i}>
+          <button>{button.label}</button>
         </Link>
-        <Link to={`/student/${id}/streakPractice`}>
-          <button>Streak Practice</button>
-        </Link>
-        <Link to={`/student/${id}/skillSheetView`}>
-          <button>Skill Sheets</button>
-        </Link>
-        <Link to="/teacher/:id/createAssignment">
-          <button>Create Assignment</button>
-        </Link>
-        <button>Track Your Progress</button>
-        <button>Resources</button>
-        <Link to="/student/:id/assignmentView">
-          <button>View Assignments</button>
-        </Link>
-        <Link to="/tutor">
-          <button>Virtual Tutor</button>
-        </Link>
-      </div>
-      {/* Need to make a conditional statement here so if it's the teacher coming here
-      then you go back to the teacher dashboard but if it's the student, 
-      you go back to the student dashboard */}
-      <Link>
-        <button>Back to Dashboard</button>
-      </Link>
+      ))}
     </div>
   );
 };
