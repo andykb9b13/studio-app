@@ -20,12 +20,11 @@ const PracticeHub = () => {
   return (
     <div>
       <h1>Practice Hub</h1>
-      {buttonInfo &&
-        buttonInfo.map((button, i) => (
-          <Link to={button.link} key={i}>
-            <button>{button.label}</button>
-          </Link>
-        ))}
+      {buttonInfo.map((button, i) => (
+        <Link to={button.link} key={i}>
+          <button>{button.label}</button>
+        </Link>
+      ))}
     </div>
   );
 };
