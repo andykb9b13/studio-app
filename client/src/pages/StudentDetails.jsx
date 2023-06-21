@@ -19,6 +19,8 @@ const StudentDetails = () => {
   });
 
   const student = data?.student || [];
+
+  console.log(student);
   const practicePlans = data?.student.practicePlans;
 
   const [clicked, setClicked] = useState(false);
