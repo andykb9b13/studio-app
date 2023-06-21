@@ -9,9 +9,6 @@ import EditStudent from "../components/EditStudent";
 // import { useStudentContext } from "../utils/StudentContext";
 
 const StudentDetails = () => {
-  // const { student } = useStudentContext();
-  // console.log("This is student", student);
-
   const { id } = useParams();
   console.log("this is the id from params", id);
 
@@ -22,6 +19,8 @@ const StudentDetails = () => {
   });
 
   const student = data?.student || [];
+
+  console.log(student);
   const practicePlans = data?.student.practicePlans;
 
   const [clicked, setClicked] = useState(false);

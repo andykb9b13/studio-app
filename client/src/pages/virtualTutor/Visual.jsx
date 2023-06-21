@@ -5,6 +5,7 @@ const Visual = () => {
   return (
     <div>
       <h1>Visual</h1>
+      <p>Trouble with note names, rhythms, slide positions/fingerings, etc.</p>
       <Link to="/tutor">
         <button>Back to Tutor</button>
       </Link>
