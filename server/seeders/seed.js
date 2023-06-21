@@ -39,8 +39,6 @@ db.once("open", async () => {
         { $addToSet: { assignments: assignment } },
         { new: true }
       );
-      console.log("asignment", assignment);
-      console.log("practicePlan", practicePlan);
     }
 
     for (const practicePlan of practicePlanArr) {
@@ -58,6 +56,8 @@ db.once("open", async () => {
         { $addToSet: { students: student } },
         { new: true }
       );
+      student.teacherId = newTeacher[0]._id;
+      console.log(student);
     }
 
     console.log("Seeding Completed");

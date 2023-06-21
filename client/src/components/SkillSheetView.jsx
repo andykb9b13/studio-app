@@ -7,9 +7,6 @@ const SkillSheetView = () => {
       <h1>Skill Sheet View</h1>
       {/* insert current sheet component here */}
       {/* insert completed sheets component here */}
-      <Link to="/student/:id/practiceHub">
-        <button>Back to Practice Hub</button>
-      </Link>
     </div>
   );
 };
