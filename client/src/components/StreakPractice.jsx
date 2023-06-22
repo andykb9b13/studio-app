@@ -1,27 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+function Counter({ title, count, setCount }) {
+  return (
+    <div>
+      <h2>{title}</h2>
+      <p>{count}</p>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Add
+      </button>
+      <button
+        onClick={() => {
+          setCount(count - 1);
+        }}
+      >
+        Delete
+      </button>
+    </div>
+  );
+}
+
 const StreakPractice = () => {
+  const [successCount, setSuccessCount] = useState(0);
+  const [blunderCount, setBlunderCount] = useState(0);
+
+  const percentage = Math.floor(
+    (successCount / (successCount + blunderCount)) * 100
+  );
+
   return (
     <div>
       <h1>Streak Practice</h1>
-      <label htmlFor="numTries"></label>
-      <input type="number" name="numTries" placeholder="number of tries" />
-      <label htmlFor="streakType">In-a-row or percentage?</label>
-      <select name="streakType">
-        <option value="in-a-row">In-a-row</option>
-        <option value="percentage">Percentage</option>
-      </select>
       <button>Start</button>
       <button>Cancel</button>
-      <div>
-        <h3>Blunders</h3>
-        {/* Insert blunders component here */}
-      </div>
-      <div>
-        <h3>Successes!</h3>
-        {/* Insert success component here */}
-      </div>
+
+      <Counter
+        title={"Blunders"}
+        count={blunderCount}
+        setCount={setBlunderCount}
+        key={1}
+      />
+      <Counter
+        title={"Successes"}
+        count={successCount}
+        setCount={setSuccessCount}
+        key={2}
+      />
+      <h2>Percentage</h2>
+      <p>{percentage} % success rate</p>
     </div>
   );
 };
