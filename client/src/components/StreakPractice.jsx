@@ -24,19 +24,61 @@ function Counter({ title, count, setCount }) {
   );
 }
 
+function SuccessRate({ percentage }) {
+  return (
+    <div>
+      <h2>Success Rate</h2>
+      <p>{percentage} % success rate</p>
+    </div>
+  );
+}
+
+function Tries({ numTries, setNumTries }) {
+  const [active, setActive] = useState(false);
+
+  return (
+    <div>
+      <h2>Number of Tries</h2>
+      {!active ? (
+        <div>
+          <label htmlFor="numInput">Set the number of tries</label>
+          <input
+            type="number"
+            name="numInput"
+            onChange={(e) => {
+              setNumTries(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              setActive(true);
+            }}
+          >
+            Save
+          </button>
+        </div>
+      ) : (
+        <div>
+          <button onClick={() => setActive(false)}>Set Tries</button>
+        </div>
+      )}
+      <p>{numTries}</p>
+    </div>
+  );
+}
+
 const StreakPractice = () => {
   const [successCount, setSuccessCount] = useState(0);
   const [blunderCount, setBlunderCount] = useState(0);
+  const [numTries, setNumTries] = useState(0);
 
-  const percentage = Math.floor(
-    (successCount / (successCount + blunderCount)) * 100
-  );
+  const percentage =
+    Math.floor((successCount / (successCount + blunderCount)) * 100) || 0;
 
   return (
     <div>
       <h1>Streak Practice</h1>
-      <button>Start</button>
-      <button>Cancel</button>
+      <button>Save Streak</button>
 
       <Counter
         title={"Blunders"}
@@ -50,8 +92,8 @@ const StreakPractice = () => {
         setCount={setSuccessCount}
         key={2}
       />
-      <h2>Percentage</h2>
-      <p>{percentage} % success rate</p>
+      <SuccessRate percentage={percentage} />
+      <Tries numTries={numTries} setNumTries={setNumTries} />
     </div>
   );
 };
