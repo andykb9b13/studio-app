@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Counter({ title, count, setCount }) {
+function Counter({ title, count, setCount, numTries }) {
   return (
     <div>
       <h2>{title}</h2>
@@ -10,6 +10,7 @@ function Counter({ title, count, setCount }) {
         onClick={() => {
           setCount(count + 1);
         }}
+        disabled={numTries === 0}
       >
         Add
       </button>
@@ -17,6 +18,7 @@ function Counter({ title, count, setCount }) {
         onClick={() => {
           setCount(count - 1);
         }}
+        disabled={numTries === 0}
       >
         Delete
       </button>
@@ -25,10 +27,30 @@ function Counter({ title, count, setCount }) {
 }
 
 function SuccessRate({ percentage }) {
+  console.log(percentage);
+  let message = "";
+  switch (percentage) {
+    case percentage <= 25:
+      message = "Keep trying! Don't give up!";
+      break;
+    case percentage <= 50:
+      message = "Not bad! Keep working on it.";
+      break;
+    case percentage <= 75:
+      message = "Pretty good!";
+      break;
+    case percentage === 100:
+      message = "You are crushing this!";
+      break;
+    default:
+      message = "Let's do this!";
+  }
+
   return (
     <div>
       <h2>Success Rate</h2>
       <p>{percentage} % success rate</p>
+      <p>{message}</p>
     </div>
   );
 }
@@ -59,10 +81,10 @@ function Tries({ numTries, setNumTries }) {
         </div>
       ) : (
         <div>
-          <button onClick={() => setActive(false)}>Set Tries</button>
+          <button onClick={() => setActive(false)}>Reset Tries</button>
+          <p>{numTries}</p>
         </div>
       )}
-      <p>{numTries}</p>
     </div>
   );
 }
@@ -72,28 +94,36 @@ const StreakPractice = () => {
   const [blunderCount, setBlunderCount] = useState(0);
   const [numTries, setNumTries] = useState(0);
 
-  const percentage =
-    Math.floor((successCount / (successCount + blunderCount)) * 100) || 0;
+  const totalTried = successCount + blunderCount;
+  const percentage = Math.floor((successCount / totalTried) * 100) || 0;
+
+  function resetStreak() {
+    setSuccessCount(0);
+    setBlunderCount(0);
+    setNumTries(0);
+  }
 
   return (
     <div>
       <h1>Streak Practice</h1>
       <button>Save Streak</button>
-
+      <button onClick={resetStreak}>Reset Streak</button>
+      <Tries numTries={numTries} setNumTries={setNumTries} />
       <Counter
         title={"Blunders"}
         count={blunderCount}
         setCount={setBlunderCount}
+        numTries={numTries}
         key={1}
       />
       <Counter
         title={"Successes"}
         count={successCount}
         setCount={setSuccessCount}
+        numTries={numTries}
         key={2}
       />
       <SuccessRate percentage={percentage} />
-      <Tries numTries={numTries} setNumTries={setNumTries} />
     </div>
   );
 };
