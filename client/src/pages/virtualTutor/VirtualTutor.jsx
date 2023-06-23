@@ -13,8 +13,6 @@ const VirtualTutor = () => {
   const physical = status === "physical";
   const conceptual = status === "conceptual";
 
-  console.log(home, visual, aural, physical, conceptual);
-
   const buttonInfo = [
     { buttonName: "Home" },
     { buttonName: "Visual" },
