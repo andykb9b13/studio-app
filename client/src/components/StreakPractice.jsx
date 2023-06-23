@@ -27,23 +27,15 @@ function Counter({ title, count, setCount, numTries }) {
 }
 
 function SuccessRate({ percentage }) {
-  console.log(percentage);
-  let message = "";
-  switch (percentage) {
-    case percentage <= 25:
-      message = "Keep trying! Don't give up!";
-      break;
-    case percentage <= 50:
-      message = "Not bad! Keep working on it.";
-      break;
-    case percentage <= 75:
-      message = "Pretty good!";
-      break;
-    case percentage === 100:
-      message = "You are crushing this!";
-      break;
-    default:
-      message = "Let's do this!";
+  let message = "Let's do this!";
+  if (percentage <= 25) {
+    message = "Don't give up!";
+  } else if (percentage <= 50) {
+    message = "Not bad! Keep working on it.";
+  } else if (percentage <= 75) {
+    message = "You're doing great. Go for 100%";
+  } else if (percentage === 100) {
+    message = "Awesome! You got it!";
   }
 
   return (
@@ -93,6 +85,7 @@ const StreakPractice = () => {
   const [successCount, setSuccessCount] = useState(0);
   const [blunderCount, setBlunderCount] = useState(0);
   const [numTries, setNumTries] = useState(0);
+  const [isActive, setIsActive] = useState(false);
 
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
@@ -108,22 +101,26 @@ const StreakPractice = () => {
       <h1>Streak Practice</h1>
       <button>Save Streak</button>
       <button onClick={resetStreak}>Reset Streak</button>
-      <Tries numTries={numTries} setNumTries={setNumTries} />
-      <Counter
-        title={"Blunders"}
-        count={blunderCount}
-        setCount={setBlunderCount}
-        numTries={numTries}
-        key={1}
-      />
-      <Counter
-        title={"Successes"}
-        count={successCount}
-        setCount={setSuccessCount}
-        numTries={numTries}
-        key={2}
-      />
-      <SuccessRate percentage={percentage} />
+      {numTries <= totalTried ? (
+        <div>
+          <Tries numTries={numTries} setNumTries={setNumTries} />
+          <Counter
+            title={"Blunders"}
+            count={blunderCount}
+            setCount={setBlunderCount}
+            numTries={numTries}
+          />
+          <Counter
+            title={"Successes"}
+            count={successCount}
+            setCount={setSuccessCount}
+            numTries={numTries}
+          />
+          <SuccessRate percentage={percentage} />
+        </div>
+      ) : (
+        <SuccessRate percentage={percentage} />
+      )}
     </div>
   );
 };
