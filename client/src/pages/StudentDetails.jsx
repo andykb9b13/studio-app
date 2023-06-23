@@ -9,9 +9,8 @@ import EditStudent from "../components/EditStudent";
 // import { useStudentContext } from "../utils/StudentContext";
 
 const StudentDetails = () => {
+  const [active, setActive] = useState(0);
   const { id } = useParams();
-  console.log("this is the id from params", id);
-
   const { data } = useQuery(QUERY_STUDENT, {
     variables: {
       studentId: id,
@@ -19,27 +18,10 @@ const StudentDetails = () => {
   });
 
   const student = data?.student || [];
-
-  console.log(student);
   const practicePlans = data?.student.practicePlans;
 
-  const [clicked, setClicked] = useState(false);
-  const [planClicked, setPlanClicked] = useState(false);
-  const [editClicked, setEditClicked] = useState(false);
-
-  const handleClick = (event) => {
-    event.preventDefault();
-    setClicked(!clicked);
-  };
-
-  const handlePlanClick = (event) => {
-    event.preventDefault();
-    setPlanClicked(!planClicked);
-  };
-
-  const handleEditClick = (event) => {
-    event.preventDefault();
-    setEditClicked(!editClicked);
+  const handleClick = (index) => {
+    setActive(index);
   };
 
   return (
@@ -62,24 +44,17 @@ const StudentDetails = () => {
         <p>Teacher ID: {student.teacherId}</p>
       </div>
       {/* Need to create Edit student page and add it to App.js */}
+      <button onClick={() => handleClick(0)}>Close</button>
+      <button onClick={() => handleClick(1)}>Edit Student</button>
+      <button onClick={() => handleClick(2)}>View Practice Plans</button>
+      <button onClick={() => handleClick(3)}>Create Practice Plan</button>
 
-      <button onClick={handleEditClick}>
-        {!editClicked ? "Edit Student" : "Close"}
-      </button>
-
-      <button onClick={handleClick}>
-        {!clicked ? "View Practice Plans" : "Close"}
-      </button>
-      <button onClick={handlePlanClick}>
-        {!planClicked ? "Create Practice Plan" : "Close"}
-      </button>
       <Link to={`/student/${id}/practiceHub`}>
         <button>To Practice Hub</button>
       </Link>
 
-      {editClicked ? <EditStudent studentId={id} /> : ""}
-
-      {clicked ? (
+      {active === 1 ? <EditStudent studentId={id} /> : ""}
+      {active === 2 ? (
         <div>
           {practicePlans &&
             practicePlans.map((practicePlan, i) => (
@@ -91,10 +66,9 @@ const StudentDetails = () => {
             ))}
         </div>
       ) : (
-        <h2>Practice Plans Here</h2>
+        ""
       )}
-
-      {planClicked ? <CreatePracticePlan studentId={id} /> : ""}
+      {active === 3 ? <CreatePracticePlan studentId={id} /> : ""}
     </div>
   );
 };
