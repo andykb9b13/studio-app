@@ -3,6 +3,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
+import {
+  Button,
+  Sheet,
+  Typography,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@mui/joy";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -71,20 +79,38 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
+    <Sheet
+      sx={{
+        width: 400,
+        mx: "auto",
+        p: 2,
+        mt: 4,
+        my: 4,
+        borderRadius: "sm",
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        boxShadow: "lg",
+        backgroundColor: "lightblue",
+      }}
+    >
+      <Typography level="h2" component="h1">
+        Login
+      </Typography>
+      <FormControl onSubmit={handleSubmit}>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input
           type="email"
           name="email"
           id="email"
           value={formData.email}
           onChange={handleChange}
         />
-        {formErrors.email && <span className="error">{formErrors.email}</span>}
-        <label htmlFor="password">Password</label>
-        <input
+        {formErrors.email && (
+          <Typography className="error">{formErrors.email}</Typography>
+        )}
+        <FormLabel htmlFor="password">Password</FormLabel>
+        <Input
           type="password"
           name="password"
           id="password"
@@ -92,14 +118,18 @@ const Login = () => {
           onChange={handleChange}
         />
         {formErrors.password && (
-          <span className="error">{formErrors.password}</span>
+          <Typography component="span" className="error">
+            {formErrors.password}
+          </Typography>
         )}
-        <button type="submit">Login</button>
-      </form>
-      <p>Not a User?</p>
-      <Link to="/signup">Sign Up</Link>
+        <Button type="submit">Login</Button>
+      </FormControl>
+      <Typography endDecorator={<Link to="/signup">Sign Up</Link>}>
+        Not a User?
+      </Typography>
+
       <Link to="/">Back to Homepage</Link>
-    </div>
+    </Sheet>
   );
 };
 
