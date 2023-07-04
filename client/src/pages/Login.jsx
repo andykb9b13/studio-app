@@ -109,6 +109,8 @@ const Login = () => {
         {formErrors.email && (
           <Typography className="error">{formErrors.email}</Typography>
         )}
+      </FormControl>
+      <FormControl>
         <FormLabel htmlFor="password">Password</FormLabel>
         <Input
           type="password"
@@ -122,8 +124,9 @@ const Login = () => {
             {formErrors.password}
           </Typography>
         )}
-        <Button type="submit">Login</Button>
       </FormControl>
+      <Button type="submit">Login</Button>
+
       <Typography endDecorator={<Link to="/signup">Sign Up</Link>}>
         Not a User?
       </Typography>
