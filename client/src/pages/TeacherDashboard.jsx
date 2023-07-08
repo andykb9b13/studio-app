@@ -4,6 +4,7 @@ import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
+import { Sheet, Box, Button, Typography } from "@mui/joy";
 // import { useStudentContext } from "../utils/StudentContext";
 
 const TeacherDashboard = () => {
@@ -35,37 +36,65 @@ const TeacherDashboard = () => {
   // updateStudents(teacher.students);
 
   return (
-    <div>
+    <Sheet>
       {Auth.loggedIn() ? (
-        <div>
-          <h1>
+        <Box
+          sx={{
+            width: "75%",
+            display: "flex",
+            flexDirection: "column",
+            mx: "auto",
+            my: 4,
+            backgroundColor: "lightblue",
+            borderRadius: "4px",
+            boxShadow: "md",
+            p: 4,
+          }}
+        >
+          <Typography level="h2" component="h2">
             {teacher.firstName} {teacher.lastName}'s Dashboard
-          </h1>
-          <h2>Date...insert day.js functionality here</h2>
-          <div>
-            <h2>Actions</h2>
-            <button>Bookkeeping/Invoices</button>
+          </Typography>
+          <Typography level="h3" component="h3">
+            Today's Date:
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              height: "400px",
+            }}
+          >
+            <Link>
+              <Button>Bookkeeping/Invoices</Button>
+            </Link>
             <Link to={`/teacher/studentDatabase/${id}`}>
-              <button>View Student Database</button>
+              <Button>View Student Database </Button>
             </Link>
-            <button>View Calendar</button>
+            <Link>
+              <Button>View Calendar</Button>
+            </Link>
             <Link to={`/teacher/createSkillSheet/${id}`}>
-              <button>Create Skill Sheet</button>
+              <Button>Create Skill Sheet</Button>
             </Link>
-            <button onClick={logout}>Logout</button>
-          </div>
-          <div>
-            <h2>Today's Schedule</h2>
+            <Button onClick={logout}>Logout</Button>
+          </Box>
+          <Box>
+            <Typography level="h3" component="h3">
+              Today's Schedule
+            </Typography>
             {/* Insert today's schedule component here */}
-          </div>
-        </div>
+          </Box>
+        </Box>
       ) : (
-        <div>
-          <h2>Please Log In</h2>
+        <Box>
+          <Typography level="h3" component="h3">
+            Please Log In
+          </Typography>
           <Link to="/login">Login</Link>
-        </div>
+        </Box>
       )}
-    </div>
+    </Sheet>
   );
 };
 
