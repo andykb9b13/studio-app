@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import CreateStudent from "../components/CreateStudent";
+import { Sheet, Box, Button, Typography, Input } from "@mui/joy";
 
 const StudentDatabase = () => {
   // getting the students using StudentContext.jsx
@@ -23,26 +24,30 @@ const StudentDatabase = () => {
   const students = data?.teacher.students || [];
 
   return (
-    <div>
-      <h1>Student Database</h1>
-      <div>
-        <h2>Studio Info</h2>
-        <button onClick={handleClick}>Add Student</button>
+    <Sheet>
+      <Typography level="h2" component="h2">
+        Student Database
+      </Typography>
+      <Box>
+        <Typography level="h3" component="h3">
+          Studio Info
+        </Typography>
+        <Button onClick={handleClick}>Add Student</Button>
         {clicked ? <CreateStudent teacherId={id} /> : ""}
 
         {students &&
           students.map((student, i) => (
-            <div key={i}>
-              <h2>
+            <Box key={i}>
+              <Typography level="h4" component="h4">
                 {student.firstName} {student.lastName}
-              </h2>
+              </Typography>
               <Link to={`/teacher/studentDetails/${student._id}`}>
-                <button>View Student Info</button>
+                <Button>View Student Info</Button>
               </Link>
-            </div>
+            </Box>
           ))}
-      </div>
-    </div>
+      </Box>
+    </Sheet>
   );
 };
 
