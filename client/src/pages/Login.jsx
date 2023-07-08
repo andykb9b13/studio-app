@@ -47,6 +47,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (event) => {
+    console.log("in handlesubmit");
     event.preventDefault();
     if (validateForm()) {
       try {
@@ -125,7 +126,9 @@ const Login = () => {
           </Typography>
         )}
       </FormControl>
-      <Button type="submit">Login</Button>
+      <Button type="submit" onClick={handleSubmit}>
+        Login
+      </Button>
 
       <Typography endDecorator={<Link to="/signup">Sign Up</Link>}>
         Not a User?
