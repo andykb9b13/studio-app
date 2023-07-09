@@ -96,7 +96,9 @@ const StudentDetails = () => {
           width: "75%",
           mx: "auto",
           display: "flex",
+          flexWrap: "wrap",
           justifyContent: "space-evenly",
+          flexDirection: "inline-block",
         }}
       >
         <Link to={`/teacher/studentDatabase/${student.teacherId}`}>
@@ -116,6 +118,7 @@ const StudentDetails = () => {
         <Sheet
           sx={{ mx: "auto", mt: 3, p: 2, borderRadius: "4px", boxShadow: "md" }}
         >
+          <Typography level="h2">Practice Plans</Typography>
           {practicePlans &&
             practicePlans.map((practicePlan, i) => (
               <PracticePlan
