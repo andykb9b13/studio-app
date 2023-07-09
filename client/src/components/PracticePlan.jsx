@@ -22,7 +22,9 @@ const PracticePlan = ({ practicePlan, studentId }) => {
       }}
     >
       <Typography level="h3">{practicePlan.name}</Typography>
-      <Button onClick={handleClick}>Create An Assignment for This Plan</Button>
+      <Button onClick={handleClick}>
+        {!clicked ? "Create An Assignment for This Plan" : "Cancel"}
+      </Button>
       {clicked ? (
         <CreateAssignment studentId={studentId} planId={practicePlan._id} />
       ) : (
