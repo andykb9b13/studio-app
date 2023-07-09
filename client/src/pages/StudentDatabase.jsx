@@ -4,18 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import CreateStudent from "../components/CreateStudent";
-import {
-  Sheet,
-  Box,
-  Button,
-  Typography,
-  Input,
-  Modal,
-  ModalDialog,
-  ModalClose,
-  Stack,
-  Grid,
-} from "@mui/joy";
+import { Sheet, Box, Button, Typography, Grid } from "@mui/joy";
 
 const StudentDatabase = () => {
   // getting the students using StudentContext.jsx
@@ -26,7 +15,6 @@ const StudentDatabase = () => {
       teacherId: id,
     },
   });
-  const [open, setOpen] = React.useState(false);
   const [clicked, setClicked] = useState(false);
   const handleClick = (event) => {
     setClicked(!clicked);
@@ -91,17 +79,21 @@ const StudentDatabase = () => {
                   backgroundColor: "white",
                   borderRadius: "4px",
                   boxShadow: "md",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <Typography level="h4" component="h4">
-                  {student.firstName} {student.lastName}
-                </Typography>
-                <Link to={`/teacher/studentDetails/${student._id}`}>
-                  <Button>View Student Info</Button>
-                </Link>
-                <Typography level="body1" component="p">
-                  <b>Instrument:</b> {student.instrument}
-                </Typography>
+                <Box>
+                  <Typography level="h4" component="h4">
+                    {student.firstName} {student.lastName}
+                  </Typography>
+                  <Link to={`/teacher/studentDetails/${student._id}`}>
+                    <Button>View Student Info</Button>
+                  </Link>
+                  <Typography level="body1" component="p">
+                    <b>Instrument:</b> {student.instrument}
+                  </Typography>
+                </Box>
               </Grid>
             ))}
         </Grid>
