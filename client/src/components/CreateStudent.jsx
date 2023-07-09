@@ -9,6 +9,8 @@ import {
   FormLabel,
   Input,
   FormHelperText,
+  Select,
+  Option,
 } from "@mui/joy";
 
 const CreateStudent = ({ teacherId }) => {
@@ -190,12 +192,12 @@ const CreateStudent = ({ teacherId }) => {
         </FormControl>
         <FormControl>
           <FormLabel>Instrument</FormLabel>
-          <Input
-            type="text"
-            name="instrument"
-            id="instrument"
-            onChange={handleChange}
-          />
+          <Select defaultValue="trombone" name="instrument" id="instrument">
+            <Option value="trombone">Trombone</Option>
+            <Option value="bass-guitar">Bass Guitar</Option>
+            <Option value="euphonium">Euphonium</Option>
+            <Option value="trumpet">Trumpet</Option>
+          </Select>
         </FormControl>
         <FormControl>
           <FormLabel>Primary Contact</FormLabel>
@@ -217,30 +219,40 @@ const CreateStudent = ({ teacherId }) => {
         </FormControl>
         <FormControl>
           <FormLabel>Lesson Day</FormLabel>
-          <Input
-            type="text"
-            name="lessonDay"
-            id="lessonDay"
-            onChange={handleChange}
-          />
+          <Select defaultValue="monday">
+            <Option value="monday">Monday</Option>
+            <Option value="tuesday">Tuesday</Option>
+            <Option value="wednesday">Wednesday</Option>
+            <Option value="thursday">Thursday</Option>
+            <Option value="friday">Friday</Option>
+            <Option value="saturday">Saturday</Option>
+            <Option value="sunday">Sunday</Option>
+          </Select>
         </FormControl>
         <FormControl>
           <FormLabel>Lesson Time</FormLabel>
-          <Input
-            type="text"
-            name="lessonTime"
-            id="lessonTime"
-            onChange={handleChange}
-          />
+          <Select defaultValue="3:00pm">
+            <Option value="3:00pm">3:00pm</Option>
+            <Option value="3:15pm">3:15pm</Option>
+            <Option value="3:30pm">3:30pm</Option>
+            <Option value="3:45pm">3:45pm</Option>
+            <Option value="4:00pm">4:00pm</Option>
+            <Option value="4:15pm">4:15pm</Option>
+            <Option value="4:30pm">4:30pm</Option>
+            <Option value="4:45pm">4:45pm</Option>
+            <Option value="5:00pm">5:00pm</Option>
+            <Option value="5:15pm">5:15pm</Option>
+            <Option value="5:30pm">5:30pm</Option>
+            <Option value="5:45pm">5:45pm</Option>
+            <Option value="6:00pm">6:00pm</Option>
+          </Select>
         </FormControl>
         <FormControl>
           <FormLabel>Lesson Location</FormLabel>
-          <Input
-            type="text"
-            name="lessonLocation"
-            id="lessonLocation"
-            onChange={handleChange}
-          />
+          <Select defaultValue="in-person">
+            <Option value="in-person">In Person</Option>
+            <Option value="zoom">Zoom</Option>
+          </Select>
         </FormControl>
         <Button>Add Student</Button>
       </form>
