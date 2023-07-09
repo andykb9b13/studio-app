@@ -13,6 +13,8 @@ import {
   Modal,
   ModalDialog,
   ModalClose,
+  Stack,
+  Grid,
 } from "@mui/joy";
 
 const StudentDatabase = () => {
@@ -34,7 +36,11 @@ const StudentDatabase = () => {
 
   return (
     <Sheet>
-      <Typography level="h2" component="h2">
+      <Typography
+        level="h1"
+        component="h1"
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
         Student Database
       </Typography>
       <Box
@@ -54,44 +60,51 @@ const StudentDatabase = () => {
             flexDirection: "column",
           }}
         >
-          <Typography level="h3" component="h3">
+          <Typography
+            level="h2"
+            component="h2"
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
             Studio Info
           </Typography>
           <Button
             onClick={() => {
               handleClick();
-              setOpen(true);
             }}
           >
-            Add Student
+            {clicked ? "Cancel" : "Add Student"}
           </Button>
         </Box>
 
         {clicked ? <CreateStudent teacherId={id} /> : ""}
-
-        {students &&
-          students.map((student, i) => (
-            <Box
-              key={i}
-              sx={{
-                m: "10px",
-                p: 2,
-                backgroundColor: "white",
-                borderRadius: "4px",
-                boxShadow: "md",
-              }}
-            >
-              <Typography level="h4" component="h4">
-                {student.firstName} {student.lastName}
-              </Typography>
-              <Link to={`/teacher/studentDetails/${student._id}`}>
-                <Button>View Student Info</Button>
-              </Link>
-              <Typography level="body1" component="p">
-                <b>Instrument:</b> {student.instrument}
-              </Typography>
-            </Box>
-          ))}
+        <Grid container spacing={1} sx={{ flexGrow: 1 }}>
+          {students &&
+            students.map((student, i) => (
+              <Grid
+                key={i}
+                xs={12}
+                md={4}
+                lg={3}
+                sx={{
+                  m: "10px",
+                  p: 2,
+                  backgroundColor: "white",
+                  borderRadius: "4px",
+                  boxShadow: "md",
+                }}
+              >
+                <Typography level="h4" component="h4">
+                  {student.firstName} {student.lastName}
+                </Typography>
+                <Link to={`/teacher/studentDetails/${student._id}`}>
+                  <Button>View Student Info</Button>
+                </Link>
+                <Typography level="body1" component="p">
+                  <b>Instrument:</b> {student.instrument}
+                </Typography>
+              </Grid>
+            ))}
+        </Grid>
       </Box>
     </Sheet>
   );

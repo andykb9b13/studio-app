@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Form, Link } from "react-router-dom";
 import { ADD_STUDENT } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import {
@@ -105,7 +104,7 @@ const CreateStudent = ({ teacherId }) => {
   };
 
   return (
-    <Sheet sx={{ overflow: "auto" }}>
+    <Sheet sx={{ p: 1, mt: 1, borderRadius: "4px", boxShadow: "lg" }}>
       <Typography level="h2" component="h2">
         Add Student
       </Typography>
@@ -245,7 +244,6 @@ const CreateStudent = ({ teacherId }) => {
         </FormControl>
         <Button>Add Student</Button>
       </form>
-      <Button>Cancel</Button>
     </Sheet>
   );
 };
