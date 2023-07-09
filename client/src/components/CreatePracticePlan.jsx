@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../utils/mutations";
+import {
+  Button,
+  Typography,
+  Input,
+  Sheet,
+  Box,
+  FormControl,
+  FormLabel,
+} from "@mui/joy";
 
 const CreatePracticePlan = ({ studentId }) => {
   const [formData, setFormData] = useState({
@@ -83,14 +92,18 @@ const CreatePracticePlan = ({ studentId }) => {
   };
 
   return (
-    <div>
-      <h1>Create a Practice Plan</h1>
+    <Sheet
+      sx={{ mx: "auto", mt: 3, p: 2, borderRadius: "4px", boxShadow: "md" }}
+    >
+      <Typography level="h2">Create a Practice Plan</Typography>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" onChange={handleChange} id="name" />
-        <button>Create Practice Plan</button>
+        <FormControl>
+          <FormLabel htmlFor="name">Name</FormLabel>
+          <Input type="text" name="name" onChange={handleChange} id="name" />
+        </FormControl>
+        <Button sx={{ mt: 2 }}>Create Practice Plan</Button>
       </form>
-    </div>
+    </Sheet>
   );
 };
 

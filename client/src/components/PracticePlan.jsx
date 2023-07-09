@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CreateAssignment from "./CreateAssignment";
+import { Sheet, Box, Button, Typography } from "@mui/joy";
 
 const PracticePlan = ({ practicePlan, studentId }) => {
   console.log("practicePlan", practicePlan);
@@ -11,9 +12,19 @@ const PracticePlan = ({ practicePlan, studentId }) => {
   };
 
   return (
-    <div>
-      <h2>{practicePlan.name}</h2>
-      <button onClick={handleClick}>Create An Assignment for This Plan</button>
+    <Sheet
+      sx={{
+        mt: 3,
+        p: 2,
+        backgroundColor: "lavender",
+        borderRadius: "4px",
+        boxShadow: "md",
+      }}
+    >
+      <Typography level="h3">{practicePlan.name}</Typography>
+      <Button onClick={handleClick}>
+        {!clicked ? "Create An Assignment for This Plan" : "Cancel"}
+      </Button>
       {clicked ? (
         <CreateAssignment studentId={studentId} planId={practicePlan._id} />
       ) : (
@@ -22,17 +33,31 @@ const PracticePlan = ({ practicePlan, studentId }) => {
 
       {practicePlan.assignments &&
         practicePlan.assignments.map((assignment, i) => (
-          <div key={i}>
-            <h3>Exercise Name: {assignment.exerciseName}</h3>
-            <p>Date: {assignment.date}</p>
-            <p>Assignment Type: {assignment.assignmentType}</p>
-            <p>Source: {assignment.source}</p>
-            <p>Pages: {assignment.pages}</p>
-            <p>Metronome: {assignment.metronome}</p>
-            <p>Special Notes: {assignment.specialNotes}</p>
-          </div>
+          <Box key={i}>
+            <Typography level="h4">
+              <b>Exercise Name:</b> {assignment.exerciseName}
+            </Typography>
+            <Typography>
+              <b>Date:</b> {assignment.date}
+            </Typography>
+            <Typography>
+              <b>Assignment Type:</b> {assignment.assignmentType}
+            </Typography>
+            <Typography>
+              <b>Source:</b> {assignment.source}
+            </Typography>
+            <Typography>
+              <b>Pages:</b> {assignment.pages}
+            </Typography>
+            <Typography>
+              <b>Metronome:</b> {assignment.metronome}
+            </Typography>
+            <Typography>
+              <b>Special Notes:</b> {assignment.specialNotes}
+            </Typography>
+          </Box>
         ))}
-    </div>
+    </Sheet>
   );
 };
 

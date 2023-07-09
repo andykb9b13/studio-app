@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { ADD_STUDENT } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import {
+  Sheet,
+  Typography,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  FormHelperText,
+} from "@mui/joy";
 
 const CreateStudent = ({ teacherId }) => {
   const [createStudent, { errors }] = useMutation(ADD_STUDENT);
@@ -96,107 +104,147 @@ const CreateStudent = ({ teacherId }) => {
   };
 
   return (
-    <div>
-      <h1>Add Student</h1>
+    <Sheet sx={{ p: 1, mt: 1, borderRadius: "4px", boxShadow: "lg" }}>
+      <Typography level="h2" component="h2">
+        Add Student
+      </Typography>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          onChange={handleChange}
-        />
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          id="lastName"
-          onChange={handleChange}
-        />
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" onChange={handleChange} />
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          onChange={handleChange}
-        />
-        {formErrors.username ? (
-          <span className="error">{formErrors.username}</span>
-        ) : (
-          ""
-        )}
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={handleChange}
-        />
-
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          onChange={handleChange}
-        />
-        {formErrors.confirmPassword && (
-          <span className="error">{formErrors.confirmPassword}</span>
-        )}
-        <label htmlFor="school">School</label>
-        <input type="text" name="school" id="school" onChange={handleChange} />
-        <label htmlFor="grade">Grade</label>
-        <input type="number" name="grade" id="grade" onChange={handleChange} />
-        <label htmlFor="instrument">Instrument</label>
-        <input
-          type="text"
-          name="instrument"
-          id="instrument"
-          onChange={handleChange}
-        />
-        <label htmlFor="primaryContact">Primary Contact</label>
-        <input
-          type="text"
-          name="primaryContact"
-          id="primaryContact"
-          onChange={handleChange}
-        />
-        <label htmlFor="primaryContactEmail">Primary Contact Email</label>
-        <input
-          type="text"
-          name="primaryContactEmail"
-          id="primaryContactEmail"
-          onChange={handleChange}
-        />
-        <label htmlFor="lessonDay">Lesson Day</label>
-        <input
-          type="text"
-          name="lessonDay"
-          id="lessonDay"
-          onChange={handleChange}
-        />
-        <label htmlFor="lessonTime">Lesson Time</label>
-        <input
-          type="text"
-          name="lessonTime"
-          id="lessonTime"
-          onChange={handleChange}
-        />
-        <label htmlFor="lessonLocation">Lesson Location</label>
-        <input
-          type="text"
-          name="lessonLocation"
-          id="lessonLocation"
-          onChange={handleChange}
-        />
-        <button>Add Student</button>
+        <FormControl>
+          <FormLabel>First Name</FormLabel>
+          <Input
+            type="text"
+            name="firstName"
+            id="firstName"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Last Name</FormLabel>
+          <Input
+            type="text"
+            name="lastName"
+            id="lastName"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Email</FormLabel>
+          <Input type="email" name="email" id="email" onChange={handleChange} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input
+            type="text"
+            name="username"
+            id="username"
+            onChange={handleChange}
+          />
+          {formErrors.username ? (
+            <FormHelperText className="error">
+              {formErrors.username}
+            </FormHelperText>
+          ) : (
+            ""
+          )}
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Confirm Password</FormLabel>
+          <Input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            onChange={handleChange}
+          />
+          {formErrors.confirmPassword && (
+            <FormHelperText className="error">
+              {formErrors.confirmPassword}
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl>
+          <FormLabel>School</FormLabel>
+          <Input
+            type="text"
+            name="school"
+            id="school"
+            onChange={handleChange}
+          />
+        </FormControl>{" "}
+        <FormControl>
+          <FormLabel>Grade</FormLabel>
+          <Input
+            type="number"
+            name="grade"
+            id="grade"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Instrument</FormLabel>
+          <Input
+            type="text"
+            name="instrument"
+            id="instrument"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Primary Contact</FormLabel>
+          <Input
+            type="text"
+            name="primaryContact"
+            id="primaryContact"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Primary Contact Email</FormLabel>
+          <Input
+            type="text"
+            name="primaryContactEmail"
+            id="primaryContactEmail"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Lesson Day</FormLabel>
+          <Input
+            type="text"
+            name="lessonDay"
+            id="lessonDay"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Lesson Time</FormLabel>
+          <Input
+            type="text"
+            name="lessonTime"
+            id="lessonTime"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Lesson Location</FormLabel>
+          <Input
+            type="text"
+            name="lessonLocation"
+            id="lessonLocation"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <Button>Add Student</Button>
       </form>
-      <Link to="/teacher/:id">
-        <button>Cancel</button>
-      </Link>
-    </div>
+    </Sheet>
   );
 };
 

@@ -2,6 +2,15 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ADD_ASSIGNMENT } from "../utils/mutations";
+import {
+  Sheet,
+  Box,
+  Button,
+  Input,
+  Typography,
+  FormControl,
+  FormLabel,
+} from "@mui/joy";
 
 const CreateAssignment = ({ studentId, planId }) => {
   console.log("studentId", studentId);
@@ -79,49 +88,65 @@ const CreateAssignment = ({ studentId, planId }) => {
   };
 
   return (
-    <div>
-      <h1>Create Assignment</h1>
+    <Sheet sx={{ p: 1, borderRadius: "4px", mt: 1, boxShadow: "md" }}>
+      <Typography level="h2">Create Assignment</Typography>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="date">Date</label>
-        <input type="text" name="date" id="date" onChange={handleChange} />
-        <label htmlFor="exerciseName">Exercise Name</label>
-        <input
-          type="text"
-          name="exerciseName"
-          id="exerciseName"
-          onChange={handleChange}
-        />
-        <label htmlFor="source">Source</label>
-        <input type="text" name="source" id="source" onChange={handleChange} />
-        <label htmlFor="assignmentType">Assignment Type</label>
-        <input
-          type="text"
-          name="assignmentType"
-          id="assignmentType"
-          onChange={handleChange}
-        />
-        <label htmlFor="specialNotes">Special Notes</label>
-        <input
-          type="textarea"
-          name="specialNotes"
-          id="specialNotes"
-          onChange={handleChange}
-        />
-        <label htmlFor="metronome">Metronome</label>
-        <input
-          type="text"
-          name="metronome"
-          id="metronome"
-          onChange={handleChange}
-        />
-        <label htmlFor="pages">Pages</label>
-        <input type="text" name="pages" id="pages" onChange={handleChange} />
-        <button>Create Assignment</button>
+        <FormControl>
+          <FormLabel>Date</FormLabel>
+          <Input type="text" name="date" id="date" onChange={handleChange} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Exercise Name</FormLabel>
+          <Input
+            type="text"
+            name="exerciseName"
+            id="exerciseName"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Source</FormLabel>
+          <Input
+            type="text"
+            name="source"
+            id="source"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Assignment Type</FormLabel>
+          <Input
+            type="text"
+            name="assignmentType"
+            id="assignmentType"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Special Notes</FormLabel>
+          <Input
+            type="textarea"
+            name="specialNotes"
+            id="specialNotes"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Metronome</FormLabel>
+          <Input
+            type="text"
+            name="metronome"
+            id="metronome"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="pages">Pages</FormLabel>
+          <Input type="text" name="pages" id="pages" onChange={handleChange} />
+        </FormControl>
+        <Button>Create Assignment</Button>
       </form>
-      <Link to="/teacher/:id">
-        <button>Cancel</button>
-      </Link>
-    </div>
+    </Sheet>
   );
 };
 
