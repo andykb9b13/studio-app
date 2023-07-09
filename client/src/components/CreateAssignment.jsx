@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { ADD_ASSIGNMENT } from "../utils/mutations";
 import {
   Sheet,
-  Box,
+  Select,
+  Option,
   Button,
   Input,
   Typography,
@@ -115,12 +116,16 @@ const CreateAssignment = ({ studentId, planId }) => {
         </FormControl>
         <FormControl>
           <FormLabel>Assignment Type</FormLabel>
-          <Input
-            type="text"
+          <Select
+            defaultValue="etude"
             name="assignmentType"
             id="assignmentType"
-            onChange={handleChange}
-          />
+          >
+            <Option value="technical-exercise">Technical Exercise</Option>
+            <Option value="warm-up">Warm Up</Option>
+            <Option value="scales">Scales</Option>
+            <Option value="piece">Piece</Option>
+          </Select>
         </FormControl>
         <FormControl>
           <FormLabel>Special Notes</FormLabel>
