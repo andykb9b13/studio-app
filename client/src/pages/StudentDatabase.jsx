@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import CreateStudent from "../components/CreateStudent";
-import { Sheet, Box, Button, Typography, Grid } from "@mui/joy";
+import { Sheet, Box, Button, Typography, Grid, Input, Table } from "@mui/joy";
 
 const StudentDatabase = () => {
   // getting the students using StudentContext.jsx
@@ -55,17 +55,58 @@ const StudentDatabase = () => {
           >
             Studio Info
           </Typography>
+          <Input
+            type="text"
+            name="studentSearch"
+            id="studentSearch"
+            placeholder="Search for a student"
+            sx={{ my: 2 }}
+          />
           <Button
             onClick={() => {
               handleClick();
             }}
+            sx={{ my: 2 }}
           >
             {clicked ? "Cancel" : "Add Student"}
           </Button>
         </Box>
 
         {clicked ? <CreateStudent teacherId={id} /> : ""}
-        <Grid container spacing={1} sx={{ flexGrow: 1 }}>
+
+        <Sheet>
+          <Table aria-label="basic table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Instrument</th>
+                <th>Primary Contact</th>
+                <th>Grade</th>
+                <th>Info</th>
+              </tr>
+            </thead>
+            <tbody>
+              {students &&
+                students.map((student, i) => (
+                  <tr key={i}>
+                    <td>
+                      {student.firstName} {student.lastName}
+                    </td>
+                    <td>{student.instrument}</td>
+                    <td>{student.primaryContact}</td>
+                    <td>{student.grade}</td>
+                    <td>
+                      <Link to={`/teacher/studentDetails/${student._id}`}>
+                        <Button>View Student Info</Button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        </Sheet>
+        {/* Boxes containing individual student info */}
+        {/* <Grid container spacing={1} sx={{ flexGrow: 1 }}>
           {students &&
             students.map((student, i) => (
               <Grid
@@ -96,7 +137,7 @@ const StudentDatabase = () => {
                 </Box>
               </Grid>
             ))}
-        </Grid>
+        </Grid> */}
       </Box>
     </Sheet>
   );

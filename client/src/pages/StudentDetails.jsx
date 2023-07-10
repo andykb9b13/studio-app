@@ -111,6 +111,7 @@ const StudentDetails = () => {
         <Link to={`/student/${id}/practiceHub`}>
           <Button>To Practice Hub</Button>
         </Link>
+        <Button>Delete Student</Button>
       </Box>
 
       {active === 1 ? <EditStudent studentId={id} /> : ""}
