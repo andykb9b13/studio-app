@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { EDIT_STUDENT } from "../utils/mutations";
+import {
+  Sheet,
+  Box,
+  Input,
+  Button,
+  Typography,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+} from "@mui/joy";
 
 const EditStudent = ({ studentId }) => {
   const [editStudent] = useMutation(EDIT_STUDENT);
@@ -93,104 +103,144 @@ const EditStudent = ({ studentId }) => {
     }
   };
   return (
-    <div>
-      <h1>Edit Student</h1>
+    <Sheet>
+      <Typography level="h2">Edit Student</Typography>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          onChange={handleChange}
-        />
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          id="lastName"
-          onChange={handleChange}
-        />
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" onChange={handleChange} />
-        <label htmlFor="username">Username</label>
-        <input
+        <FormControl>
+          <FormLabel htmlFor="firstName">First Name</FormLabel>
+          <Input
+            type="text"
+            name="firstName"
+            id="firstName"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="lastName">Last Name</FormLabel>
+          <Input
+            type="text"
+            name="lastName"
+            id="lastName"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input type="email" name="email" id="email" onChange={handleChange} />
+        </FormControl>
+        <FormLabel htmlFor="username">Username</FormLabel>
+        <Input
           type="text"
           name="username"
           id="username"
           onChange={handleChange}
         />
         {formErrors.username ? (
-          <span className="error">{formErrors.username}</span>
+          <FormHelperText className="error">
+            {formErrors.username}
+          </FormHelperText>
         ) : (
           ""
         )}
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={handleChange}
-        />
-
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          onChange={handleChange}
-        />
-        {formErrors.confirmPassword && (
-          <span className="error">{formErrors.confirmPassword}</span>
-        )}
-        <label htmlFor="school">School</label>
-        <input type="text" name="school" id="school" onChange={handleChange} />
-        <label htmlFor="grade">Grade</label>
-        <input type="number" name="grade" id="grade" onChange={handleChange} />
-        <label htmlFor="instrument">Instrument</label>
-        <input
-          type="text"
-          name="instrument"
-          id="instrument"
-          onChange={handleChange}
-        />
-        <label htmlFor="primaryContact">Primary Contact</label>
-        <input
+        <FormControl>
+          <FormLabel htmlFor="password">Password</FormLabel>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+          <Input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            onChange={handleChange}
+          />
+          {formErrors.confirmPassword && (
+            <FormHelperText className="error">
+              {formErrors.confirmPassword}
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="school">School</FormLabel>
+          <Input
+            type="text"
+            name="school"
+            id="school"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="grade">Grade</FormLabel>
+          <Input
+            type="number"
+            name="grade"
+            id="grade"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="instrument">Instrument</FormLabel>
+          <Input
+            type="text"
+            name="instrument"
+            id="instrument"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl></FormControl>
+        <FormLabel htmlFor="primaryContact">Primary Contact</FormLabel>
+        <Input
           type="text"
           name="primaryContact"
           id="primaryContact"
           onChange={handleChange}
         />
-        <label htmlFor="primaryContactEmail">Primary Contact Email</label>
-        <input
-          type="text"
-          name="primaryContactEmail"
-          id="primaryContactEmail"
-          onChange={handleChange}
-        />
-        <label htmlFor="lessonDay">Lesson Day</label>
-        <input
-          type="text"
-          name="lessonDay"
-          id="lessonDay"
-          onChange={handleChange}
-        />
-        <label htmlFor="lessonTime">Lesson Time</label>
-        <input
-          type="text"
-          name="lessonTime"
-          id="lessonTime"
-          onChange={handleChange}
-        />
-        <label htmlFor="lessonLocation">Lesson Location</label>
-        <input
-          type="text"
-          name="lessonLocation"
-          id="lessonLocation"
-          onChange={handleChange}
-        />
-        <button>Edit Student</button>
+        <FormControl>
+          <FormLabel htmlFor="primaryContactEmail">
+            Primary Contact Email
+          </FormLabel>
+          <Input
+            type="text"
+            name="primaryContactEmail"
+            id="primaryContactEmail"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="lessonDay">Lesson Day</FormLabel>
+          <Input
+            type="text"
+            name="lessonDay"
+            id="lessonDay"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="lessonTime">Lesson Time</FormLabel>
+          <Input
+            type="text"
+            name="lessonTime"
+            id="lessonTime"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="lessonLocation">Lesson Location</FormLabel>
+          <Input
+            type="text"
+            name="lessonLocation"
+            id="lessonLocation"
+            onChange={handleChange}
+          />
+        </FormControl>
+        <Button>Edit Student</Button>
       </form>
-    </div>
+    </Sheet>
   );
 };
 

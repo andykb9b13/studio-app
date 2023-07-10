@@ -230,3 +230,13 @@ export const EDIT_STUDENT = gql`
     }
   }
 `;
+
+export const DELETE_STUDENT = gql`
+  mutation deleteStudent($studentId: ID!) {
+    deleteStudent(studentId: $studentId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;

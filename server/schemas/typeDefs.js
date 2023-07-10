@@ -172,19 +172,19 @@ const typeDefs = gql`
 
     addPracticePlan(name: String!, studentId: String): PracticePlan
 
-    removeAssignment(assignmentId: ID!): Assignment!
+    deleteAssignment(assignmentId: ID!): Assignment!
 
-    removeGoal(goalId: ID!): Goal!
+    deleteGoal(goalId: ID!): Goal!
 
-    removeStreak(streakId: ID!): Streak!
+    deleteStreak(streakId: ID!): Streak!
 
-    removeStudent(studentId: ID!): Student!
+    deleteStudent(studentId: ID!): Student!
 
-    removeTeacher(teacherId: ID!): Teacher!
+    deleteTeacher(teacherId: ID!): Teacher!
 
-    removeSkillSheet(skillSheetId: ID!): SkillSheet!
+    deleteSkillSheet(skillSheetId: ID!): SkillSheet!
 
-    removePracticePlan(planId: ID!): PracticePlan!
+    deletePracticePlan(planId: ID!): PracticePlan!
 
     editStudent(
       studentId: ID!
