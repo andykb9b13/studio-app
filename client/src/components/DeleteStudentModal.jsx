@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Modal, ModalDialog, Typography } from "@mui/joy";
+import { Sheet, Button, Modal, ModalDialog, Typography } from "@mui/joy";
 import { useMutation } from "@apollo/client";
 import { DELETE_STUDENT } from "../utils/mutations";
 
@@ -9,9 +9,7 @@ export default function DeleteStudentModal({ studentId }) {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
-        Delete Student
-      </Button>
+      <Button onClick={() => setOpen(true)}>Delete Student</Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog
           aria-labelledby="nested-modal-title"
@@ -35,7 +33,7 @@ export default function DeleteStudentModal({ studentId }) {
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
           </Typography>
-          <Box
+          <Sheet
             sx={{
               mt: 1,
               display: "flex",
@@ -60,7 +58,7 @@ export default function DeleteStudentModal({ studentId }) {
             >
               Cancel
             </Button>
-          </Box>
+          </Sheet>
         </ModalDialog>
       </Modal>
     </React.Fragment>

@@ -4,7 +4,16 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import CreateStudent from "../components/CreateStudent";
-import { Sheet, Box, Button, Typography, Grid, Input, Table } from "@mui/joy";
+import {
+  Sheet,
+  Card,
+  Button,
+  Typography,
+  Input,
+  Table,
+  Select,
+  Option,
+} from "@mui/joy";
 
 const StudentDatabase = () => {
   // getting the students using StudentContext.jsx
@@ -31,7 +40,7 @@ const StudentDatabase = () => {
       >
         Student Database
       </Typography>
-      <Box
+      <Card
         sx={{
           width: "75%",
           mx: "auto",
@@ -41,11 +50,14 @@ const StudentDatabase = () => {
           p: 4,
         }}
       >
-        <Box
+        <Sheet
+          color="neutral"
           sx={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
+            px: 20,
+            backgroundColor: "transparent",
           }}
         >
           <Typography
@@ -55,22 +67,26 @@ const StudentDatabase = () => {
           >
             Studio Info
           </Typography>
-          <Input
-            type="text"
-            name="studentSearch"
-            id="studentSearch"
-            placeholder="Search for a student"
-            sx={{ my: 2 }}
-          />
-          <Button
-            onClick={() => {
-              handleClick();
-            }}
-            sx={{ my: 2 }}
-          >
-            {clicked ? "Cancel" : "Add Student"}
-          </Button>
-        </Box>
+          <Card>
+            <Input
+              type="text"
+              name="studentSearch"
+              id="studentSearch"
+              placeholder="Search for a student"
+              sx={{ my: 2 }}
+            />
+            <Typography level="body1">Search By: </Typography>
+            <Select defaultValue="firstName">
+              <Option value="firstName">First Name</Option>
+              <Option value="lastName">Last Name</Option>
+              <Option value="grade">Grade</Option>
+              <Option value="instrument">Instrument</Option>
+              <Option value="status">Status</Option>
+              <Option value="lessonDay">Lesson Day</Option>
+            </Select>
+            <Button>Search</Button>
+          </Card>
+        </Sheet>
 
         {clicked ? <CreateStudent teacherId={id} /> : ""}
 
@@ -105,7 +121,15 @@ const StudentDatabase = () => {
             </tbody>
           </Table>
         </Sheet>
-      </Box>
+        <Button
+          onClick={() => {
+            handleClick();
+          }}
+          sx={{ my: 2 }}
+        >
+          {clicked ? "Cancel" : "Add Student"}
+        </Button>
+      </Card>
     </Sheet>
   );
 };
