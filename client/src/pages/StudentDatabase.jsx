@@ -105,39 +105,6 @@ const StudentDatabase = () => {
             </tbody>
           </Table>
         </Sheet>
-        {/* Boxes containing individual student info */}
-        {/* <Grid container spacing={1} sx={{ flexGrow: 1 }}>
-          {students &&
-            students.map((student, i) => (
-              <Grid
-                key={i}
-                xs={12}
-                md={4}
-                lg={3}
-                sx={{
-                  m: "10px",
-                  p: 2,
-                  backgroundColor: "white",
-                  borderRadius: "4px",
-                  boxShadow: "md",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Box>
-                  <Typography level="h4" component="h4">
-                    {student.firstName} {student.lastName}
-                  </Typography>
-                  <Link to={`/teacher/studentDetails/${student._id}`}>
-                    <Button>View Student Info</Button>
-                  </Link>
-                  <Typography level="body1" component="p">
-                    <b>Instrument:</b> {student.instrument}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-        </Grid> */}
       </Box>
     </Sheet>
   );

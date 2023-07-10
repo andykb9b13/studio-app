@@ -6,6 +6,7 @@ import { QUERY_STUDENT } from "../utils/queries";
 import CreatePracticePlan from "../components/CreatePracticePlan";
 import PracticePlan from "../components/PracticePlan";
 import EditStudent from "../components/EditStudent";
+import DeleteStudentModal from "../components/DeleteStudentModal";
 import { Sheet, Box, Typography, Button } from "@mui/joy";
 // import { useStudentContext } from "../utils/StudentContext";
 
@@ -107,14 +108,28 @@ const StudentDetails = () => {
         <Button onClick={() => handleClick(1)}>Edit Student</Button>
         <Button onClick={() => handleClick(2)}>View Practice Plans</Button>
         <Button onClick={() => handleClick(3)}>Create Practice Plan</Button>
-
+        <DeleteStudentModal studentId={id} />
         <Link to={`/student/${id}/practiceHub`}>
           <Button>To Practice Hub</Button>
         </Link>
-        <Button>Delete Student</Button>
       </Box>
 
-      {active === 1 ? <EditStudent studentId={id} /> : ""}
+      {active === 1 ? (
+        <Sheet
+          sx={{
+            mx: "auto",
+            mt: 3,
+            p: 2,
+            borderRadius: "4px",
+            boxShadow: "md",
+            width: "80%",
+          }}
+        >
+          <EditStudent studentId={id} />{" "}
+        </Sheet>
+      ) : (
+        ""
+      )}
       {active === 2 ? (
         <Sheet
           sx={{ mx: "auto", mt: 3, p: 2, borderRadius: "4px", boxShadow: "md" }}

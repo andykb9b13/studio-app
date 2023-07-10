@@ -193,23 +193,23 @@ const resolvers = {
       return practicePlan;
     },
 
-    removeTeacher: async (parent, { teacherId }) => {
+    deleteTeacher: async (parent, { teacherId }) => {
       return Teacher.findOneAndDelete({ _id: teacherId });
     },
 
-    removeStudent: async (parent, { studentId }) => {
+    deleteStudent: async (parent, { studentId }) => {
       return Student.findOneAndDelete({ _id: studentId });
     },
 
-    removeAssignment: async (parent, { assignmentId }) => {
+    deleteAssignment: async (parent, { assignmentId }) => {
       return Assignment.findOneAndDelete({ _id: assignmentId });
     },
 
-    removeGoal: async (parent, { goalId }) => {
+    deleteGoal: async (parent, { goalId }) => {
       return Goal.findONeAndDelete({ _id: goalId });
     },
 
-    removeSkillSheet: async (parent, { skillSheetId }) => {
+    deleteSkillSheet: async (parent, { skillSheetId }) => {
       return SkillSheet.findOneAndDelete({ _id: skillSheetId });
     },
 
