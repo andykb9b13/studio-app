@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../utils/mutations";
 import {
@@ -9,8 +9,11 @@ import {
   FormControl,
   FormLabel,
 } from "@mui/joy";
+import { StudentContext } from "../pages/StudentDetails";
 
-const CreatePracticePlan = ({ studentId }) => {
+const CreatePracticePlan = () => {
+  const { student } = useContext(StudentContext);
+
   const [formData, setFormData] = useState({
     date: "",
     exerciseName: "",
@@ -61,7 +64,7 @@ const CreatePracticePlan = ({ studentId }) => {
       event.preventDefault();
       try {
         const { data } = await createPracticePlan({
-          variables: { studentId: studentId, ...formData },
+          variables: { studentId: student._id, ...formData },
         });
         alert("Practice Plan Created");
       } catch (err) {
@@ -95,12 +98,14 @@ const CreatePracticePlan = ({ studentId }) => {
       sx={{ mx: "auto", mt: 3, p: 2, borderRadius: "4px", boxShadow: "md" }}
     >
       <Typography level="h2">Create a Practice Plan</Typography>
-      <form onSubmit={handleSubmit}>
+      <form>
         <FormControl>
           <FormLabel htmlFor="name">Name</FormLabel>
           <Input type="text" name="name" onChange={handleChange} id="name" />
         </FormControl>
-        <Button sx={{ mt: 2 }}>Create Practice Plan</Button>
+        <Button sx={{ mt: 2 }} onClick={handleSubmit}>
+          Create Practice Plan
+        </Button>
       </form>
     </Sheet>
   );
