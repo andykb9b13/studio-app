@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
@@ -19,6 +18,7 @@ import {
 // import { useStudentContext } from "../utils/StudentContext";
 
 const StudentDetails = () => {
+  const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const { id } = useParams();
   const { data } = useQuery(QUERY_STUDENT, {
@@ -30,6 +30,9 @@ const StudentDetails = () => {
   const student = data?.student || [];
   const practicePlans = data?.student.practicePlans;
 
+  const handlePlanClick = () => {
+    setOpen(!open);
+  };
   const handleClick = (index) => {
     setActive(index);
   };
@@ -37,7 +40,7 @@ const StudentDetails = () => {
   return (
     <Sheet
       sx={{
-        width: "75%",
+        width: "90%",
         mx: "auto",
         backgroundColor: "lightblue",
         mt: 4,
@@ -46,39 +49,27 @@ const StudentDetails = () => {
         boxShadow: "md",
         display: "flex",
         flexDirection: "column",
-        alignItems: "flex-start",
       }}
     >
       <Typography level="h1" component="h1" mx="auto">
         Student Details
       </Typography>
 
-      {/* Holding area */}
-      {/* <Link to={`/teacher/studentDatabase/${student.teacherId}`}>
-        <Button onClick={() => handleClick(0)}>Back to Database</Button>
-      </Link>
-      <DeleteStudentModal studentId={id} />
-      <Link to={`/student/${id}/practiceHub`}>
-        <Button>To Practice Hub</Button>
-      </Link> */}
-
       {/* Main student details section  */}
       <Card
         sx={{
           backgroundColor: "white",
           mx: "auto",
-          width: "75%",
+          width: "90%",
           p: 3,
           my: 2,
           borderRadius: "10px",
-          overflow: "auto",
-          resize: "horizontal",
         }}
       >
         <CardContent>
           <StudentDetailsMenu student={student} id={id} />
           <Avatar
-            alt="Test Student"
+            alt={student.firstName + " " + student.lastName}
             src="https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=441&q=80"
             size="lg"
           />
@@ -122,35 +113,17 @@ const StudentDetails = () => {
         <CardActions>
           <Button onClick={() => handleClick(1)}>Edit Student</Button>
           <Button onClick={() => handleClick(2)}>View Practice Plans</Button>
-          <Button onClick={() => handleClick(3)}>Create Practice Plan</Button>
         </CardActions>
-        {active === 1 ? (
-          <Sheet
-            sx={{
-              mx: "auto",
-              mt: 3,
-              p: 2,
-              borderRadius: "4px",
-              boxShadow: "md",
-              width: "80%",
-            }}
-          >
-            <EditStudent studentId={id} />{" "}
-          </Sheet>
-        ) : (
-          ""
-        )}
+
+        {/* Conditional rendering for button clicks in Card Actions */}
+        {active === 1 ? <EditStudent studentId={id} /> : ""}
         {active === 2 ? (
-          <Sheet
-            sx={{
-              mx: "auto",
-              mt: 3,
-              p: 2,
-              borderRadius: "4px",
-              boxShadow: "md",
-            }}
-          >
+          <React.Fragment>
             <Typography level="h2">Practice Plans</Typography>
+            <Button onClick={() => handlePlanClick()}>
+              Create Practice Plan
+            </Button>
+            {open ? <CreatePracticePlan studentId={id} /> : ""}
             {practicePlans &&
               practicePlans.map((practicePlan, i) => (
                 <PracticePlan
@@ -159,11 +132,10 @@ const StudentDetails = () => {
                   key={i}
                 />
               ))}
-          </Sheet>
+          </React.Fragment>
         ) : (
           ""
         )}
-        {active === 3 ? <CreatePracticePlan studentId={id} /> : ""}
       </Card>
     </Sheet>
   );
