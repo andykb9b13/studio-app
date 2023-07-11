@@ -52,14 +52,14 @@ const resolvers = {
     goals: async () => {
       return await Goal.find({});
     },
-    goal: async ([parent, { goalId: _id }]) => {
+    goal: async (parent, { goalId: _id }) => {
       return await Goal.findById(_id);
     },
-    practicePlan: async ([parent, { planId: _id }]) => {
-      return PracticePlan.findById(_id);
+    practicePlans: async () => {
+      return await PracticePlan.find({});
     },
-    practicePlans: async ([parent, { studentId: _id }]) => {
-      return PracticePlan.find({ studentId: _id });
+    practicePlan: async (parent, { planId: _id }) => {
+      return await PracticePlan.findById(_id);
     },
   },
 
@@ -194,23 +194,27 @@ const resolvers = {
     },
 
     deleteTeacher: async (parent, { teacherId }) => {
-      return Teacher.findOneAndDelete({ _id: teacherId });
+      return await Teacher.findOneAndDelete({ _id: teacherId });
     },
 
     deleteStudent: async (parent, { studentId }) => {
-      return Student.findOneAndDelete({ _id: studentId });
+      return await Student.findOneAndDelete({ _id: studentId });
     },
 
     deleteAssignment: async (parent, { assignmentId }) => {
-      return Assignment.findOneAndDelete({ _id: assignmentId });
+      return await Assignment.findOneAndDelete({ _id: assignmentId });
     },
 
     deleteGoal: async (parent, { goalId }) => {
-      return Goal.findONeAndDelete({ _id: goalId });
+      return await Goal.findOneAndDelete({ _id: goalId });
+    },
+
+    deletePracticePlan: async (parent, { planId }) => {
+      return await PracticePlan.findOneAndDelete({ _id: planId });
     },
 
     deleteSkillSheet: async (parent, { skillSheetId }) => {
-      return SkillSheet.findOneAndDelete({ _id: skillSheetId });
+      return await SkillSheet.findOneAndDelete({ _id: skillSheetId });
     },
 
     editTeacher: async (

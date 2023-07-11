@@ -102,7 +102,7 @@ const typeDefs = gql`
     assignment(assignmentId: ID!): Assignment
     goals: [Goal]!
     goal(goalId: ID!): Goal
-    practicePlans(studentId: ID!): [PracticePlan]
+    practicePlans: [PracticePlan]
     practicePlan(planId: ID!): PracticePlan
   }
 

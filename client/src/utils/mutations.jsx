@@ -240,3 +240,11 @@ export const DELETE_STUDENT = gql`
     }
   }
 `;
+
+export const DELETE_PRACTICE_PLAN = gql`
+  mutation deletePracticePlan($planId: ID!) {
+    deletePracticePlan(planId: $planId) {
+      _id
+    }
+  }
+`;

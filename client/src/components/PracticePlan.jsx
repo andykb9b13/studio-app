@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import CreateAssignment from "./CreateAssignment";
+import DeletePracticePlanModal from "./DeletePracticePlanModal";
 import { Sheet, Box, Button, Typography } from "@mui/joy";
+import { useMutation } from "@apollo/client";
 
 const PracticePlan = ({ practicePlan, studentId }) => {
   console.log("practicePlan", practicePlan);
@@ -25,6 +27,7 @@ const PracticePlan = ({ practicePlan, studentId }) => {
       <Button onClick={handleClick}>
         {!clicked ? "Create An Assignment for This Plan" : "Cancel"}
       </Button>
+      <DeletePracticePlanModal planId={practicePlan._id} />
       {clicked ? (
         <CreateAssignment studentId={studentId} planId={practicePlan._id} />
       ) : (
