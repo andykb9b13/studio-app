@@ -6,20 +6,15 @@ import { QUERY_STUDENT } from "../utils/queries";
 import CreatePracticePlan from "../components/CreatePracticePlan";
 import PracticePlan from "../components/PracticePlan";
 import EditStudent from "../components/EditStudent";
-import DeleteStudentModal from "../components/DeleteStudentModal";
+import StudentDetailsMenu from "../components/StudentDetailsMenu";
 import {
   Sheet,
   Typography,
   Button,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanel,
   Card,
   Avatar,
   CardContent,
   CardActions,
-  Box,
 } from "@mui/joy";
 // import { useStudentContext } from "../utils/StudentContext";
 
@@ -58,77 +53,16 @@ const StudentDetails = () => {
         Student Details
       </Typography>
 
-      <Card
-        sx={{
-          width: "75%",
-          mx: "auto",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-evenly",
-          flexDirection: "inline-block",
-        }}
-      >
-        <Tabs
-          aria-label="Basic tabs"
-          defaultValue={0}
-          sx={{ borderRadius: "lg" }}
-        >
-          <TabList>
-            <Tab value={1}>
-              {" "}
-              <Link to={`/teacher/studentDatabase/${student.teacherId}`}>
-                <Button onClick={() => handleClick(0)}>Back to Database</Button>
-              </Link>
-            </Tab>
-            <Tab value={2}>
-              <DeleteStudentModal studentId={id} />
-            </Tab>
-            <Tab value={3}>
-              <Link to={`/student/${id}/practiceHub`}>
-                <Button>To Practice Hub</Button>
-              </Link>
-            </Tab>
-          </TabList>
-          <TabPanel value={1}>
-            <Sheet
-              sx={{
-                mx: "auto",
-                mt: 3,
-                p: 2,
-                borderRadius: "4px",
-                boxShadow: "md",
-                width: "80%",
-              }}
-            >
-              <EditStudent studentId={id} />{" "}
-            </Sheet>
-          </TabPanel>
-          <TabPanel value={2}>
-            <Sheet
-              sx={{
-                mx: "auto",
-                mt: 3,
-                p: 2,
-                borderRadius: "4px",
-                boxShadow: "md",
-              }}
-            >
-              <Typography level="h2">Practice Plans</Typography>
-              {practicePlans &&
-                practicePlans.map((practicePlan, i) => (
-                  <PracticePlan
-                    practicePlan={practicePlan}
-                    studentId={id}
-                    key={i}
-                  />
-                ))}
-            </Sheet>
-          </TabPanel>
-          <TabPanel value={3}>
-            <CreatePracticePlan studentId={id} />
-          </TabPanel>
-        </Tabs>
-      </Card>
+      {/* Holding area */}
+      {/* <Link to={`/teacher/studentDatabase/${student.teacherId}`}>
+        <Button onClick={() => handleClick(0)}>Back to Database</Button>
+      </Link>
+      <DeleteStudentModal studentId={id} />
+      <Link to={`/student/${id}/practiceHub`}>
+        <Button>To Practice Hub</Button>
+      </Link> */}
+
+      {/* Main student details section  */}
       <Card
         sx={{
           backgroundColor: "white",
@@ -142,6 +76,7 @@ const StudentDetails = () => {
         }}
       >
         <CardContent>
+          <StudentDetailsMenu student={student} id={id} />
           <Avatar
             alt="Test Student"
             src="https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=441&q=80"
