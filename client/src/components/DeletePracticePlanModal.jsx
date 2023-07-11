@@ -1,5 +1,13 @@
 import React from "react";
-import { Sheet, Button, Modal, ModalDialog, Typography } from "@mui/joy";
+import {
+  Sheet,
+  Button,
+  Modal,
+  ModalDialog,
+  Typography,
+  IconButton,
+} from "@mui/joy";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation } from "@apollo/client";
 import { DELETE_PRACTICE_PLAN } from "../utils/mutations";
 
@@ -9,7 +17,9 @@ export default function DeletePracticePlanModal({ planId }) {
 
   return (
     <React.Fragment>
-      <Button onClick={() => setOpen(true)}>Delete Plan</Button>
+      <IconButton onClick={() => setOpen(true)}>
+        <DeleteIcon />
+      </IconButton>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog
           aria-labelledby="nested-modal-title"
