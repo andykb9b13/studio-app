@@ -4,8 +4,7 @@ import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
-import { Sheet, Box, Button, Typography } from "@mui/joy";
-// import { useStudentContext } from "../utils/StudentContext";
+import { Sheet, Box, Button, Typography, Card } from "@mui/joy";
 
 const TeacherDashboard = () => {
   const logout = (event) => {
@@ -18,9 +17,6 @@ const TeacherDashboard = () => {
     }
   };
 
-  // getting the function update students from the global context StudentContext.jsx
-  // const { updateStudents } = useStudentContext();
-
   // getting the teacher info using the id from the URL parameters
   const { id } = useParams();
   const { data } = useQuery(QUERY_TEACHER, {
@@ -32,13 +28,10 @@ const TeacherDashboard = () => {
   const teacher = data?.teacher || [];
   console.log("This is teacher", teacher.students);
 
-  // setting the global context of the students using the function updateStudents
-  // updateStudents(teacher.students);
-
   return (
     <Sheet>
       {Auth.loggedIn() ? (
-        <Box
+        <Sheet
           sx={{
             width: "75%",
             display: "flex",
@@ -57,12 +50,17 @@ const TeacherDashboard = () => {
           <Typography level="h3" component="h3">
             Today's Date:
           </Typography>
-          <Box
+
+          <Card
             sx={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-evenly",
-              height: "400px",
+              alignItems: "center",
+              height: "auto",
+              my: 2,
+              mx: "auto",
+              width: "75%",
             }}
           >
             <Link>
@@ -78,21 +76,22 @@ const TeacherDashboard = () => {
               <Button>Create Skill Sheet</Button>
             </Link>
             <Button onClick={logout}>Logout</Button>
-          </Box>
-          <Box>
+          </Card>
+
+          <Card>
             <Typography level="h3" component="h3">
               Today's Schedule
             </Typography>
             {/* Insert today's schedule component here */}
-          </Box>
-        </Box>
+          </Card>
+        </Sheet>
       ) : (
-        <Box>
+        <Card>
           <Typography level="h3" component="h3">
             Please Log In
           </Typography>
           <Link to="/login">Login</Link>
-        </Box>
+        </Card>
       )}
     </Sheet>
   );

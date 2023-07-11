@@ -4,11 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import CreateStudent from "../components/CreateStudent";
-import { Sheet, Box, Button, Typography, Grid, Input, Table } from "@mui/joy";
+import StudentDatabaseTable from "../components/StudentDatabaseTable";
+import StudentSearch from "../components/StudentSearch";
+import { Sheet, Card, Button, Typography } from "@mui/joy";
 
 const StudentDatabase = () => {
-  // getting the students using StudentContext.jsx
-
   const { id } = useParams();
   const { data } = useQuery(QUERY_TEACHER, {
     variables: {
@@ -31,7 +31,8 @@ const StudentDatabase = () => {
       >
         Student Database
       </Typography>
-      <Box
+
+      <Card
         sx={{
           width: "75%",
           mx: "auto",
@@ -41,11 +42,14 @@ const StudentDatabase = () => {
           p: 4,
         }}
       >
-        <Box
+        <Sheet
+          color="neutral"
           sx={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
+            px: 20,
+            backgroundColor: "transparent",
           }}
         >
           <Typography
@@ -55,57 +59,22 @@ const StudentDatabase = () => {
           >
             Studio Info
           </Typography>
-          <Input
-            type="text"
-            name="studentSearch"
-            id="studentSearch"
-            placeholder="Search for a student"
-            sx={{ my: 2 }}
-          />
-          <Button
-            onClick={() => {
-              handleClick();
-            }}
-            sx={{ my: 2 }}
-          >
-            {clicked ? "Cancel" : "Add Student"}
-          </Button>
-        </Box>
-
-        {clicked ? <CreateStudent teacherId={id} /> : ""}
-
-        <Sheet>
-          <Table aria-label="basic table">
-            <thead>
-              <tr>
-                <th>Student Name</th>
-                <th>Instrument</th>
-                <th>Primary Contact</th>
-                <th>Grade</th>
-                <th>Info</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students &&
-                students.map((student, i) => (
-                  <tr key={i}>
-                    <td>
-                      {student.firstName} {student.lastName}
-                    </td>
-                    <td>{student.instrument}</td>
-                    <td>{student.primaryContact}</td>
-                    <td>{student.grade}</td>
-                    <td>
-                      <Link to={`/teacher/studentDetails/${student._id}`}>
-                        <Button>View Student Info</Button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
+          <Link to={`/teacher/${id}`}>
+            <Button>Back to Dashboard</Button>
+          </Link>
         </Sheet>
-      </Box>
+        <StudentSearch students={students} />
+        <StudentDatabaseTable students={students} />
+        <Button
+          onClick={() => {
+            handleClick();
+          }}
+          sx={{ my: 2 }}
+        >
+          {clicked ? "Cancel" : "Add Student"}
+        </Button>
+        {clicked ? <CreateStudent teacherId={id} /> : ""}
+      </Card>
     </Sheet>
   );
 };
