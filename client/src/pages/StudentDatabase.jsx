@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import CreateStudent from "../components/CreateStudent";
@@ -15,12 +14,13 @@ const StudentDatabase = () => {
       teacherId: id,
     },
   });
+  const students = data?.teacher.students || [];
   const [clicked, setClicked] = useState(false);
+  const [studentSearch, setStudentSearch] = useState(students);
+
   const handleClick = (event) => {
     setClicked(!clicked);
   };
-
-  const students = data?.teacher.students || [];
 
   return (
     <Sheet>
@@ -31,7 +31,6 @@ const StudentDatabase = () => {
       >
         Student Database
       </Typography>
-
       <Card
         sx={{
           width: "75%",
@@ -63,8 +62,12 @@ const StudentDatabase = () => {
             <Button>Back to Dashboard</Button>
           </Link>
         </Sheet>
-        <StudentSearch students={students} />
-        <StudentDatabaseTable students={students} />
+        <StudentSearch
+          students={students}
+          studentSearch={studentSearch}
+          setStudentSearch={setStudentSearch}
+        />
+        <StudentDatabaseTable students={studentSearch} />
         <Button
           onClick={() => {
             handleClick();
