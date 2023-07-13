@@ -38,6 +38,7 @@ export const QUERY_STUDENT = gql`
       primaryContact
       primaryContactEmail
       teacherId
+      username
       grade
       isActive
       lessonDay

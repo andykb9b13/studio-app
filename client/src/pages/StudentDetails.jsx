@@ -15,6 +15,7 @@ import {
   CardContent,
   CardActions,
 } from "@mui/joy";
+import EditIcon from "@mui/icons-material/Edit";
 
 // import { useStudentContext } from "../utils/StudentContext";
 export const StudentContext = createContext();
@@ -74,7 +75,11 @@ const StudentDetails = () => {
               src="https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=441&q=80"
               size="lg"
             />
-            <Typography level="h2" component="h2">
+            <Typography
+              level="h2"
+              component="h2"
+              endDecorator={<EditIcon onClick={() => handleClick(1)} />}
+            >
               {student.firstName} {student.lastName}
             </Typography>
             <Typography>
@@ -112,7 +117,6 @@ const StudentDetails = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={() => handleClick(1)}>Edit Student</Button>
             <Button onClick={() => handleClick(2)}>View Practice Plans</Button>
           </CardActions>
 
