@@ -247,58 +247,55 @@ const resolvers = {
 
     editStudent: async (parent, { studentId, ...args }) => {
       const student = await Student.findByIdAndUpdate(studentId);
+      console.log("This is student in resolver", student);
+      console.log("This is args in resolver", args);
       // do I need to add args to the conditionals?
       if (!student) {
         throw new Error("Student not found");
       }
-      if (firstName) {
-        student.firstName = firstName;
+      if (args.firstName) {
+        student.firstName = args.firstName;
       }
-      if (lastName) {
-        student.lastName = lastName;
+      if (args.lastName) {
+        student.lastName = args.lastName;
       }
-      if (email) {
-        student.email = email;
+      if (args.email) {
+        student.email = args.email;
       }
-      if (username) {
-        student.username = username;
+      if (args.username) {
+        student.username = args.username;
       }
-      if (password) {
-        student.password = password;
+      if (args.password) {
+        student.password = args.password;
       }
-      if (primaryContact) {
-        student.primaryContact = primaryContact;
+      if (args.primaryContact) {
+        student.primaryContact = args.primaryContact;
       }
-      if (primaryContactEmail) {
-        student.primaryContactEmail = primaryContactEmail;
+      if (args.primaryContactEmail) {
+        student.primaryContactEmail = args.primaryContactEmail;
       }
-      if (instrument) {
-        student.instrument = instrument;
+      if (args.instrument) {
+        student.instrument = args.instrument;
       }
-      if (lessonDay) {
-        student.lessonDay = lessonDay;
+      if (args.lessonDay) {
+        student.lessonDay = args.lessonDay;
       }
-      if (lessonTime) {
-        student.lessonTime = lessonTime;
+      if (args.lessonTime) {
+        student.lessonTime = args.lessonTime;
       }
-      if (grade) {
-        student.grade = grade;
+      if (args.grade) {
+        student.grade = args.grade;
       }
-      if (school) {
-        student.school = school;
+      if (args.school) {
+        student.school = args.school;
       }
-      if (lessonLocation) {
-        student.lessonLocation = lessonLocation;
+      if (args.lessonLocation) {
+        student.lessonLocation = args.lessonLocation;
       }
-      if (isActive) {
-        student.isActive = isActive;
+      if (args.isActive) {
+        student.isActive = args.isActive;
       }
-      if (teacherId) {
-        student.teacherId = teacherId;
-      }
-
-      // await student.save();
-
+      await student.save();
       return student;
     },
   },
