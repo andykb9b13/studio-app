@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Sheet, Table, Button } from "@mui/joy";
 import { Link } from "react-router-dom";
 
 const StudentDatabaseTable = ({ students }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Setting the isMobile state to true if the window width is less than or equal to 768px
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setIsMobile(true);
+    }
+  }, []);
+
   return (
     <Sheet>
       <Table
@@ -18,9 +27,9 @@ const StudentDatabaseTable = ({ students }) => {
         <thead>
           <tr>
             <th>Student Name</th>
-            <th>Instrument</th>
-            <th>Primary Contact</th>
-            <th>Grade</th>
+            {!isMobile ? <th>Instrument</th> : null}
+            {!isMobile ? <th>Primary Contact</th> : null}
+            {!isMobile ? <th>Grade</th> : null}
             <th>Info</th>
           </tr>
         </thead>
@@ -31,9 +40,9 @@ const StudentDatabaseTable = ({ students }) => {
                 <td>
                   {student.firstName} {student.lastName}
                 </td>
-                <td>{student.instrument}</td>
-                <td>{student.primaryContact}</td>
-                <td>{student.grade}</td>
+                {!isMobile ? <td>{student.instrument}</td> : null}
+                {!isMobile ? <td>{student.primaryContact}</td> : null}
+                {!isMobile ? <td>{student.grade}</td> : null}
                 <td>
                   <Link to={`/teacher/studentDetails/${student._id}`}>
                     <Button>View Student Info</Button>

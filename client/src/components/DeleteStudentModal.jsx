@@ -9,7 +9,9 @@ export default function DeleteStudentModal({ studentId }) {
 
   return (
     <React.Fragment>
-      <Button onClick={() => setOpen(true)}>Delete Student</Button>
+      <Button onClick={() => setOpen(true)} color="danger">
+        Delete Student
+      </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog
           aria-labelledby="nested-modal-title"
