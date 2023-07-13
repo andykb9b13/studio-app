@@ -9,7 +9,7 @@ import {
   CardContent,
 } from "@mui/joy";
 
-const StudentSearch = ({ students, studentSearch, setStudentSearch }) => {
+const StudentSearch = ({ students, setStudentSearch }) => {
   console.log(students);
 
   const handleSearch = (event) => {

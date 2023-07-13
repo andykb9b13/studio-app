@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
@@ -17,8 +17,8 @@ import {
 } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
 // import { useStudentContext } from "../utils/StudentContext";
+
 export const StudentContext = createContext();
 
 const StudentDetails = () => {
@@ -30,8 +30,15 @@ const StudentDetails = () => {
       studentId: id,
     },
   });
+  console.log(data);
+
   const student = data?.student || [];
   const practicePlans = data?.student.practicePlans;
+
+  // const { setStudent } = useStudentContext();
+  // useEffect(() => {
+  //   setStudent(data);
+  // }, [setStudent, data]);
 
   const handlePlanClick = () => {
     setOpen(!open);
