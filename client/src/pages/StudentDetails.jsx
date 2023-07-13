@@ -1,11 +1,11 @@
 import React, { useState, createContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
 import CreatePracticePlan from "../components/CreatePracticePlan";
 import PracticePlan from "../components/PracticePlan";
 import EditStudent from "../components/EditStudent";
-import StudentDetailsMenu from "../components/StudentDetailsMenu";
+import DeleteStudentModal from "../components/DeleteStudentModal";
 import {
   Sheet,
   Typography,
@@ -16,6 +16,7 @@ import {
   CardActions,
 } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 // import { useStudentContext } from "../utils/StudentContext";
 export const StudentContext = createContext();
@@ -69,7 +70,9 @@ const StudentDetails = () => {
           }}
         >
           <CardContent>
-            <StudentDetailsMenu student={student} id={id} />
+            <Link to={`/teacher/studentDatabase/${student.teacherId}`}>
+              <ArrowBackIosIcon fontSize="large" />
+            </Link>
             <Avatar
               alt={student.firstName + " " + student.lastName}
               src="https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=441&q=80"
@@ -117,6 +120,9 @@ const StudentDetails = () => {
             </Typography>
           </CardContent>
           <CardActions>
+            <Link to={`/student/${id}/practiceHub`}>
+              <Button>To Practice Hub</Button>
+            </Link>
             <Button onClick={() => handleClick(2)}>View Practice Plans</Button>
           </CardActions>
 
@@ -142,6 +148,7 @@ const StudentDetails = () => {
             ""
           )}
         </Card>
+        <DeleteStudentModal studentId={id} />
       </Sheet>
     </StudentContext.Provider>
   );
