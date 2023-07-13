@@ -17,7 +17,6 @@ import VirtualTutor from "./pages/virtualTutor/VirtualTutor";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import CreateSkillSheet from "./components/CreateSkillSheet";
 import StudentDatabase from "./pages/StudentDatabase";
-import { StudentProvider } from "./utils/StudentContext";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -57,11 +56,7 @@ function App() {
           <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
           <Route
             path="/teacher/studentDatabase/:id"
-            element={
-              <StudentProvider>
-                <StudentDatabase />
-              </StudentProvider>
-            }
+            element={<StudentDatabase />}
           />
           <Route
             path="/teacher/createSkillSheet/:id"
