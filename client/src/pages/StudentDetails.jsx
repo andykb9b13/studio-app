@@ -77,7 +77,7 @@ const StudentDetails = () => {
           }}
         >
           <CardContent>
-            <Link to={`/teacher/studentDatabase/${student.teacherId}`}>
+            <Link to={`/teacher/${student.teacherId}`}>
               <ArrowBackIosIcon fontSize="large" />
             </Link>
             <Avatar
