@@ -129,7 +129,7 @@ const PracticeHub = () => {
       {home && (
         <Grid container sx={{ flexGrow: 1 }}>
           {buttonInfo.map((button, i) => (
-            <Grid xs={12} md={6} lg={4}>
+            <Grid xs={12} s={4} md={4} lg={3} m={1}>
               <Card variant="outlined">
                 <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
                   {button.label}
