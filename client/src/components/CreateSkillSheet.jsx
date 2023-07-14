@@ -3,7 +3,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { ADD_SKILLSHEET } from "../utils/mutations";
-import { Sheet, Input, FormControl, FormLabel, Typography } from "@mui/joy";
+import {
+  Sheet,
+  Card,
+  Grid,
+  Input,
+  FormControl,
+  FormLabel,
+  Typography,
+  Divider,
+  Button,
+  CardContent,
+  CardActions,
+} from "@mui/joy";
 
 const CreateSkillSheet = () => {
   const { id } = useParams();
@@ -70,58 +82,110 @@ const CreateSkillSheet = () => {
   };
 
   return (
-    <div>
-      <h1>Create Skill Sheet</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="sheetName">Sheet Name</label>
-        <input
-          type="text"
-          name="sheetName"
-          id="sheetName"
-          onChange={handleChange}
-        />
-        <label htmlFor="scales">Scales</label>
-        <input type="text" name="scales" id="scales" onChange={handleChange} />
-        <label htmlFor="arpeggios">Arpeggios</label>
-        <input
-          type="text"
-          name="arpeggios"
-          id="arpeggios"
-          onChange={handleChange}
-        />
-        <label htmlFor="articulation">Articulation</label>
-        <input
-          type="text"
-          name="articulation"
-          id="articulation"
-          onChange={handleChange}
-        />
-        <label htmlFor="slurs">Slurs</label>
-        <input type="text" name="slurs" id="slurs" onChange={handleChange} />
-        <label htmlFor="longTones">Long Tones</label>
-        <input
-          type="text"
-          name="longTones"
-          id="longTones"
-          onChange={handleChange}
-        />
-        <label htmlFor="exercises">Exercises</label>
-        <input
-          type="text"
-          name="exercises"
-          id="exercises"
-          onChange={handleChange}
-        />
-        <label htmlFor="etudes">Etudes</label>
-        <input type="text" name="etudes" id="etudes" onChange={handleChange} />
-        <label htmlFor="pieces">Pieces</label>
-        <input type="text" name="pieces" id="pieces" onChange={handleChange} />
-        <button type="submit">Create Skill Sheet</button>
-      </form>
-      <Link to={`/teacher/${id}`}>
-        <button>Cancel</button>
-      </Link>
-    </div>
+    <Card
+      variant="outlined"
+      sx={{
+        maxHeight: "max-content",
+        maxWidth: "100%",
+        mx: "auto",
+        // to make the demo resizable
+        overflow: "auto",
+        resize: "horizontal",
+      }}
+    >
+      <Typography level="h1">Create Skill Sheet</Typography>
+      <Divider inset="none" />
+      <CardContent>
+        <form>
+          <FormControl>
+            <FormLabel htmlFor="sheetName">Sheet Name</FormLabel>
+            <Input
+              type="text"
+              name="sheetName"
+              id="sheetName"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="scales">Scales</FormLabel>
+            <Input
+              type="text"
+              name="scales"
+              id="scales"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="arpeggios">Arpeggios</FormLabel>
+            <Input
+              type="text"
+              name="arpeggios"
+              id="arpeggios"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="articulation">Articulation</FormLabel>
+            <Input
+              type="text"
+              name="articulation"
+              id="articulation"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="slurs">Slurs</FormLabel>
+            <Input
+              type="text"
+              name="slurs"
+              id="slurs"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="longTones">Long Tones</FormLabel>
+            <Input
+              type="text"
+              name="longTones"
+              id="longTones"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormLabel htmlFor="exercises">Exercises</FormLabel>
+          <Input
+            type="text"
+            name="exercises"
+            id="exercises"
+            onChange={handleChange}
+          />
+          <FormControl>
+            <FormLabel htmlFor="etudes">Etudes</FormLabel>
+            <Input
+              type="text"
+              name="etudes"
+              id="etudes"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="pieces">Pieces</FormLabel>
+            <Input
+              type="text"
+              name="pieces"
+              id="pieces"
+              onChange={handleChange}
+            />
+          </FormControl>
+        </form>
+      </CardContent>
+      <CardActions>
+        {" "}
+        <Button onClick={handleSubmit}>Create Skill Sheet</Button>
+        <Link to={`/teacher/${id}`}>
+          <Button>Cancel</Button>
+        </Link>
+      </CardActions>
+    </Card>
   );
 };
 

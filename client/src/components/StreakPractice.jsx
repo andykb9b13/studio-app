@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button, Sheet, Card, Typography, Input, Grid, Box } from "@mui/joy";
 
 function Counter({ title, count, setCount, numTries }) {
   return (
-    <div>
-      <h2>{title}</h2>
-      <p>{count}</p>
-      <button
+    <Card variant="outlined">
+      <Typography level="h2">{title}</Typography>
+      <Typography level="h3">{count}</Typography>
+      <Button
+        color="success"
         onClick={() => {
           setCount(count + 1);
         }}
         disabled={numTries === 0}
       >
         Add
-      </button>
-      <button
+      </Button>
+      <Button
+        color="danger"
         onClick={() => {
           setCount(count - 1);
         }}
         disabled={numTries === 0}
       >
         Delete
-      </button>
-    </div>
+      </Button>
+    </Card>
   );
 }
 
@@ -41,11 +44,11 @@ function SuccessRate({ percentage }) {
   }
 
   return (
-    <div>
-      <h2>Success Rate</h2>
-      <p>{percentage} % success rate</p>
-      <p>{message}</p>
-    </div>
+    <Card variant="outlined">
+      <Typography level="h2">Success Rate</Typography>
+      <Typography level="h4">{percentage} % success rate</Typography>
+      <Typography level="h4">{message}</Typography>
+    </Card>
   );
 }
 
@@ -54,38 +57,38 @@ function Tries({ numTries, setNumTries, triesLeft }) {
   let tries = 0;
 
   return (
-    <div>
-      <h2>Number of Tries</h2>
+    <Card variant="outlined">
+      <Typography level="h2">Number of Tries</Typography>
       {!active ? (
-        <div>
-          <label htmlFor="numInput">Set the number of tries</label>
-          <input
+        <Card>
+          <Typography level="h4">Set the number of tries</Typography>
+          <Input
             type="number"
             name="numInput"
             onChange={(e) => {
               tries = e.target.value;
             }}
           />
-          <button
+          <Button
             onClick={() => {
               setActive(true);
               setNumTries(tries);
             }}
           >
             Save
-          </button>
-        </div>
+          </Button>
+        </Card>
       ) : (
-        <div>
-          <button onClick={() => setActive(false)}>Reset Tries</button>
-          <p>Tries Left: {triesLeft}</p>
-        </div>
+        <>
+          <Button onClick={() => setActive(false)}>Reset Tries</Button>
+          <Typography level="h2">Tries Left: {triesLeft}</Typography>
+        </>
       )}
-    </div>
+    </Card>
   );
 }
 
-const StreakPractice = () => {
+const StreakPractice = ({ setStatus }) => {
   const [successCount, setSuccessCount] = useState(0);
   const [blunderCount, setBlunderCount] = useState(0);
   const [numTries, setNumTries] = useState(0);
@@ -100,33 +103,32 @@ const StreakPractice = () => {
   }
 
   return (
-    <div>
-      <h1>Streak Practice</h1>
-      <button onClick={resetStreak}>Reset Streak</button>
-      <div>
+    <Grid container mt={4}>
+      <Card variant="outlined" sx={{ mx: "auto", minWidth: "50%" }}>
+        <Typography level="h1">Streak Practice</Typography>
+        <Button onClick={resetStreak}>Reset Streak</Button>
         <Tries
           numTries={numTries}
           setNumTries={setNumTries}
           triesLeft={triesLeft}
         />
-        <Counter
-          title={"Blunders"}
-          count={blunderCount}
-          setCount={setBlunderCount}
-          numTries={numTries}
-        />
-        <Counter
-          title={"Successes"}
-          count={successCount}
-          setCount={setSuccessCount}
-          numTries={numTries}
-        />
-      </div>
-
-      <div>
+        <Grid>
+          <Counter
+            title={"Successes"}
+            count={successCount}
+            setCount={setSuccessCount}
+            numTries={numTries}
+          />
+          <Counter
+            title={"Blunders"}
+            count={blunderCount}
+            setCount={setBlunderCount}
+            numTries={numTries}
+          />
+        </Grid>
         <SuccessRate percentage={percentage} />
-      </div>
-    </div>
+      </Card>
+    </Grid>
   );
 };
 
