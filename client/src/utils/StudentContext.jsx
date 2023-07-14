@@ -2,18 +2,14 @@ import React, { createContext, useContext, useState } from "react";
 
 const StudentContext = createContext();
 
-export const StudentProvider = ({ children }) => {
-  const [student, setStudent] = useState("");
+export const useStudentContext = () => useContext(StudentContext);
 
-  const updateStudent = (newStudent) => {
-    setStudent(newStudent);
-  };
+export const StudentProvider = ({ children }) => {
+  const [student, setStudent] = useState({});
 
   return (
-    <StudentContext.Provider value={{ student, setStudent: updateStudent }}>
+    <StudentContext.Provider value={{ student, setStudent }}>
       {children}
     </StudentContext.Provider>
   );
 };
-
-export const useStudentContext = () => useContext(StudentContext);
