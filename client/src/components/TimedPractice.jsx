@@ -37,13 +37,6 @@ const TimedPractice = ({ student, setStatus }) => {
           <Button color="success">Start</Button>
           <Button color="danger">Stop</Button>
         </CardActions>
-        <Button
-          onClick={() => {
-            setStatus("home");
-          }}
-        >
-          Back to Practice Hub
-        </Button>
       </Card>
     </Grid>
   );

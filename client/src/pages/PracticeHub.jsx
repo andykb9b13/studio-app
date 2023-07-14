@@ -39,7 +39,7 @@ const PracticeHub = () => {
 
   const [student, setStudent] = useState(null);
 
-  console.log(data);
+  console.log(student);
 
   useEffect(() => {
     if (data) {
@@ -126,10 +126,13 @@ const PracticeHub = () => {
       <Link to={`/teacher/studentDetails/${id}`}>
         <Button> Back to Student Details</Button>
       </Link>
+      {!home && (
+        <Button onClick={() => setStatus("home")}>Back to Practice Hub</Button>
+      )}
       {home && (
-        <Grid container sx={{ flexGrow: 1 }}>
+        <Grid container sx={{ flexGrow: 1, justifyContent: "center" }}>
           {buttonInfo.map((button, i) => (
-            <Grid xs={12} s={4} md={4} lg={3} m={1}>
+            <Grid xs={10} s={6} md={4} lg={3} m={1}>
               <Card variant="outlined">
                 <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
                   {button.label}
@@ -159,20 +162,18 @@ const PracticeHub = () => {
       {/* Here I've just hardcoded the student id to be passed as a prop but 
         the problem is I will have to drill it down pretty far if necessary. 
         I need to use context.  */}
-      {timedPractice && (
-        <TimedPractice student={student} setStatus={setStatus} />
+      {timedPractice && <TimedPractice student={student} />}
+      {streakPractice && <StreakPractice student={student} />}
+      {skillSheets && <SkillSheetView student={student} />}
+      {createAssignment && <CreateAssignment student={student} />}
+      {practicePlan && (
+        <PracticePlan
+          student={student}
+          studentId={student._id}
+          practicePlans={student.practicePlans}
+        />
       )}
-      {streakPractice && (
-        <StreakPractice student={student} setStatus={setStatus} />
-      )}
-      {skillSheets && (
-        <SkillSheetView student={student} setStatus={setStatus} />
-      )}
-      {createAssignment && (
-        <CreateAssignment student={student} setStatus={setStatus} />
-      )}
-      {practicePlan && <PracticePlan student={student} setStatus={setStatus} />}
-      {tutor && <VirtualTutor student={student} setStatus={setStatus} />}
+      {tutor && <VirtualTutor student={student} />}
     </Sheet>
   );
 };

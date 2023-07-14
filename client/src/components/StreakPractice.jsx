@@ -127,14 +127,6 @@ const StreakPractice = ({ setStatus }) => {
           />
         </Grid>
         <SuccessRate percentage={percentage} />
-
-        <Button
-          onClick={() => {
-            setStatus("home");
-          }}
-        >
-          Back to Practice Hub
-        </Button>
       </Card>
     </Grid>
   );
