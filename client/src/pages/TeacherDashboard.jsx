@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
@@ -18,6 +18,10 @@ import {
   TabList,
   TabPanel,
 } from "@mui/joy";
+import StorageIcon from "@mui/icons-material/Storage";
+import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import BuildIcon from "@mui/icons-material/Build";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const TeacherDashboard = () => {
   const logout = (event) => {
@@ -41,6 +45,13 @@ const TeacherDashboard = () => {
   const students = data?.teacher.students || [];
   const [clicked, setClicked] = useState(false);
   const [studentSearch, setStudentSearch] = useState(students);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    }
+  }, []);
 
   const handleClick = (event) => {
     setClicked(!clicked);
@@ -52,35 +63,34 @@ const TeacherDashboard = () => {
   return (
     <Sheet>
       {Auth.loggedIn() ? (
-        <Sheet
-          sx={{
-            minWidth: "80%",
-            display: "flex",
-            flexDirection: "column",
-            mx: "auto",
-            my: 4,
-            backgroundColor: "lightblue",
-            borderRadius: "4px",
-            boxShadow: "md",
-            p: 4,
-          }}
-        >
-          <Typography level="h2" component="h2">
+        <Sheet>
+          <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
             {teacher.firstName} {teacher.lastName}'s Dashboard
-          </Typography>
-          <Typography level="h3" component="h3">
-            Today's Date:
           </Typography>
           <Tabs
             aria-label="Basic tabs"
             defaultValue={0}
             sx={{ borderRadius: "lg" }}
+            variant="scrollable"
+            scrollButtons="auto"
           >
-            <TabList>
-              <Tab>View Student Database</Tab>
-              <Tab>Bookkeeping/Invoices</Tab>
-              <Tab>Skillsheets</Tab>
-              <Tab>View Calendar</Tab>
+            <TabList color="primary">
+              <Tab>
+                {!isMobile && <Typography>Student Database</Typography>}
+                <StorageIcon />
+              </Tab>
+              <Tab>
+                {!isMobile && <Typography>Bookkeeping/Invoices</Typography>}
+                <RequestQuoteIcon />
+              </Tab>
+              <Tab>
+                {!isMobile && <Typography>SkillSheets</Typography>}
+                <BuildIcon />
+              </Tab>
+              <Tab>
+                {!isMobile && <Typography>View Calendar</Typography>}
+                <CalendarMonthIcon />
+              </Tab>
             </TabList>
             <TabPanel value={0} sx={{ p: 2 }}>
               <StudentSearch
