@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
-import { Sheet, Box, Button, Typography, Card } from "@mui/joy";
+import StudentDatabaseTable from "../components/StudentDatabaseTable";
+import StudentSearch from "../components/StudentSearch";
+import CreateSkillSheet from "../components/CreateSkillSheet";
+import CreateStudent from "../components/CreateStudent";
+import {
+  Sheet,
+  Button,
+  Typography,
+  Card,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanel,
+} from "@mui/joy";
 
 const TeacherDashboard = () => {
   const logout = (event) => {
@@ -25,6 +38,14 @@ const TeacherDashboard = () => {
     },
   });
 
+  const students = data?.teacher.students || [];
+  const [clicked, setClicked] = useState(false);
+  const [studentSearch, setStudentSearch] = useState(students);
+
+  const handleClick = (event) => {
+    setClicked(!clicked);
+  };
+
   const teacher = data?.teacher || [];
   console.log("This is teacher", teacher.students);
 
@@ -33,7 +54,7 @@ const TeacherDashboard = () => {
       {Auth.loggedIn() ? (
         <Sheet
           sx={{
-            width: "75%",
+            minWidth: "80%",
             display: "flex",
             flexDirection: "column",
             mx: "auto",
@@ -50,40 +71,43 @@ const TeacherDashboard = () => {
           <Typography level="h3" component="h3">
             Today's Date:
           </Typography>
-
-          <Card
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              height: "auto",
-              my: 2,
-              mx: "auto",
-              width: "75%",
-            }}
+          <Tabs
+            aria-label="Basic tabs"
+            defaultValue={0}
+            sx={{ borderRadius: "lg" }}
           >
-            <Link>
-              <Button>Bookkeeping/Invoices</Button>
-            </Link>
-            <Link to={`/teacher/studentDatabase/${id}`}>
-              <Button>View Student Database </Button>
-            </Link>
-            <Link>
-              <Button>View Calendar</Button>
-            </Link>
-            <Link to={`/teacher/createSkillSheet/${id}`}>
-              <Button>Create Skill Sheet</Button>
-            </Link>
-            <Button onClick={logout}>Logout</Button>
-          </Card>
-
-          <Card>
-            <Typography level="h3" component="h3">
-              Today's Schedule
-            </Typography>
-            {/* Insert today's schedule component here */}
-          </Card>
+            <TabList>
+              <Tab>View Student Database</Tab>
+              <Tab>Bookkeeping/Invoices</Tab>
+              <Tab>Skillsheets</Tab>
+              <Tab>View Calendar</Tab>
+            </TabList>
+            <TabPanel value={0} sx={{ p: 2 }}>
+              <StudentSearch
+                students={students}
+                setStudentSearch={setStudentSearch}
+              />
+              <StudentDatabaseTable students={studentSearch} />
+              <Button
+                onClick={() => {
+                  handleClick();
+                }}
+                sx={{ my: 2 }}
+              >
+                {clicked ? "Cancel" : "Add Student"}
+              </Button>
+              {clicked ? <CreateStudent teacherId={id} /> : ""}
+            </TabPanel>
+            <TabPanel value={1} sx={{ p: 2 }}>
+              Bookkeeping and Invoices are under construction
+            </TabPanel>
+            <TabPanel value={2} sx={{ p: 2 }}>
+              <CreateSkillSheet />
+            </TabPanel>
+            <TabPanel value={3} sx={{ p: 2 }}>
+              View Calendar is under construction
+            </TabPanel>
+          </Tabs>
         </Sheet>
       ) : (
         <Card>
