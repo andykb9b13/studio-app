@@ -1,13 +1,5 @@
-import React, { useState, useMemo } from "react";
-import {
-  Card,
-  Input,
-  Typography,
-  Select,
-  Option,
-  Button,
-  CardContent,
-} from "@mui/joy";
+import React from "react";
+import { Card, Input, Typography, Select, Option } from "@mui/joy";
 
 const StudentSearch = ({ students, setStudentSearch }) => {
   console.log(students);

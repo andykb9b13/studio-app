@@ -60,6 +60,10 @@ const TeacherDashboard = () => {
   const teacher = data?.teacher || [];
   console.log("This is teacher", teacher.students);
 
+  useEffect(() => {
+    setStudentSearch(teacher.students);
+  }, [teacher]);
+
   return (
     <Sheet>
       {Auth.loggedIn() ? (

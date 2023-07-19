@@ -8,9 +8,9 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormHelperText,
   Select,
   Option,
+  Alert,
 } from "@mui/joy";
 
 const CreateStudent = ({ teacherId }) => {
@@ -65,7 +65,6 @@ const CreateStudent = ({ teacherId }) => {
       errors.email = "Please enter a valid email address";
       isValid = false;
     }
-
     if (!formData.password.trim()) {
       errors.password = "Please enter a password";
       isValid = false;
@@ -73,12 +72,10 @@ const CreateStudent = ({ teacherId }) => {
       errors.password = "Password must be at least 8 characters long";
       isValid = false;
     }
-
     if (formData.password !== formData.confirmPassword) {
       errors.confirmPassword = "Your passwords do not match";
       isValid = false;
     }
-
     if (formData.username.length < 8) {
       errors.username = "Your username must be at least 8 characters long";
     }
@@ -100,6 +97,7 @@ const CreateStudent = ({ teacherId }) => {
         alert("Student Successfully Created!");
       } catch (err) {
         console.error(err);
+        console.log(formErrors);
         alert("Could Not Create Student");
       }
     }
@@ -112,6 +110,11 @@ const CreateStudent = ({ teacherId }) => {
       </Typography>
       <form>
         <FormControl>
+          {formErrors.firstName ? (
+            <Alert className="error">{formErrors.firstName}</Alert>
+          ) : (
+            ""
+          )}
           <FormLabel>First Name</FormLabel>
           <Input
             type="text"
@@ -121,6 +124,11 @@ const CreateStudent = ({ teacherId }) => {
           />
         </FormControl>
         <FormControl>
+          {formErrors.lastName ? (
+            <Alert className="error">{formErrors.lastName}</Alert>
+          ) : (
+            ""
+          )}
           <FormLabel>Last Name</FormLabel>
           <Input
             type="text"
@@ -130,10 +138,20 @@ const CreateStudent = ({ teacherId }) => {
           />
         </FormControl>
         <FormControl>
+          {formErrors.email ? (
+            <Alert className="error">{formErrors.email}</Alert>
+          ) : (
+            ""
+          )}
           <FormLabel>Email</FormLabel>
           <Input type="email" name="email" id="email" onChange={handleChange} />
         </FormControl>
         <FormControl>
+          {formErrors.username ? (
+            <Alert className="error">{formErrors.username}</Alert>
+          ) : (
+            ""
+          )}
           <FormLabel>Username</FormLabel>
           <Input
             type="text"
@@ -141,15 +159,13 @@ const CreateStudent = ({ teacherId }) => {
             id="username"
             onChange={handleChange}
           />
-          {formErrors.username ? (
-            <FormHelperText className="error">
-              {formErrors.username}
-            </FormHelperText>
+        </FormControl>
+        <FormControl>
+          {formErrors.password ? (
+            <Alert className="error">{formErrors.password}</Alert>
           ) : (
             ""
           )}
-        </FormControl>
-        <FormControl>
           <FormLabel>Password</FormLabel>
           <Input
             type="password"
@@ -159,6 +175,9 @@ const CreateStudent = ({ teacherId }) => {
           />
         </FormControl>
         <FormControl>
+          {formErrors.confirmPassword && (
+            <Alert className="error">{formErrors.confirmPassword}</Alert>
+          )}
           <FormLabel>Confirm Password</FormLabel>
           <Input
             type="password"
@@ -166,11 +185,6 @@ const CreateStudent = ({ teacherId }) => {
             id="confirmPassword"
             onChange={handleChange}
           />
-          {formErrors.confirmPassword && (
-            <FormHelperText className="error">
-              {formErrors.confirmPassword}
-            </FormHelperText>
-          )}
         </FormControl>
         <FormControl>
           <FormLabel>School</FormLabel>
