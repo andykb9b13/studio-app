@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_TEACHER } from "../utils/mutations";
+import {
+  Card,
+  Input,
+  FormLabel,
+  Typography,
+  Button,
+  FormControl,
+  FormHelperText,
+  CardContent,
+  CardActions,
+} from "@mui/joy";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -81,13 +92,7 @@ const SignUp = () => {
         console.error(err);
         alert(err);
       }
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
+      handleClear();
     }
   };
   const handleClear = () => {
@@ -108,60 +113,91 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          id="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
+    <Card
+      sx={{
+        width: 400,
+        mx: "auto",
+        p: 2,
+        mt: 4,
+        my: 4,
+        borderRadius: "sm",
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        boxShadow: "lg",
+        backgroundColor: "lightblue",
+      }}
+    >
+      <Typography level="h2">Sign Up</Typography>
+      <CardContent>
+        <FormControl>
+          <FormLabel htmlFor="firstName">First Name</FormLabel>
+          <Input
+            type="text"
+            name="firstName"
+            id="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="lastName">Last Name</FormLabel>
+          <Input
+            type="text"
+            name="lastName"
+            id="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
+            type="email"
+            name="email"
+            id="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="password">Password</FormLabel>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+          <Input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+        </FormControl>
         {formErrors.confirmPassword && (
-          <span className="error">{formErrors.confirmPassword}</span>
+          <FormHelperText className="error">
+            {formErrors.confirmPassword}
+          </FormHelperText>
         )}
-        <button type="submit">Sign Up</button>
-      </form>
-      <Link to="/">
-        <button>Cancel</button>
-      </Link>
-      <p>Already a User?</p>
-      <Link to="/login">Login</Link>
-    </div>
+      </CardContent>
+      <CardActions>
+        <Button type="submit" onClick={handleSubmit} color="success">
+          Sign Up
+        </Button>
+        <Link to="/">
+          <Button color="danger">Cancel</Button>
+        </Link>
+        <Typography level="body1" endDecorator={<Link to="/login">Login</Link>}>
+          Already a User?
+        </Typography>
+      </CardActions>
+    </Card>
   );
 };
 
