@@ -110,7 +110,7 @@ const CreateStudent = ({ teacherId }) => {
       <Typography level="h2" component="h2">
         Add Student
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form>
         <FormControl>
           <FormLabel>First Name</FormLabel>
           <Input
@@ -254,7 +254,7 @@ const CreateStudent = ({ teacherId }) => {
             <Option value="zoom">Zoom</Option>
           </Select>
         </FormControl>
-        <Button>Add Student</Button>
+        <Button onClick={handleSubmit}>Add Student</Button>
       </form>
     </Sheet>
   );
