@@ -54,7 +54,7 @@ const PracticePlan = ({ practicePlan, studentId }) => {
                 </IconButton>
               }
             >
-              <b>Exercise Name:</b> {assignment.exerciseName}
+              {assignment.exerciseName}
             </Typography>
             <CardContent>
               <Typography>
