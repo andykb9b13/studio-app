@@ -6,6 +6,8 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -16,6 +18,7 @@ import PracticeHub from "./pages/PracticeHub";
 import VirtualTutor from "./pages/virtualTutor/VirtualTutor";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import CreateSkillSheet from "./components/CreateSkillSheet";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -41,25 +44,28 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/teacher/:id" element={<TeacherDashboard />} />
-          <Route
-            path="/teacher/studentDetails/:id"
-            element={<StudentDetails />}
-          />
-          <Route path="/student/:id" element={<StudentDashboard />} />
-          <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
-          <Route
-            path="/teacher/createSkillSheet/:id"
-            element={<CreateSkillSheet />}
-          />
-          <Route path="/tutor" element={<VirtualTutor />} />
-        </Routes>
-      </Router>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker />
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/teacher/:id" element={<TeacherDashboard />} />
+            <Route
+              path="/teacher/studentDetails/:id"
+              element={<StudentDetails />}
+            />
+            <Route path="/student/:id" element={<StudentDashboard />} />
+            <Route path="/student/:id/practiceHub" element={<PracticeHub />} />
+            <Route
+              path="/teacher/createSkillSheet/:id"
+              element={<CreateSkillSheet />}
+            />
+            <Route path="/tutor" element={<VirtualTutor />} />
+          </Routes>
+        </Router>
+      </LocalizationProvider>
     </ApolloProvider>
   );
 }

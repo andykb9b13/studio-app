@@ -22,6 +22,7 @@ import StorageIcon from "@mui/icons-material/Storage";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import Calendar from "../components/Calendar";
 
 const TeacherDashboard = () => {
   const logout = (event) => {
@@ -119,7 +120,7 @@ const TeacherDashboard = () => {
               <CreateSkillSheet />
             </TabPanel>
             <TabPanel value={3} sx={{ p: 2 }}>
-              View Calendar is under construction
+              <Calendar />
             </TabPanel>
           </Tabs>
         </Sheet>

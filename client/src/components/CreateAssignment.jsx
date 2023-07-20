@@ -11,6 +11,7 @@ import {
   Typography,
   FormControl,
   FormLabel,
+  Textarea,
 } from "@mui/joy";
 
 const CreateAssignment = ({ studentId, planId }) => {
@@ -91,7 +92,7 @@ const CreateAssignment = ({ studentId, planId }) => {
   return (
     <Sheet sx={{ p: 1, borderRadius: "4px", mt: 1, boxShadow: "md" }}>
       <Typography level="h2">Create Assignment</Typography>
-      <form onSubmit={handleSubmit}>
+      <form>
         <FormControl>
           <FormLabel>Date</FormLabel>
           <Input type="text" name="date" id="date" onChange={handleChange} />
@@ -129,8 +130,8 @@ const CreateAssignment = ({ studentId, planId }) => {
         </FormControl>
         <FormControl>
           <FormLabel>Special Notes</FormLabel>
-          <Input
-            type="textarea"
+          <Textarea
+            minRows={3}
             name="specialNotes"
             id="specialNotes"
             onChange={handleChange}
@@ -149,7 +150,7 @@ const CreateAssignment = ({ studentId, planId }) => {
           <FormLabel htmlFor="pages">Pages</FormLabel>
           <Input type="text" name="pages" id="pages" onChange={handleChange} />
         </FormControl>
-        <Button>Create Assignment</Button>
+        <Button onClick={handleSubmit}>Create Assignment</Button>
       </form>
     </Sheet>
   );
