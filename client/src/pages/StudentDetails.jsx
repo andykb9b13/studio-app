@@ -24,6 +24,7 @@ export const StudentContext = createContext();
 const StudentDetails = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
+
   const { id } = useParams();
   const { data } = useQuery(QUERY_STUDENT, {
     variables: {
@@ -70,7 +71,7 @@ const StudentDetails = () => {
           sx={{
             backgroundColor: "white",
             mx: "auto",
-            width: "90%",
+            width: "100%",
             p: 3,
             my: 2,
             borderRadius: "10px",

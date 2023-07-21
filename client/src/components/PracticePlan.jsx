@@ -1,25 +1,12 @@
 import React, { useState } from "react";
 import CreateAssignment from "./CreateAssignment";
 import DeletePracticePlanModal from "./DeletePracticePlanModal";
-import {
-  Sheet,
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  IconButton,
-} from "@mui/joy";
+import { Sheet, Typography, IconButton, Divider, Link, Table } from "@mui/joy";
 import { Add } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import AssignmentView from "./AssignmentView";
 
 const PracticePlan = ({ practicePlan, studentId }) => {
-  console.log("practicePlan", practicePlan);
-
-  const [clicked, setClicked] = useState(false);
-  const handleClick = (event) => {
-    event.preventDefault();
-    setClicked(!clicked);
-  };
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <Sheet
@@ -31,53 +18,48 @@ const PracticePlan = ({ practicePlan, studentId }) => {
         boxShadow: "md",
       }}
     >
-      <Typography level="h3">{practicePlan.name}</Typography>
-      <IconButton onClick={handleClick}>
+      <Typography level="h2">{practicePlan.name}</Typography>
+      <IconButton onClick={() => setActiveIndex(1)}>
         <Add />
       </IconButton>
       <DeletePracticePlanModal planId={practicePlan._id} />
 
-      {clicked ? (
+      {activeIndex === 1 ? (
         <CreateAssignment studentId={studentId} planId={practicePlan._id} />
       ) : (
         ""
       )}
 
-      {practicePlan.assignments &&
-        practicePlan.assignments.map((assignment, i) => (
-          <Card key={i} sx={{ mt: 2 }}>
-            <Typography
-              level="h2"
-              endDecorator={
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              }
-            >
-              {assignment.exerciseName}
-            </Typography>
-            <CardContent>
-              <Typography>
-                <b>Date:</b> {assignment.date}
-              </Typography>
-              <Typography>
-                <b>Assignment Type:</b> {assignment.assignmentType}
-              </Typography>
-              <Typography>
-                <b>Source:</b> {assignment.source}
-              </Typography>
-              <Typography>
-                <b>Pages:</b> {assignment.pages}
-              </Typography>
-              <Typography>
-                <b>Metronome:</b> {assignment.metronome}
-              </Typography>
-              <Typography>
-                <b>Special Notes:</b> {assignment.specialNotes}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
+      <Table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Metronome</th>
+            <th>Source</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {practicePlan.assignments &&
+            practicePlan.assignments.map((assignment) => (
+              <>
+                <tr key={assignment._id}>
+                  <td>
+                    <b>{assignment.exerciseName}</b>
+                  </td>
+                  <td>{assignment.metronome}</td>
+                  <td>{assignment.source}</td>
+                  <td>
+                    <AssignmentView
+                      assignment={assignment}
+                      key={assignment._id}
+                    />
+                  </td>
+                </tr>
+              </>
+            ))}
+        </tbody>
+      </Table>
     </Sheet>
   );
 };
