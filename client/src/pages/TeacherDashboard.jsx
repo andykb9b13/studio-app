@@ -25,6 +25,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/Calendar";
 
 const TeacherDashboard = () => {
+  // checking if the window is mobile sized for conditional display rendering
   useEffect(() => {
     if (window.innerWidth < 768) {
       setIsMobile(true);
@@ -33,6 +34,7 @@ const TeacherDashboard = () => {
 
   const logout = () => {
     const loggedOut = Auth.logout();
+    console.log(loggedOut);
     if (loggedOut) {
       alert("You are now logged out");
     } else {
@@ -60,9 +62,10 @@ const TeacherDashboard = () => {
   const teacher = data?.teacher || [];
   console.log("This is teacher", teacher.students);
 
+  // Setting the students to be displayed initially
   useEffect(() => {
     setStudentSearch(teacher.students);
-  }, [teacher]);
+  }, [teacher.students]);
 
   return (
     <Sheet>
