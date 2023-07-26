@@ -5,23 +5,41 @@ export const QUERY_TEACHER = gql`
     teacher(teacherId: $teacherId) {
       _id
       firstName
-      lastName
       email
+      lastName
+      password
+      skillSheets {
+        _id
+        arpeggios
+        articulation
+        completed
+        description
+        etudes
+        exercises
+        longTones
+        pieces
+        scales
+        sheetName
+        slurs
+        teacherId
+      }
       students {
         _id
-        firstName
-        lastName
         email
+        firstName
+        grade
+        instrument
+        isActive
+        lastName
+        lessonDay
+        lessonLocation
+        lessonTime
+        password
         primaryContact
         primaryContactEmail
-        instrument
-        lessonDay
-        lessonTime
-        grade
         school
-        lessonLocation
-        isActive
         teacherId
+        username
       }
     }
   }
@@ -51,7 +69,6 @@ export const QUERY_STUDENT = gql`
         assignments {
           _id
           exerciseName
-          date
           assignmentType
           source
           pages
@@ -72,6 +89,7 @@ export const QUERY_STUDENT = gql`
           _id
           sheetName
           completed
+          description
           arpeggios
           articulation
           etudes
@@ -103,7 +121,6 @@ export const QUERY_PRACTICEPLANS = gql`
       name
       assignments {
         _id
-        date
         exerciseName
         source
         assignmentType
@@ -120,6 +137,7 @@ export const QUERY_PRACTICEPLANS = gql`
         teacherId
         scales
         arpeggios
+        description
         articulation
         slurs
         longTones

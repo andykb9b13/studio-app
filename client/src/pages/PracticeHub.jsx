@@ -14,7 +14,7 @@ import {
 } from "@mui/joy";
 import TimedPractice from "../components/TimedPractice";
 import StreakPractice from "../components/StreakPractice";
-import SkillSheetView from "../components/SkillSheetView";
+import SkillSheets from "../components/SkillSheets";
 import CreateAssignment from "../components/CreateAssignment";
 import VirtualTutor from "./virtualTutor/VirtualTutor";
 import PracticePlan from "../components/PracticePlan";
@@ -164,7 +164,7 @@ const PracticeHub = () => {
         I need to use context.  */}
       {timedPractice && <TimedPractice student={student} />}
       {streakPractice && <StreakPractice student={student} />}
-      {skillSheets && <SkillSheetView student={student} />}
+      {skillSheets && <SkillSheets student={student} />}
       {createAssignment && <CreateAssignment student={student} />}
       {practicePlan && (
         <PracticePlan

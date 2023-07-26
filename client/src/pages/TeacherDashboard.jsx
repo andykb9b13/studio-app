@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import StudentDatabaseTable from "../components/StudentDatabaseTable";
 import StudentSearch from "../components/StudentSearch";
-import SkillSheetView from "../components/SkillSheetView";
+import SkillSheets from "../components/SkillSheets";
 import CreateStudent from "../components/CreateStudent";
 import {
   Sheet,
@@ -23,6 +23,8 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/Calendar";
+
+export const TeacherContext = createContext();
 
 const TeacherDashboard = () => {
   // getting the teacher info using the id from the URL parameters
@@ -69,87 +71,89 @@ const TeacherDashboard = () => {
   }, [teacher.students]);
 
   return (
-    <Sheet>
-      {Auth.loggedIn() ? (
-        <Sheet>
-          {/* These tabs function as the Navbar */}
-          <Tabs
-            aria-label="Basic tabs"
-            defaultValue={0}
-            sx={{ borderRadius: "lg" }}
-            variant="scrollable"
-            scrollbuttons="auto"
-          >
-            <TabList color="primary">
-              {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
-              <Tab>
-                {!isMobile && <Typography>Student Database</Typography>}
-                <StorageIcon />
-              </Tab>
-              <Tab>
-                {!isMobile && <Typography>Bookkeeping/Invoices</Typography>}
-                <RequestQuoteIcon />
-              </Tab>
-              <Tab>
-                {!isMobile && <Typography>SkillSheets</Typography>}
-                <BuildIcon />
-              </Tab>
-              <Tab>
-                {!isMobile && <Typography>View Calendar</Typography>}
-                <CalendarMonthIcon />
-              </Tab>
-            </TabList>
+    <TeacherContext.Provider value={{ teacher }}>
+      <Sheet>
+        {Auth.loggedIn() ? (
+          <Sheet>
+            {/* These tabs function as the Navbar */}
+            <Tabs
+              aria-label="Basic tabs"
+              defaultValue={0}
+              sx={{ borderRadius: "lg" }}
+              variant="scrollable"
+              scrollbuttons="auto"
+            >
+              <TabList color="primary">
+                {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
+                <Tab>
+                  {!isMobile && <Typography>Student Database</Typography>}
+                  <StorageIcon />
+                </Tab>
+                <Tab>
+                  {!isMobile && <Typography>Bookkeeping/Invoices</Typography>}
+                  <RequestQuoteIcon />
+                </Tab>
+                <Tab>
+                  {!isMobile && <Typography>SkillSheets</Typography>}
+                  <BuildIcon />
+                </Tab>
+                <Tab>
+                  {!isMobile && <Typography>View Calendar</Typography>}
+                  <CalendarMonthIcon />
+                </Tab>
+              </TabList>
 
-            {/* Heading */}
-            <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
-              {teacher.firstName} {teacher.lastName}'s Dashboard
+              {/* Heading */}
+              <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
+                {teacher.firstName} {teacher.lastName}'s Dashboard
+              </Typography>
+              <Button onClick={() => logout()}>Logout</Button>
+
+              {/* Panel for student database view (includes student search) */}
+              <TabPanel value={0} sx={{ p: 2 }}>
+                <StudentSearch
+                  students={students}
+                  setStudentSearch={setStudentSearch}
+                />
+                <StudentDatabaseTable students={studentSearch} />
+                <Button
+                  onClick={() => {
+                    handleClick();
+                  }}
+                  sx={{ my: 2 }}
+                >
+                  {clicked ? "Cancel" : "Add Student"}
+                </Button>
+                {clicked ? <CreateStudent teacherId={id} /> : ""}
+              </TabPanel>
+
+              {/* Tab panel for bookkeeping and invoices */}
+              <TabPanel value={1} sx={{ p: 2 }}>
+                Bookkeeping and Invoices are under construction
+              </TabPanel>
+
+              {/* Tab panel for Skill sheets */}
+              <TabPanel value={2} sx={{ p: 2 }}>
+                <SkillSheets teacher={teacher} />
+              </TabPanel>
+
+              {/* Tab panel for showing calendar */}
+              <TabPanel value={3} sx={{ p: 2 }}>
+                <Calendar />
+              </TabPanel>
+            </Tabs>
+          </Sheet>
+        ) : (
+          // If the user is not logged in, this will show
+          <Card>
+            <Typography level="h3" component="h3">
+              Please Log In
             </Typography>
-            <Button onClick={() => logout()}>Logout</Button>
-
-            {/* Panel for student database view (includes student search) */}
-            <TabPanel value={0} sx={{ p: 2 }}>
-              <StudentSearch
-                students={students}
-                setStudentSearch={setStudentSearch}
-              />
-              <StudentDatabaseTable students={studentSearch} />
-              <Button
-                onClick={() => {
-                  handleClick();
-                }}
-                sx={{ my: 2 }}
-              >
-                {clicked ? "Cancel" : "Add Student"}
-              </Button>
-              {clicked ? <CreateStudent teacherId={id} /> : ""}
-            </TabPanel>
-
-            {/* Tab panel for bookkeeping and invoices */}
-            <TabPanel value={1} sx={{ p: 2 }}>
-              Bookkeeping and Invoices are under construction
-            </TabPanel>
-
-            {/* Tab panel for Skill sheets */}
-            <TabPanel value={2} sx={{ p: 2 }}>
-              <SkillSheetView />
-            </TabPanel>
-
-            {/* Tab panel for showing calendar */}
-            <TabPanel value={3} sx={{ p: 2 }}>
-              <Calendar />
-            </TabPanel>
-          </Tabs>
-        </Sheet>
-      ) : (
-        // If the user is not logged in, this will show
-        <Card>
-          <Typography level="h3" component="h3">
-            Please Log In
-          </Typography>
-          <Link to="/login">Login</Link>
-        </Card>
-      )}
-    </Sheet>
+            <Link to="/login">Login</Link>
+          </Card>
+        )}
+      </Sheet>
+    </TeacherContext.Provider>
   );
 };
 

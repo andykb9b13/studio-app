@@ -8,6 +8,9 @@ const skillSheetSchema = new Schema({
   teacherId: {
     type: String,
   },
+  description: {
+    type: String,
+  },
   scales: {
     type: String,
     trim: true,

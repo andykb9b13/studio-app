@@ -36,7 +36,6 @@ const typeDefs = gql`
 
   type Assignment {
     _id: ID
-    date: String
     exerciseName: String
     studentId: String
     planId: String
@@ -68,6 +67,7 @@ const typeDefs = gql`
     _id: ID
     sheetName: String!
     teacherId: String
+    description: String
     scales: String
     arpeggios: String
     articulation: String
@@ -135,7 +135,6 @@ const typeDefs = gql`
     ): Student
 
     addAssignment(
-      date: String
       exerciseName: String
       studentId: String
       planId: String
@@ -160,6 +159,7 @@ const typeDefs = gql`
       sheetName: String!
       teacherId: String
       scales: String
+      description: String
       arpeggios: String
       articulation: String
       slurs: String
@@ -215,7 +215,6 @@ const typeDefs = gql`
 
     editAssignment(
       assignmentId: ID!
-      date: String
       exerciseName: String
       studentId: String
       source: String
@@ -231,6 +230,7 @@ const typeDefs = gql`
       skillSheetId: ID!
       sheetName: String
       scales: String
+      description: String
       arpeggios: String
       articulation: String
       slurs: String

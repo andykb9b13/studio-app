@@ -91,7 +91,6 @@ export const LOGIN = gql`
 
 export const ADD_ASSIGNMENT = gql`
   mutation addAssignment(
-    $date: String!
     $exerciseName: String!
     $studentId: String
     $planId: String
@@ -102,7 +101,6 @@ export const ADD_ASSIGNMENT = gql`
     $pages: String
   ) {
     addAssignment(
-      date: $date
       exerciseName: $exerciseName
       studentId: $studentId
       planId: $planId
@@ -112,7 +110,6 @@ export const ADD_ASSIGNMENT = gql`
       metronome: $metronome
       pages: $pages
     ) {
-      date
       exerciseName
       studentId
       planId
@@ -130,6 +127,7 @@ export const ADD_SKILLSHEET = gql`
     $sheetName: String!
     $teacherId: String
     $scales: String
+    $description: String
     $arpeggios: String
     $articulation: String
     $slurs: String
@@ -143,6 +141,7 @@ export const ADD_SKILLSHEET = gql`
       teacherId: $teacherId
       scales: $scales
       arpeggios: $arpeggios
+      description: $description
       articulation: $articulation
       slurs: $slurs
       longTones: $longTones
@@ -154,6 +153,7 @@ export const ADD_SKILLSHEET = gql`
       teacherId
       scales
       arpeggios
+      description
       articulation
       slurs
       longTones

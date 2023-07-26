@@ -1,9 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const assignmentSchema = new Schema({
-  date: {
-    type: String,
-  },
   exerciseName: {
     type: String,
   },

@@ -17,7 +17,6 @@ import {
 } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-// import { useStudentContext } from "../utils/StudentContext";
 
 export const StudentContext = createContext();
 
@@ -31,15 +30,9 @@ const StudentDetails = () => {
       studentId: id,
     },
   });
-  console.log(data);
 
   const student = data?.student || [];
   const practicePlans = data?.student.practicePlans;
-
-  // const { setStudent } = useStudentContext();
-  // useEffect(() => {
-  //   setStudent(data);
-  // }, [setStudent, data]);
 
   const handlePlanClick = () => {
     setOpen(!open);

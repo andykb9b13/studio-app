@@ -41,7 +41,9 @@ const resolvers = {
         .populate("skillSheets");
     },
     teacher: async (parent, { teacherId: _id }) => {
-      return await Teacher.findById(_id).populate("students");
+      return await Teacher.findById(_id)
+        .populate("students")
+        .populate("skillSheets");
     },
     assignments: async () => {
       return await Assignment.find({});
