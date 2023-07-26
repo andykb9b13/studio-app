@@ -46,7 +46,10 @@ class AuthService {
     localStorage.removeItem("id_token");
     // this will reload the page and reset the state of the application
     window.location.assign("/");
+    return true;
   }
 }
 
-export default new AuthService();
+const Auth = new AuthService();
+
+export default Auth;
