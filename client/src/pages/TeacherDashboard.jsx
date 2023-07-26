@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
 import StudentDatabaseTable from "../components/StudentDatabaseTable";
 import StudentSearch from "../components/StudentSearch";
-import CreateSkillSheet from "../components/CreateSkillSheet";
+import SkillSheetView from "../components/SkillSheetView";
 import CreateStudent from "../components/CreateStudent";
 import {
   Sheet,
@@ -25,6 +25,21 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/Calendar";
 
 const TeacherDashboard = () => {
+  // getting the teacher info using the id from the URL parameters
+  const { id } = useParams();
+  const { data } = useQuery(QUERY_TEACHER, {
+    variables: {
+      teacherId: id,
+    },
+  });
+
+  // Setting variables for teacher information and student information
+  const students = data?.teacher.students || [];
+  const teacher = data?.teacher || [];
+  const [studentSearch, setStudentSearch] = useState(students);
+  const [isMobile, setIsMobile] = useState(false);
+  const [clicked, setClicked] = useState(false);
+
   // checking if the window is mobile sized for conditional display rendering
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -32,6 +47,7 @@ const TeacherDashboard = () => {
     }
   }, []);
 
+  // Utility for logging out. Need to move into utility file maybe.
   const logout = () => {
     const loggedOut = Auth.logout();
     console.log(loggedOut);
@@ -42,25 +58,10 @@ const TeacherDashboard = () => {
     }
   };
 
-  // getting the teacher info using the id from the URL parameters
-  const { id } = useParams();
-  const { data } = useQuery(QUERY_TEACHER, {
-    variables: {
-      teacherId: id,
-    },
-  });
-
-  const students = data?.teacher.students || [];
-  const [clicked, setClicked] = useState(false);
-  const [studentSearch, setStudentSearch] = useState(students);
-  const [isMobile, setIsMobile] = useState(false);
-
+  // Handles the panel
   const handleClick = (event) => {
     setClicked(!clicked);
   };
-
-  const teacher = data?.teacher || [];
-  console.log("This is teacher", teacher.students);
 
   // Setting the students to be displayed initially
   useEffect(() => {
@@ -71,10 +72,7 @@ const TeacherDashboard = () => {
     <Sheet>
       {Auth.loggedIn() ? (
         <Sheet>
-          <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
-            {teacher.firstName} {teacher.lastName}'s Dashboard
-          </Typography>
-          <Button onClick={() => logout()}>Logout</Button>
+          {/* These tabs function as the Navbar */}
           <Tabs
             aria-label="Basic tabs"
             defaultValue={0}
@@ -83,6 +81,7 @@ const TeacherDashboard = () => {
             scrollbuttons="auto"
           >
             <TabList color="primary">
+              {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
               <Tab>
                 {!isMobile && <Typography>Student Database</Typography>}
                 <StorageIcon />
@@ -100,6 +99,14 @@ const TeacherDashboard = () => {
                 <CalendarMonthIcon />
               </Tab>
             </TabList>
+
+            {/* Heading */}
+            <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
+              {teacher.firstName} {teacher.lastName}'s Dashboard
+            </Typography>
+            <Button onClick={() => logout()}>Logout</Button>
+
+            {/* Panel for student database view (includes student search) */}
             <TabPanel value={0} sx={{ p: 2 }}>
               <StudentSearch
                 students={students}
@@ -116,18 +123,25 @@ const TeacherDashboard = () => {
               </Button>
               {clicked ? <CreateStudent teacherId={id} /> : ""}
             </TabPanel>
+
+            {/* Tab panel for bookkeeping and invoices */}
             <TabPanel value={1} sx={{ p: 2 }}>
               Bookkeeping and Invoices are under construction
             </TabPanel>
+
+            {/* Tab panel for Skill sheets */}
             <TabPanel value={2} sx={{ p: 2 }}>
-              <CreateSkillSheet />
+              <SkillSheetView />
             </TabPanel>
+
+            {/* Tab panel for showing calendar */}
             <TabPanel value={3} sx={{ p: 2 }}>
               <Calendar />
             </TabPanel>
           </Tabs>
         </Sheet>
       ) : (
+        // If the user is not logged in, this will show
         <Card>
           <Typography level="h3" component="h3">
             Please Log In
