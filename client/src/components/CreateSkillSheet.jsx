@@ -1,12 +1,9 @@
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { ADD_SKILLSHEET } from "../utils/mutations";
 import {
-  Sheet,
   Card,
-  Grid,
   Input,
   FormControl,
   FormLabel,
@@ -15,17 +12,19 @@ import {
   Button,
   CardContent,
   CardActions,
+  Textarea,
 } from "@mui/joy";
+import { TeacherContext } from "../pages/TeacherDashboard";
 
 const CreateSkillSheet = () => {
-  const { id } = useParams();
-  console.log("teacherId in CreateSkillSheet", id);
+  const { teacher } = useContext(TeacherContext);
 
   const [formData, setFormData] = useState({
     sheetName: "",
     scales: "",
     arpeggios: "",
     articulation: "",
+    description: "",
     slurs: "",
     longTones: "",
     exercises: "",
@@ -35,14 +34,6 @@ const CreateSkillSheet = () => {
 
   const [formErrors, setFormErrors] = useState({
     sheetName: "",
-    scales: "",
-    arpeggios: "",
-    articulation: "",
-    slurs: "",
-    longTones: "",
-    exercises: "",
-    etudes: "",
-    pieces: "",
   });
 
   const [createSkillSheet, { errors }] = useMutation(ADD_SKILLSHEET);
@@ -70,7 +61,7 @@ const CreateSkillSheet = () => {
       event.preventDefault();
       try {
         const { data } = await createSkillSheet({
-          variables: { teacherId: id, ...formData },
+          variables: { teacherId: teacher._id, ...formData },
         });
         console.log(data);
         alert("Skill sheet successfully created!");
@@ -88,7 +79,6 @@ const CreateSkillSheet = () => {
         maxHeight: "max-content",
         maxWidth: "100%",
         mx: "auto",
-        // to make the demo resizable
         overflow: "auto",
         resize: "horizontal",
       }}
@@ -103,6 +93,15 @@ const CreateSkillSheet = () => {
               type="text"
               name="sheetName"
               id="sheetName"
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="description">Description</FormLabel>
+            <Textarea
+              minRows={3}
+              name="description"
+              id="description"
               onChange={handleChange}
             />
           </FormControl>
@@ -181,7 +180,7 @@ const CreateSkillSheet = () => {
       <CardActions>
         {" "}
         <Button onClick={handleSubmit}>Create Skill Sheet</Button>
-        <Link to={`/teacher/${id}`}>
+        <Link to={`/teacher/${teacher._id}`}>
           <Button>Cancel</Button>
         </Link>
       </CardActions>

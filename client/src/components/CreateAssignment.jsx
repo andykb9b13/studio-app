@@ -15,10 +15,7 @@ import {
 } from "@mui/joy";
 
 const CreateAssignment = ({ studentId, planId }) => {
-  console.log("studentId", studentId);
-  console.log("planId", planId);
   const [formData, setFormData] = useState({
-    date: "",
     exerciseName: "",
     source: "",
     assignmentType: "",
@@ -28,7 +25,6 @@ const CreateAssignment = ({ studentId, planId }) => {
   });
 
   const [formErrors, setFormErrors] = useState({
-    date: "",
     exerciseName: "",
     source: "",
     assignmentType: "",
@@ -93,10 +89,6 @@ const CreateAssignment = ({ studentId, planId }) => {
     <Sheet sx={{ p: 1, borderRadius: "4px", mt: 1, boxShadow: "md" }}>
       <Typography level="h2">Create Assignment</Typography>
       <form>
-        <FormControl>
-          <FormLabel>Date</FormLabel>
-          <Input type="text" name="date" id="date" onChange={handleChange} />
-        </FormControl>
         <FormControl>
           <FormLabel>Exercise Name</FormLabel>
           <Input
