@@ -25,8 +25,13 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/Calendar";
 
 const TeacherDashboard = () => {
-  const logout = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    }
+  }, []);
+
+  const logout = () => {
     const loggedOut = Auth.logout();
     if (loggedOut) {
       alert("You are now logged out");
@@ -48,12 +53,6 @@ const TeacherDashboard = () => {
   const [studentSearch, setStudentSearch] = useState(students);
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    }
-  }, []);
-
   const handleClick = (event) => {
     setClicked(!clicked);
   };
@@ -72,12 +71,13 @@ const TeacherDashboard = () => {
           <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
             {teacher.firstName} {teacher.lastName}'s Dashboard
           </Typography>
+          <Button onClick={() => logout()}>Logout</Button>
           <Tabs
             aria-label="Basic tabs"
             defaultValue={0}
             sx={{ borderRadius: "lg" }}
             variant="scrollable"
-            scrollButtons="auto"
+            scrollbuttons="auto"
           >
             <TabList color="primary">
               <Tab>
