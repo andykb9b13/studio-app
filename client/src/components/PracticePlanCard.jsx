@@ -8,6 +8,8 @@ import { StudentContext } from "../pages/StudentDetails";
 export default function PracticePlanCard() {
   const { id, practicePlans } = useContext(StudentContext);
   const [open, setOpen] = useState(false);
+
+  // handles opening the create practice plan component
   const handlePlanClick = () => {
     setOpen(!open);
   };

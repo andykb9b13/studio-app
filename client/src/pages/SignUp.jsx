@@ -14,8 +14,41 @@ import {
   CardContent,
   CardActions,
 } from "@mui/joy";
+import { useForm } from "react-hook-form";
 
-const SignUp = () => {
+export default function SignUp() {
+  // Experimenting with useFormHook
+
+  // destructure
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  // This is where the data will be
+  const onSubmit = (data) => console.log(data);
+
+  console.log(watch("exampleRequired"));
+  console.log(watch("example")); // watch the input value by passing the name to it. The input is named "example"
+
+  return (
+    // handleSubmit (which is destructured from useForm() will validate inputs before invoking "onSubmit")
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* You have to register the input  */}
+      <Input defaultValue="test" {...register("example")} />
+      {/* Register the input with VALIDATION */}
+      <Input {...register("exampleRequired", { required: true })} />
+
+      {errors.exampleRequired && <span>This field is required</span>}
+      <Input type="submit" variant="solid" />
+    </form>
+  );
+}
+
+// A place to hold all of the data that's in danger of being deleted FOREVER!!!
+const HoldingCell = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -200,5 +233,3 @@ const SignUp = () => {
     </Card>
   );
 };
-
-export default SignUp;

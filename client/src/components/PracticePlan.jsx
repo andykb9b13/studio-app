@@ -15,6 +15,7 @@ const styles = {
   },
 };
 
+// The view of an individual practice plan
 const PracticePlan = ({ practicePlan }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -24,6 +25,7 @@ const PracticePlan = ({ practicePlan }) => {
       <IconButton onClick={() => setActiveIndex(1)}>
         <Add />
       </IconButton>
+
       <DeletePracticePlanModal planId={practicePlan._id} />
 
       {activeIndex === 1 ? <CreateAssignment planId={practicePlan._id} /> : ""}

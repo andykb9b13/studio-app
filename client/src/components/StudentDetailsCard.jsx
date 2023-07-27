@@ -36,14 +36,16 @@ const styles = {
   },
 };
 
-// houses the main information about the student
+// the main information about the student
 export default function StudentDetailsCard() {
   const { student, id } = useContext(StudentContext);
   const [active, setActive] = useState(0);
 
+  // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
     setActive(index);
   };
+
   return (
     <Card sx={styles.card}>
       <CardContent>
