@@ -1,34 +1,32 @@
 import React, { useState } from "react";
 import CreateAssignment from "./CreateAssignment";
 import DeletePracticePlanModal from "./DeletePracticePlanModal";
-import { Sheet, Typography, IconButton, Divider, Link, Table } from "@mui/joy";
+import { Sheet, Typography, IconButton, Table } from "@mui/joy";
 import { Add } from "@mui/icons-material";
 import AssignmentView from "./AssignmentView";
 
-const PracticePlan = ({ practicePlan, studentId }) => {
+const styles = {
+  sheet: {
+    mt: 3,
+    p: 2,
+    backgroundColor: "lavender",
+    borderRadius: "4px",
+    boxShadow: "md",
+  },
+};
+
+const PracticePlan = ({ practicePlan }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <Sheet
-      sx={{
-        mt: 3,
-        p: 2,
-        backgroundColor: "lavender",
-        borderRadius: "4px",
-        boxShadow: "md",
-      }}
-    >
+    <Sheet sx={styles.sheet}>
       <Typography level="h2">{practicePlan.name}</Typography>
       <IconButton onClick={() => setActiveIndex(1)}>
         <Add />
       </IconButton>
       <DeletePracticePlanModal planId={practicePlan._id} />
 
-      {activeIndex === 1 ? (
-        <CreateAssignment studentId={studentId} planId={practicePlan._id} />
-      ) : (
-        ""
-      )}
+      {activeIndex === 1 ? <CreateAssignment planId={practicePlan._id} /> : ""}
 
       <Table>
         <thead>
