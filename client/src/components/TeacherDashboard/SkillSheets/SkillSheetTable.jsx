@@ -1,6 +1,6 @@
 import { Button, Sheet, Table } from "@mui/joy";
 import React, { useContext } from "react";
-import { TeacherContext } from "../pages/TeacherDashboard";
+import { TeacherContext } from "../../../pages/TeacherDashboard";
 
 const SkillSheetTable = ({ setActiveSheet }) => {
   const { teacher } = useContext(TeacherContext);

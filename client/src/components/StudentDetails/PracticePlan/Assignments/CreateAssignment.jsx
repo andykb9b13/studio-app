@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import React, { useState, useContext } from "react";
-import { ADD_ASSIGNMENT } from "../utils/mutations";
+import { ADD_ASSIGNMENT } from "../../../../utils/mutations";
 import {
   Sheet,
   Select,
@@ -12,7 +12,7 @@ import {
   FormLabel,
   Textarea,
 } from "@mui/joy";
-import { StudentContext } from "../pages/StudentDetails";
+import { StudentContext } from "../../../../pages/StudentDetails";
 
 const CreateAssignment = ({ planId }) => {
   const { student } = useContext(StudentContext);

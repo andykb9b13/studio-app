@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import EditStudent from "../components/EditStudent";
+import EditStudent from "./EditStudent";
 import {
   Typography,
   Button,
@@ -11,8 +11,8 @@ import {
 } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { StudentContext } from "../pages/StudentDetails";
-import PracticePlanCard from "./PracticePlanCard";
+import { StudentContext } from "../../pages/StudentDetails";
+import PracticePlanCard from "./PracticePlan/PracticePlanCard";
 
 const styles = {
   sheet: {
@@ -36,14 +36,16 @@ const styles = {
   },
 };
 
-// houses the main information about the student
+// the main information about the student
 export default function StudentDetailsCard() {
   const { student, id } = useContext(StudentContext);
   const [active, setActive] = useState(0);
 
+  // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
     setActive(index);
   };
+
   return (
     <Card sx={styles.card}>
       <CardContent>

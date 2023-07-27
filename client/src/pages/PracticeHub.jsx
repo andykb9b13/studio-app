@@ -11,12 +11,12 @@ import {
   Sheet,
   Typography,
 } from "@mui/joy";
-import TimedPractice from "../components/TimedPractice";
-import StreakPractice from "../components/StreakPractice";
-import SkillSheets from "../components/SkillSheets";
-import CreateAssignment from "../components/CreateAssignment";
-import VirtualTutor from "./virtualTutor/VirtualTutor";
-import PracticePlan from "../components/PracticePlan";
+import TimedPractice from "../components/PracticeHub/TimedPractice";
+import StreakPractice from "../components/PracticeHub/StreakPractice";
+import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
+import CreateAssignment from "../components/StudentDetails/PracticePlan/Assignments/CreateAssignment";
+import VirtualTutor from "./VirtualTutor";
+import PracticePlan from "../components/StudentDetails/PracticePlan/PracticePlan";
 import TimerIcon from "@mui/icons-material/Timer";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArticleIcon from "@mui/icons-material/Article";

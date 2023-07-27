@@ -2,9 +2,9 @@ import React, { createContext } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
-import DeleteStudentModal from "../components/DeleteStudentModal";
+import DeleteStudentModal from "../components/StudentDetails/DeleteStudentModal";
 import { Sheet, Typography } from "@mui/joy";
-import StudentDetailsCard from "../components/StudentDetailsCard";
+import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 
 const styles = {
   sheet: {

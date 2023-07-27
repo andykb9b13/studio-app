@@ -5,21 +5,13 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import AppRoutes from "./Routes";
 import "./App.css";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import StudentDashboard from "./pages/StudentDashboard";
-import StudentDetails from "./pages/StudentDetails";
-import PracticeHub from "./pages/PracticeHub";
-import VirtualTutor from "./pages/virtualTutor/VirtualTutor";
-import TeacherDashboard from "./pages/TeacherDashboard";
-import CreateSkillSheet from "./components/CreateSkillSheet";
+
 import { useState, useEffect, createContext } from "react";
 
 const httpLink = createHttpLink({
@@ -61,28 +53,7 @@ function App() {
       <ApolloProvider client={client}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileContext.Provider value={{ isMobile }}>
-            <Router>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/teacher/:id" element={<TeacherDashboard />} />
-                <Route
-                  path="/teacher/studentDetails/:id"
-                  element={<StudentDetails />}
-                />
-                <Route path="/student/:id" element={<StudentDashboard />} />
-                <Route
-                  path="/student/:id/practiceHub"
-                  element={<PracticeHub />}
-                />
-                <Route
-                  path="/teacher/createSkillSheet/:id"
-                  element={<CreateSkillSheet />}
-                />
-                <Route path="/tutor" element={<VirtualTutor />} />
-              </Routes>
-            </Router>
+            <AppRoutes />
           </MobileContext.Provider>
         </LocalizationProvider>
       </ApolloProvider>

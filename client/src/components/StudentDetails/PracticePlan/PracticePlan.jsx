@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CreateAssignment from "./CreateAssignment";
+import CreateAssignment from "./Assignments/CreateAssignment";
 import DeletePracticePlanModal from "./DeletePracticePlanModal";
 import { Sheet, Typography, IconButton, Table } from "@mui/joy";
 import { Add } from "@mui/icons-material";
-import AssignmentView from "./AssignmentView";
+import AssignmentView from "./Assignments/AssignmentView";
 
 const styles = {
   sheet: {
@@ -15,6 +15,7 @@ const styles = {
   },
 };
 
+// The view of an individual practice plan
 const PracticePlan = ({ practicePlan }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -24,6 +25,7 @@ const PracticePlan = ({ practicePlan }) => {
       <IconButton onClick={() => setActiveIndex(1)}>
         <Add />
       </IconButton>
+
       <DeletePracticePlanModal planId={practicePlan._id} />
 
       {activeIndex === 1 ? <CreateAssignment planId={practicePlan._id} /> : ""}

@@ -4,10 +4,10 @@ import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
-import StudentDatabaseTable from "../components/StudentDatabaseTable";
-import StudentSearch from "../components/StudentSearch";
-import SkillSheets from "../components/SkillSheets";
-import CreateStudent from "../components/CreateStudent";
+import StudentDatabaseTable from "../components/TeacherDashboard/StudentDatabase/StudentDatabaseTable";
+import StudentSearch from "../components/TeacherDashboard/StudentDatabase/StudentSearch";
+import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
+import CreateStudent from "../components/StudentDetails/CreateStudent";
 import {
   Sheet,
   Button,
@@ -22,7 +22,7 @@ import StorageIcon from "@mui/icons-material/Storage";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import { MobileContext } from "../App";
 
 export const TeacherContext = createContext();
