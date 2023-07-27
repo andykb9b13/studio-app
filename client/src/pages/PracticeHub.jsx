@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { StudentProvider, useStudentContext } from "../utils/StudentContext";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
 import {

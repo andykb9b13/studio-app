@@ -1,6 +1,5 @@
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
 import { ADD_ASSIGNMENT } from "../utils/mutations";
 import {
   Sheet,
@@ -13,8 +12,11 @@ import {
   FormLabel,
   Textarea,
 } from "@mui/joy";
+import { StudentContext } from "../pages/StudentDetails";
 
-const CreateAssignment = ({ studentId, planId }) => {
+const CreateAssignment = ({ planId }) => {
+  const { student } = useContext(StudentContext);
+
   const [formData, setFormData] = useState({
     exerciseName: "",
     source: "",
@@ -63,9 +65,10 @@ const CreateAssignment = ({ studentId, planId }) => {
       event.preventDefault();
       try {
         const { data } = await createAssignment({
-          variables: { studentId: studentId, planId: planId, ...formData },
+          variables: { studentId: student._id, planId: planId, ...formData },
         });
         alert("Assignment Created");
+        clearForm();
       } catch (err) {
         console.error(err);
         alert("Could not create assignment");
