@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
@@ -23,6 +23,7 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/Calendar";
+import { MobileContext } from "../App";
 
 export const TeacherContext = createContext();
 
@@ -39,15 +40,9 @@ const TeacherDashboard = () => {
   const students = data?.teacher.students || [];
   const teacher = data?.teacher || [];
   const [studentSearch, setStudentSearch] = useState(students);
-  const [isMobile, setIsMobile] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  // checking if the window is mobile sized for conditional display rendering
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    }
-  }, []);
+  const { isMobile } = useContext(MobileContext);
 
   // Utility for logging out. Need to move into utility file maybe.
   const logout = () => {

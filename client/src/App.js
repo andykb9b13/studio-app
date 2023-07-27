@@ -20,6 +20,7 @@ import PracticeHub from "./pages/PracticeHub";
 import VirtualTutor from "./pages/virtualTutor/VirtualTutor";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import CreateSkillSheet from "./components/CreateSkillSheet";
+import { useState, useEffect, createContext } from "react";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -42,34 +43,47 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+export const MobileContext = createContext();
+
 function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // checking if the window is mobile sized for conditional display rendering
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    }
+  }, []);
+
   return (
     <CssVarsProvider>
       <CssBaseline />
       <ApolloProvider client={client}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/teacher/:id" element={<TeacherDashboard />} />
-              <Route
-                path="/teacher/studentDetails/:id"
-                element={<StudentDetails />}
-              />
-              <Route path="/student/:id" element={<StudentDashboard />} />
-              <Route
-                path="/student/:id/practiceHub"
-                element={<PracticeHub />}
-              />
-              <Route
-                path="/teacher/createSkillSheet/:id"
-                element={<CreateSkillSheet />}
-              />
-              <Route path="/tutor" element={<VirtualTutor />} />
-            </Routes>
-          </Router>
+          <MobileContext.Provider value={{ isMobile }}>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/teacher/:id" element={<TeacherDashboard />} />
+                <Route
+                  path="/teacher/studentDetails/:id"
+                  element={<StudentDetails />}
+                />
+                <Route path="/student/:id" element={<StudentDashboard />} />
+                <Route
+                  path="/student/:id/practiceHub"
+                  element={<PracticeHub />}
+                />
+                <Route
+                  path="/teacher/createSkillSheet/:id"
+                  element={<CreateSkillSheet />}
+                />
+                <Route path="/tutor" element={<VirtualTutor />} />
+              </Routes>
+            </Router>
+          </MobileContext.Provider>
         </LocalizationProvider>
       </ApolloProvider>
     </CssVarsProvider>
