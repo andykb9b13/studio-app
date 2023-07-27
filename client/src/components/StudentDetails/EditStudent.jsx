@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { EDIT_STUDENT } from "../utils/mutations";
+import { EDIT_STUDENT } from "../../utils/mutations";
 import {
   Sheet,
   Box,
@@ -13,7 +13,7 @@ import {
   Select,
   Option,
 } from "@mui/joy";
-import { StudentContext } from "../pages/StudentDetails";
+import { StudentContext } from "../../pages/StudentDetails";
 
 const EditStudent = () => {
   const { student } = useContext(StudentContext);

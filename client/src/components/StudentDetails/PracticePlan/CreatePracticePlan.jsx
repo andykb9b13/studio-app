@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_PRACTICEPLAN } from "../utils/mutations";
+import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
 import {
   Button,
   Typography,
@@ -9,7 +9,7 @@ import {
   FormControl,
   FormLabel,
 } from "@mui/joy";
-import { StudentContext } from "../pages/StudentDetails";
+import { StudentContext } from "../../../pages/StudentDetails";
 
 const CreatePracticePlan = () => {
   const { student } = useContext(StudentContext);

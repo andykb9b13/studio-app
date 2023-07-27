@@ -4,9 +4,9 @@ import SignUp from "./pages/SignUp";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentDetails from "./pages/StudentDetails";
 import PracticeHub from "./pages/PracticeHub";
-import VirtualTutor from "./pages/virtualTutor/VirtualTutor";
+import VirtualTutor from "./pages/VirtualTutor";
 import TeacherDashboard from "./pages/TeacherDashboard";
-import CreateSkillSheet from "./components/CreateSkillSheet";
+import CreateSkillSheet from "./components/TeacherDashboard/SkillSheets/CreateSkillSheet";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const AppRoutes = () => {
@@ -40,6 +40,9 @@ const AppRoutes = () => {
 
           {/* Virtual Tutor (troubleshooting page) */}
           <Route path="/tutor" element={<VirtualTutor />} />
+
+          {/* Page not found */}
+          <Route path="*" element={<div>404 Page not found</div>} />
         </Routes>
       </Router>
     </main>

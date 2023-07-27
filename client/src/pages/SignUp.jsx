@@ -41,6 +41,8 @@ export default function SignUp() {
       {/* Register the input with VALIDATION */}
       <Input {...register("exampleRequired", { required: true })} />
 
+      <Input defaultValue="First Name" {...register("firstName")} />
+
       {errors.exampleRequired && <span>This field is required</span>}
       <Input type="submit" variant="solid" />
     </form>

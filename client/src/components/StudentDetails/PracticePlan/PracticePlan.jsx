@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CreateAssignment from "./CreateAssignment";
+import CreateAssignment from "./Assignments/CreateAssignment";
 import DeletePracticePlanModal from "./DeletePracticePlanModal";
 import { Sheet, Typography, IconButton, Table } from "@mui/joy";
 import { Add } from "@mui/icons-material";
-import AssignmentView from "./AssignmentView";
+import AssignmentView from "./Assignments/AssignmentView";
 
 const styles = {
   sheet: {

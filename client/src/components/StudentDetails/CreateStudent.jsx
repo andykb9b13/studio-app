@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ADD_STUDENT } from "../utils/mutations";
+import { ADD_STUDENT } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import {
   Sheet,

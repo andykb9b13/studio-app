@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import EditStudent from "../components/EditStudent";
+import EditStudent from "./EditStudent";
 import {
   Typography,
   Button,
@@ -11,8 +11,8 @@ import {
 } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { StudentContext } from "../pages/StudentDetails";
-import PracticePlanCard from "./PracticePlanCard";
+import { StudentContext } from "../../pages/StudentDetails";
+import PracticePlanCard from "./PracticePlan/PracticePlanCard";
 
 const styles = {
   sheet: {

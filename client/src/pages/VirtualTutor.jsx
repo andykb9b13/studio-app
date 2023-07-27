@@ -1,8 +1,8 @@
 import React from "react";
-import Visual from "./Visual";
-import Aural from "./Aural";
-import Physical from "./Physical";
-import Conceptual from "./Conceptual";
+import Visual from "../components/VirtualTutor/Visual";
+import Aural from "../components/VirtualTutor/Aural";
+import Physical from "../components/VirtualTutor/Physical";
+import Conceptual from "../components/VirtualTutor/Conceptual";
 import { useState } from "react";
 
 const VirtualTutor = () => {

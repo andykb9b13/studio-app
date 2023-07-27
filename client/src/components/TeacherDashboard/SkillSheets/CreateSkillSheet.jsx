@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { ADD_SKILLSHEET } from "../utils/mutations";
+import { ADD_SKILLSHEET } from "../../../utils/mutations";
 import {
   Card,
   Input,
@@ -14,7 +14,7 @@ import {
   CardActions,
   Textarea,
 } from "@mui/joy";
-import { TeacherContext } from "../pages/TeacherDashboard";
+import { TeacherContext } from "../../../pages/TeacherDashboard";
 
 const CreateSkillSheet = () => {
   const { teacher } = useContext(TeacherContext);

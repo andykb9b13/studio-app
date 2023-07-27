@@ -1,17 +1,25 @@
 import React from "react";
-import { Sheet, Button, Modal, ModalDialog, Typography } from "@mui/joy";
+import {
+  Sheet,
+  Button,
+  Modal,
+  ModalDialog,
+  Typography,
+  IconButton,
+} from "@mui/joy";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation } from "@apollo/client";
-import { DELETE_STUDENT } from "../utils/mutations";
+import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 
-export default function DeleteStudentModal({ studentId }) {
-  const [deleteStudent, { error }] = useMutation(DELETE_STUDENT);
+export default function DeletePracticePlanModal({ planId }) {
+  const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
   const [open, setOpen] = React.useState(false);
 
   return (
     <React.Fragment>
-      <Button onClick={() => setOpen(true)} color="danger">
-        Delete Student
-      </Button>
+      <IconButton onClick={() => setOpen(true)}>
+        <DeleteIcon />
+      </IconButton>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog
           aria-labelledby="nested-modal-title"
@@ -33,7 +41,7 @@ export default function DeleteStudentModal({ studentId }) {
           </Typography>
           <Typography id="nested-modal-description" textColor="text.tertiary">
             This action cannot be undone. This will permanently delete the
-            student account and remove the data from our servers.
+            practice plan and remove the data from our servers.
           </Typography>
           <Sheet
             sx={{
@@ -47,7 +55,9 @@ export default function DeleteStudentModal({ studentId }) {
               variant="solid"
               color="neutral"
               onClick={async () => {
-                await deleteStudent({ variables: { studentId: studentId } });
+                await deletePracticePlan({
+                  variables: { planId: planId },
+                });
                 setOpen(false);
               }}
             >
