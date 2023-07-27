@@ -13,8 +13,27 @@ import {
   FormHelperText,
   CardContent,
   CardActions,
+  Select,
+  Sheet,
+  Option,
 } from "@mui/joy";
 import { useForm } from "react-hook-form";
+
+const styles = {
+  card: {
+    width: 400,
+    mx: "auto",
+    p: 2,
+    mt: 4,
+    my: 4,
+    borderRadius: "sm",
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    boxShadow: "lg",
+    backgroundColor: "lightblue",
+  },
+};
 
 export default function SignUp() {
   // Experimenting with useFormHook
@@ -30,22 +49,54 @@ export default function SignUp() {
   // This is where the data will be
   const onSubmit = (data) => console.log(data);
 
-  console.log(watch("exampleRequired"));
-  console.log(watch("example")); // watch the input value by passing the name to it. The input is named "example"
+  // console.log(watch("exampleRequired"));
+  // console.log(watch("example")); // watch the input value by passing the name to it. The input is named "example". Watch is destructured from useForm()
 
   return (
     // handleSubmit (which is destructured from useForm() will validate inputs before invoking "onSubmit")
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* You have to register the input  */}
-      <Input defaultValue="test" {...register("example")} />
-      {/* Register the input with VALIDATION */}
-      <Input {...register("exampleRequired", { required: true })} />
-
-      <Input defaultValue="First Name" {...register("firstName")} />
-
-      {errors.exampleRequired && <span>This field is required</span>}
-      <Input type="submit" variant="solid" />
-    </form>
+    <Sheet>
+      <Card sx={styles.card}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* You have to register the input. You can choose to register with
+          validation  */}
+          {errors.firstName && <span>This field is required</span>}
+          <Input
+            placeholder="First Name"
+            {...register("firstName", { required: true })}
+          />
+          {errors.lastName && <span>This field is required</span>}
+          <Input
+            placeholder="Last Name"
+            {...register("lastName", { required: true })}
+          />
+          {errors.email && <span>Try that again!</span>}
+          <Input
+            placeholder="john@johndoe.com"
+            {...register("email", {
+              required: true,
+              pattern: /^([\da-z\w]+)@([\da-z\w]+)\.([\da-z\w]+)$/,
+            })}
+          />
+          {errors.password && <span>errors.password</span>}
+          <Input
+            placeholder="Password"
+            type="password"
+            {...register("password", {
+              required: true,
+            })}
+          />
+          {errors.confirmPassword && <span>This field is required</span>}
+          <Input
+            placeholder="Confirm Password"
+            type="password"
+            {...register("confirmPassword", { required: true })}
+          />
+          <Input type="submit" variant="soft">
+            Submit
+          </Input>
+        </form>
+      </Card>
+    </Sheet>
   );
 }
 
