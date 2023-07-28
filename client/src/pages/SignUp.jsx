@@ -11,8 +11,31 @@ import {
   CardContent,
   Sheet,
   CardActions,
+  FormHelperText,
 } from "@mui/joy";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const signInSchema = yup.object().shape({
+  firstName: yup.string().required("First Name is required"),
+  lastName: yup.string().required("Last Name is required"),
+  email: yup
+    .string()
+    .email("Please enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .trim()
+    .min(8, "Passwords must be between 8 and 20 characters")
+    .max(20, "Passwords must be between 8 and 20 characters")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords don't match"),
+});
+
+console.log(signInSchema);
 
 const styles = {
   card: {
@@ -39,7 +62,7 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(signInSchema) });
 
   // This is where the data will be as userInput
   const onSubmit = async (userInput) => {
@@ -52,7 +75,6 @@ export default function SignUp() {
       Auth.login(data);
       alert("Account created!");
     } catch (err) {
-      console.error(err);
       alert(err);
     }
   };
@@ -67,40 +89,26 @@ export default function SignUp() {
             {/* You have to register the input. You can choose to register with
           validation  */}
             <Typography>First Name</Typography>
-            {errors.firstName && <span>This field is required</span>}
-            <Input
-              placeholder="John"
-              {...register("firstName", { required: true })}
-            />
+            <FormHelperText>{errors.firstName?.message}</FormHelperText>
+            <Input placeholder="John" {...register("firstName")} />
             <Typography>Last Name</Typography>
-            {errors.lastName && <span>This field is required</span>}
-            <Input
-              placeholder="Doe"
-              {...register("lastName", { required: true })}
-            />
+            <FormHelperText>{errors.lastName?.message}</FormHelperText>
+            <Input placeholder="Doe" {...register("lastName")} />
             <Typography>Email</Typography>
-            {errors.email && <span>Try that again!</span>}
+            <FormHelperText>{errors.email?.message}</FormHelperText>
             <Input
               placeholder="john@johndoe.com"
-              {...register("email", {
-                required: true,
-                pattern: /^([\da-z\w]+)@([\da-z\w]+)\.([\da-z\w]+)$/,
-              })}
+              type="email"
+              {...register("email")}
             />
             <Typography>Password</Typography>
-            {errors.password && <span>This field is required</span>}
-            <Input
-              type="password"
-              {...register("password", {
-                required: true,
-              })}
-            />
+            <FormHelperText>{errors.password?.message}</FormHelperText>
+            <Input type="password" {...register("password")} />
             <Typography>Confirm Password</Typography>
-            {errors.confirmPassword && <span>This field is required</span>}
-            <Input
-              type="password"
-              {...register("confirmPassword", { required: true })}
-            />
+            <FormHelperText color="danger">
+              {errors.confirmPassword?.message}
+            </FormHelperText>
+            <Input type="password" {...register("confirmPassword")} />
             <Button type="submit" color="success" variant="soft">
               Sign Up
             </Button>

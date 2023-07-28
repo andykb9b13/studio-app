@@ -50,10 +50,16 @@ const Login = () => {
       <Typography level="h2">Login</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>Email</Typography>
-        <Input {...register("email")} placeholder="Email" />
-        <Typography>Password</Typography>
+        {errors.email && <span>Email is required</span>}
         <Input
-          {...register("password")}
+          {...register("email", { required: true })}
+          placeholder="Email"
+          type="email"
+        />
+        <Typography>Password</Typography>
+        {errors.password && <span>Password is required</span>}
+        <Input
+          {...register("password", { required: true })}
           placeholder="password"
           type="password"
         />
@@ -62,8 +68,11 @@ const Login = () => {
         </Button>
       </form>
       <Link to="/">Back to Homepage</Link>
-      <Typography level="body1" endDecorator={<Link to="/login">Login</Link>}>
-        Already a User?
+      <Typography
+        level="body1"
+        endDecorator={<Link to="/signup">Sign Up</Link>}
+      >
+        Not a User?
       </Typography>
     </Card>
   );

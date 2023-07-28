@@ -35,6 +35,7 @@ class AuthService {
   login(data) {
     let idToken;
     let teacherId;
+    // checks if data is coming from signup (addTeacher) or login
     if (data.addTeacher) {
       idToken = data.addTeacher.token;
       teacherId = data.addTeacher.teacher._id;

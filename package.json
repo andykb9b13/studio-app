@@ -19,7 +19,9 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.1.1",
     "@mui/material": "^5.14.2",
-    "dotenv": "^16.1.4"
+    "dotenv": "^16.1.4",
+    "yup": "^1.2.0"
   }
 }
