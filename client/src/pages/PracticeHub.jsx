@@ -130,7 +130,7 @@ const PracticeHub = () => {
       )}
       {home && (
         <Grid container sx={{ flexGrow: 1, justifyContent: "center" }}>
-          {buttonInfo.map((button, i) => (
+          {buttonInfo.map((button) => (
             <Grid xs={10} s={6} md={4} lg={3} m={1}>
               <Card variant="outlined">
                 <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
@@ -142,7 +142,7 @@ const PracticeHub = () => {
                 <CardContent orientation="horizontal">
                   <Typography level="body1">{button.description}</Typography>
                   <Button
-                    key={i}
+                    key={button.id}
                     onClick={() => {
                       handleClick(button.id);
                     }}

@@ -33,8 +33,15 @@ class AuthService {
   }
 
   login(data) {
-    const idToken = data.login.token;
-    const teacherId = data.login.teacher._id;
+    let idToken;
+    let teacherId;
+    if (data.addTeacher) {
+      idToken = data.addTeacher.token;
+      teacherId = data.addTeacher.teacher._id;
+    } else {
+      idToken = data.login.token;
+      teacherId = data.login.teacher._id;
+    }
     console.log("This is the_id in Auth.login", teacherId);
     // Saves user token to localStorage
     localStorage.setItem("id_token", idToken);
