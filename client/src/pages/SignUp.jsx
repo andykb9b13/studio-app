@@ -15,27 +15,7 @@ import {
 } from "@mui/joy";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-const signInSchema = yup.object().shape({
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
-  email: yup
-    .string()
-    .email("Please enter a valid email")
-    .required("Email is required"),
-  password: yup
-    .string()
-    .trim()
-    .min(8, "Passwords must be between 8 and 20 characters")
-    .max(20, "Passwords must be between 8 and 20 characters")
-    .required("Password is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords don't match"),
-});
-
-console.log(signInSchema);
+import { useSchemas } from "../hooks/useSchemas";
 
 const styles = {
   card: {
@@ -54,17 +34,16 @@ const styles = {
 };
 
 export default function SignUp() {
-  // Experimenting with useFormHook
   const [createTeacher, { error }] = useMutation(ADD_TEACHER);
 
-  // destructure
+  const { signInSchema } = useSchemas();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInSchema) });
 
-  // This is where the data will be as userInput
   const onSubmit = async (userInput) => {
     console.log(userInput);
     try {
@@ -72,7 +51,7 @@ export default function SignUp() {
       const { data } = await createTeacher({
         variables: { ...userInput },
       });
-      Auth.login(data);
+      Auth.login(data); //signing in the user once created
       alert("Account created!");
     } catch (err) {
       alert(err);

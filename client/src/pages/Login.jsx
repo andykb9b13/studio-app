@@ -3,8 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { Button, Typography, Input, Card } from "@mui/joy";
+import { Button, Typography, Input, Card, FormHelperText } from "@mui/joy";
 import { useForm } from "react-hook-form";
+import { useSchemas } from "../hooks/useSchemas";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const styles = {
   card: {
@@ -25,11 +27,13 @@ const styles = {
 const Login = () => {
   const [login, { error }] = useMutation(LOGIN);
 
+  const { loginSchema } = useSchemas();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(loginSchema) });
 
   const onSubmit = async (userInput) => {
     try {
@@ -40,7 +44,6 @@ const Login = () => {
       alert("Successfully logged in!");
     } catch (err) {
       console.error(err);
-      alert(err);
       alert("Login failed. Please try again.");
     }
   };
@@ -50,16 +53,12 @@ const Login = () => {
       <Typography level="h2">Login</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>Email</Typography>
-        {errors.email && <span>Email is required</span>}
-        <Input
-          {...register("email", { required: true })}
-          placeholder="Email"
-          type="email"
-        />
+        <FormHelperText>{errors.email?.message}</FormHelperText>
+        <Input {...register("email")} placeholder="Email" type="email" />
         <Typography>Password</Typography>
-        {errors.password && <span>Password is required</span>}
+        <FormHelperText>{errors.password?.message}</FormHelperText>
         <Input
-          {...register("password", { required: true })}
+          {...register("password")}
           placeholder="password"
           type="password"
         />
