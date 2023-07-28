@@ -36,14 +36,17 @@ const styles = {
 export default function SignUp() {
   const [createTeacher, { error }] = useMutation(ADD_TEACHER);
 
+  // form validation from yup
   const { signInSchema } = useSchemas();
 
+  // form handling from react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInSchema) });
 
+  // Sending a request to Apollo
   const onSubmit = async (userInput) => {
     console.log(userInput);
     try {
@@ -59,14 +62,12 @@ export default function SignUp() {
   };
 
   return (
-    // handleSubmit (which is destructured from useForm() will validate inputs before invoking "onSubmit")
+    // handleSubmit (which is destructured from useForm()) will validate inputs before invoking "onSubmit"
     <Sheet>
       <Card sx={styles.card}>
         <CardContent>
           <Typography level="h2">Sign Up</Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* You have to register the input. You can choose to register with
-          validation  */}
             <Typography>First Name</Typography>
             <FormHelperText>{errors.firstName?.message}</FormHelperText>
             <Input placeholder="John" {...register("firstName")} />

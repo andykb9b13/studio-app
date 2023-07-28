@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button, Sheet, Card, Typography, Input, Grid, Box } from "@mui/joy";
+import React, { useState } from "react";
+import { Button, Card, Typography, Input, Grid } from "@mui/joy";
 
 function Counter({ title, count, setCount, numTries }) {
   return (
