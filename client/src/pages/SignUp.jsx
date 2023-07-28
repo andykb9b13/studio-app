@@ -14,8 +14,6 @@ import {
   CardContent,
   Sheet,
   CardActions,
-  Select,
-  Option,
 } from "@mui/joy";
 import { useForm } from "react-hook-form";
 
@@ -37,6 +35,7 @@ const styles = {
 
 export default function SignUp() {
   // Experimenting with useFormHook
+  const [createTeacher, { error }] = useMutation(ADD_TEACHER);
 
   // destructure
   const {
@@ -47,8 +46,19 @@ export default function SignUp() {
   } = useForm();
 
   // This is where the data will be
-  const onSubmit = (data) => console.log(data);
-
+  const onSubmit = async (userInput) => {
+    console.log(userInput);
+    try {
+      const { data } = await createTeacher({
+        variables: { ...userInput },
+      });
+      Auth.login(data);
+      alert("Account created!");
+    } catch (err) {
+      console.error(err);
+      alert(err);
+    }
+  };
   // console.log(watch("exampleRequired"));
   // console.log(watch("example")); // watch the input value by passing the name to it. The input is named "example". Watch is destructured from useForm()
 
