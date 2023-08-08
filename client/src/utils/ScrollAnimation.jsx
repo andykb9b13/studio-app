@@ -10,7 +10,7 @@ const Animate = ({
   height = "auto",
 }) => {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({ duration: 2000, once: true });
   });
   return (
     <Box sx={{ height: { height } }} data-aos={anim} data-aos-delay={delay}>

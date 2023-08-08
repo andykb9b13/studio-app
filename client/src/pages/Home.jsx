@@ -7,22 +7,45 @@ import {
   Typography,
   Box,
   Card,
-  CardContent,
   CardActions,
   List,
   ListItem,
 } from "@mui/joy";
 import Animate from "../utils/ScrollAnimation";
+import studioHubLogo from "../assets/studioHubLogo.png";
+import musicNotes from "../assets/musicNotes.png";
+import student from "../assets/student.png";
+import troubleshooting from "../assets/troubleshooting.png";
+import getOrganized from "../assets/getOrganized.png";
+import practiceHub from "../assets/practiceHub.png";
+import musicNoteBkgd from "../assets/musicNoteBkgd.png";
 
 const styles = {
   card: {
-    width: "90%",
+    width: "80%",
     mx: "auto",
     my: 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    border: 1,
+    boxShadow: "lg",
   },
   list: {
     listStyleType: "disc",
     marginLeft: 24,
+  },
+  logo: {
+    borderRadius: "50%",
+    width: "200px",
+    border: "4px solid black",
+    transition: "all 0.2s",
+    "&:hover": {
+      border: "20px solid green",
+    },
+  },
+  sheet: {
+    backgroundColor: "rgb(102, 46, 155, 0.3)",
   },
 };
 
@@ -35,29 +58,33 @@ const WelcomeCard = () => {
   return (
     <Animate anim="fade-right" height="100%">
       <Card variant="outlined" sx={styles.card}>
-        <CardContent>
-          <Typography level="h1" component="h1">
-            Studio Hub
-          </Typography>
-          <Typography level="h2" component="h2">
-            Welcome!
-          </Typography>
-          <Typography level="h6" component="p">
-            Welcome to the Studio Management App. The one place where you can
-            manage all of your music studio needs so that your lessons can be
-            more efficient, productive, and versitile.
-          </Typography>
-          <List sx={styles.list}>
-            <ListItem>Create your own student databse</ListItem>
-            <ListItem>Create assignment plans for you students</ListItem>
-            <ListItem>Track your students' progress</ListItem>
-            <ListItem>
-              Use the Troubleshooting hub to help students identify what needs
-              work
-            </ListItem>
-            <ListItem>Access external resources for students</ListItem>
-          </List>
-        </CardContent>
+        <img
+          className="hero-bg"
+          src={studioHubLogo}
+          style={styles.logo}
+          alt="logo"
+        />
+
+        <Typography level="h2" component="h2">
+          Welcome!
+        </Typography>
+
+        <Typography level="h6" component="p">
+          Welcome to Studio Hub. The one place where you can manage all of your
+          music studio needs so that your lessons can be more efficient,
+          productive, and versitile.
+        </Typography>
+        <List sx={styles.list}>
+          <ListItem>Create your own student databse</ListItem>
+          <ListItem>Create assignment plans for you students</ListItem>
+          <ListItem>Track your students' progress</ListItem>
+          <ListItem>
+            Use the Troubleshooting hub to help students identify what needs
+            work
+          </ListItem>
+          <ListItem>Access external resources for students</ListItem>
+        </List>
+
         <CardActions>
           <Link to="/login">
             <Button>Login</Button>
@@ -79,16 +106,22 @@ const WelcomeCard = () => {
 
 const AboutCard = () => {
   return (
-    <Animate anim="fade-left" height="100%">
-      <Card variant="outlined" sx={styles.card}>
-        <Typography level="h2">Get Organized...</Typography>
-        <Typography level="body1">
-          It is tough to stay on top of students, assignments, invoices, and
-          more when you are running a private teaching studio. This app is all
-          about helping you manage it easier!
-        </Typography>
-      </Card>
-    </Animate>
+    <Card variant="outlined" sx={styles.card}>
+      <Typography level="h2">Get Organized...</Typography>
+      <Animate anim="fade-left" height="100%">
+        <img
+          className="hero-bg"
+          src={getOrganized}
+          style={styles.logo}
+          alt="get organized"
+        />
+      </Animate>
+      <Typography level="body1">
+        It is tough to stay on top of students, assignments, invoices, and more
+        when you are running a private teaching studio. This app is all about
+        helping you manage it easier!
+      </Typography>
+    </Card>
   );
 };
 
@@ -99,6 +132,12 @@ const AboutDatabaseCard = () => {
         <Typography level="h2">
           Keep Track of Your Database of Students
         </Typography>
+        <img
+          className="hero-bg"
+          src={student}
+          style={styles.logo}
+          alt="student database"
+        />
         <List sx={styles.list}>
           <ListItem>Search for students by age, instrument, or name</ListItem>
           <ListItem>View Weekly Practice Plans</ListItem>
@@ -115,6 +154,12 @@ const AboutSkillSheetCard = () => {
     <Animate anim="fade-right" height="100%">
       <Card variant="outlined" sx={styles.card}>
         <Typography level="h2">Skill Sheets to test abilities</Typography>
+        <img
+          className="hero-bg"
+          src={musicNotes}
+          style={styles.logo}
+          alt="logo"
+        />
         <List sx={styles.list}>
           <ListItem>Create skill sheets to challenge your students</ListItem>
           <ListItem>Earn Badges for completing sheets</ListItem>
@@ -129,6 +174,12 @@ const AboutPracticeHubCard = () => {
     <Animate anim="fade-left" height="100%">
       <Card variant="outlined" sx={styles.card}>
         <Typography level="h2">Practice Hub for all your needs</Typography>
+        <img
+          className="hero-bg"
+          src={practiceHub}
+          style={styles.logo}
+          alt="practice hub"
+        />
         <List sx={styles.list}>
           <ListItem>Timed Practicing</ListItem>
           <ListItem>Go on a streak with a certain skill</ListItem>
@@ -147,6 +198,12 @@ const AboutVirtualTutorCard = () => {
         <Typography level="h2">
           Having Trouble?...The virtual tutor is here!
         </Typography>
+        <img
+          className="hero-bg"
+          src={troubleshooting}
+          style={styles.logo}
+          alt="troubleshooting"
+        />
         <List sx={styles.list}>
           <ListItem>Get Help identifying the issue</ListItem>
           <ListItem>
@@ -160,7 +217,7 @@ const AboutVirtualTutorCard = () => {
 
 const Home = () => {
   return (
-    <Sheet>
+    <Sheet sx={styles.sheet}>
       <WelcomeCard />
       <AboutCard />
       <AboutDatabaseCard />
