@@ -107,6 +107,7 @@ const resolvers = {
         email,
         password,
       });
+      // validation sent to the front-end
       if (!firstName) {
         throw new Error("First name is required");
       }

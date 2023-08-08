@@ -27,7 +27,7 @@ export default function SignUp() {
     Auth.login(data);
   };
 
-  // Sending a request to Apollo
+  // Sending a request to Apollo for the add_teacher mutation
   const onSubmit = async (userInput) => {
     try {
       // data object returned by Apollo
@@ -43,7 +43,6 @@ export default function SignUp() {
   };
 
   return (
-    // handleSubmit (which is destructured from useForm()) will validate inputs before invoking "onSubmit"
     <Sheet>
       <Card sx={styles.card}>
         <CardContent>

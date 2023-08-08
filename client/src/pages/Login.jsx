@@ -10,6 +10,7 @@ import { styles } from "../styles/cardstyles";
 const Login = () => {
   const [login, { error }] = useMutation(LOGIN);
 
+  // form handling from react-hook-form
   const { register, handleSubmit } = useForm();
 
   const handleLogin = (data) => {
@@ -17,11 +18,14 @@ const Login = () => {
     alert("Successfully logged in!");
   };
 
+  // Sending a request to Apollo for the login mutation
   const onSubmit = async (userInput) => {
     try {
+      // data object returned by apollo
       const { data } = await login({
         variables: { ...userInput },
       });
+      // logging in the user
       handleLogin(data);
     } catch (error) {
       console.log(error);
