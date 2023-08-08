@@ -5,58 +5,39 @@ import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { Button, Typography, Input, Card, FormHelperText } from "@mui/joy";
 import { useForm } from "react-hook-form";
-import { useSchemas } from "../hooks/useSchemas";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-const styles = {
-  card: {
-    width: 400,
-    mx: "auto",
-    p: 2,
-    mt: 4,
-    my: 4,
-    borderRadius: "sm",
-    display: "flex",
-    flexDirection: "column",
-    gap: 2,
-    boxShadow: "lg",
-    backgroundColor: "lightblue",
-  },
-};
+import { styles } from "../styles/cardstyles";
 
 const Login = () => {
   const [login, { error }] = useMutation(LOGIN);
 
-  const { loginSchema } = useSchemas();
+  const { register, handleSubmit } = useForm();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(loginSchema) });
+  const handleLogin = (data) => {
+    Auth.login(data);
+    alert("Successfully logged in!");
+  };
 
   const onSubmit = async (userInput) => {
     try {
       const { data } = await login({
         variables: { ...userInput },
       });
-      Auth.login(data);
-      alert("Successfully logged in!");
-    } catch (err) {
-      console.error(err);
-      alert("Login failed. Please try again.");
+      handleLogin(data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
     <Card sx={styles.card}>
       <Typography level="h2">Login</Typography>
+      {error && (
+        <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>Email</Typography>
-        <FormHelperText>{errors.email?.message}</FormHelperText>
         <Input {...register("email")} placeholder="Email" type="email" />
         <Typography>Password</Typography>
-        <FormHelperText>{errors.password?.message}</FormHelperText>
         <Input
           {...register("password")}
           placeholder="password"

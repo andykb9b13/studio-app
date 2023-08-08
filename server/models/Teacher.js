@@ -4,15 +4,15 @@ const bcrypt = require("bcrypt");
 const teacherSchema = new Schema({
   firstName: {
     type: String,
-    required: true,
+    required: [true, "First Name is required"],
   },
   lastName: {
     type: String,
-    required: true,
+    required: [true, "Last Name is required"],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is required"],
     trim: true,
     unique: true,
     match: [
@@ -22,8 +22,8 @@ const teacherSchema = new Schema({
   },
   password: {
     type: String,
-    minLength: 8,
-    required: true,
+    minLength: [8, "Passwords must be at least 8 characters"],
+    required: [true, "Password is required"],
   },
   students: [
     {

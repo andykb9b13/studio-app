@@ -70,6 +70,13 @@ const resolvers = {
       const teacher = await Teacher.findOne({ email });
       const student = await Student.findOne({ email });
 
+      if (!email) {
+        throw new Error("Please enter your email");
+      }
+      if (!password) {
+        throw new Error("Please enter your password");
+      }
+
       const user = teacher || student;
       if (!user) {
         throw new Error("No user with that email");
@@ -78,7 +85,7 @@ const resolvers = {
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect password!");
+        throw new Error("Incorrect password!");
       }
 
       const token = signToken(user);
@@ -90,13 +97,31 @@ const resolvers = {
       }
     },
 
-    addTeacher: async (_, { firstName, lastName, email, password }) => {
+    addTeacher: async (
+      _,
+      { firstName, lastName, email, password, confirmPassword }
+    ) => {
       const teacher = new Teacher({
         firstName,
         lastName,
         email,
         password,
       });
+      if (!firstName) {
+        throw new Error("First name is required");
+      }
+      if (!lastName) {
+        throw new Error("Last name is required");
+      }
+      if (!email) {
+        throw new Error("email is required");
+      }
+      if (!password) {
+        throw new Error("Password is required");
+      }
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
       await teacher.save();
       const token = signToken({ _id: teacher._id }, process.env.SECRET);
       return { token, teacher };
