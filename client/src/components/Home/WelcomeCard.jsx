@@ -8,10 +8,11 @@ import {
   List,
   ListItem,
   CardActions,
-  Link,
   Button,
   Box,
+  Divider,
 } from "@mui/joy";
+import { Link } from "react-router-dom";
 import studioHubLogo from "../../assets/studioHubLogo.png";
 
 export default function WelcomeCard() {
@@ -30,22 +31,23 @@ export default function WelcomeCard() {
           alt="logo"
         />
       </Animate>
-      <Typography level="h2" component="h2">
-        Welcome!
-      </Typography>
-
-      <Typography level="h6" component="p">
+      <Typography level="h2">Welcome!</Typography>
+      <Typography level="h6">
         Welcome to Studio Hub. The one place where you can manage all of your
         music studio needs so that your lessons can be more efficient,
         productive, and versitile.
       </Typography>
       <List sx={styles.list}>
         <ListItem>Create your own student databse</ListItem>
+        <Divider />
         <ListItem>Create assignment plans for you students</ListItem>
+        <Divider />
         <ListItem>Track your students' progress</ListItem>
+        <Divider />
         <ListItem>
           Use the Troubleshooting hub to help students identify what needs work
         </ListItem>
+        <Divider />
         <ListItem>Access external resources for students</ListItem>
       </List>
 

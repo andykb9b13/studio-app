@@ -6,6 +6,7 @@ import AboutCard from "../components/Home/AboutCard";
 import AboutDatabaseCard from "../components/Home/AboutDatabaseCard";
 import AboutFeaturesCard from "../components/Home/AboutFeaturesCard";
 import Navbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <AboutCard />
       <AboutDatabaseCard />
       <AboutFeaturesCard />
+      <Footer />
     </Sheet>
   );
 };
