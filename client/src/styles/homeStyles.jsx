@@ -11,7 +11,7 @@ export const styles = {
   },
   list: {
     listStyleType: "disc",
-    marginLeft: 24,
+    fontSize: "1.3em",
   },
   logo: {
     borderRadius: "50%",

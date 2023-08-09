@@ -7,12 +7,18 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import AppRoutes from "./Routes";
 import "./App.css";
-
 import { useState, useEffect, createContext } from "react";
+import {
+  experimental_extendTheme as materialExtendTheme,
+  Experimental_CssVarsProvider as MaterialCssVarsProvider,
+  THEME_ID as MATERIAL_THEME_ID,
+} from "@mui/material/styles";
+import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
+
+const materialTheme = materialExtendTheme();
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -48,16 +54,18 @@ function App() {
   }, []);
 
   return (
-    <CssVarsProvider>
-      <CssBaseline />
-      <ApolloProvider client={client}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <MobileContext.Provider value={{ isMobile }}>
-            <AppRoutes />
-          </MobileContext.Provider>
-        </LocalizationProvider>
-      </ApolloProvider>
-    </CssVarsProvider>
+    <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
+      <JoyCssVarsProvider>
+        <CssBaseline />
+        <ApolloProvider client={client}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <MobileContext.Provider value={{ isMobile }}>
+              <AppRoutes />
+            </MobileContext.Provider>
+          </LocalizationProvider>
+        </ApolloProvider>
+      </JoyCssVarsProvider>
+    </MaterialCssVarsProvider>
   );
 }
 

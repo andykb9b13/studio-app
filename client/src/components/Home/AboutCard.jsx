@@ -1,14 +1,22 @@
 import React from "react";
-import { Typography, Card } from "@mui/joy";
+import { Typography, Card, Box } from "@mui/joy";
 import Animate from "../../utils/ScrollAnimation";
 import getOrganized from "../../assets/getOrganized.png";
 import { styles } from "../../styles/homeStyles";
 
 export default function AboutCard() {
   return (
-    <Card variant="outlined" sx={styles.card}>
+    <Box
+      sx={{
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        py: 4,
+      }}
+    >
       <Typography level="h2">Get Organized...</Typography>
-      <Animate anim="fade-left" height="100%">
+      <Animate>
         <img
           className="hero-bg"
           src={getOrganized}
@@ -21,6 +29,6 @@ export default function AboutCard() {
         when you are running a private teaching studio. This app is all about
         helping you manage it easier!
       </Typography>
-    </Card>
+    </Box>
   );
 }
