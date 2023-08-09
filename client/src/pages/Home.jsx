@@ -4,19 +4,17 @@ import { styles } from "../styles/homeStyles";
 import WelcomeCard from "../components/Home/WelcomeCard";
 import AboutCard from "../components/Home/AboutCard";
 import AboutDatabaseCard from "../components/Home/AboutDatabaseCard";
-import AboutSkillSheetCard from "../components/Home/AboutSkillSheetCard";
-import AboutPracticeHubCard from "../components/Home/AboutPracticeHubCard";
-import AboutVirtualTutorCard from "../components/Home/AboutVirtualTutorCard";
+import AboutFeaturesCard from "../components/Home/AboutFeaturesCard";
+import Navbar from "../components/Navbar/Navbar";
 
 const Home = () => {
   return (
     <Sheet sx={styles.sheet}>
+      <Navbar />
       <WelcomeCard />
       <AboutCard />
       <AboutDatabaseCard />
-      <AboutSkillSheetCard />
-      <AboutPracticeHubCard />
-      <AboutVirtualTutorCard />
+      <AboutFeaturesCard />
     </Sheet>
   );
 };

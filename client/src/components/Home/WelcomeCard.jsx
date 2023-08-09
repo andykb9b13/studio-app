@@ -21,50 +21,48 @@ export default function WelcomeCard() {
     alert("You are successfully logged out");
   };
   return (
-    <Animate anim="fade-right" height="100%">
-      <Card variant="outlined" sx={styles.card}>
+    <Card variant="outlined" sx={styles.card}>
+      <Animate>
         <img
           className="hero-bg"
           src={studioHubLogo}
           style={styles.logo}
           alt="logo"
         />
+      </Animate>
+      <Typography level="h2" component="h2">
+        Welcome!
+      </Typography>
 
-        <Typography level="h2" component="h2">
-          Welcome!
-        </Typography>
+      <Typography level="h6" component="p">
+        Welcome to Studio Hub. The one place where you can manage all of your
+        music studio needs so that your lessons can be more efficient,
+        productive, and versitile.
+      </Typography>
+      <List sx={styles.list}>
+        <ListItem>Create your own student databse</ListItem>
+        <ListItem>Create assignment plans for you students</ListItem>
+        <ListItem>Track your students' progress</ListItem>
+        <ListItem>
+          Use the Troubleshooting hub to help students identify what needs work
+        </ListItem>
+        <ListItem>Access external resources for students</ListItem>
+      </List>
 
-        <Typography level="h6" component="p">
-          Welcome to Studio Hub. The one place where you can manage all of your
-          music studio needs so that your lessons can be more efficient,
-          productive, and versitile.
-        </Typography>
-        <List sx={styles.list}>
-          <ListItem>Create your own student databse</ListItem>
-          <ListItem>Create assignment plans for you students</ListItem>
-          <ListItem>Track your students' progress</ListItem>
-          <ListItem>
-            Use the Troubleshooting hub to help students identify what needs
-            work
-          </ListItem>
-          <ListItem>Access external resources for students</ListItem>
-        </List>
-
-        <CardActions>
-          <Link to="/login">
-            <Button>Login</Button>
-          </Link>
-          {Auth.loggedIn() && (
-            <Box>
-              <Button onClick={logout}>Logout</Button>
-              <Button>Go To Profile</Button>
-            </Box>
-          )}
-          <Link to="/signup">
-            <Button>Teacher Sign Up</Button>
-          </Link>
-        </CardActions>
-      </Card>
-    </Animate>
+      <CardActions>
+        <Link to="/login">
+          <Button>Login</Button>
+        </Link>
+        {Auth.loggedIn() && (
+          <Box>
+            <Button onClick={logout}>Logout</Button>
+            <Button>Go To Profile</Button>
+          </Box>
+        )}
+        <Link to="/signup">
+          <Button>Teacher Sign Up</Button>
+        </Link>
+      </CardActions>
+    </Card>
   );
 }
