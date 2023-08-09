@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Sheet,
   Typography,
   Button,
   Card,
@@ -11,7 +10,7 @@ import {
   CardActions,
 } from "@mui/joy";
 
-const TimedPractice = ({ student, setStatus }) => {
+const TimedPractice = ({ student }) => {
   return (
     <Grid container mt={4}>
       <Card variant="outlined" sx={{ mx: "auto" }}>

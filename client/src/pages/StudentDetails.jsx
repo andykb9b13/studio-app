@@ -5,28 +5,7 @@ import { QUERY_STUDENT } from "../utils/queries";
 import DeleteStudentModal from "../components/StudentDetails/DeleteStudentModal";
 import { Sheet, Typography } from "@mui/joy";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
-
-const styles = {
-  sheet: {
-    width: "90%",
-    mx: "auto",
-    backgroundColor: "lightblue",
-    mt: 4,
-    p: 2,
-    borderRadius: "4px",
-    boxShadow: "md",
-    display: "flex",
-    flexDirection: "column",
-  },
-  card: {
-    backgroundColor: "white",
-    mx: "auto",
-    width: "100%",
-    p: 3,
-    my: 2,
-    borderRadius: "10px",
-  },
-};
+import { styles } from "../styles/studentDetailsStyles";
 
 // Creating student context to be passed to all components in this thread
 export const StudentContext = createContext();

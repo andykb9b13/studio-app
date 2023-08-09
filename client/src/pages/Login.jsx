@@ -1,141 +1,64 @@
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
-import {
-  Button,
-  Sheet,
-  Typography,
-  FormControl,
-  FormLabel,
-  Input,
-} from "@mui/joy";
+import { Button, Typography, Input, Card, FormHelperText } from "@mui/joy";
+import { useForm } from "react-hook-form";
+import { styles } from "../styles/cardstyles";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [login, { error }] = useMutation(LOGIN);
 
-  const [formErrors, setFormErrors] = useState({
-    email: "",
-    password: "",
-  });
+  // form handling from react-hook-form
+  const { register, handleSubmit } = useForm();
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const handleLogin = (data) => {
+    Auth.login(data);
+    alert("Successfully logged in!");
   };
 
-  const [login, { errors }] = useMutation(LOGIN);
-  const validateForm = () => {
-    let errors = {};
-    let isValid = true;
-
-    if (!formData.email.trim()) {
-      errors.email = "Please enter your email";
-      isValid = false;
-    }
-
-    if (!formData.password) {
-      errors.password = "Please enter your password";
-      isValid = false;
-    }
-    setFormErrors(errors);
-    return isValid;
-  };
-
-  const handleSubmit = async (event) => {
-    console.log("in handlesubmit");
-    event.preventDefault();
-    if (validateForm()) {
-      try {
-        const { data } = await login({
-          variables: { ...formData },
-        });
-        Auth.login(data);
-        alert("Successfully logged in!");
-      } catch (err) {
-        console.error(err);
-        alert(err);
-        alert("Login failed. Please try again.");
-      }
-      setFormData({
-        email: "",
-        password: "",
+  // Sending a request to Apollo for the login mutation
+  const onSubmit = async (userInput) => {
+    try {
+      // data object returned by apollo
+      const { data } = await login({
+        variables: { ...userInput },
       });
+      // logging in the user
+      handleLogin(data);
+    } catch (error) {
+      console.log(error);
     }
-  };
-
-  const handleClear = () => {
-    setFormData({
-      email: "",
-      password: "",
-    });
-    setFormErrors({
-      email: "",
-      password: "",
-    });
   };
 
   return (
-    <Sheet
-      sx={{
-        width: 400,
-        mx: "auto",
-        p: 2,
-        mt: 4,
-        my: 4,
-        borderRadius: "sm",
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        boxShadow: "lg",
-        backgroundColor: "lightblue",
-      }}
-    >
-      <Typography level="h2" component="h1">
-        Login
-      </Typography>
-      <FormControl onSubmit={handleSubmit}>
-        <FormLabel htmlFor="email">Email</FormLabel>
+    <Card sx={styles.card}>
+      <Typography level="h2">Login</Typography>
+      {error && (
+        <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
+      )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Typography>Email</Typography>
+        <Input {...register("email")} placeholder="Email" type="email" />
+        <Typography>Password</Typography>
         <Input
-          type="email"
-          name="email"
-          id="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {formErrors.email && (
-          <Typography className="error">{formErrors.email}</Typography>
-        )}
-      </FormControl>
-      <FormControl>
-        <FormLabel htmlFor="password">Password</FormLabel>
-        <Input
+          {...register("password")}
+          placeholder="password"
           type="password"
-          name="password"
-          id="password"
-          value={formData.password}
-          onChange={handleChange}
         />
-        {formErrors.password && (
-          <Typography component="span" className="error">
-            {formErrors.password}
-          </Typography>
-        )}
-      </FormControl>
-      <Button type="submit" onClick={handleSubmit}>
-        Login
-      </Button>
-
-      <Typography endDecorator={<Link to="/signup">Sign Up</Link>}>
+        <Button type="submit" variant="soft" color="success">
+          Login
+        </Button>
+      </form>
+      <Link to="/">Back to Homepage</Link>
+      <Typography
+        level="body1"
+        endDecorator={<Link to="/signup">Sign Up</Link>}
+      >
         Not a User?
       </Typography>
-
-      <Link to="/">Back to Homepage</Link>
-    </Sheet>
+    </Card>
   );
 };
 
