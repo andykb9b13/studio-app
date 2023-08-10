@@ -13,33 +13,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { StudentContext } from "../../pages/StudentDetails";
 import PracticePlanCard from "./PracticePlan/PracticePlanCard";
-
-const styles = {
-  sheet: {
-    width: "90%",
-    mx: "auto",
-    backgroundColor: "lightblue",
-    mt: 4,
-    p: 2,
-    borderRadius: "4px",
-    boxShadow: "md",
-    display: "flex",
-    flexDirection: "column",
-  },
-  card: {
-    backgroundColor: "white",
-    mx: "auto",
-    width: "100%",
-    p: 3,
-    my: 2,
-    borderRadius: "10px",
-  },
-};
+import { styles } from "../../styles/studentDetailsStyles";
 
 // the main information about the student
 export default function StudentDetailsCard() {
   const { student, id } = useContext(StudentContext);
   const [active, setActive] = useState(0);
+
+  console.log(student);
 
   // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
@@ -106,7 +87,7 @@ export default function StudentDetailsCard() {
       </CardActions>
 
       {/* Conditional rendering for button clicks in Card Actions */}
-      {active === 1 ? <EditStudent studentId={id} /> : ""}
+      {active === 1 ? <EditStudent studentId={student._id} /> : ""}
       {active === 2 ? <PracticePlanCard /> : ""}
     </Card>
   );

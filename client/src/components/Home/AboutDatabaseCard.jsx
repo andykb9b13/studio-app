@@ -6,8 +6,8 @@ import { styles } from "../../styles/homeStyles";
 
 export default function AboutDatabaseCard() {
   return (
-    <Animate anim="fade-left" height="100%">
-      <Card variant="outlined" sx={styles.card}>
+    <Animate anim="fade-left">
+      <Card variant="outlined" sx={styles.card} height="75vh">
         <Typography level="h2">
           Keep Track of Your Database of Students
         </Typography>

@@ -23,14 +23,12 @@ export default function WelcomeCard() {
   };
   return (
     <Card variant="outlined" sx={styles.card}>
-      <Animate>
-        <img
-          className="hero-bg"
-          src={studioHubLogo}
-          style={styles.logo}
-          alt="logo"
-        />
-      </Animate>
+      <img
+        className="hero-bg"
+        src={studioHubLogo}
+        style={styles.logo}
+        alt="logo"
+      />
       <Typography level="h2">Welcome!</Typography>
       <Typography level="h6">
         Welcome to Studio Hub. The one place where you can manage all of your
