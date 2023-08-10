@@ -117,6 +117,7 @@ const CreateAssignment = ({ planId }) => {
             name="assignmentType"
             id="assignmentType"
           >
+            <Option value="etude">Etude</Option>
             <Option value="technical-exercise">Technical Exercise</Option>
             <Option value="warm-up">Warm Up</Option>
             <Option value="scales">Scales</Option>

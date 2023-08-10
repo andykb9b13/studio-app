@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Card, Box } from "@mui/joy";
+import { Typography, Box } from "@mui/joy";
 import Animate from "../../utils/ScrollAnimation";
 import getOrganized from "../../assets/getOrganized.png";
 import { styles } from "../../styles/homeStyles";

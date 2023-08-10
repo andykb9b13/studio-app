@@ -9,7 +9,6 @@ import {
   Typography,
   Button,
   CardContent,
-  Sheet,
   CardActions,
   FormHelperText,
 } from "@mui/joy";
@@ -43,45 +42,38 @@ export default function SignUp() {
   };
 
   return (
-    <Sheet>
-      <Card sx={styles.card}>
-        <CardContent>
-          <Typography level="h2">Sign Up</Typography>
-          {error && (
-            <FormHelperText sx={styles.errorText}>
-              {error.message}
-            </FormHelperText>
-          )}
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography>First Name</Typography>
-            <Input placeholder="John" {...register("firstName")} />
-            <Typography>Last Name</Typography>
-            <Input placeholder="Doe" {...register("lastName")} />
-            <Typography>Email</Typography>
-            <Input
-              placeholder="john@johndoe.com"
-              type="email"
-              {...register("email")}
-            />
-            <Typography>Password</Typography>
-            <Input type="password" {...register("password")} />
-            <Typography>Confirm Password</Typography>
-            <Input type="password" {...register("confirmPassword")} />
-            <Button type="submit" color="success" variant="soft">
-              Sign Up
-            </Button>
-          </form>
-        </CardContent>
-        <CardActions>
-          <Link to="/">Back to Homepage</Link>
-          <Typography
-            level="body1"
-            endDecorator={<Link to="/login">Login</Link>}
-          >
-            Already a User?
-          </Typography>
-        </CardActions>
-      </Card>
-    </Sheet>
+    <Card sx={styles.card}>
+      <CardContent>
+        <Typography level="h2">Sign Up</Typography>
+        {error && (
+          <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
+        )}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Typography>First Name</Typography>
+          <Input placeholder="John" {...register("firstName")} />
+          <Typography>Last Name</Typography>
+          <Input placeholder="Doe" {...register("lastName")} />
+          <Typography>Email</Typography>
+          <Input
+            placeholder="john@johndoe.com"
+            type="email"
+            {...register("email")}
+          />
+          <Typography>Password</Typography>
+          <Input type="password" {...register("password")} />
+          <Typography>Confirm Password</Typography>
+          <Input type="password" {...register("confirmPassword")} />
+          <Button type="submit" color="success" variant="soft">
+            Sign Up
+          </Button>
+        </form>
+      </CardContent>
+      <CardActions>
+        <Link to="/">Back to Homepage</Link>
+        <Typography level="body1" endDecorator={<Link to="/login">Login</Link>}>
+          Already a User?
+        </Typography>
+      </CardActions>
+    </Card>
   );
 }

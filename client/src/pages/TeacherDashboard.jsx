@@ -24,6 +24,7 @@ import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import { MobileContext } from "../App";
+import Navbar from "../components/Navbar/Navbar";
 
 export const TeacherContext = createContext();
 
@@ -44,17 +45,6 @@ const TeacherDashboard = () => {
 
   const { isMobile } = useContext(MobileContext);
 
-  // Utility for logging out. Need to move into utility file maybe.
-  const logout = () => {
-    const loggedOut = Auth.logout();
-    console.log(loggedOut);
-    if (loggedOut) {
-      alert("You are now logged out");
-    } else {
-      alert("Logout unsuccessful");
-    }
-  };
-
   // Handles the panel
   const handleClick = (event) => {
     setClicked(!clicked);
@@ -68,9 +58,14 @@ const TeacherDashboard = () => {
   return (
     <TeacherContext.Provider value={{ teacher }}>
       <Sheet>
+        <Navbar />
         {Auth.loggedIn() ? (
-          <Sheet>
+          <Sheet sx={{ mt: 10 }}>
             {/* These tabs function as the Navbar */}
+            {/* Heading */}
+            <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
+              {teacher.firstName} {teacher.lastName}'s Dashboard
+            </Typography>
             <Tabs
               aria-label="Basic tabs"
               defaultValue={0}
@@ -97,12 +92,6 @@ const TeacherDashboard = () => {
                   <CalendarMonthIcon />
                 </Tab>
               </TabList>
-
-              {/* Heading */}
-              <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
-                {teacher.firstName} {teacher.lastName}'s Dashboard
-              </Typography>
-              <Button onClick={() => logout()}>Logout</Button>
 
               {/* Panel for student database view (includes student search) */}
               <TabPanel value={0} sx={{ p: 2 }}>
