@@ -25,7 +25,7 @@ export const styles = {
     },
   },
   sheet: {
-    backgroundColor: "rgb(102, 46, 155, 0.3)",
+    backgroundColor: "rgb(67, 188, 205, 0.3)",
   },
   grid: {
     display: "flex",
