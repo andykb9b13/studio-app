@@ -42,8 +42,8 @@ const PracticePlan = ({ practicePlan }) => {
         <tbody>
           {practicePlan.assignments &&
             practicePlan.assignments.map((assignment) => (
-              <>
-                <tr key={assignment._id}>
+              <React.Fragment key={assignment._id}>
+                <tr>
                   <td>
                     <b>{assignment.exerciseName}</b>
                   </td>
@@ -56,7 +56,7 @@ const PracticePlan = ({ practicePlan }) => {
                     />
                   </td>
                 </tr>
-              </>
+              </React.Fragment>
             ))}
         </tbody>
       </Table>

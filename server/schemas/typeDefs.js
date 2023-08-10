@@ -45,6 +45,7 @@ const typeDefs = gql`
     metronome: String
     pages: String
     streaks: [Streak]
+    resources: [Resource]
   }
 
   type Streak {
@@ -88,6 +89,13 @@ const typeDefs = gql`
     skillSheets: [SkillSheet]
   }
 
+  type Resource {
+    _id: ID
+    resourceName: String
+    url: String
+    description: String
+  }
+
   type Auth {
     token: ID!
     teacher: Teacher
@@ -104,6 +112,7 @@ const typeDefs = gql`
     goal(goalId: ID!): Goal
     practicePlans: [PracticePlan]
     practicePlan(planId: ID!): PracticePlan
+    resources: [Resource]
   }
 
   type Mutation {
@@ -145,6 +154,12 @@ const typeDefs = gql`
       pages: String
     ): Assignment
 
+    addResource(
+      resourceName: String
+      url: String
+      description: String
+    ): Resource
+
     addStreak(
       date: String
       assignmentId: String
@@ -183,6 +198,8 @@ const typeDefs = gql`
     deleteTeacher(teacherId: ID!): Teacher!
 
     deleteSkillSheet(skillSheetId: ID!): SkillSheet!
+
+    deleteResource(resourceId: ID!): Resource!
 
     deletePracticePlan(planId: ID!): PracticePlan!
 
