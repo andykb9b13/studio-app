@@ -1,9 +1,9 @@
 import React from "react";
 import { Typography, List, ListItem, Grid, Divider } from "@mui/joy";
 import Animate from "../../utils/ScrollAnimation";
-import troubleshooting from "../../assets/troubleshooting.png";
-import practiceHub from "../../assets/practiceHub.png";
-import musicNotes from "../../assets/musicNotes.png";
+import troubleshooting from "../../assets/home/troubleshooting.png";
+import practiceHub from "../../assets/home/practiceHub.png";
+import musicNotes from "../../assets/home/musicNotes.png";
 import { styles } from "../../styles/homeStyles";
 
 export default function AboutFeaturesCard() {

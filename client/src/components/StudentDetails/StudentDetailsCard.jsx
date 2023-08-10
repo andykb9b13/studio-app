@@ -16,12 +16,12 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { StudentContext } from "../../pages/StudentDetails";
 import PracticePlanCard from "./PracticePlan/PracticePlanCard";
 import { styles } from "../../styles/studentDetailsStyles";
-import avatar1 from "../../assets/avatar1.png";
-import level1 from "../../assets/level1.png";
-import level2 from "../../assets/level2.png";
+import avatar1 from "../../assets/avatars/avatar1.png";
+import level1 from "../../assets/badges/level1.png";
+import level2 from "../../assets/badges/level2.png";
 import sampleGraph from "../../assets/sampleGraph.png";
-import goGetter from "../../assets/goGetter.png";
-import climbingHigh from "../../assets/climbingHigh.png";
+import goGetter from "../../assets/badges/goGetter.png";
+import climbingHigh from "../../assets/badges/climbingHigh.png";
 
 // the main information about the student
 export default function StudentDetailsCard() {

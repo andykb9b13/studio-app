@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Card, List, ListItem, Divider } from "@mui/joy";
 import Animate from "../../utils/ScrollAnimation";
-import student from "../../assets/student.png";
+import student from "../../assets/home/student.png";
 import { styles } from "../../styles/homeStyles";
 
 export default function AboutDatabaseCard() {

@@ -12,7 +12,7 @@ import {
   Divider,
 } from "@mui/joy";
 import { Link } from "react-router-dom";
-import studioHubLogo from "../../assets/studioHubLogo.png";
+import studioHubLogo from "../../assets/home/studioHubLogo.png";
 
 export default function WelcomeCard() {
   const logout = (event) => {
