@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box } from "@mui/joy";
 import Animate from "../../utils/ScrollAnimation";
-import getOrganized from "../../assets/getOrganized.png";
+import getOrganized from "../../assets/home/getOrganized.png";
 import { styles } from "../../styles/homeStyles";
 
 export default function AboutCard() {

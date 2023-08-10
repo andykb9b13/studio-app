@@ -21,7 +21,7 @@ const StudentDatabaseTable = ({ students }) => {
           borderRadius: "4px",
           boxShadow: "lg",
           p: 2,
-          backgroundColor: "lavender",
+          backgroundColor: "rgb(102, 46, 155, 0.2)",
         }}
       >
         <thead>
