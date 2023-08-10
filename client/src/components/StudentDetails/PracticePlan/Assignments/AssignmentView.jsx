@@ -67,9 +67,6 @@ const AssignmentView = ({ assignment }) => {
             </IconButton>
             <CardContent>
               <Typography>
-                <b>Date:</b> {assignment.date}
-              </Typography>
-              <Typography>
                 <b>Assignment Type:</b> {assignment.assignmentType}
               </Typography>
               <Typography>

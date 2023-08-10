@@ -2,13 +2,13 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import Auth from "../../utils/auth";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,10 +19,14 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const logout = () => {
+    Auth.logout();
+    alert("You are successfully logged out");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="relative" sx={{ backgroundColor: "#43bccd" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -38,27 +42,35 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleClose}>Practice Hub</MenuItem>
-            <MenuItem onClick={handleClose}>StudentDatabase</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
-          </Menu>
-          <Button
-            component={Link}
-            to="/login"
-            color="inherit"
-            variant="outlined"
-          >
-            Login
-          </Button>
+          {Auth.loggedIn() && (
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleClose}>Practice Hub</MenuItem>
+              <MenuItem onClick={handleClose}>StudentDatabase</MenuItem>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
+          )}
+          {Auth.loggedIn() ? (
+            <Button onClick={() => logout()} color="inherit" variant="outlined">
+              Logout
+            </Button>
+          ) : (
+            <Button
+              component={Link}
+              to="/login"
+              color="inherit"
+              variant="outlined"
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

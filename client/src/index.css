@@ -19,3 +19,10 @@ code {
   --color4: #662e9b;
   --color5: #43bccd;
 }
+
+main {
+  background-position: center;
+  background-size: cover;
+  background-image: url("./assets/mountainBkgd2.png");
+  height: 100vh;
+}

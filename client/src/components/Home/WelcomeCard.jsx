@@ -1,6 +1,5 @@
 import React from "react";
 import Auth from "../../utils/auth";
-import Animate from "../../utils/ScrollAnimation";
 import { styles } from "../../styles/homeStyles";
 import {
   Card,
@@ -50,18 +49,15 @@ export default function WelcomeCard() {
       </List>
 
       <CardActions>
-        <Link to="/login">
-          <Button>Login</Button>
-        </Link>
         {Auth.loggedIn() && (
           <Box>
             <Button onClick={logout}>Logout</Button>
             <Button>Go To Profile</Button>
           </Box>
         )}
-        <Link to="/signup">
-          <Button>Teacher Sign Up</Button>
-        </Link>
+        <Button component={Link} to="/signup">
+          Teacher Sign Up
+        </Button>
       </CardActions>
     </Card>
   );

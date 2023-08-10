@@ -2,7 +2,7 @@ export const styles = {
   card: {
     width: "80%",
     mx: "auto",
-    my: 4,
+    my: 10,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
