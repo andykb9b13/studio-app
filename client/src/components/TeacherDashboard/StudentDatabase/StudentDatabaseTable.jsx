@@ -17,6 +17,8 @@ const StudentDatabaseTable = ({ students }) => {
       <Table
         aria-label="basic table"
         stickyHeader
+        stripe="even"
+        variant="soft"
         sx={{
           borderRadius: "4px",
           boxShadow: "lg",

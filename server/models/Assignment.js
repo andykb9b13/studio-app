@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const assignmentSchema = new Schema({
   exerciseName: {
     type: String,
+    required: [true, "Please enter a name for the exercise"],
   },
   studentId: {
     type: String,
@@ -29,6 +30,12 @@ const assignmentSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Streak",
+    },
+  ],
+  resources: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Resource",
     },
   ],
 });

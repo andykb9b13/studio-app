@@ -6,6 +6,7 @@ const {
   SkillSheet,
   Streak,
   PracticePlan,
+  Resource,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -49,7 +50,13 @@ const resolvers = {
       return await Assignment.find({});
     },
     assignment: async (parent, { assignmentId: _id }) => {
-      return await Assignment.findById(_id);
+      return await Assignment.findById(_id).populate("resources");
+    },
+    resources: async () => {
+      return await Resource.find({});
+    },
+    resource: async (parent, { resourceId: _id }) => {
+      return await Resource.findById(_id);
     },
     goals: async () => {
       return await Goal.find({});
@@ -142,26 +149,35 @@ const resolvers = {
     },
 
     addAssignment: async (parent, { studentId, planId, ...args }) => {
-      console.log("studentId in resolver", studentId);
       const assignment = await Assignment.create({
         studentId,
         planId,
         ...args,
       });
-      console.log("assignment in resolver", assignment);
-      // const student = await Student.findByIdAndUpdate(
-      //   studentId,
-      //   { $addToSet: { assignments: assignment._id } },
-      //   { new: true }
-      // );
+
       const practicePlan = await PracticePlan.findByIdAndUpdate(
         planId,
         { $addToSet: { assignments: assignment._id } },
         { new: true }
       );
-      console.log("practice plan in resolver", practicePlan);
-      console.log("Practice plan assignments", practicePlan.assignments);
       return assignment;
+    },
+
+    addResource: async (
+      parent,
+      { assignmentId, resourceName, url, description }
+    ) => {
+      const resource = await Resource.create({
+        resourceName,
+        url,
+        description,
+      });
+      const assignment = await Assignment.findByIdAndUpdate(
+        assignmentId,
+        { $addToSet: { resources: resource._id } },
+        { new: true }
+      );
+      return resource;
     },
 
     addStreak: async (parent, { date, assignmentId, ...args }) => {
@@ -231,6 +247,10 @@ const resolvers = {
 
     deleteAssignment: async (parent, { assignmentId }) => {
       return await Assignment.findOneAndDelete({ _id: assignmentId });
+    },
+
+    deleteResource: async (parent, { resourceId }) => {
+      return await Resource.findOneAndDelete({ _id: resourceId });
     },
 
     deleteGoal: async (parent, { goalId }) => {

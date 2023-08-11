@@ -43,6 +43,15 @@ const skillSheetSchema = new Schema({
     type: String,
     trim: true,
   },
+  points: {
+    type: Number,
+  },
+  badge: {
+    type: String,
+  },
+  difficulty: {
+    type: String,
+  },
   completed: {
     type: Boolean,
   },
