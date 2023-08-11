@@ -50,7 +50,13 @@ const resolvers = {
       return await Assignment.find({});
     },
     assignment: async (parent, { assignmentId: _id }) => {
-      return await Assignment.findById(_id);
+      return await Assignment.findById(_id).populate("resources");
+    },
+    resources: async () => {
+      return await Resource.find({});
+    },
+    resource: async (parent, { resourceId: _id }) => {
+      return await Resource.findById(_id);
     },
     goals: async () => {
       return await Goal.find({});

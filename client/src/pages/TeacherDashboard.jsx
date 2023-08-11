@@ -4,10 +4,7 @@ import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
-import StudentDatabaseTable from "../components/TeacherDashboard/StudentDatabase/StudentDatabaseTable";
-import StudentSearch from "../components/TeacherDashboard/StudentDatabase/StudentSearch";
-import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
-import CreateStudent from "../components/StudentDetails/CreateStudent";
+import { MobileContext } from "../App";
 import {
   Sheet,
   Button,
@@ -18,12 +15,15 @@ import {
   TabList,
   TabPanel,
 } from "@mui/joy";
+import StudentDatabaseTable from "../components/TeacherDashboard/StudentDatabase/StudentDatabaseTable";
+import StudentSearch from "../components/TeacherDashboard/StudentDatabase/StudentSearch";
+import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
+import CreateStudent from "../components/StudentDetails/CreateStudent";
 import StorageIcon from "@mui/icons-material/Storage";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
-import { MobileContext } from "../App";
 import Navbar from "../components/Navbar/Navbar";
 
 export const TeacherContext = createContext();
@@ -60,12 +60,8 @@ const TeacherDashboard = () => {
       <Sheet>
         <Navbar />
         {Auth.loggedIn() ? (
-          <Sheet sx={{ mt: 10 }}>
+          <Sheet sx={{ mt: 2 }}>
             {/* These tabs function as the Navbar */}
-            {/* Heading */}
-            <Typography level="h2" component="h2" sx={{ mx: "auto" }}>
-              {teacher.firstName} {teacher.lastName}'s Dashboard
-            </Typography>
             <Tabs
               aria-label="Basic tabs"
               defaultValue={0}
@@ -99,7 +95,6 @@ const TeacherDashboard = () => {
                   students={students}
                   setStudentSearch={setStudentSearch}
                 />
-                <StudentDatabaseTable students={studentSearch} />
                 <Button
                   onClick={() => {
                     handleClick();
@@ -109,6 +104,7 @@ const TeacherDashboard = () => {
                   {clicked ? "Cancel" : "Add Student"}
                 </Button>
                 {clicked ? <CreateStudent teacherId={id} /> : ""}
+                <StudentDatabaseTable students={studentSearch} />
               </TabPanel>
 
               {/* Tab panel for bookkeeping and invoices */}

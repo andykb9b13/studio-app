@@ -25,9 +25,6 @@ export default function StudentDetails() {
   return (
     <StudentContext.Provider value={{ student, practicePlans, id }}>
       <Sheet sx={styles.sheet}>
-        <Typography level="h1" component="h1" mx="auto">
-          Student Details
-        </Typography>
         {/* Main student details section  */}
         <StudentDetailsCard />
         <DeleteStudentModal studentId={id} />

@@ -77,6 +77,9 @@ const typeDefs = gql`
     exercises: String
     etudes: String
     pieces: String
+    points: Int
+    badge: String
+    difficulty: String
     completed: Boolean
   }
 
