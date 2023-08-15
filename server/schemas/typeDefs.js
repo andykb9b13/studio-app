@@ -136,6 +136,7 @@ const typeDefs = gql`
       email: String!
       username: String!
       password: String!
+      confirmPassword: String!
       primaryContact: String
       primaryContactEmail: String
       instrument: String

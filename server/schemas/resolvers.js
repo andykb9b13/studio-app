@@ -137,9 +137,52 @@ const resolvers = {
       return { token, teacher };
     },
 
-    addStudent: async (parent, { _id, ...args }) => {
-      console.log("in addStudent and here are the ars", { ...args });
+    addStudent: async (
+      parent,
+      {
+        _id,
+        firstName,
+        lastName,
+        email,
+        password,
+        username,
+        confirmPassword,
+        ...args
+      }
+    ) => {
+      console.log(
+        firstName,
+        lastName,
+        email,
+        password,
+        username,
+        confirmPassword
+      );
+      if (!firstName) {
+        throw new Error("First name is required");
+      }
+      if (!lastName) {
+        throw new Error("Last name is required");
+      }
+      if (!email) {
+        throw new Error("Email is required");
+      }
+      if (!username) {
+        throw new Error("Username is required");
+      }
+      if (!password) {
+        throw new Error("Password is required");
+      }
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
+
       const student = await Student.create({
+        firstName,
+        lastName,
+        email,
+        username,
+        password,
         ...args,
       });
       await Teacher.findByIdAndUpdate(
