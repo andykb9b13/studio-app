@@ -54,19 +54,18 @@ function App() {
   }, []);
 
   return (
-    // <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
-    //   <JoyCssVarsProvider>
-
-    <ApolloProvider client={client}>
-      {/* <CssBaseline /> */}
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <MobileContext.Provider value={{ isMobile }}>
-          <AppRoutes />
-        </MobileContext.Provider>
-      </LocalizationProvider>
-    </ApolloProvider>
-    //   </JoyCssVarsProvider>
-    // </MaterialCssVarsProvider>
+    <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
+      <JoyCssVarsProvider>
+        <ApolloProvider client={client}>
+          <CssBaseline />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <MobileContext.Provider value={{ isMobile }}>
+              <AppRoutes />
+            </MobileContext.Provider>
+          </LocalizationProvider>
+        </ApolloProvider>
+      </JoyCssVarsProvider>
+    </MaterialCssVarsProvider>
   );
 }
 
