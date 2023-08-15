@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Studio Hub",
+  "name": "Studio Hub: Studio Management Tool",
   "icons": [
     {
       "src": "favicon.ico",
