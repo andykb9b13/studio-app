@@ -33,6 +33,7 @@ export const ADD_STUDENT = gql`
     $email: String!
     $username: String!
     $password: String!
+    $confirmPassword: String!
     $primaryContact: String
     $primaryContactEmail: String
     $instrument: String
@@ -49,6 +50,7 @@ export const ADD_STUDENT = gql`
       email: $email
       username: $username
       password: $password
+      confirmPassword: $confirmPassword
       primaryContact: $primaryContact
       primaryContactEmail: $primaryContactEmail
       instrument: $instrument
