@@ -28,7 +28,7 @@ export default function SignUp() {
 
   // Sending a request to Apollo for the add_teacher mutation
   const onSubmit = async (userInput) => {
-    console.log("confirm password in signup page", userInput.confirmPassword);
+    console.log(userInput.confirmPassword === userInput.password);
 
     try {
       // data object returned by Apollo

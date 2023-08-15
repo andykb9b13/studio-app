@@ -113,6 +113,7 @@ const resolvers = {
         lastName,
         email,
         password,
+        confirmPassword,
       });
 
       // validation sent to the front-end
