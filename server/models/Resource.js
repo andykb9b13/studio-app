@@ -1,5 +1,4 @@
-import { Schema, model } from "mongoose";
-import { StringSchema } from "yup";
+const { Schema, model } = require("mongoose");
 
 const resourceSchema = new Schema({
   resourceName: {

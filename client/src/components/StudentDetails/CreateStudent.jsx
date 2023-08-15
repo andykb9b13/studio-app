@@ -84,6 +84,7 @@ const CreateStudent = ({ teacherId }) => {
   };
 
   const handleSubmit = async (event) => {
+    console.log("formData", { ...formData });
     event.preventDefault();
     if (validateForm) {
       try {
@@ -97,7 +98,6 @@ const CreateStudent = ({ teacherId }) => {
         alert("Student Successfully Created!");
       } catch (err) {
         console.error(err);
-        console.log(formErrors);
         alert("Could Not Create Student");
       }
     }

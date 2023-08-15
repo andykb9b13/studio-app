@@ -12,9 +12,8 @@ import EditStudent from "./EditStudent";
 import PracticePlanCard from "./PracticePlan/PracticePlanCard";
 
 // the main information about the student
-export default function StudentDetailsCard() {
+export default function StudentDetailsCard({ active, setActive }) {
   const { student, id } = useContext(StudentContext);
-  const [active, setActive] = useState(0);
 
   // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
@@ -59,8 +58,8 @@ export default function StudentDetailsCard() {
       </CardActions>
 
       {/* Conditional rendering for button clicks in Card Actions */}
-      {active === 1 ? <EditStudent studentId={student._id} /> : ""}
-      {active === 2 ? <PracticePlanCard /> : ""}
+      {active === 1 ? <EditStudent studentId={student._id} /> : null}
+      {active === 2 ? <PracticePlanCard /> : null}
     </Card>
   );
 }
