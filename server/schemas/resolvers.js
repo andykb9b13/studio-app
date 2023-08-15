@@ -105,7 +105,7 @@ const resolvers = {
     },
 
     addTeacher: async (
-      _,
+      parent,
       { firstName, lastName, email, password, confirmPassword }
     ) => {
       const teacher = new Teacher({
@@ -114,6 +114,7 @@ const resolvers = {
         email,
         password,
       });
+
       // validation sent to the front-end
       if (!firstName) {
         throw new Error("First name is required");
@@ -136,6 +137,7 @@ const resolvers = {
     },
 
     addStudent: async (parent, { _id, ...args }) => {
+      console.log("in addStudent and here are the ars", { ...args });
       const student = await Student.create({
         ...args,
       });
@@ -144,8 +146,9 @@ const resolvers = {
         { $addToSet: { students: student._id } },
         { new: true }
       );
+      console.log("here is student in resolver", student);
       // const token = signToken(student);
-      // return { token, student };
+      return { student };
     },
 
     addAssignment: async (parent, { studentId, planId, ...args }) => {
@@ -295,9 +298,7 @@ const resolvers = {
 
     editStudent: async (parent, { studentId, ...args }) => {
       const student = await Student.findByIdAndUpdate(studentId);
-      console.log("This is student in resolver", student);
-      console.log("This is args in resolver", args);
-      // do I need to add args to the conditionals?
+
       if (!student) {
         throw new Error("Student not found");
       }

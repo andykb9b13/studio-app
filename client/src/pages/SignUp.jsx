@@ -28,13 +28,17 @@ export default function SignUp() {
 
   // Sending a request to Apollo for the add_teacher mutation
   const onSubmit = async (userInput) => {
+    console.log("confirm password in signup page", userInput.confirmPassword);
+
     try {
       // data object returned by Apollo
       const { data } = await createTeacher({
         variables: { ...userInput },
       });
+
       //logging in the user once created
       handleLogin(data);
+      console.log("This is data", data);
       alert("Account created!");
     } catch (error) {
       console.log(error);

@@ -116,6 +116,7 @@ const typeDefs = gql`
     practicePlans: [PracticePlan]
     practicePlan(planId: ID!): PracticePlan
     resources: [Resource]
+    resource: Resource
   }
 
   type Mutation {
