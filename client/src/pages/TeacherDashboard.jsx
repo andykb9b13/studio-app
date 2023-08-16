@@ -2,8 +2,9 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_TEACHER } from "../utils/queries";
+import { DELETE_TEACHER } from "../utils/mutations";
 import { MobileContext } from "../App";
 import {
   Sheet,
@@ -25,6 +26,8 @@ import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import Navbar from "../components/Navbar/Navbar";
+import RegularModal from "../components/common/RegularModal";
+import DeleteModalContent from "../components/common/DeleteModalContent";
 
 export const TeacherContext = createContext();
 
@@ -37,11 +40,17 @@ const TeacherDashboard = () => {
     },
   });
 
+  const [deleteTeacher, { error }] = useMutation(DELETE_TEACHER);
+
   // Setting variables for teacher information and student information
   const students = data?.teacher.students || [];
   const teacher = data?.teacher || [];
   const [studentSearch, setStudentSearch] = useState(students);
+
+  // handler for the tabs
   const [clicked, setClicked] = useState(false);
+  // handler for the modal
+  const [open, setOpen] = useState(false);
 
   const { isMobile } = useContext(MobileContext);
 
@@ -55,12 +64,33 @@ const TeacherDashboard = () => {
     setStudentSearch(teacher.students);
   }, [teacher.students]);
 
+  const deleteTeacherFunc = async () => {
+    await deleteTeacher({
+      variables: {
+        teacherId: id,
+      },
+    });
+    alert("Account Deleted!");
+    setOpen(false);
+    window.location.assign(`/`);
+  };
+
   return (
     <TeacherContext.Provider value={{ teacher }}>
       <Sheet>
         <Navbar />
         {Auth.loggedIn() ? (
           <Sheet sx={{ mt: 2 }}>
+            <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+              <DeleteModalContent
+                onRequestClose={() => setOpen(false)}
+                confirmAction={() => deleteTeacherFunc()}
+                resourceName="teacher"
+              />
+            </RegularModal>
+            <Button onClick={() => setOpen(true)} color="danger">
+              Delete Account
+            </Button>
             {/* These tabs function as the Navbar */}
             <Tabs
               aria-label="Basic tabs"
@@ -103,6 +133,7 @@ const TeacherDashboard = () => {
                 >
                   {clicked ? "Cancel" : "Add Student"}
                 </Button>
+
                 {clicked ? <CreateStudent teacherId={id} /> : ""}
                 <StudentDatabaseTable students={studentSearch} />
               </TabPanel>

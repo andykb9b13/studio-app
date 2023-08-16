@@ -1,15 +1,19 @@
 import React from "react";
 import { Typography, Sheet, Button } from "@mui/joy";
 
-const DeleteStudent = ({ confirmAction, onRequestClose }) => {
+const DeleteModalContent = ({
+  confirmAction,
+  onRequestClose,
+  resourceName,
+}) => {
   return (
     <React.Fragment>
       <Typography id="nested-modal-title" component="h2">
         Are you absolutely sure?
       </Typography>
       <Typography id="nested-modal-description" textColor="text.tertiary">
-        This action cannot be undone. This will permanently delete the student
-        account and remove the data from our servers.
+        This action cannot be undone. This will permanently delete the{" "}
+        {resourceName} {""}and remove the data from our servers.
       </Typography>
       <Sheet
         sx={{
@@ -30,4 +34,4 @@ const DeleteStudent = ({ confirmAction, onRequestClose }) => {
   );
 };
 
-export default DeleteStudent;
+export default DeleteModalContent;

@@ -235,6 +235,16 @@ export const EDIT_STUDENT = gql`
   }
 `;
 
+export const DELETE_TEACHER = gql`
+  mutation deleteTeacher($teacherId: ID!) {
+    deleteTeacher(teacherId: $teacherId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
+
 export const DELETE_STUDENT = gql`
   mutation deleteStudent($studentId: ID!) {
     deleteStudent(studentId: $studentId) {
