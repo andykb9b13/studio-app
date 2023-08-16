@@ -73,9 +73,9 @@ const resolvers = {
   },
 
   Mutation: {
-    login: async (parent, { email, password }) => {
+    teacherLogin: async (parent, { email, password }) => {
       const teacher = await Teacher.findOne({ email });
-      const student = await Student.findOne({ email });
+      // const student = await Student.findOne({ email });
 
       if (!email) {
         throw new Error("Please enter your email");
@@ -84,7 +84,7 @@ const resolvers = {
         throw new Error("Please enter your password");
       }
 
-      const user = teacher || student;
+      const user = teacher;
       if (!user) {
         throw new Error("No user with that email");
       }
@@ -99,9 +99,9 @@ const resolvers = {
       if (teacher) {
         return { token, teacher: user };
       }
-      if (student) {
-        return { token, student, user };
-      }
+      // if (student) {
+      //   return { token, student, user };
+      // }
     },
 
     addTeacher: async (
