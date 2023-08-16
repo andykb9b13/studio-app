@@ -1,19 +1,19 @@
 import { useMutation } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
-import { TEACHER_LOGIN } from "../utils/mutations";
+import { STUDENT_LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { Button, Typography, Input, Card, FormHelperText } from "@mui/joy";
 import { useForm } from "react-hook-form";
 import { styles } from "../styles/cardstyles";
 
-const Login = () => {
-  const [login, { error }] = useMutation(TEACHER_LOGIN);
+const StudentLogin = () => {
+  const [login, { error }] = useMutation(STUDENT_LOGIN);
   // form handling from react-hook-form
   const { register, handleSubmit } = useForm();
 
   const handleLogin = (data) => {
-    Auth.teacherLogin(data);
+    Auth.studentLogin(data);
     alert("Successfully logged in!");
   };
 
@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <Card sx={styles.card}>
-      <Typography level="h2">Teacher Login</Typography>
+      <Typography level="h2">Student Login</Typography>
       {error && (
         <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
       )}
@@ -51,14 +51,8 @@ const Login = () => {
         </Button>
       </form>
       <Link to="/">Back to Homepage</Link>
-      <Typography
-        level="body1"
-        endDecorator={<Link to="/signup">Sign Up</Link>}
-      >
-        Not a User?
-      </Typography>
     </Card>
   );
 };
 
-export default Login;
+export default StudentLogin;

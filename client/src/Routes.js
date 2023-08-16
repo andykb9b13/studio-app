@@ -1,12 +1,12 @@
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import StudentLogin from "./pages/StudentLogin";
 import SignUp from "./pages/SignUp";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentDetails from "./pages/StudentDetails";
 import PracticeHub from "./pages/PracticeHub";
 import VirtualTutor from "./pages/VirtualTutor";
 import TeacherDashboard from "./pages/TeacherDashboard";
-import CreateSkillSheet from "./components/TeacherDashboard/SkillSheets/CreateSkillSheet";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const AppRoutes = () => {
@@ -19,6 +19,9 @@ const AppRoutes = () => {
 
           {/* Login Page */}
           <Route path="/login" element={<Login />} />
+
+          {/* Student Login Page */}
+          <Route path="/studentLogin" element={<StudentLogin />} />
 
           {/* Signup Page */}
           <Route path="/signup" element={<SignUp />} />

@@ -76,14 +76,24 @@ export default function Navbar() {
               </Button>
             </React.Fragment>
           ) : (
-            <Button
-              component={Link}
-              to="/login"
-              color="inherit"
-              variant="outlined"
-            >
-              Login
-            </Button>
+            <>
+              <Button
+                component={Link}
+                to="/login"
+                color="inherit"
+                variant="outlined"
+              >
+                Teacher Login
+              </Button>
+              <Button
+                component={Link}
+                to="/studentLogin"
+                color="inherit"
+                variant="outlined"
+              >
+                Student Login
+              </Button>
+            </>
           )}
         </Toolbar>
       </AppBar>

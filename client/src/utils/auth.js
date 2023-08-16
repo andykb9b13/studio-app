@@ -32,7 +32,7 @@ class AuthService {
     return localStorage.getItem("id_token");
   }
 
-  login(data) {
+  teacherLogin(data) {
     let idToken;
     let teacherId;
     // checks if data is coming from signup (addTeacher) or login
@@ -43,10 +43,24 @@ class AuthService {
       idToken = data.teacherLogin.token;
       teacherId = data.teacherLogin.teacher._id;
     }
-    console.log("This is the_id in Auth.login", teacherId);
+    console.log("This is the_id in Auth.teacherLogin", teacherId);
     // Saves user token to localStorage
     localStorage.setItem("id_token", idToken);
     window.location.assign(`/teacher/${teacherId}`);
+  }
+
+  studentLogin(data) {
+    let idToken;
+    let studentId;
+    // checks if data is coming from signup (addTeacher) or login
+
+    idToken = data.studentLogin.token;
+    studentId = data.studentLogin.student._id;
+
+    console.log("This is the_id in Auth.studentLogin", studentId);
+    // Saves user token to localStorage
+    localStorage.setItem("id_token", idToken);
+    window.location.assign(`/teacher/studentDetails/${studentId}`);
   }
 
   logout() {
