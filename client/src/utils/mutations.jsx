@@ -93,6 +93,18 @@ export const TEACHER_LOGIN = gql`
   }
 `;
 
+export const STUDENT_LOGIN = gql`
+  mutation studentLogin($email: String!, $password: String!) {
+    studentLogin(email: $email, password: $password) {
+      token
+      student {
+        _id
+        email
+      }
+    }
+  }
+`;
+
 export const ADD_ASSIGNMENT = gql`
   mutation addAssignment(
     $exerciseName: String!

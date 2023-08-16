@@ -75,7 +75,6 @@ const resolvers = {
   Mutation: {
     teacherLogin: async (parent, { email, password }) => {
       const teacher = await Teacher.findOne({ email });
-      // const student = await Student.findOne({ email });
 
       if (!email) {
         throw new Error("Please enter your email");
@@ -99,9 +98,32 @@ const resolvers = {
       if (teacher) {
         return { token, teacher: user };
       }
-      // if (student) {
-      //   return { token, student, user };
-      // }
+    },
+
+    studentLogin: async (parent, { email, password }) => {
+      const student = await Student.findOne({ email });
+
+      if (!email) {
+        throw new Error("Please enter your email");
+      }
+      if (!password) {
+        throw new Error("Please enter your password");
+      }
+
+      const user = student;
+      if (!user) {
+        throw new Error("No user with that email");
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new Error("Incorrect password!");
+      }
+
+      const token = signToken(user);
+
+      return { token, student: user };
     },
 
     addTeacher: async (
