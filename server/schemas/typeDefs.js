@@ -99,7 +99,7 @@ const typeDefs = gql`
     description: String
   }
 
-  type Auth {
+  type TeacherAuth {
     token: ID!
     teacher: Teacher
   }
@@ -120,7 +120,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
+    teacherLogin(email: String!, password: String!): TeacherAuth
 
     addTeacher(
       firstName: String!
@@ -128,7 +128,7 @@ const typeDefs = gql`
       email: String!
       password: String!
       confirmPassword: String!
-    ): Auth
+    ): TeacherAuth
 
     addStudent(
       firstName: String!

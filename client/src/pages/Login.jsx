@@ -1,14 +1,14 @@
 import { useMutation } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
-import { LOGIN } from "../utils/mutations";
+import { TEACHER_LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { Button, Typography, Input, Card, FormHelperText } from "@mui/joy";
 import { useForm } from "react-hook-form";
 import { styles } from "../styles/cardstyles";
 
 const Login = () => {
-  const [login, { error }] = useMutation(LOGIN);
+  const [login, { error }] = useMutation(TEACHER_LOGIN);
   // form handling from react-hook-form
   const { register, handleSubmit } = useForm();
 

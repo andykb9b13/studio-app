@@ -81,9 +81,9 @@ export const ADD_STUDENT = gql`
   }
 `;
 
-export const LOGIN = gql`
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+export const TEACHER_LOGIN = gql`
+  mutation teacherLogin($email: String!, $password: String!) {
+    teacherLogin(email: $email, password: $password) {
       token
       teacher {
         _id
