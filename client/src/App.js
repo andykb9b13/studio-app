@@ -45,7 +45,6 @@ export const MobileContext = createContext();
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
-
   // checking if the window is mobile sized for conditional display rendering
   useEffect(() => {
     if (window.innerWidth < 768) {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -52,15 +52,29 @@ export default function Navbar() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>Practice Hub</MenuItem>
-              <MenuItem onClick={handleClose}>StudentDatabase</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={() => window.location.assign("/tutor")}>
+                Practice Hub
+              </MenuItem>
+              <MenuItem onClick={() => window.location.assign(`/teacher/:id`)}>
+                StudentDatabase
+              </MenuItem>
+              <MenuItem onClick={() => logout()}>Logout</MenuItem>
+              <MenuItem onClick={handleClose}>Delete Account</MenuItem>
             </Menu>
           )}
           {Auth.loggedIn() ? (
-            <Button onClick={() => logout()} color="inherit" variant="outlined">
-              Logout
-            </Button>
+            <React.Fragment>
+              <Button
+                onClick={() => logout()}
+                color="inherit"
+                variant="outlined"
+              >
+                Logout
+              </Button>
+              <Button color="inherit" variant="outlined">
+                DeleteAccount
+              </Button>
+            </React.Fragment>
           ) : (
             <Button
               component={Link}

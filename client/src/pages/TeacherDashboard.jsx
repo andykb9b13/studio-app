@@ -26,8 +26,8 @@ import BuildIcon from "@mui/icons-material/Build";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import Navbar from "../components/Navbar/Navbar";
-import RegularModal from "../components/common/RegularModal";
-import DeleteModalContent from "../components/common/DeleteModalContent";
+import RegularModal from "../components/common/Modal/RegularModal";
+import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
 
 export const TeacherContext = createContext();
 
@@ -46,6 +46,8 @@ const TeacherDashboard = () => {
   const students = data?.teacher.students || [];
   const teacher = data?.teacher || [];
   const [studentSearch, setStudentSearch] = useState(students);
+
+  console.log(teacher);
 
   // handler for the tabs
   const [clicked, setClicked] = useState(false);

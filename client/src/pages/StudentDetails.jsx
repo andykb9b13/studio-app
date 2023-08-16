@@ -6,8 +6,8 @@ import { DELETE_STUDENT } from "../utils/mutations";
 import { Sheet, Button } from "@mui/joy";
 import { styles } from "../styles/studentDetailsStyles";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
-import RegularModal from "../components/common/RegularModal";
-import DeleteModalContent from "../components/common/DeleteModalContent";
+import RegularModal from "../components/common/Modal/RegularModal";
+import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
 
 // Creating student context to be passed to all components in this thread
 export const StudentContext = createContext();
