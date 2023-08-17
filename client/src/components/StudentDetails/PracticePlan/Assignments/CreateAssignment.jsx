@@ -30,6 +30,8 @@ const CreateAssignment = ({ createAssignmentFunc }) => {
         <Input type="text" {...register("metronome")} />
         <Typography>Pages</Typography>
         <Input type="text" {...register("pages")} />
+        <Typography>Points Worth</Typography>
+        <Input type="number" {...register("points")} />
         <Button type="submit">Create Assignment</Button>
       </form>
     </Sheet>

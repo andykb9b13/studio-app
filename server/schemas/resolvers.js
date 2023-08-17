@@ -217,10 +217,14 @@ const resolvers = {
       return { student };
     },
 
-    addAssignment: async (parent, { studentId, planId, ...args }) => {
+    addAssignment: async (
+      parent,
+      { studentId, planId, pointsWorth, ...args }
+    ) => {
       const assignment = await Assignment.create({
         studentId,
         planId,
+        pointsWorth,
         ...args,
       });
 

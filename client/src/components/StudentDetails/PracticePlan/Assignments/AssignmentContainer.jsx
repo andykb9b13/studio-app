@@ -81,6 +81,9 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
           <Typography>
             <b>Special Notes:</b> {assignment.specialNotes}
           </Typography>
+          <Typography>
+            <b>Points Worth:</b> {assignment.pointsWorth}
+          </Typography>
         </CardContent>
         <CardActions>
           <Button compoent={Link} to="/student/:id/streakPractice">

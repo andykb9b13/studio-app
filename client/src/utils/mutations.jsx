@@ -114,6 +114,7 @@ export const ADD_ASSIGNMENT = gql`
     $assignmentType: String
     $specialNotes: String
     $metronome: String
+    $pointsWorth: Int
     $pages: String
   ) {
     addAssignment(
@@ -124,6 +125,7 @@ export const ADD_ASSIGNMENT = gql`
       assignmentType: $assignmentType
       specialNotes: $specialNotes
       metronome: $metronome
+      pointsWorth: $pointsWorth
       pages: $pages
     ) {
       exerciseName
@@ -133,6 +135,7 @@ export const ADD_ASSIGNMENT = gql`
       assignmentType
       specialNotes
       metronome
+      pointsWorth
       pages
     }
   }

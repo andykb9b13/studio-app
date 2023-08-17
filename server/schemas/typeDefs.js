@@ -44,6 +44,7 @@ const typeDefs = gql`
     specialNotes: String
     metronome: String
     pages: String
+    pointsWorth: Int
     streaks: [Streak]
     resources: [Resource]
   }
@@ -77,7 +78,6 @@ const typeDefs = gql`
     exercises: String
     etudes: String
     pieces: String
-    points: Int
     badge: String
     difficulty: String
     completed: Boolean
@@ -164,6 +164,7 @@ const typeDefs = gql`
       assignmentType: String
       specialNotes: String
       metronome: String
+      pointsWorth: Int
       pages: String
     ): Assignment
 
