@@ -20,20 +20,22 @@ const styles = {
 };
 
 // The view of an individual practice plan
-const PracticePlanCard = ({ practicePlan }) => {
+const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [open, setOpen] = useState(false);
-
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
 
-  console.log(practicePlan);
-
   const deletePracticePlanFunc = async () => {
-    await deletePracticePlan({
-      variables: { planId: practicePlan._id },
-    });
-    alert("Plan Deleted!");
-    setOpen(false);
+    try {
+      await deletePracticePlan({
+        variables: { planId: practicePlan._id },
+      });
+      alert("Plan Deleted!");
+      setOpen(false);
+      onDelete();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

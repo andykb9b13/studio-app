@@ -34,6 +34,10 @@ export default function PracticePlanContainer() {
     }
   };
 
+  const handleDeletePracticePlan = (deletedPlanId) => {
+    setStudentPlans(studentPlans.filter((plan) => plan._id !== deletedPlanId));
+  };
+
   return (
     <React.Fragment>
       <Typography level="h2">Practice Plans</Typography>
@@ -51,6 +55,7 @@ export default function PracticePlanContainer() {
             practicePlan={practicePlan}
             studentId={id}
             key={i}
+            onDelete={() => handleDeletePracticePlan(practicePlan._id)}
           />
         ))}
     </React.Fragment>

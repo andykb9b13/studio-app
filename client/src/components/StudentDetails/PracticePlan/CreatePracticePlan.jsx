@@ -12,7 +12,7 @@ const CreatePracticePlan = ({
   const onSubmit = async (userInput) => {
     try {
       console.log("User input", userInput);
-      await createPracticePlanFunc(userInput); // Call the function here
+      await createPracticePlanFunc(userInput);
     } catch (err) {
       console.error(err);
     }
