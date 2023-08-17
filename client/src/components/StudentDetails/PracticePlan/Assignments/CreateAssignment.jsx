@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Sheet,
-  Select,
-  Option,
-  Button,
-  Input,
-  Typography,
-  Textarea,
-} from "@mui/joy";
-
+import { Sheet, Button, Input, Typography, Textarea } from "@mui/joy";
 import { useForm } from "react-hook-form";
 
 const CreateAssignment = ({ createAssignmentFunc }) => {
@@ -32,13 +23,7 @@ const CreateAssignment = ({ createAssignmentFunc }) => {
         <Typography>Source</Typography>
         <Input type="text" {...register("source")} />
         <Typography>Assignment Type</Typography>
-        <Select defaultValue="etude" {...register("assignmentType")}>
-          <Option value="etude">Etude</Option>
-          <Option value="technical-exercise">Technical Exercise</Option>
-          <Option value="warm-up">Warm Up</Option>
-          <Option value="scales">Scales</Option>
-          <Option value="piece">Piece</Option>
-        </Select>
+        <Input type="text" {...register("assignmentType")} />
         <Typography>Special Notes</Typography>
         <Textarea minRows={3} {...register("specialNotes")} />
         <Typography>Metronome</Typography>
