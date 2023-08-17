@@ -41,9 +41,6 @@ const StudentInfo = ({ handleClick }) => {
       <Typography>
         <b>Lesson Location:</b> {student.lessonLocation}
       </Typography>
-      <Typography>
-        <b>Is Active:</b> {student.isActive}
-      </Typography>
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AssignmentView from "./Assignments/AssignmentView";
+import AssignmentContainer from "./Assignments/AssignmentContainer";
 import { Table, Button } from "@mui/joy";
 import RegularModal from "../../common/Modal/RegularModal";
 
@@ -38,7 +38,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                     open={open}
                     onRequestClose={() => setOpen(false)}
                   >
-                    <AssignmentView
+                    <AssignmentContainer
                       onRequestClose={() => setOpen(false)}
                       assignment={assignment}
                       setAssignments={setAssignments}

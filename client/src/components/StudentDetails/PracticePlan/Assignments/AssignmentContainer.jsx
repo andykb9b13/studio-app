@@ -15,7 +15,7 @@ import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
 import { DELETE_ASSIGNMENT } from "../../../../utils/mutations";
 
-const AssignmentView = ({ assignment, onDelete }) => {
+const AssignmentContainer = ({ assignment, onDelete }) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
 
@@ -92,4 +92,4 @@ const AssignmentView = ({ assignment, onDelete }) => {
   );
 };
 
-export default AssignmentView;
+export default AssignmentContainer;
