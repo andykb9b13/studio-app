@@ -4,7 +4,7 @@ import { Table, Button } from "@mui/joy";
 import RegularModal from "../../common/Modal/RegularModal";
 
 const PracticePlanTable = ({ assignments, setAssignments }) => {
-  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState();
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -35,18 +35,22 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                 <td>
                   <RegularModal
                     name="View Assignment"
-                    open={open}
-                    onRequestClose={() => setOpen(false)}
+                    open={index === assignment._id}
+                    onRequestClose={() => setIndex(null)}
+                    key={assignment._id}
                   >
                     <AssignmentContainer
-                      onRequestClose={() => setOpen(false)}
+                      onRequestClose={() => setIndex(null)}
                       assignment={assignment}
                       setAssignments={setAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
                     />
                   </RegularModal>
-                  <Button variant="outlined" onClick={() => setOpen(true)}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => setIndex(assignment._id)}
+                  >
                     View
                   </Button>
                 </td>
