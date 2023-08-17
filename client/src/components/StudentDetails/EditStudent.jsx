@@ -1,15 +1,7 @@
 import React, { useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { EDIT_STUDENT } from "../../utils/mutations";
-import {
-  Sheet,
-  Input,
-  Button,
-  Typography,
-  Select,
-  Option,
-  FormHelperText,
-} from "@mui/joy";
+import { Sheet, Input, Button, Typography, FormHelperText } from "@mui/joy";
 import { StudentContext } from "../../pages/StudentDetails";
 import { useForm } from "react-hook-form";
 import { styles } from "../../styles/cardstyles";
@@ -21,7 +13,7 @@ const EditStudent = () => {
 
   const onSubmit = async (userInput) => {
     try {
-      const { data } = await editStudent({
+      await editStudent({
         variables: {
           studentId: student._id,
           ...userInput,
@@ -95,48 +87,11 @@ const EditStudent = () => {
           defaultValue={student.primaryContactEmail}
         />
         <Typography>Lesson Day</Typography>
-        <Select
-          type="text"
-          {...register("lessonDay")}
-          defaultValue={student.lessonDay}
-        >
-          <Option value="Monday">Monday</Option>
-          <Option value="Tuesday">Tuesday</Option>
-          <Option value="Wednesday">Wednesday</Option>
-          <Option value="Thursday">Thursday</Option>
-          <Option value="Friday">Friday</Option>
-          <Option value="Saturday">Saturday</Option>
-          <Option value="Sunday">Sunday</Option>
-        </Select>
+        <Input type="text" {...register("lessonDay")} />
         <Typography>Lesson Time</Typography>
-        <Select
-          type="text"
-          {...register("lessonTime")}
-          defaultValue={student.lessonTime}
-        >
-          <Option value="3:00pm">3:00 PM</Option>
-          <Option value="3:15pm">3:15 PM</Option>
-          <Option value="3:30pm">3:30 PM</Option>
-          <Option value="3:45pm">3:45 PM</Option>
-          <Option value="4:00pm">4:00 PM</Option>
-          <Option value="4:15pm">4:15 PM</Option>
-          <Option value="4:30pm">4:30 PM</Option>
-          <Option value="4:45pm">4:45 PM</Option>
-          <Option value="5:00pm">5:00 PM</Option>
-          <Option value="5:15pm">5:15 PM</Option>
-          <Option value="5:30pm">5:30 PM</Option>
-          <Option value="5:45pm">5:45 PM</Option>
-          <Option value="6:00pm">6:00 PM</Option>
-        </Select>
+        <Input type="text" {...register("lessonTime")} />
         <Typography>Lesson Location</Typography>
-        <Select
-          type="text"
-          {...register("lessonLocation")}
-          defaultValue={student.lessonLocation}
-        >
-          <Option value="studio">Studio</Option>
-          <Option value="zoom">Zoom</Option>
-        </Select>
+        <Input type="text" {...register("lessonLocation")} />
         <Button type="submit">Save Changes</Button>
       </form>
     </Sheet>

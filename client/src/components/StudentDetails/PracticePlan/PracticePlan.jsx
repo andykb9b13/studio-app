@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import CreateAssignment from "./Assignments/CreateAssignment";
-import DeletePracticePlanModal from "./DeletePracticePlanModal";
 import { Sheet, Typography, IconButton, Table } from "@mui/joy";
 import { Add } from "@mui/icons-material";
 import AssignmentView from "./Assignments/AssignmentView";
+import RegularModal from "../../common/Modal/RegularModal";
+import DeleteModalContent from "../../common/Modal/DeleteModalContent";
+import { useMutation } from "@apollo/client";
+import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const styles = {
   sheet: {
@@ -18,6 +22,18 @@ const styles = {
 // The view of an individual practice plan
 const PracticePlan = ({ practicePlan }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
+
+  const deletePracticePlanFunc = async () => {
+    await deletePracticePlan({
+      variables: { planId: practicePlan._id },
+    });
+    alert("Plan Deleted!");
+    setOpen(false);
+    window.location.assign(`/`);
+  };
 
   return (
     <Sheet sx={styles.sheet}>
@@ -26,7 +42,16 @@ const PracticePlan = ({ practicePlan }) => {
         <Add />
       </IconButton>
 
-      <DeletePracticePlanModal planId={practicePlan._id} />
+      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+        <DeleteModalContent
+          onRequestClose={() => setOpen(false)}
+          confirmAction={() => deletePracticePlanFunc()}
+          resourceName="Practice Plan"
+        />
+      </RegularModal>
+      <IconButton onClick={() => setOpen(true)}>
+        <DeleteIcon />
+      </IconButton>
 
       {activeIndex === 1 ? <CreateAssignment planId={practicePlan._id} /> : ""}
 

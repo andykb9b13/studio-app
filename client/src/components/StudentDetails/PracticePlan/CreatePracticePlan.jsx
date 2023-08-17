@@ -1,21 +1,28 @@
 import React, { useContext } from "react";
+import { Button, Typography, Input, Sheet } from "@mui/joy";
+import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
-import { Button, Typography, Input, Sheet } from "@mui/joy";
 import { StudentContext } from "../../../pages/StudentDetails";
-import { useForm } from "react-hook-form";
 
-const CreatePracticePlan = () => {
-  const { student } = useContext(StudentContext);
+const CreatePracticePlan = ({
+  resourceName,
+  onRequestClose,
+  setUserInput,
+  createPracticePlanFunc,
+}) => {
   const { register, handleSubmit } = useForm();
-  const [createPracticePlan, { errors }] = useMutation(ADD_PRACTICEPLAN);
+  const { student } = useContext(StudentContext);
+  const [createPracticePlan, { error }] = useMutation(ADD_PRACTICEPLAN);
 
   const onSubmit = async (userInput) => {
+    console.log("userInput", userInput);
     try {
-      const { data } = await createPracticePlan({
+      await createPracticePlan({
         variables: { studentId: student._id, ...userInput },
       });
       alert("Practice Plan Created");
+      // setOpen(false);
     } catch (err) {
       console.error(err);
       alert("Could not create Practice Plan");
@@ -23,15 +30,21 @@ const CreatePracticePlan = () => {
   };
 
   return (
-    <Sheet
-      sx={{ mx: "auto", mt: 3, p: 2, borderRadius: "4px", boxShadow: "md" }}
-    >
-      <Typography level="h2">Create a Practice Plan</Typography>
+    <Sheet>
+      <Typography level="h2">{resourceName}</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>Name</Typography>
         <Input type="text" {...register("name")} />
-        <Button sx={{ mt: 2 }} type="submit">
-          Create Practice Plan
+        <Button
+          onClick={createPracticePlanFunc}
+          type="submit"
+          variant="solid"
+          color="success"
+        >
+          Save
+        </Button>
+        <Button variant="solid" color="danger" onClick={onRequestClose}>
+          Cancel
         </Button>
       </form>
     </Sheet>

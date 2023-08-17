@@ -20,14 +20,14 @@ import StudentDatabaseTable from "../components/TeacherDashboard/StudentDatabase
 import StudentSearch from "../components/TeacherDashboard/StudentDatabase/StudentSearch";
 import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
 import CreateStudent from "../components/StudentDetails/CreateStudent";
-import StorageIcon from "@mui/icons-material/Storage";
-import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
-import BuildIcon from "@mui/icons-material/Build";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import Navbar from "../components/Navbar/Navbar";
 import RegularModal from "../components/common/Modal/RegularModal";
 import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
+import StorageIcon from "@mui/icons-material/Storage";
+import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import BuildIcon from "@mui/icons-material/Build";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 export const TeacherContext = createContext();
 
@@ -39,7 +39,6 @@ const TeacherDashboard = () => {
       teacherId: id,
     },
   });
-
   const [deleteTeacher, { error }] = useMutation(DELETE_TEACHER);
 
   // Setting variables for teacher information and student information
@@ -47,13 +46,11 @@ const TeacherDashboard = () => {
   const teacher = data?.teacher || [];
   const [studentSearch, setStudentSearch] = useState(students);
 
-  console.log(teacher);
-
   // handler for the tabs
   const [clicked, setClicked] = useState(false);
   // handler for the modal
   const [open, setOpen] = useState(false);
-
+  // checking if the screen size is mobile
   const { isMobile } = useContext(MobileContext);
 
   // Handles the panel
@@ -104,19 +101,35 @@ const TeacherDashboard = () => {
               <TabList color="primary">
                 {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
                 <Tab>
-                  {!isMobile && <Typography>Student Database</Typography>}
+                  {!isMobile && (
+                    <Typography>
+                      <b>Student Database</b>
+                    </Typography>
+                  )}
                   <StorageIcon />
                 </Tab>
                 <Tab>
-                  {!isMobile && <Typography>Bookkeeping/Invoices</Typography>}
+                  {!isMobile && (
+                    <Typography>
+                      <b>Bookkeeping/Invoices</b>
+                    </Typography>
+                  )}
                   <RequestQuoteIcon />
                 </Tab>
                 <Tab>
-                  {!isMobile && <Typography>SkillSheets</Typography>}
+                  {!isMobile && (
+                    <Typography>
+                      <b>SkillSheets</b>
+                    </Typography>
+                  )}
                   <BuildIcon />
                 </Tab>
                 <Tab>
-                  {!isMobile && <Typography>View Calendar</Typography>}
+                  {!isMobile && (
+                    <Typography>
+                      <b>View Calendar</b>
+                    </Typography>
+                  )}
                   <CalendarMonthIcon />
                 </Tab>
               </TabList>
