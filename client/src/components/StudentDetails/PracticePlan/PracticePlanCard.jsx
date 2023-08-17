@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import CreateAssignment from "./Assignments/CreateAssignment";
+import React, { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
 import { Sheet, Typography, IconButton, Table } from "@mui/joy";
 import { Add } from "@mui/icons-material";
+import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import AssignmentView from "./Assignments/AssignmentView";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
-import { useMutation } from "@apollo/client";
-import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
+import CreateAssignmentContainer from "./Assignments/CreateAssignmentContainer";
+import CreateAssignment from "./Assignments/CreateAssignment";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const styles = {
@@ -24,6 +25,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [open, setOpen] = useState(false);
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
+  const [assignments, setAssignments] = useState(practicePlan.assignments);
 
   const deletePracticePlanFunc = async () => {
     try {
@@ -37,6 +39,10 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    setAssignments(assignments || []);
+  }, [assignments]);
 
   return (
     <Sheet sx={styles.sheet}>
@@ -56,6 +62,12 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
         <DeleteIcon />
       </IconButton>
 
+      <CreateAssignmentContainer
+        practicePlan={practicePlan}
+        assignments={assignments}
+        setAssignments={setAssignments}
+      />
+
       {activeIndex === 1 ? <CreateAssignment planId={practicePlan._id} /> : ""}
 
       <Table>
@@ -68,8 +80,8 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
           </tr>
         </thead>
         <tbody>
-          {practicePlan.assignments &&
-            practicePlan.assignments.map((assignment) => (
+          {assignments &&
+            assignments.map((assignment) => (
               <React.Fragment key={assignment._id}>
                 <tr>
                   <td>

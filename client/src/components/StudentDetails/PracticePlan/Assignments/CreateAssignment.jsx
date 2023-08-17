@@ -1,6 +1,4 @@
-import { useMutation } from "@apollo/client";
-import React, { useContext } from "react";
-import { ADD_ASSIGNMENT } from "../../../../utils/mutations";
+import React from "react";
 import {
   Sheet,
   Select,
@@ -10,20 +8,15 @@ import {
   Typography,
   Textarea,
 } from "@mui/joy";
-import { StudentContext } from "../../../../pages/StudentDetails";
+
 import { useForm } from "react-hook-form";
 
-const CreateAssignment = ({ planId }) => {
-  const { student } = useContext(StudentContext);
+const CreateAssignment = ({ createAssignmentFunc }) => {
   const { register, handleSubmit } = useForm();
-  const [createAssignment, { errors }] = useMutation(ADD_ASSIGNMENT);
 
   const onSubmit = async (userInput) => {
     try {
-      const { data } = await createAssignment({
-        variables: { studentId: student._id, planId: planId, ...userInput },
-      });
-      alert("Assignment Created");
+      await createAssignmentFunc(userInput);
     } catch (err) {
       console.error(err);
       alert("Could not create assignment");

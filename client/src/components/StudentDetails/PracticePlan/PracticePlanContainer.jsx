@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import CreatePracticePlan from "./CreatePracticePlan";
-import PracticePlanCard from "./PracticePlanCard";
 import { Typography, Button } from "@mui/joy";
 import { StudentContext } from "../../../pages/StudentDetails";
-import RegularModal from "../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
+import CreatePracticePlan from "./CreatePracticePlan";
+import PracticePlanCard from "./PracticePlanCard";
+import RegularModal from "../../common/Modal/RegularModal";
 
 // displays practice plans from a student
 export default function PracticePlanContainer() {
