@@ -1,33 +1,79 @@
-import React, { useState, useContext } from "react";
-import CreatePracticePlan from "./CreatePracticePlan";
-import PracticePlan from "./PracticePlan";
-import { Typography, Button } from "@mui/joy";
-import { StudentContext } from "../../../pages/StudentDetails";
+import React, { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { Sheet, Typography, IconButton } from "@mui/joy";
+import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import RegularModal from "../../common/Modal/RegularModal";
+import DeleteModalContent from "../../common/Modal/DeleteModalContent";
+import CreateAssignmentContainer from "./Assignments/CreateAssignmentContainer";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PracticePlanTable from "./PracticePlanTable";
 
-// displays practice plans from a student
-export default function PracticePlanCard() {
-  const { id, practicePlans } = useContext(StudentContext);
+const styles = {
+  sheet: {
+    mt: 3,
+    p: 2,
+    backgroundColor: "lavender",
+    borderRadius: "4px",
+    boxShadow: "md",
+  },
+};
+
+// The view of an individual practice plan
+const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const [open, setOpen] = useState(false);
+  const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
+  const [assignments, setAssignments] = useState(practicePlan.assignments);
+
+  const deletePracticePlanFunc = async () => {
+    try {
+      await deletePracticePlan({
+        variables: { planId: practicePlan._id },
+      });
+      alert("Plan Deleted!");
+      setOpen(false);
+      onDelete();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    setAssignments(assignments || []);
+  }, [assignments]);
 
   return (
-    <React.Fragment>
-      <Typography level="h2">Practice Plans</Typography>
-      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <CreatePracticePlan
+    <Sheet sx={styles.sheet}>
+      <Typography level="h2">{practicePlan.name}</Typography>
+      {/* Modal for deleting a practice plan */}
+      <RegularModal
+        name="deletePracticePlan"
+        open={open}
+        onRequestClose={() => setOpen(false)}
+      >
+        <DeleteModalContent
           onRequestClose={() => setOpen(false)}
-          resourceName="Create Practice Plan"
+          confirmAction={() => deletePracticePlanFunc()}
+          resourceName="Practice Plan"
         />
       </RegularModal>
-      <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
-      {practicePlans &&
-        practicePlans.map((practicePlan) => (
-          <PracticePlan
-            practicePlan={practicePlan}
-            studentId={id}
-            key={practicePlan._id}
-          />
-        ))}
-    </React.Fragment>
+      <IconButton onClick={() => setOpen(true)}>
+        <DeleteIcon />
+      </IconButton>
+
+      {/* Container for creating an assignment */}
+      <CreateAssignmentContainer
+        practicePlan={practicePlan}
+        assignments={assignments}
+        setAssignments={setAssignments}
+      />
+
+      {/* Table displaying list of all practice plans */}
+      <PracticePlanTable
+        assignments={assignments}
+        setAssignments={setAssignments}
+      />
+    </Sheet>
   );
-}
+};
+
+export default PracticePlanCard;

@@ -1,29 +1,13 @@
-import { useMutation } from "@apollo/client";
-import React, { useContext } from "react";
-import { ADD_ASSIGNMENT } from "../../../../utils/mutations";
-import {
-  Sheet,
-  Select,
-  Option,
-  Button,
-  Input,
-  Typography,
-  Textarea,
-} from "@mui/joy";
-import { StudentContext } from "../../../../pages/StudentDetails";
+import React from "react";
+import { Sheet, Button, Input, Typography, Textarea } from "@mui/joy";
 import { useForm } from "react-hook-form";
 
-const CreateAssignment = ({ planId }) => {
-  const { student } = useContext(StudentContext);
+const CreateAssignment = ({ createAssignmentFunc }) => {
   const { register, handleSubmit } = useForm();
-  const [createAssignment, { errors }] = useMutation(ADD_ASSIGNMENT);
 
   const onSubmit = async (userInput) => {
     try {
-      const { data } = await createAssignment({
-        variables: { studentId: student._id, planId: planId, ...userInput },
-      });
-      alert("Assignment Created");
+      await createAssignmentFunc(userInput);
     } catch (err) {
       console.error(err);
       alert("Could not create assignment");
@@ -39,13 +23,7 @@ const CreateAssignment = ({ planId }) => {
         <Typography>Source</Typography>
         <Input type="text" {...register("source")} />
         <Typography>Assignment Type</Typography>
-        <Select defaultValue="etude" {...register("assignmentType")}>
-          <Option value="etude">Etude</Option>
-          <Option value="technical-exercise">Technical Exercise</Option>
-          <Option value="warm-up">Warm Up</Option>
-          <Option value="scales">Scales</Option>
-          <Option value="piece">Piece</Option>
-        </Select>
+        <Input type="text" {...register("assignmentType")} />
         <Typography>Special Notes</Typography>
         <Textarea minRows={3} {...register("specialNotes")} />
         <Typography>Metronome</Typography>

@@ -274,3 +274,11 @@ export const DELETE_PRACTICE_PLAN = gql`
     }
   }
 `;
+
+export const DELETE_ASSIGNMENT = gql`
+  mutation deleteAssignment($assignmentId: ID!) {
+    deleteAssignment(assignmentId: $assignmentId) {
+      _id
+    }
+  }
+`;

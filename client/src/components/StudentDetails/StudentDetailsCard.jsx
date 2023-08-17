@@ -9,7 +9,7 @@ import BadgesPoints from "./BadgesPoints";
 import PracticeGraph from "./PracticeGraph";
 import SkillSheetCard from "./SkillSheetsCard";
 import EditStudent from "./EditStudent";
-import PracticePlanCard from "./PracticePlan/PracticePlanCard";
+import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
@@ -59,7 +59,7 @@ export default function StudentDetailsCard({ active, setActive }) {
 
       {/* Conditional rendering for button clicks in Card Actions */}
       {active === 1 ? <EditStudent studentId={student._id} /> : null}
-      {active === 2 ? <PracticePlanCard /> : null}
+      {active === 2 ? <PracticePlanContainer /> : null}
     </Card>
   );
 }

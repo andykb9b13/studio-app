@@ -16,7 +16,7 @@ import StreakPractice from "../components/PracticeHub/StreakPractice";
 import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
 import CreateAssignment from "../components/StudentDetails/PracticePlan/Assignments/CreateAssignment";
 import VirtualTutor from "./VirtualTutor";
-import PracticePlan from "../components/StudentDetails/PracticePlan/PracticePlan";
+import PracticePlanCard from "../components/StudentDetails/PracticePlan/PracticePlanCard";
 import TimerIcon from "@mui/icons-material/Timer";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArticleIcon from "@mui/icons-material/Article";
@@ -166,7 +166,7 @@ const PracticeHub = () => {
       {skillSheets && <SkillSheets student={student} />}
       {createAssignment && <CreateAssignment student={student} />}
       {practicePlan && (
-        <PracticePlan
+        <PracticePlanCard
           student={student}
           studentId={student._id}
           practicePlans={student.practicePlans}
