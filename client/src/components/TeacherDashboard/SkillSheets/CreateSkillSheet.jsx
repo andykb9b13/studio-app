@@ -5,8 +5,6 @@ import { ADD_SKILLSHEET } from "../../../utils/mutations";
 import {
   Card,
   Input,
-  FormControl,
-  FormLabel,
   Typography,
   Divider,
   Button,
@@ -15,61 +13,34 @@ import {
   Textarea,
 } from "@mui/joy";
 import { TeacherContext } from "../../../pages/TeacherDashboard";
+import { useForm } from "react-hook-form";
+import SubmitModalContent from "../../common/Modal/SubmitModalContent";
+import RegularModal from "../../common/Modal/RegularModal";
 
-const CreateSkillSheet = () => {
+const CreateSkillSheet = ({ onRequestClose }) => {
   const { teacher } = useContext(TeacherContext);
-
-  const [formData, setFormData] = useState({
-    sheetName: "",
-    scales: "",
-    arpeggios: "",
-    articulation: "",
-    description: "",
-    slurs: "",
-    longTones: "",
-    exercises: "",
-    etudes: "",
-    pieces: "",
-  });
-
-  const [formErrors, setFormErrors] = useState({
-    sheetName: "",
-  });
+  const { handleSubmit, register } = useForm();
+  const [open, setOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState();
+  const [success, setSuccess] = useState(false);
 
   const [createSkillSheet, { errors }] = useMutation(ADD_SKILLSHEET);
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const validateForm = () => {
-    let errors = {};
-    let isValid = true;
-
-    if (!formData.sheetName.trim()) {
-      errors.sheetName = "Please Enter a Name for the Sheet";
-      isValid = false;
-    }
-    setFormErrors(errors);
-    return isValid;
-  };
-
-  const handleSubmit = async (event) => {
-    if (validateForm()) {
-      event.preventDefault();
-      try {
-        const { data } = await createSkillSheet({
-          variables: { teacherId: teacher._id, ...formData },
-        });
-        console.log(data);
-        alert("Skill sheet successfully created!");
-      } catch (err) {
-        alert("Could not create skill sheet");
-        console.error(err);
-      }
-    }
+  const onSubmit = async (userInput) => {
+    // try {
+    //   const { data } = await createSkillSheet({
+    //     variables: { teacherId: teacher._id, ...userInput },
+    //   });
+    //   console.log(data);
+    //   setOpen(true);
+    //   setSuccess(true);
+    //   setModalMessage("Skill Sheet Created!");
+    // } catch (err) {
+    //   setOpen(true);
+    //   setSuccess(false);
+    //   setModalMessage("Error Creating Skill Sheet");
+    //   console.error(err);
+    // }
   };
 
   return (
@@ -85,104 +56,49 @@ const CreateSkillSheet = () => {
     >
       <Typography level="h1">Create Skill Sheet</Typography>
       <Divider inset="none" />
+      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+        <SubmitModalContent
+          message={modalMessage}
+          success={success}
+          onRequestClose={() => setOpen(false)}
+        />
+      </RegularModal>
       <CardContent>
-        <form>
-          <FormControl>
-            <FormLabel htmlFor="sheetName">Sheet Name</FormLabel>
-            <Input
-              type="text"
-              name="sheetName"
-              id="sheetName"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="description">Description</FormLabel>
-            <Textarea
-              minRows={3}
-              name="description"
-              id="description"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="scales">Scales</FormLabel>
-            <Input
-              type="text"
-              name="scales"
-              id="scales"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="arpeggios">Arpeggios</FormLabel>
-            <Input
-              type="text"
-              name="arpeggios"
-              id="arpeggios"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="articulation">Articulation</FormLabel>
-            <Input
-              type="text"
-              name="articulation"
-              id="articulation"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="slurs">Slurs</FormLabel>
-            <Input
-              type="text"
-              name="slurs"
-              id="slurs"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="longTones">Long Tones</FormLabel>
-            <Input
-              type="text"
-              name="longTones"
-              id="longTones"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormLabel htmlFor="exercises">Exercises</FormLabel>
-          <Input
-            type="text"
-            name="exercises"
-            id="exercises"
-            onChange={handleChange}
-          />
-          <FormControl>
-            <FormLabel htmlFor="etudes">Etudes</FormLabel>
-            <Input
-              type="text"
-              name="etudes"
-              id="etudes"
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="pieces">Pieces</FormLabel>
-            <Input
-              type="text"
-              name="pieces"
-              id="pieces"
-              onChange={handleChange}
-            />
-          </FormControl>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Typography>Sheet Name</Typography>
+          <Input type="text" {...register("sheetName")} />
+          <Typography>Description</Typography>
+          <Textarea minRows={3} {...register("description")} />
+          <Typography>Scales</Typography>
+          <Input type="text" {...register("scales")} />
+          <Typography>Arpeggios</Typography>
+          <Input type="text" {...register("arpeggios")} />
+          <Typography>Articulation</Typography>
+          <Input type="text" {...register("articulation")} />
+          <Typography>Slurs</Typography>
+          <Input type="text" {...register("slurs")} />
+          <Typography>Long Tones</Typography>
+          <Input type="text" {...register("longTones")} />
+          <Typography>Exercises</Typography>
+          <Input type="text" {...register("exercises")} />
+          <Typography>Etudes</Typography>
+          <Input type="text" {...register("etudes")} />
+          <Typography>Pieces</Typography>
+          <Input type="text" {...register("pieces")} />
+          <Button type="submit" color="success">
+            Create Skill Sheet
+          </Button>
         </form>
       </CardContent>
       <CardActions>
-        {" "}
-        <Button onClick={handleSubmit}>Create Skill Sheet</Button>
-        <Link to={`/teacher/${teacher._id}`}>
-          <Button>Cancel</Button>
-        </Link>
+        <Button
+          component={Link}
+          to={`/teacher/${teacher._id}`}
+          onClick={onRequestClose}
+          color="danger"
+        >
+          Cancel
+        </Button>
       </CardActions>
     </Card>
   );

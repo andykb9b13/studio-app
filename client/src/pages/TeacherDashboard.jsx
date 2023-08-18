@@ -18,7 +18,7 @@ import {
 } from "@mui/joy";
 import StudentDatabaseTable from "../components/TeacherDashboard/StudentDatabase/StudentDatabaseTable";
 import StudentSearch from "../components/TeacherDashboard/StudentDatabase/StudentSearch";
-import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
+import SkillSheetContainer from "../components/TeacherDashboard/SkillSheets/SkillSheetContainer";
 import CreateStudent from "../components/StudentDetails/CreateStudent";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import Navbar from "../components/Navbar/Navbar";
@@ -160,7 +160,7 @@ const TeacherDashboard = () => {
 
               {/* Tab panel for Skill sheets */}
               <TabPanel value={2} sx={{ p: 2 }}>
-                <SkillSheets teacher={teacher} />
+                <SkillSheetContainer teacher={teacher} />
               </TabPanel>
 
               {/* Tab panel for showing calendar */}

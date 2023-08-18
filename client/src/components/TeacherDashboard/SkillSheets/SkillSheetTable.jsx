@@ -1,10 +1,11 @@
 import { Button, Sheet, Table } from "@mui/joy";
-import React, { useContext } from "react";
-import { TeacherContext } from "../../../pages/TeacherDashboard";
+import React, { useState } from "react";
 
-const SkillSheetTable = ({ setActiveSheet }) => {
-  const { teacher } = useContext(TeacherContext);
-
+const SkillSheetTable = ({
+  setActiveSheet,
+  skillSheets,
+  setSheetModalOpen,
+}) => {
   return (
     <Sheet>
       <Table>
@@ -17,13 +18,20 @@ const SkillSheetTable = ({ setActiveSheet }) => {
           </tr>
         </thead>
         <tbody>
-          {teacher.skillSheets.map((skillSheet) => (
+          {skillSheets.map((skillSheet) => (
             <tr key={skillSheet._id}>
               <td>{skillSheet.sheetName}</td>
               <td>{skillSheet.exercises}</td>
               <td>{skillSheet.scales}</td>
               <td>
-                <Button onClick={() => setActiveSheet(skillSheet)}>View</Button>
+                <Button
+                  onClick={() => {
+                    setActiveSheet(skillSheet);
+                    setSheetModalOpen(true);
+                  }}
+                >
+                  View
+                </Button>
               </td>
             </tr>
           ))}
