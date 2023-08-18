@@ -17,10 +17,11 @@ import { useMutation } from "@apollo/client";
 import { DELETE_ASSIGNMENT } from "../../../../utils/mutations";
 import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
 
-const AssignmentContainer = ({ assignment, onDelete, checked, setChecked }) => {
+const AssignmentContainer = ({ assignment, onDelete }) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
   const [completeAssignment] = useMutation(COMPLETE_ASSIGNMENT);
+  const [checked, setChecked] = useState(assignment.completed);
 
   const deleteAssignmentFunc = async () => {
     try {

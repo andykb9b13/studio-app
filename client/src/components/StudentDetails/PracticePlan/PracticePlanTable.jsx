@@ -8,10 +8,6 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
   const [assignment, setAssignment] = useState();
-  const [checked, setChecked] = useState(false);
-
-  console.log("checked", checked);
-  console.log("assignment", assignment);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -57,8 +53,6 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                       setAssignments={setAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
-                      checked={checked}
-                      setChecked={setChecked}
                     />
                   </RegularModal>
                   <Button
