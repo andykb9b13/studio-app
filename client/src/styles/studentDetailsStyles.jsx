@@ -3,7 +3,7 @@ export const styles = {
     width: "90%",
     mx: "auto",
     backgroundColor: "lightblue",
-    mt: 4,
+    mt: 8,
     p: 2,
     borderRadius: "4px",
     boxShadow: "md",
