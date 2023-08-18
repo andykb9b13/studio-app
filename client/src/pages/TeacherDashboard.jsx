@@ -21,7 +21,6 @@ import StudentSearch from "../components/TeacherDashboard/StudentDatabase/Studen
 import SkillSheetContainer from "../components/TeacherDashboard/SkillSheets/SkillSheetContainer";
 import CreateStudent from "../components/StudentDetails/CreateStudent";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
-import Navbar from "../components/Navbar/Navbar";
 import RegularModal from "../components/common/Modal/RegularModal";
 import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
 import StorageIcon from "@mui/icons-material/Storage";
@@ -77,19 +76,8 @@ const TeacherDashboard = () => {
   return (
     <TeacherContext.Provider value={{ teacher }}>
       <Sheet>
-        <Navbar />
         {Auth.loggedIn() ? (
           <Sheet sx={{ mt: 2 }}>
-            <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-              <DeleteModalContent
-                onRequestClose={() => setOpen(false)}
-                confirmAction={() => deleteTeacherFunc()}
-                resourceName="teacher"
-              />
-            </RegularModal>
-            <Button onClick={() => setOpen(true)} color="danger">
-              Delete Account
-            </Button>
             {/* These tabs function as the Navbar */}
             <Tabs
               aria-label="Basic tabs"
@@ -145,12 +133,24 @@ const TeacherDashboard = () => {
                     handleClick();
                   }}
                   sx={{ my: 2 }}
+                  variant="soft"
+                  color="success"
                 >
                   {clicked ? "Cancel" : "Add Student"}
                 </Button>
 
                 {clicked ? <CreateStudent teacherId={id} /> : ""}
                 <StudentDatabaseTable students={studentSearch} />
+                <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+                  <DeleteModalContent
+                    onRequestClose={() => setOpen(false)}
+                    confirmAction={() => deleteTeacherFunc()}
+                    resourceName="teacher"
+                  />
+                </RegularModal>
+                <Button onClick={() => setOpen(true)} color="danger">
+                  Delete Teacher Account
+                </Button>
               </TabPanel>
 
               {/* Tab panel for bookkeeping and invoices */}

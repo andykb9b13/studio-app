@@ -46,9 +46,13 @@ const StudentDatabaseTable = ({ students }) => {
                 {!isMobile ? <td>{student.primaryContact}</td> : null}
                 {!isMobile ? <td>{student.grade}</td> : null}
                 <td>
-                  <Link to={`/teacher/studentDetails/${student._id}`}>
-                    <Button>View Student Info</Button>
-                  </Link>
+                  <Button
+                    component={Link}
+                    to={`/teacher/studentDetails/${student._id}`}
+                    variant="soft"
+                  >
+                    View Student Info
+                  </Button>
                 </td>
               </tr>
             ))}

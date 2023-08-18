@@ -15,6 +15,12 @@ class AuthService {
     return !!token && !this.isTokenExpired(token); // handwaiving here
   }
 
+  teacherLoggedIn() {
+    const user = this.getUser();
+    console.log(user);
+    return user === "teacher";
+  }
+
   // check if token is expired
   isTokenExpired(token) {
     try {
@@ -32,6 +38,10 @@ class AuthService {
     return localStorage.getItem("id_token");
   }
 
+  getUser() {
+    return localStorage.getItem("user");
+  }
+
   teacherLogin(data) {
     let idToken;
     let teacherId;
@@ -46,6 +56,7 @@ class AuthService {
     console.log("This is the_id in Auth.teacherLogin", teacherId);
     // Saves user token to localStorage
     localStorage.setItem("id_token", idToken);
+    localStorage.setItem("user", "teacher");
     window.location.assign(`/teacher/${teacherId}`);
   }
 
@@ -60,12 +71,14 @@ class AuthService {
     console.log("This is the_id in Auth.studentLogin", studentId);
     // Saves user token to localStorage
     localStorage.setItem("id_token", idToken);
+    localStorage.setItem("user", "student");
     window.location.assign(`/teacher/studentDetails/${studentId}`);
   }
 
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem("id_token");
+    localStorage.removeItem("user");
     // this will reload the page and reset the state of the application
     window.location.assign("/");
     return true;

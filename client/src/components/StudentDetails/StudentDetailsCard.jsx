@@ -10,6 +10,7 @@ import PracticeGraph from "./PracticeGraph";
 import SkillSheetCard from "./SkillSheetsCard";
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
+import Auth from "../../utils/auth";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
@@ -23,9 +24,11 @@ export default function StudentDetailsCard({ active, setActive }) {
   return (
     <Card sx={styles.card}>
       <CardContent>
-        <Link to={`/teacher/${student.teacherId}`}>
-          <ArrowBackIosIcon fontSize="large" />
-        </Link>
+        {Auth.teacherLoggedIn() && (
+          <Link to={`/teacher/${student.teacherId}`}>
+            <ArrowBackIosIcon fontSize="large" />
+          </Link>
+        )}
 
         {/* Student info: Name, instrument, school, etc. */}
         <Grid container flexGrow={1}>

@@ -5,7 +5,6 @@ import WelcomeCard from "../components/Home/WelcomeCard";
 import AboutCard from "../components/Home/AboutCard";
 import AboutDatabaseCard from "../components/Home/AboutDatabaseCard";
 import AboutFeaturesCard from "../components/Home/AboutFeaturesCard";
-import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import mountainBkgd from "../assets/mountainBkgd.png";
 import mountainBkgd2 from "../assets/mountainBkgd2.png";
@@ -13,7 +12,6 @@ import mountainBkgd2 from "../assets/mountainBkgd2.png";
 const Home = () => {
   return (
     <Sheet sx={styles.sheet}>
-      <Navbar />
       <Card>
         <CardCover>
           <img src={mountainBkgd} loading="lazy" alt="mountains" />
