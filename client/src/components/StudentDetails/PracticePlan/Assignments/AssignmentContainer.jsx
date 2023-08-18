@@ -16,12 +16,15 @@ import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
 import { DELETE_ASSIGNMENT } from "../../../../utils/mutations";
 import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
+import CongratsModalContent from "../../../common/Modal/CongratsModalContent";
+import CongratsModal from "../../../common/Modal/CongratsModal";
 
 const AssignmentContainer = ({ assignment, onDelete }) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
   const [completeAssignment] = useMutation(COMPLETE_ASSIGNMENT);
   const [checked, setChecked] = useState(assignment.completed);
+  const [completedOpen, setCompletedOpen] = useState(false);
 
   const deleteAssignmentFunc = async () => {
     try {
@@ -47,8 +50,9 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
           completed: checked,
         },
       });
-      alert("That's great! Way to go!");
-      console.log(data);
+      if (checked === true) {
+        setCompletedOpen(true);
+      }
     } catch (err) {
       console.error(error);
     }
@@ -67,6 +71,7 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
         {assignment.exerciseName}
       </Typography>
       <Card sx={{ mt: 2 }}>
+        {/* Modal for displaying the delete prompt */}
         <RegularModal
           name="deleteAssignment"
           open={open}
@@ -78,6 +83,17 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
             resourceName="Assignment"
           />
         </RegularModal>
+        {/* Pop up modal for when an assignment is marked completed */}
+        <CongratsModal
+          completedOpen={completedOpen}
+          close={() => setCompletedOpen(false)}
+        >
+          <CongratsModalContent
+            close={() => setCompletedOpen(false)}
+            resourceName={assignment.exerciseName}
+            points={assignment.pointsWorth}
+          />
+        </CongratsModal>
         <IconButton color="danger" onClick={() => setOpen(true)}>
           <DeleteIcon />
         </IconButton>

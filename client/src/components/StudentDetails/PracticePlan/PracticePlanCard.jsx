@@ -24,19 +24,29 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
   const [assignments, setAssignments] = useState(practicePlan.assignments);
   const [totalPoints, setTotalPoints] = useState();
+  const [completedPoints, setCompletedPoints] = useState();
 
   useEffect(() => {
     const pointsArr = assignments.map((assignment) => assignment.pointsWorth);
     const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
-    console.log(total);
+
     setTotalPoints(total);
+  }, [assignments]);
+
+  useEffect(() => {
+    const completedAssignments = assignments.filter(
+      (assignment) => assignment.completed === true
+    );
+    const pointsArr = completedAssignments.map(
+      (assignment) => assignment.pointsWorth
+    );
+    const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    setCompletedPoints(total);
   }, [assignments]);
 
   useEffect(() => {
     setAssignments(assignments || []);
   }, [assignments]);
-
-  console.log("Total Points", totalPoints);
 
   const deletePracticePlanFunc = async () => {
     try {
@@ -55,7 +65,8 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
     <Sheet sx={styles.sheet}>
       <Typography level="h2">{practicePlan.name}</Typography>
       <Typography level="h4">Plan Points: {totalPoints}</Typography>
-      <Typography level="h4">Points Earned:</Typography>
+      <Typography level="h4">Points Earned: {completedPoints}</Typography>
+
       {/* Modal for deleting a practice plan */}
       <RegularModal
         name="deletePracticePlan"
