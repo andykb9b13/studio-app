@@ -28,25 +28,29 @@ const PracticePlanCard = ({
   const [open, setOpen] = useState(false);
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
   const [assignments, setAssignments] = useState(practicePlan.assignments);
-  const [planPoints, setPlanPoints] = useState();
+  const [planPoints, setPlanPoints] = useState(0);
   const [completedPoints, setCompletedPoints] = useState(0);
 
   useEffect(() => {
-    const pointsArr = assignments.map((assignment) => assignment.pointsWorth);
-    const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
-    console.log(total);
-    setPlanPoints(total);
+    if (assignments !== undefined) {
+      const pointsArr = assignments.map((assignment) => assignment.pointsWorth);
+      const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
+      console.log(total);
+      setPlanPoints(total);
+    }
   }, [assignments]);
 
   useEffect(() => {
-    const completedAssignments = assignments.filter(
-      (assignment) => assignment.completed === true
-    );
-    const pointsArr = completedAssignments.map(
-      (assignment) => assignment.pointsWorth
-    );
-    const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
-    setCompletedPoints(total);
+    if (assignments !== undefined) {
+      const completedAssignments = assignments.filter(
+        (assignment) => assignment.completed === true
+      );
+      const pointsArr = completedAssignments.map(
+        (assignment) => assignment.pointsWorth
+      );
+      const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
+      setCompletedPoints(total);
+    }
   }, [assignments]);
 
   useEffect(() => {

@@ -20,7 +20,11 @@ import CongratsModalContent from "../../../common/Modal/CongratsModalContent";
 import CongratsModal from "../../../common/Modal/CongratsModal";
 import Confetti from "react-confetti";
 
-const AssignmentContainer = ({ assignment, onDelete }) => {
+const AssignmentContainer = ({
+  assignment,
+  onDelete,
+  setStudentAssignments,
+}) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
   const [completeAssignment] = useMutation(COMPLETE_ASSIGNMENT);
@@ -133,7 +137,7 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
             onChange={(event) => {
               const newChecked = event.target.checked;
               setChecked(newChecked);
-              handleCompleteAssignment(newChecked);
+              handleCompleteAssignment(newChecked, assignment._id);
             }}
           />
         </CardContent>

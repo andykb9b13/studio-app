@@ -8,7 +8,6 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
   const [studentAssignments, setStudentAssignments] = useState(assignments);
-  const [currentAssignment, setCurrentAssignment] = useState();
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -54,7 +53,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                     <AssignmentContainer
                       onRequestClose={() => setIndex(null)}
                       assignment={assignment}
-                      setAssignments={setAssignments}
+                      setStudentAssignments={setStudentAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
                     />
