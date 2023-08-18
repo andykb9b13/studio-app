@@ -24,6 +24,7 @@ const CreateAssignmentContainer = ({
           studentId: student._id,
           planId: practicePlan._id,
           pointsWorth: pointsWorth,
+          completed: false,
           ...userInput,
         },
       });

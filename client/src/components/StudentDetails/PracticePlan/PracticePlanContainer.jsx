@@ -50,11 +50,11 @@ export default function PracticePlanContainer() {
       </RegularModal>
       <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
       {studentPlans &&
-        studentPlans.map((practicePlan, i) => (
+        studentPlans.map((practicePlan) => (
           <PracticePlanCard
             practicePlan={practicePlan}
             studentId={id}
-            key={i}
+            key={practicePlan._id}
             onDelete={() => handleDeletePracticePlan(practicePlan._id)}
           />
         ))}

@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AssignmentContainer from "./Assignments/AssignmentContainer";
 import { Table, Button } from "@mui/joy";
 import RegularModal from "../../common/Modal/RegularModal";
+import { MobileContext } from "../../../App";
 
 const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
+  const { isMobile } = useContext(MobileContext);
+  const [assignment, setAssignment] = useState();
+  const [checked, setChecked] = useState(false);
+
+  console.log("checked", checked);
+  console.log("assignment", assignment);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -17,8 +24,10 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Metronome</th>
-          <th>Source</th>
+          {!isMobile && <th>Metronome</th>}
+          {!isMobile && <th>Source</th>}
+          <th>Points</th>
+          <th>Completed</th>
           <th>Details</th>
         </tr>
       </thead>
@@ -30,14 +39,17 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                 <td>
                   <b>{assignment.exerciseName}</b>
                 </td>
-                <td>{assignment.metronome}</td>
-                <td>{assignment.source}</td>
+                {!isMobile && <td>{assignment.metronome}</td>}
+                {!isMobile && <td>{assignment.source}</td>}
+                <td>{assignment.pointsWorth}</td>
+                <td>{assignment.completed ? "Yes" : "No"}</td>
                 <td>
                   <RegularModal
                     name="View Assignment"
                     open={index === assignment._id}
                     onRequestClose={() => setIndex(null)}
                     key={assignment._id}
+                    onClick={() => setAssignment(assignment)}
                   >
                     <AssignmentContainer
                       onRequestClose={() => setIndex(null)}
@@ -45,6 +57,8 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                       setAssignments={setAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
+                      checked={checked}
+                      setChecked={setChecked}
                     />
                   </RegularModal>
                   <Button

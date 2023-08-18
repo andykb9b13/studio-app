@@ -45,6 +45,7 @@ const typeDefs = gql`
     metronome: String
     pages: String
     pointsWorth: Int
+    completed: Boolean
     streaks: [Streak]
     resources: [Resource]
   }
@@ -165,8 +166,11 @@ const typeDefs = gql`
       specialNotes: String
       metronome: String
       pointsWorth: Int
+      completed: Boolean
       pages: String
     ): Assignment
+
+    completeAssignment(assignmentId: ID, completed: Boolean): Assignment
 
     addResource(
       resourceName: String
