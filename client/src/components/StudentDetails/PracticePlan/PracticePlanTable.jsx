@@ -7,7 +7,8 @@ import { MobileContext } from "../../../App";
 const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
-  const [assignment, setAssignment] = useState();
+  const [studentAssignments, setStudentAssignments] = useState(assignments);
+  const [currentAssignment, setCurrentAssignment] = useState();
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -20,7 +21,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
       <thead>
         <tr>
           <th>Name</th>
-          {!isMobile && <th>Metronome</th>}
+          {!isMobile && <th>Type</th>}
           {!isMobile && <th>Source</th>}
           <th>Points</th>
           <th>Completed</th>
@@ -28,14 +29,18 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
         </tr>
       </thead>
       <tbody>
-        {assignments &&
-          assignments.map((assignment) => (
+        {studentAssignments &&
+          studentAssignments.map((assignment) => (
             <React.Fragment key={assignment._id}>
-              <tr>
+              <tr
+                style={
+                  assignment.completed ? { color: "green" } : { color: "red" }
+                }
+              >
                 <td>
                   <b>{assignment.exerciseName}</b>
                 </td>
-                {!isMobile && <td>{assignment.metronome}</td>}
+                {!isMobile && <td>{assignment.assignmentType}</td>}
                 {!isMobile && <td>{assignment.source}</td>}
                 <td>{assignment.pointsWorth}</td>
                 <td>{assignment.completed ? "Yes" : "No"}</td>
@@ -45,7 +50,6 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                     open={index === assignment._id}
                     onRequestClose={() => setIndex(null)}
                     key={assignment._id}
-                    onClick={() => setAssignment(assignment)}
                   >
                     <AssignmentContainer
                       onRequestClose={() => setIndex(null)}

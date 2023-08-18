@@ -18,6 +18,7 @@ import { DELETE_ASSIGNMENT } from "../../../../utils/mutations";
 import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
 import CongratsModalContent from "../../../common/Modal/CongratsModalContent";
 import CongratsModal from "../../../common/Modal/CongratsModal";
+import Confetti from "react-confetti";
 
 const AssignmentContainer = ({ assignment, onDelete }) => {
   const [open, setOpen] = useState(false);
@@ -93,6 +94,7 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
             resourceName={assignment.exerciseName}
             points={assignment.pointsWorth}
           />
+          <Confetti />
         </CongratsModal>
         <IconButton color="danger" onClick={() => setOpen(true)}>
           <DeleteIcon />
@@ -123,10 +125,11 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
             <b>Points Worth:</b> {assignment.pointsWorth}
           </Typography>
           <Typography>
-            <b>Completed?</b>
+            <b>Completed?</b> {checked ? "Yes" : "No"}
           </Typography>
           <Switch
             checked={checked}
+            color={checked ? "success" : "danger"}
             onChange={(event) => {
               const newChecked = event.target.checked;
               setChecked(newChecked);

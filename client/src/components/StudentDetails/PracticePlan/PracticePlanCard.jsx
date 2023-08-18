@@ -19,18 +19,23 @@ const styles = {
 };
 
 // The view of an individual practice plan
-const PracticePlanCard = ({ practicePlan, onDelete }) => {
+const PracticePlanCard = ({
+  practicePlan,
+  onDelete,
+  totalPlanPoints,
+  setTotalPlanPoints,
+}) => {
   const [open, setOpen] = useState(false);
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
   const [assignments, setAssignments] = useState(practicePlan.assignments);
-  const [totalPoints, setTotalPoints] = useState();
-  const [completedPoints, setCompletedPoints] = useState();
+  const [planPoints, setPlanPoints] = useState();
+  const [completedPoints, setCompletedPoints] = useState(0);
 
   useEffect(() => {
     const pointsArr = assignments.map((assignment) => assignment.pointsWorth);
     const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
-
-    setTotalPoints(total);
+    console.log(total);
+    setPlanPoints(total);
   }, [assignments]);
 
   useEffect(() => {
@@ -64,7 +69,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   return (
     <Sheet sx={styles.sheet}>
       <Typography level="h2">{practicePlan.name}</Typography>
-      <Typography level="h4">Plan Points: {totalPoints}</Typography>
+      <Typography level="h4">Plan Points: {planPoints}</Typography>
       <Typography level="h4">Points Earned: {completedPoints}</Typography>
 
       {/* Modal for deleting a practice plan */}
@@ -79,7 +84,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
           resourceName="Practice Plan"
         />
       </RegularModal>
-      <IconButton onClick={() => setOpen(true)}>
+      <IconButton onClick={() => setOpen(true)} color="danger">
         <DeleteIcon />
       </IconButton>
 
