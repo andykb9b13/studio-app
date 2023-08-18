@@ -12,6 +12,7 @@ export default function PracticePlanContainer() {
   const { id, practicePlans } = useContext(StudentContext);
   const [open, setOpen] = useState(false);
   const [studentPlans, setStudentPlans] = useState(practicePlans);
+  const [totalPlanPoints, setTotalPlanPoints] = useState(0);
 
   useEffect(() => {
     setStudentPlans(practicePlans);
@@ -41,6 +42,9 @@ export default function PracticePlanContainer() {
   return (
     <React.Fragment>
       <Typography level="h2">Practice Plans</Typography>
+      <Typography level="h4">
+        Total Points for all Practice Plans: {totalPlanPoints}
+      </Typography>
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <CreatePracticePlan
           onRequestClose={() => setOpen(false)}
@@ -50,12 +54,14 @@ export default function PracticePlanContainer() {
       </RegularModal>
       <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
       {studentPlans &&
-        studentPlans.map((practicePlan, i) => (
+        studentPlans.map((practicePlan) => (
           <PracticePlanCard
             practicePlan={practicePlan}
             studentId={id}
-            key={i}
+            key={practicePlan._id}
             onDelete={() => handleDeletePracticePlan(practicePlan._id)}
+            totalPlanPoint={totalPlanPoints}
+            setTotalPlanPoints={setTotalPlanPoints}
           />
         ))}
     </React.Fragment>

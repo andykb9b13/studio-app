@@ -17,11 +17,14 @@ const CreateAssignmentContainer = ({
   const [open, setOpen] = useState(false);
 
   const createAssignmentFunc = async (userInput) => {
+    const pointsWorth = parseInt(userInput.points);
     try {
       const { data } = await createAssignment({
         variables: {
           studentId: student._id,
           planId: practicePlan._id,
+          pointsWorth: pointsWorth,
+          completed: false,
           ...userInput,
         },
       });

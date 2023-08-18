@@ -217,10 +217,15 @@ const resolvers = {
       return { student };
     },
 
-    addAssignment: async (parent, { studentId, planId, ...args }) => {
+    addAssignment: async (
+      parent,
+      { studentId, planId, pointsWorth, completed, ...args }
+    ) => {
       const assignment = await Assignment.create({
         studentId,
         planId,
+        pointsWorth,
+        completed,
         ...args,
       });
 
@@ -229,6 +234,14 @@ const resolvers = {
         { $addToSet: { assignments: assignment._id } },
         { new: true }
       );
+      return assignment;
+    },
+
+    completeAssignment: async (parent, { assignmentId, completed }) => {
+      const assignment = await Assignment.findByIdAndUpdate(assignmentId, {
+        completed: completed,
+      });
+      console.log(assignment);
       return assignment;
     },
 

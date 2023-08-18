@@ -114,6 +114,8 @@ export const ADD_ASSIGNMENT = gql`
     $assignmentType: String
     $specialNotes: String
     $metronome: String
+    $pointsWorth: Int
+    $completed: Boolean
     $pages: String
   ) {
     addAssignment(
@@ -124,6 +126,8 @@ export const ADD_ASSIGNMENT = gql`
       assignmentType: $assignmentType
       specialNotes: $specialNotes
       metronome: $metronome
+      pointsWorth: $pointsWorth
+      completed: $completed
       pages: $pages
     ) {
       exerciseName
@@ -133,7 +137,17 @@ export const ADD_ASSIGNMENT = gql`
       assignmentType
       specialNotes
       metronome
+      pointsWorth
+      completed
       pages
+    }
+  }
+`;
+
+export const COMPLETE_ASSIGNMENT = gql`
+  mutation completeAssignment($assignmentId: ID!, $completed: Boolean) {
+    completeAssignment(assignmentId: $assignmentId, completed: $completed) {
+      completed
     }
   }
 `;

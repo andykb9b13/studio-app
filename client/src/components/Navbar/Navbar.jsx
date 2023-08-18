@@ -53,13 +53,12 @@ export default function Navbar() {
               }}
             >
               <MenuItem onClick={() => window.location.assign("/tutor")}>
-                Practice Hub
+                Virtual Tutor
               </MenuItem>
               <MenuItem onClick={() => window.location.assign(`/teacher/:id`)}>
                 StudentDatabase
               </MenuItem>
               <MenuItem onClick={() => logout()}>Logout</MenuItem>
-              <MenuItem onClick={handleClose}>Delete Account</MenuItem>
             </Menu>
           )}
           {Auth.loggedIn() ? (
@@ -70,9 +69,6 @@ export default function Navbar() {
                 variant="outlined"
               >
                 Logout
-              </Button>
-              <Button color="inherit" variant="outlined">
-                DeleteAccount
               </Button>
             </React.Fragment>
           ) : (

@@ -13,7 +13,7 @@ import {
 } from "@mui/joy";
 import TimedPractice from "../components/PracticeHub/TimedPractice";
 import StreakPractice from "../components/PracticeHub/StreakPractice";
-import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
+import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheetContainer";
 import CreateAssignment from "../components/StudentDetails/PracticePlan/Assignments/CreateAssignment";
 import VirtualTutor from "./VirtualTutor";
 import PracticePlanCard from "../components/StudentDetails/PracticePlan/PracticePlanCard";

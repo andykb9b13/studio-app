@@ -18,10 +18,9 @@ import {
 } from "@mui/joy";
 import StudentDatabaseTable from "../components/TeacherDashboard/StudentDatabase/StudentDatabaseTable";
 import StudentSearch from "../components/TeacherDashboard/StudentDatabase/StudentSearch";
-import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheets";
+import SkillSheetContainer from "../components/TeacherDashboard/SkillSheets/SkillSheetContainer";
 import CreateStudent from "../components/StudentDetails/CreateStudent";
 import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
-import Navbar from "../components/Navbar/Navbar";
 import RegularModal from "../components/common/Modal/RegularModal";
 import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
 import StorageIcon from "@mui/icons-material/Storage";
@@ -77,19 +76,8 @@ const TeacherDashboard = () => {
   return (
     <TeacherContext.Provider value={{ teacher }}>
       <Sheet>
-        <Navbar />
         {Auth.loggedIn() ? (
           <Sheet sx={{ mt: 2 }}>
-            <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-              <DeleteModalContent
-                onRequestClose={() => setOpen(false)}
-                confirmAction={() => deleteTeacherFunc()}
-                resourceName="teacher"
-              />
-            </RegularModal>
-            <Button onClick={() => setOpen(true)} color="danger">
-              Delete Account
-            </Button>
             {/* These tabs function as the Navbar */}
             <Tabs
               aria-label="Basic tabs"
@@ -145,12 +133,24 @@ const TeacherDashboard = () => {
                     handleClick();
                   }}
                   sx={{ my: 2 }}
+                  variant="soft"
+                  color="success"
                 >
                   {clicked ? "Cancel" : "Add Student"}
                 </Button>
 
                 {clicked ? <CreateStudent teacherId={id} /> : ""}
                 <StudentDatabaseTable students={studentSearch} />
+                <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+                  <DeleteModalContent
+                    onRequestClose={() => setOpen(false)}
+                    confirmAction={() => deleteTeacherFunc()}
+                    resourceName="teacher"
+                  />
+                </RegularModal>
+                <Button onClick={() => setOpen(true)} color="danger">
+                  Delete Teacher Account
+                </Button>
               </TabPanel>
 
               {/* Tab panel for bookkeeping and invoices */}
@@ -160,7 +160,7 @@ const TeacherDashboard = () => {
 
               {/* Tab panel for Skill sheets */}
               <TabPanel value={2} sx={{ p: 2 }}>
-                <SkillSheets teacher={teacher} />
+                <SkillSheetContainer teacher={teacher} />
               </TabPanel>
 
               {/* Tab panel for showing calendar */}

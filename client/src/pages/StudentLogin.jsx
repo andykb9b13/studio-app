@@ -10,6 +10,7 @@ import { styles } from "../styles/cardstyles";
 const StudentLogin = () => {
   const [login, { error }] = useMutation(STUDENT_LOGIN);
   // form handling from react-hook-form
+
   const { register, handleSubmit } = useForm();
 
   const handleLogin = (data) => {

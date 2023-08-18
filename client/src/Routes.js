@@ -8,11 +8,13 @@ import PracticeHub from "./pages/PracticeHub";
 import VirtualTutor from "./pages/VirtualTutor";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
 
 const AppRoutes = () => {
   return (
     <main>
       <Router>
+        <Navbar />
         <Routes>
           {/* Landing Page */}
           <Route path="/" element={<Home />} />

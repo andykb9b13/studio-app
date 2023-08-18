@@ -26,6 +26,12 @@ const assignmentSchema = new Schema({
   pages: {
     type: String,
   },
+  pointsWorth: {
+    type: Number,
+  },
+  completed: {
+    type: Boolean,
+  },
   streaks: [
     {
       type: Schema.Types.ObjectId,

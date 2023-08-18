@@ -8,6 +8,7 @@ import { styles } from "../styles/studentDetailsStyles";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 import RegularModal from "../components/common/Modal/RegularModal";
 import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
+import Auth from "../utils/auth";
 
 // Creating student context to be passed to all components in this thread
 export const StudentContext = createContext();
@@ -49,9 +50,11 @@ export default function StudentDetails() {
             resourceName="student"
           />
         </RegularModal>
-        <Button onClick={() => setOpen(true)} color="danger">
-          Delete Student
-        </Button>
+        {Auth.teacherLoggedIn() && (
+          <Button onClick={() => setOpen(true)} color="danger">
+            Delete Student
+          </Button>
+        )}
       </Sheet>
     </StudentContext.Provider>
   );

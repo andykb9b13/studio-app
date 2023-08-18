@@ -7,6 +7,7 @@ import {
   IconButton,
   Button,
   CardActions,
+  Switch,
 } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -14,10 +15,21 @@ import DeleteModalContent from "../../../common/Modal/DeleteModalContent";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
 import { DELETE_ASSIGNMENT } from "../../../../utils/mutations";
+import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
+import CongratsModalContent from "../../../common/Modal/CongratsModalContent";
+import CongratsModal from "../../../common/Modal/CongratsModal";
+import Confetti from "react-confetti";
 
-const AssignmentContainer = ({ assignment, onDelete }) => {
+const AssignmentContainer = ({
+  assignment,
+  onDelete,
+  setStudentAssignments,
+}) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
+  const [completeAssignment] = useMutation(COMPLETE_ASSIGNMENT);
+  const [checked, setChecked] = useState(assignment.completed);
+  const [completedOpen, setCompletedOpen] = useState(false);
 
   const deleteAssignmentFunc = async () => {
     try {
@@ -35,6 +47,22 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
     }
   };
 
+  const handleCompleteAssignment = async (checked) => {
+    try {
+      const { data } = await completeAssignment({
+        variables: {
+          assignmentId: assignment._id,
+          completed: checked,
+        },
+      });
+      if (checked === true) {
+        setCompletedOpen(true);
+      }
+    } catch (err) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Typography
@@ -48,6 +76,7 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
         {assignment.exerciseName}
       </Typography>
       <Card sx={{ mt: 2 }}>
+        {/* Modal for displaying the delete prompt */}
         <RegularModal
           name="deleteAssignment"
           open={open}
@@ -59,6 +88,18 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
             resourceName="Assignment"
           />
         </RegularModal>
+        {/* Pop up modal for when an assignment is marked completed */}
+        <CongratsModal
+          completedOpen={completedOpen}
+          close={() => setCompletedOpen(false)}
+        >
+          <CongratsModalContent
+            close={() => setCompletedOpen(false)}
+            resourceName={assignment.exerciseName}
+            points={assignment.pointsWorth}
+          />
+          <Confetti />
+        </CongratsModal>
         <IconButton color="danger" onClick={() => setOpen(true)}>
           <DeleteIcon />
         </IconButton>
@@ -66,6 +107,9 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
           <EditIcon />
         </IconButton>
         <CardContent>
+          <Typography>
+            <b>Points: {assignment.pointsWorth}</b>
+          </Typography>
           <Typography>
             <b>Assignment Type:</b> {assignment.assignmentType}
           </Typography>
@@ -81,6 +125,21 @@ const AssignmentContainer = ({ assignment, onDelete }) => {
           <Typography>
             <b>Special Notes:</b> {assignment.specialNotes}
           </Typography>
+          <Typography>
+            <b>Points Worth:</b> {assignment.pointsWorth}
+          </Typography>
+          <Typography>
+            <b>Completed?</b> {checked ? "Yes" : "No"}
+          </Typography>
+          <Switch
+            checked={checked}
+            color={checked ? "success" : "danger"}
+            onChange={(event) => {
+              const newChecked = event.target.checked;
+              setChecked(newChecked);
+              handleCompleteAssignment(newChecked, assignment._id);
+            }}
+          />
         </CardContent>
         <CardActions>
           <Button compoent={Link} to="/student/:id/streakPractice">

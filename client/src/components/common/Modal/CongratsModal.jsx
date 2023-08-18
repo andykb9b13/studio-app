@@ -1,10 +1,10 @@
 import React from "react";
 import { Modal, ModalDialog, ModalClose } from "@mui/joy";
 
-export default function RegularModal({ open, onRequestClose, children }) {
+export default function CongratsModal({ completedOpen, close, children }) {
   return (
     <React.Fragment>
-      <Modal open={open} onClose={onRequestClose}>
+      <Modal open={completedOpen} onClose={close}>
         <ModalDialog
           aria-labelledby="nested-modal-title"
           aria-describedby="nested-modal-description"

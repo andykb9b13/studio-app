@@ -19,10 +19,43 @@ const styles = {
 };
 
 // The view of an individual practice plan
-const PracticePlanCard = ({ practicePlan, onDelete }) => {
+const PracticePlanCard = ({
+  practicePlan,
+  onDelete,
+  totalPlanPoints,
+  setTotalPlanPoints,
+}) => {
   const [open, setOpen] = useState(false);
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
   const [assignments, setAssignments] = useState(practicePlan.assignments);
+  const [planPoints, setPlanPoints] = useState(0);
+  const [completedPoints, setCompletedPoints] = useState(0);
+
+  useEffect(() => {
+    if (assignments !== undefined) {
+      const pointsArr = assignments.map((assignment) => assignment.pointsWorth);
+      const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
+      console.log(total);
+      setPlanPoints(total);
+    }
+  }, [assignments]);
+
+  useEffect(() => {
+    if (assignments !== undefined) {
+      const completedAssignments = assignments.filter(
+        (assignment) => assignment.completed === true
+      );
+      const pointsArr = completedAssignments.map(
+        (assignment) => assignment.pointsWorth
+      );
+      const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
+      setCompletedPoints(total);
+    }
+  }, [assignments]);
+
+  useEffect(() => {
+    setAssignments(assignments || []);
+  }, [assignments]);
 
   const deletePracticePlanFunc = async () => {
     try {
@@ -37,13 +70,12 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
     }
   };
 
-  useEffect(() => {
-    setAssignments(assignments || []);
-  }, [assignments]);
-
   return (
     <Sheet sx={styles.sheet}>
       <Typography level="h2">{practicePlan.name}</Typography>
+      <Typography level="h4">Plan Points: {planPoints}</Typography>
+      <Typography level="h4">Points Earned: {completedPoints}</Typography>
+
       {/* Modal for deleting a practice plan */}
       <RegularModal
         name="deletePracticePlan"
@@ -56,7 +88,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
           resourceName="Practice Plan"
         />
       </RegularModal>
-      <IconButton onClick={() => setOpen(true)}>
+      <IconButton onClick={() => setOpen(true)} color="danger">
         <DeleteIcon />
       </IconButton>
 

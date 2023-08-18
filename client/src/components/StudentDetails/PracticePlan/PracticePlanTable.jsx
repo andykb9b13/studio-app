@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AssignmentContainer from "./Assignments/AssignmentContainer";
 import { Table, Button } from "@mui/joy";
 import RegularModal from "../../common/Modal/RegularModal";
+import { MobileContext } from "../../../App";
 
 const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
+  const { isMobile } = useContext(MobileContext);
+  const [studentAssignments, setStudentAssignments] = useState(assignments);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -17,21 +20,29 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Metronome</th>
-          <th>Source</th>
+          {!isMobile && <th>Type</th>}
+          {!isMobile && <th>Source</th>}
+          <th>Points</th>
+          <th>Completed</th>
           <th>Details</th>
         </tr>
       </thead>
       <tbody>
-        {assignments &&
-          assignments.map((assignment) => (
+        {studentAssignments &&
+          studentAssignments.map((assignment) => (
             <React.Fragment key={assignment._id}>
-              <tr>
+              <tr
+                style={
+                  assignment.completed ? { color: "green" } : { color: "red" }
+                }
+              >
                 <td>
                   <b>{assignment.exerciseName}</b>
                 </td>
-                <td>{assignment.metronome}</td>
-                <td>{assignment.source}</td>
+                {!isMobile && <td>{assignment.assignmentType}</td>}
+                {!isMobile && <td>{assignment.source}</td>}
+                <td>{assignment.pointsWorth}</td>
+                <td>{assignment.completed ? "Yes" : "No"}</td>
                 <td>
                   <RegularModal
                     name="View Assignment"
@@ -42,7 +53,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                     <AssignmentContainer
                       onRequestClose={() => setIndex(null)}
                       assignment={assignment}
-                      setAssignments={setAssignments}
+                      setStudentAssignments={setStudentAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
                     />

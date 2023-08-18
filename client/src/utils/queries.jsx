@@ -75,6 +75,8 @@ export const QUERY_STUDENT = gql`
           metronome
           specialNotes
           studentId
+          completed
+          pointsWorth
           planId
           streaks {
             _id
