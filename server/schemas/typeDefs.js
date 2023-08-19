@@ -193,6 +193,7 @@ const typeDefs = gql`
       teacherId: String
       scales: String
       description: String
+      difficulty: String
       arpeggios: String
       articulation: String
       slurs: String
@@ -266,6 +267,7 @@ const typeDefs = gql`
       sheetName: String
       scales: String
       description: String
+      difficulty: String
       arpeggios: String
       articulation: String
       slurs: String

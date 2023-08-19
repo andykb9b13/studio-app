@@ -14,6 +14,7 @@ export const QUERY_TEACHER = gql`
         articulation
         completed
         description
+        difficulty
         etudes
         exercises
         longTones
@@ -92,6 +93,7 @@ export const QUERY_STUDENT = gql`
           sheetName
           completed
           description
+          difficulty
           arpeggios
           articulation
           etudes
@@ -140,6 +142,7 @@ export const QUERY_PRACTICEPLANS = gql`
         scales
         arpeggios
         description
+        difficulty
         articulation
         slurs
         longTones

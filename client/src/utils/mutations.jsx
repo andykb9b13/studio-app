@@ -158,6 +158,7 @@ export const ADD_SKILLSHEET = gql`
     $teacherId: String
     $scales: String
     $description: String
+    $difficulty: String
     $arpeggios: String
     $articulation: String
     $slurs: String
@@ -172,6 +173,7 @@ export const ADD_SKILLSHEET = gql`
       scales: $scales
       arpeggios: $arpeggios
       description: $description
+      difficulty: $difficulty
       articulation: $articulation
       slurs: $slurs
       longTones: $longTones
@@ -184,6 +186,7 @@ export const ADD_SKILLSHEET = gql`
       scales
       arpeggios
       description
+      difficulty
       articulation
       slurs
       longTones
@@ -292,6 +295,14 @@ export const DELETE_PRACTICE_PLAN = gql`
 export const DELETE_ASSIGNMENT = gql`
   mutation deleteAssignment($assignmentId: ID!) {
     deleteAssignment(assignmentId: $assignmentId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_SKILLSHEET = gql`
+  mutation deleteSkillSheet($skillSheetId: ID!) {
+    deleteSkillSheet(skillSheetId: $skillSheetId) {
       _id
     }
   }

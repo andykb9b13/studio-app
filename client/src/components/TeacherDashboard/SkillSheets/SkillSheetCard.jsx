@@ -6,6 +6,11 @@ const SkillSheetCard = ({ activeSheet }) => {
     <React.Fragment>
       <Card variant="outlined">
         <Typography level="h2">{activeSheet.sheetName}</Typography>
+        <Typography level="h3">
+          {activeSheet.difficulty
+            ? `Difficulty: ${activeSheet.difficulty}`
+            : ""}
+        </Typography>
         <Typography level="body1">{activeSheet.description}</Typography>
         <CardContent>
           <Typography>

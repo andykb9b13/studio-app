@@ -1,10 +1,15 @@
-import { Button, Sheet, Table } from "@mui/joy";
+import { Button, Sheet, Table, IconButton } from "@mui/joy";
 import React, { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RegularModal from "../../common/Modal/RegularModal";
+import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 
 const SkillSheetTable = ({
   setActiveSheet,
   skillSheets,
-  setSheetModalOpen,
+  setModalOpenIndex,
+  modalOpenIndex,
+  deleteSkillSheetFunc,
 }) => {
   return (
     <Sheet>
@@ -14,7 +19,7 @@ const SkillSheetTable = ({
             <th>Sheet Name</th>
             <th>Exercises</th>
             <th>Scales</th>
-            <th>View</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -27,11 +32,24 @@ const SkillSheetTable = ({
                 <Button
                   onClick={() => {
                     setActiveSheet(skillSheet);
-                    setSheetModalOpen(true);
+                    setModalOpenIndex(2);
                   }}
                 >
                   View
                 </Button>
+                <IconButton onClick={() => setModalOpenIndex(4)} color="danger">
+                  <DeleteIcon />
+                </IconButton>
+                <RegularModal
+                  open={modalOpenIndex === 4}
+                  onRequestClose={() => setModalOpenIndex(null)}
+                >
+                  <DeleteModalContent
+                    onRequestClose={() => setModalOpenIndex(null)}
+                    confirmAction={() => deleteSkillSheetFunc(skillSheet._id)}
+                    resourceName="Skill Sheet"
+                  />
+                </RegularModal>
               </td>
             </tr>
           ))}
