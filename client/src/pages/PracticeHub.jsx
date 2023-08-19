@@ -25,6 +25,7 @@ import InsightsIcon from "@mui/icons-material/Insights";
 import LinkIcon from "@mui/icons-material/Link";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import QuizIcon from "@mui/icons-material/Quiz";
+import Auth from "../utils/auth";
 
 const PracticeHub = () => {
   const { id } = useParams();
@@ -120,60 +121,70 @@ const PracticeHub = () => {
   };
 
   return (
-    <Sheet>
-      <Typography level="h1">Practice Hub</Typography>
-      <Link to={`/teacher/studentDetails/${id}`}>
-        <Button> Back to Student Details</Button>
-      </Link>
-      {!home && (
-        <Button onClick={() => setStatus("home")}>Back to Practice Hub</Button>
-      )}
-      {home && (
-        <Grid container sx={{ flexGrow: 1, justifyContent: "center" }}>
-          {buttonInfo.map((button) => (
-            <Grid xs={10} s={6} md={4} lg={3} m={1}>
-              <Card variant="outlined">
-                <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
-                  {button.label}
-                </Typography>
-                <AspectRatio minHeight="120px" maxHeight="200px">
-                  {button.image}
-                </AspectRatio>
-                <CardContent orientation="horizontal">
-                  <Typography level="body1">{button.description}</Typography>
-                  <Button
-                    key={button.id}
-                    onClick={() => {
-                      handleClick(button.id);
-                    }}
-                  >
-                    Start
-                  </Button>
-                </CardContent>
-              </Card>
+    <>
+      {Auth.loggedIn() ? (
+        <Sheet>
+          <Typography level="h1">Practice Hub</Typography>
+          <Link to={`/teacher/studentDetails/${id}`}>
+            <Button> Back to Student Details</Button>
+          </Link>
+          {!home && (
+            <Button onClick={() => setStatus("home")}>
+              Back to Practice Hub
+            </Button>
+          )}
+          {home && (
+            <Grid container sx={{ flexGrow: 1, justifyContent: "center" }}>
+              {buttonInfo.map((button) => (
+                <Grid xs={10} s={6} md={4} lg={3} m={1}>
+                  <Card variant="outlined">
+                    <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
+                      {button.label}
+                    </Typography>
+                    <AspectRatio minHeight="120px" maxHeight="200px">
+                      {button.image}
+                    </AspectRatio>
+                    <CardContent orientation="horizontal">
+                      <Typography level="body1">
+                        {button.description}
+                      </Typography>
+                      <Button
+                        key={button.id}
+                        onClick={() => {
+                          handleClick(button.id);
+                        }}
+                      >
+                        Start
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      )}
+          )}
 
-      {/* I need to wrap all of this in the Student Provider so it can have access to the id */}
+          {/* I need to wrap all of this in the Student Provider so it can have access to the id */}
 
-      {/* Here I've just hardcoded the student id to be passed as a prop but 
+          {/* Here I've just hardcoded the student id to be passed as a prop but 
         the problem is I will have to drill it down pretty far if necessary. 
         I need to use context.  */}
-      {timedPractice && <TimedPractice student={student} />}
-      {streakPractice && <StreakPractice student={student} />}
-      {skillSheets && <SkillSheets student={student} />}
-      {createAssignment && <CreateAssignment student={student} />}
-      {practicePlan && (
-        <PracticePlanCard
-          student={student}
-          studentId={student._id}
-          practicePlans={student.practicePlans}
-        />
+          {timedPractice && <TimedPractice student={student} />}
+          {streakPractice && <StreakPractice student={student} />}
+          {skillSheets && <SkillSheets student={student} />}
+          {createAssignment && <CreateAssignment student={student} />}
+          {practicePlan && (
+            <PracticePlanCard
+              student={student}
+              studentId={student._id}
+              practicePlans={student.practicePlans}
+            />
+          )}
+          {tutor && <VirtualTutor student={student} />}
+        </Sheet>
+      ) : (
+        <Sheet>Please Login</Sheet>
       )}
-      {tutor && <VirtualTutor student={student} />}
-    </Sheet>
+    </>
   );
 };
 
