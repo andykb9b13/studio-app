@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
 import { DELETE_STUDENT } from "../utils/mutations";
-import { Sheet, Button } from "@mui/joy";
+import { Sheet, Button, Typography } from "@mui/joy";
 import { styles } from "../styles/studentDetailsStyles";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 import RegularModal from "../components/common/Modal/RegularModal";
@@ -40,22 +40,28 @@ export default function StudentDetails() {
 
   return (
     <StudentContext.Provider value={{ student, practicePlans, id }}>
-      <Sheet sx={styles.sheet}>
-        {/* Main student details section  */}
-        <StudentDetailsCard active={active} setActive={setActive} />
-        <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-          <DeleteModalContent
-            onRequestClose={() => setOpen(false)}
-            confirmAction={() => deleteStudentFunc()}
-            resourceName="student"
-          />
-        </RegularModal>
-        {Auth.teacherLoggedIn() && (
-          <Button onClick={() => setOpen(true)} color="danger">
-            Delete Student
-          </Button>
-        )}
-      </Sheet>
+      {Auth.loggedIn() ? (
+        <Sheet sx={styles.sheet}>
+          {/* Main student details section  */}
+          <StudentDetailsCard active={active} setActive={setActive} />
+          <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+            <DeleteModalContent
+              onRequestClose={() => setOpen(false)}
+              confirmAction={() => deleteStudentFunc()}
+              resourceName="student"
+            />
+          </RegularModal>
+          {Auth.teacherLoggedIn() && (
+            <Button onClick={() => setOpen(true)} color="danger">
+              Delete Student
+            </Button>
+          )}
+        </Sheet>
+      ) : (
+        <Sheet>
+          <Typography>Please Login </Typography>
+        </Sheet>
+      )}
     </StudentContext.Provider>
   );
 }
