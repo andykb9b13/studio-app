@@ -11,6 +11,9 @@ import {
   CardContent,
   CardActions,
   Textarea,
+  Radio,
+  RadioGroup,
+  FormControl,
 } from "@mui/joy";
 import { TeacherContext } from "../../../pages/TeacherDashboard";
 import { useForm } from "react-hook-form";
@@ -23,24 +26,33 @@ const CreateSkillSheet = ({ onRequestClose }) => {
   const [open, setOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState();
   const [success, setSuccess] = useState(false);
+  const [difficulty, setDifficulty] = useState("easy");
+
+  const handleChange = (event) => {
+    setDifficulty(event.target.value);
+  };
 
   const [createSkillSheet, { errors }] = useMutation(ADD_SKILLSHEET);
 
   const onSubmit = async (userInput) => {
-    // try {
-    //   const { data } = await createSkillSheet({
-    //     variables: { teacherId: teacher._id, ...userInput },
-    //   });
-    //   console.log(data);
-    //   setOpen(true);
-    //   setSuccess(true);
-    //   setModalMessage("Skill Sheet Created!");
-    // } catch (err) {
-    //   setOpen(true);
-    //   setSuccess(false);
-    //   setModalMessage("Error Creating Skill Sheet");
-    //   console.error(err);
-    // }
+    try {
+      const { data } = await createSkillSheet({
+        variables: {
+          teacherId: teacher._id,
+          difficulty: difficulty,
+          ...userInput,
+        },
+      });
+      console.log(data);
+      setOpen(true);
+      setSuccess(true);
+      setModalMessage("Skill Sheet Created!");
+    } catch (err) {
+      setOpen(true);
+      setSuccess(false);
+      setModalMessage("Error Creating Skill Sheet");
+      console.error(err);
+    }
   };
 
   return (
@@ -69,6 +81,30 @@ const CreateSkillSheet = ({ onRequestClose }) => {
           <Input type="text" {...register("sheetName")} />
           <Typography>Description</Typography>
           <Textarea minRows={3} {...register("description")} />
+          <Typography>Difficulty</Typography>
+          <RadioGroup
+            onChange={handleChange}
+            value={difficulty}
+            name="difficulty"
+            variant="outlined"
+            sx={{ p: 4 }}
+          >
+            <Radio value="beginner" label="Beginner" size="sm">
+              Beginner
+            </Radio>
+            <Radio value="easy" label="Easy" size="sm">
+              Easy
+            </Radio>
+            <Radio value="medium" label="Medium" size="sm">
+              Medium
+            </Radio>
+            <Radio value="advanced" label="Advanced" size="sm">
+              Advanced
+            </Radio>
+            <Radio value="expert" label="Expert" size="sm">
+              Expert
+            </Radio>
+          </RadioGroup>
           <Typography>Scales</Typography>
           <Input type="text" {...register("scales")} />
           <Typography>Arpeggios</Typography>
