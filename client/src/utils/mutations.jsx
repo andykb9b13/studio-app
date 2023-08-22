@@ -115,6 +115,7 @@ export const ADD_ASSIGNMENT = gql`
     $specialNotes: String
     $metronome: String
     $pointsWorth: Int
+    $resourceUrl: String
     $completed: Boolean
     $pages: String
   ) {
@@ -127,6 +128,7 @@ export const ADD_ASSIGNMENT = gql`
       specialNotes: $specialNotes
       metronome: $metronome
       pointsWorth: $pointsWorth
+      resourceUrl: $resourceUrl
       completed: $completed
       pages: $pages
     ) {
@@ -138,6 +140,7 @@ export const ADD_ASSIGNMENT = gql`
       specialNotes
       metronome
       pointsWorth
+      resourceUrl
       completed
       pages
     }

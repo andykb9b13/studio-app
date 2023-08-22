@@ -44,6 +44,9 @@ const assignmentSchema = new Schema({
       ref: "Resource",
     },
   ],
+  resourceUrl: {
+    type: String,
+  },
 });
 
 const Assignment = model("Assignment", assignmentSchema);

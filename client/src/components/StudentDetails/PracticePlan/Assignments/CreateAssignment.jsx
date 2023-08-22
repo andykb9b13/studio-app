@@ -1,8 +1,13 @@
 import React from "react";
 import { Sheet, Button, Input, Typography, Textarea } from "@mui/joy";
 import { useForm } from "react-hook-form";
+import UploadWidget from "../../../../utils/UploadWidget";
 
-const CreateAssignment = ({ createAssignmentFunc }) => {
+const CreateAssignment = ({
+  createAssignmentFunc,
+  resourceUrl,
+  setResourceUrl,
+}) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (userInput) => {
@@ -14,8 +19,32 @@ const CreateAssignment = ({ createAssignmentFunc }) => {
     }
   };
 
+  function handleOnUpload(error, result, widget) {
+    if (error) {
+      widget.close({
+        quiet: true,
+      });
+      return;
+    }
+    setResourceUrl(result?.info?.secure_url);
+  }
+
+  console.log(resourceUrl);
+
   return (
-    <Sheet sx={{ p: 1, borderRadius: "4px", mt: 1, boxShadow: "md" }}>
+    <Sheet
+      sx={{
+        p: 1,
+        borderRadius: "4px",
+        mt: 1,
+        boxShadow: "md",
+        maxHeight: "max-content",
+        maxWidth: "100%",
+        mx: "auto",
+        overflow: "auto",
+        resize: "vertical",
+      }}
+    >
       <Typography level="h2">Create Assignment</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>Exercise Name</Typography>
@@ -32,7 +61,31 @@ const CreateAssignment = ({ createAssignmentFunc }) => {
         <Input type="text" {...register("pages")} />
         <Typography>Points Worth</Typography>
         <Input type="number" {...register("points")} />
-        <Button type="submit">Create Assignment</Button>
+        <Typography>Resources</Typography>
+        {resourceUrl && (
+          <>
+            <Typography level="h4">Resource Image</Typography>
+            <img
+              src={resourceUrl}
+              alt="Uploaded resource"
+              style={{ maxWidth: "80%" }}
+            />
+            <Typography level="h5">{resourceUrl}</Typography>
+          </>
+        )}
+        <UploadWidget onUpload={handleOnUpload}>
+          {({ open }) => {
+            function handleOnClick(e) {
+              e.preventDefault();
+              open();
+            }
+            return <Button onClick={handleOnClick}>Upload a Resource</Button>;
+          }}
+        </UploadWidget>
+
+        <Button type="submit" color="success">
+          Create Assignment
+        </Button>
       </form>
     </Sheet>
   );

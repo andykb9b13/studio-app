@@ -78,6 +78,7 @@ export const QUERY_STUDENT = gql`
           studentId
           completed
           pointsWorth
+          resourceUrl
           planId
           streaks {
             _id
@@ -130,6 +131,7 @@ export const QUERY_PRACTICEPLANS = gql`
         assignmentType
         specialNotes
         metronome
+        resourceUrl
         pages
       }
       goals {

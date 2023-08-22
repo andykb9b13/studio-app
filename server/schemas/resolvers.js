@@ -219,15 +219,21 @@ const resolvers = {
 
     addAssignment: async (
       parent,
-      { studentId, planId, pointsWorth, completed, ...args }
+      { studentId, planId, pointsWorth, resourceUrl, completed, ...args }
     ) => {
-      const assignment = await Assignment.create({
-        studentId,
-        planId,
-        pointsWorth,
-        completed,
-        ...args,
-      });
+      console.log({ ...args });
+      const assignment = await Assignment.create(
+        {
+          studentId,
+          planId,
+          pointsWorth,
+          completed,
+          resourceUrl,
+          ...args,
+        }
+        // { $addToSet: { resources: resourceUrl } },
+        // { new: true }
+      );
 
       const practicePlan = await PracticePlan.findByIdAndUpdate(
         planId,
