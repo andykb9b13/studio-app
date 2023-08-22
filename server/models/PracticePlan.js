@@ -8,6 +8,9 @@ const practicePlanSchema = new Schema({
   studentId: {
     type: String,
   },
+  planNotes: {
+    type: String,
+  },
   assignments: [
     {
       type: Schema.Types.ObjectId,

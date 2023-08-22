@@ -201,11 +201,16 @@ export const ADD_SKILLSHEET = gql`
 `;
 
 export const ADD_PRACTICEPLAN = gql`
-  mutation addPracticePlan($name: String!, $studentId: String) {
-    addPracticePlan(name: $name, studentId: $studentId) {
+  mutation addPracticePlan(
+    $name: String!
+    $studentId: String
+    $planNotes: String
+  ) {
+    addPracticePlan(name: $name, studentId: $studentId, planNotes: $planNotes) {
       _id
       name
       studentId
+      planNotes
     }
   }
 `;

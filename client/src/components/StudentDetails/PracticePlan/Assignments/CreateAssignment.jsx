@@ -42,7 +42,7 @@ const CreateAssignment = ({
         maxWidth: "100%",
         mx: "auto",
         overflow: "auto",
-        resize: "vertical",
+        resize: "horizontal",
       }}
     >
       <Typography level="h2">Create Assignment</Typography>

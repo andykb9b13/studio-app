@@ -117,7 +117,14 @@ const AssignmentContainer = ({
           <EditIcon />
         </IconButton>
         <CardContent>
-          <img src={assignment.resourceUrl} alt="assignment resource" />
+          <a href={assignment.resourceUrl} alt="assignment resource">
+            Click for link
+          </a>
+          <img
+            src={assignment.resourceUrl}
+            alt="assignment resource"
+            style={{ maxWidth: "75px" }}
+          />
           <Typography>
             <b>Points: {assignment.pointsWorth}</b>
           </Typography>

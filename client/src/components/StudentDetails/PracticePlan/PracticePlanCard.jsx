@@ -75,6 +75,7 @@ const PracticePlanCard = ({
       <Typography level="h2">{practicePlan.name}</Typography>
       <Typography level="h4">Plan Points: {planPoints}</Typography>
       <Typography level="h4">Points Earned: {completedPoints}</Typography>
+      <Typography level="body1">Notes: {practicePlan.planNotes}</Typography>
 
       {/* Modal for deleting a practice plan */}
       <RegularModal

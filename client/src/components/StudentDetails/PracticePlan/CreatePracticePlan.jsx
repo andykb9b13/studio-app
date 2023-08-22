@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Typography, Input, Sheet } from "@mui/joy";
+import { Button, Typography, Input, Sheet, Textarea } from "@mui/joy";
 import { useForm } from "react-hook-form";
 
 const CreatePracticePlan = ({
@@ -19,11 +19,25 @@ const CreatePracticePlan = ({
   };
 
   return (
-    <Sheet>
+    <Sheet
+      sx={{
+        p: 1,
+        borderRadius: "4px",
+        mt: 1,
+        boxShadow: "md",
+        maxHeight: "max-content",
+        maxWidth: "100%",
+        mx: "auto",
+        overflow: "auto",
+        resize: "horizontal",
+      }}
+    >
       <Typography level="h2">{resourceName}</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>Name</Typography>
         <Input type="text" {...register("name")} />
+        <Typography>Notes for the Plan</Typography>
+        <Textarea minRows={6} {...register("planNotes")} />
         <Button type="submit" variant="solid" color="success">
           Save
         </Button>
