@@ -7,9 +7,7 @@ const CreateAssignment = ({
   createAssignmentFunc,
   resources,
   setResources,
-  setResourceUrl,
   practicePlan,
-  resourceUrl,
 }) => {
   const { register, handleSubmit } = useForm();
 
@@ -22,16 +20,6 @@ const CreateAssignment = ({
       alert("Could not create assignment");
     }
   };
-
-  // function handleOnUpload(error, result, widget) {
-  //   if (error) {
-  //     widget.close({
-  //       quiet: true,
-  //     });
-  //     return;
-  //   }
-  //   setResourceUrl(result?.info?.secure_url);
-  // }
 
   return (
     <Sheet

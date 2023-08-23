@@ -32,7 +32,6 @@ export default function PracticePlanContainer() {
   }, [setTotalPlanPoints, studentPlans]);
 
   useEffect(() => {
-    console.log(studentPlans);
     let assignArr = [];
     studentPlans.map((plan) =>
       plan.assignments.map((assignment) => assignArr.push(assignment))
@@ -40,9 +39,7 @@ export default function PracticePlanContainer() {
     let completedArr = assignArr.filter(
       (assignment) => assignment.completed === true
     );
-    console.log(completedArr);
     let pointsArr = completedArr.map((assignment) => assignment.pointsWorth);
-    console.log(pointsArr);
     let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
     setTotalCompletedPoints(totalPoints);
   }, [setTotalCompletedPoints, studentPlans]);

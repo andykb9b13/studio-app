@@ -10,7 +10,6 @@ import Auth from "../../../../utils/auth";
 const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
-  // const [resourceUrl, setResourceUrl] = useState(null);
 
   const createResourceFunc = async (userInput) => {
     console.log(userInput);
@@ -41,8 +40,6 @@ const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
           onRequestClose={() => setOpen(false)}
           resourceName="Create Resource"
           createResourceFunc={createResourceFunc}
-          // resourceUrl={resourceUrl}
-          // setResourceUrl={setResourceUrl}
         />
       </RegularModal>
       {Auth.teacherLoggedIn() && (

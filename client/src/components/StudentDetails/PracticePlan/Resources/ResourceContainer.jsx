@@ -10,8 +10,9 @@ import { Divider } from "@mui/material";
 const ResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [deleteResource, { error }] = useMutation(DELETE_RESOURCE);
   const [open, setOpen] = useState(false);
-  // const [resources, setResources] = useState(practicePlan.resources);
+  // const [studentResources, setStudentResources] = useState(resources);
 
+  console.log(resources);
   const deleteResourceFunc = async (resourceId) => {
     try {
       await deleteResource({
@@ -29,28 +30,29 @@ const ResourceContainer = ({ practicePlan, resources, setResources }) => {
     <Card>
       <Typography level="h3">Resource Links</Typography>
 
-      {resources?.map((resource) => (
-        <React.Fragment key={resource._id}>
-          <Link href={resource.url} alt="resource url">
-            {resource.resourceName}
-          </Link>
-          <Typography>{resource.description}</Typography>
-          <RegularModal
-            name="deleteResource"
-            open={open}
-            onRequestClose={() => setOpen(false)}
-          >
-            <DeleteModalContent
+      {resources &&
+        resources.map((resource) => (
+          <React.Fragment key={resource._id}>
+            <Link href={resource.url} alt="resource url">
+              {resource.resourceName}
+            </Link>
+            <Typography>{resource.description}</Typography>
+            <RegularModal
+              name="deleteResource"
+              open={open}
               onRequestClose={() => setOpen(false)}
-              confirmAction={() => deleteResourceFunc(resource._id)}
-            />
-          </RegularModal>
-          <IconButton onClick={() => setOpen(true)} color="danger">
-            <DeleteIcon />
-          </IconButton>
-          <Divider />
-        </React.Fragment>
-      ))}
+            >
+              <DeleteModalContent
+                onRequestClose={() => setOpen(false)}
+                confirmAction={() => deleteResourceFunc(resource._id)}
+              />
+            </RegularModal>
+            <IconButton onClick={() => setOpen(true)} color="danger">
+              <DeleteIcon />
+            </IconButton>
+            <Divider />
+          </React.Fragment>
+        ))}
     </Card>
   );
 };
