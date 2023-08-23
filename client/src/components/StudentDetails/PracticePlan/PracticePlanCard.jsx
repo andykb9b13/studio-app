@@ -8,6 +8,8 @@ import CreateAssignmentContainer from "./Assignments/CreateAssignmentContainer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PracticePlanTable from "./PracticePlanTable";
 import CreateResourceContainer from "../PracticePlan/Assignments/CreateResourceContainer";
+import ResourceContainer from "./ResourceContainer";
+import { DELETE_RESOURCE } from "../../../utils/mutations";
 
 const styles = {
   sheet: {
@@ -28,6 +30,7 @@ const PracticePlanCard = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
+
   const [assignments, setAssignments] = useState(practicePlan.assignments);
   const [planPoints, setPlanPoints] = useState(0);
   const [completedPoints, setCompletedPoints] = useState(0);
@@ -116,20 +119,8 @@ const PracticePlanCard = ({
         assignments={assignments}
         setAssignments={setAssignments}
       />
-      <Card>
-        <Typography level="h3">Resource Links</Typography>
-        {practicePlan.resources?.map((resource) => (
-          <React.Fragment key={resource._id}>
-            <Link href={resource.url} alt="resource url">
-              {resource.resourceName}
-            </Link>
-            <Typography>{resource.description}</Typography>
-            {/* <RegularModal>
-              <DeleteModalContent />
-            </RegularModal> */}
-          </React.Fragment>
-        ))}
-      </Card>
+
+      <ResourceContainer practicePlan={practicePlan} />
     </Sheet>
   );
 };

@@ -337,3 +337,11 @@ export const DELETE_SKILLSHEET = gql`
     }
   }
 `;
+
+export const DELETE_RESOURCE = gql`
+  mutation deleteResource($resourceId: ID!) {
+    deleteResource(resourceId: $resourceId) {
+      _id
+    }
+  }
+`;
