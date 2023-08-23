@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { Sheet, Typography, IconButton } from "@mui/joy";
+import { Sheet, Typography, IconButton, Card } from "@mui/joy";
 import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
@@ -72,10 +72,19 @@ const PracticePlanCard = ({
 
   return (
     <Sheet sx={styles.sheet}>
-      <Typography level="h2">{practicePlan.name}</Typography>
+      <Typography
+        level="h2"
+        endDecorator={
+          <IconButton onClick={() => setOpen(true)} color="danger">
+            <DeleteIcon />
+          </IconButton>
+        }
+      >
+        {practicePlan.name}
+      </Typography>
       <Typography level="h4">Plan Points: {planPoints}</Typography>
       <Typography level="h4">Points Earned: {completedPoints}</Typography>
-      <Typography level="body1">Notes: {practicePlan.planNotes}</Typography>
+      <Typography level="body1">{practicePlan.planNotes}</Typography>
 
       {/* Modal for deleting a practice plan */}
       <RegularModal
@@ -89,9 +98,6 @@ const PracticePlanCard = ({
           resourceName="Practice Plan"
         />
       </RegularModal>
-      <IconButton onClick={() => setOpen(true)} color="danger">
-        <DeleteIcon />
-      </IconButton>
 
       {/* Container for creating an assignment */}
       <CreateAssignmentContainer
@@ -105,6 +111,12 @@ const PracticePlanCard = ({
         assignments={assignments}
         setAssignments={setAssignments}
       />
+      <Card>
+        <Typography level="h3">Resource Links</Typography>
+        {practicePlan.assignments?.map((assignment) => (
+          <a href={assignment.resourceUrl}>{assignment.resourceUrl}</a>
+        ))}
+      </Card>
     </Sheet>
   );
 };

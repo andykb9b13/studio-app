@@ -7,8 +7,9 @@ import { Add } from "@mui/icons-material";
 import CreateResource from "./CreateResource";
 import { ADD_RESOURCE } from "../../../../utils/mutations";
 
-const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
+const CreateResourceContainer = () => {
   const { student } = useContext(StudentContext);
+  const [resources, setResources] = useState();
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
   //   const [resourceUrl, setResourceUrl] = useState([]);
