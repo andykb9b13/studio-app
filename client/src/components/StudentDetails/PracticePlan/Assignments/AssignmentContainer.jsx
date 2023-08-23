@@ -23,7 +23,8 @@ import Confetti from "react-confetti";
 const AssignmentContainer = ({
   assignment,
   onDelete,
-  setStudentAssignments,
+  assignments,
+  setAssignments,
 }) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
@@ -160,7 +161,7 @@ const AssignmentContainer = ({
           />
         </CardContent>
         <CardActions>
-          <Button compoent={Link} to="/student/:id/streakPractice">
+          <Button component={Link} to="/student/:id/streakPractice">
             Start a Streak
           </Button>
         </CardActions>

@@ -7,11 +7,10 @@ import { MobileContext } from "../../../App";
 const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
-  const [studentAssignments, setStudentAssignments] = useState(assignments);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
-      assignments.filter((plan) => plan._id !== deletedAssignmentId)
+      assignments.filter((assignment) => assignment._id !== deletedAssignmentId)
     );
   };
 
@@ -28,8 +27,8 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
         </tr>
       </thead>
       <tbody>
-        {studentAssignments &&
-          studentAssignments.map((assignment) => (
+        {assignments &&
+          assignments.map((assignment) => (
             <React.Fragment key={assignment._id}>
               <tr
                 style={
@@ -53,7 +52,8 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                     <AssignmentContainer
                       onRequestClose={() => setIndex(null)}
                       assignment={assignment}
-                      setStudentAssignments={setStudentAssignments}
+                      assignments={assignments}
+                      setAssignments={setAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
                     />
