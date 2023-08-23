@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { Sheet, Typography, IconButton, Card, Button } from "@mui/joy";
+import { Sheet, Typography, IconButton, Card, Link } from "@mui/joy";
 import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
@@ -71,8 +71,6 @@ const PracticePlanCard = ({
     }
   };
 
-  practicePlan.resources?.map((resource) => console.log(resource));
-
   return (
     <Sheet sx={styles.sheet}>
       <Typography
@@ -85,7 +83,7 @@ const PracticePlanCard = ({
       >
         {practicePlan.name}
       </Typography>
-      <CreateResourceContainer practicePlan={practicePlan} />
+
       <Typography level="h4">Plan Points: {planPoints}</Typography>
       <Typography level="h4">Points Earned: {completedPoints}</Typography>
       <Typography level="body1">{practicePlan.planNotes}</Typography>
@@ -110,6 +108,9 @@ const PracticePlanCard = ({
         setAssignments={setAssignments}
       />
 
+      {/* Container for creating a resource */}
+      <CreateResourceContainer practicePlan={practicePlan} />
+
       {/* Table displaying list of all practice plans */}
       <PracticePlanTable
         assignments={assignments}
@@ -118,10 +119,15 @@ const PracticePlanCard = ({
       <Card>
         <Typography level="h3">Resource Links</Typography>
         {practicePlan.resources?.map((resource) => (
-          <>
-            <Typography>{resource._id}</Typography>
-            <a href={resource.url}>{resource.resourceName}</a>
-          </>
+          <React.Fragment key={resource._id}>
+            <Link href={resource.url} alt="resource url">
+              {resource.resourceName}
+            </Link>
+            <Typography>{resource.description}</Typography>
+            {/* <RegularModal>
+              <DeleteModalContent />
+            </RegularModal> */}
+          </React.Fragment>
         ))}
       </Card>
     </Sheet>
