@@ -9,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PracticePlanTable from "./PracticePlanTable";
 import CreateResourceContainer from "./Resources/CreateResourceContainer";
 import ResourceContainer from "./Resources/ResourceContainer";
+import Auth from "../../../utils/auth";
 
 const styles = {
   sheet: {
@@ -78,9 +79,11 @@ const PracticePlanCard = ({
       <Typography
         level="h2"
         endDecorator={
-          <IconButton onClick={() => setOpen(true)} color="danger">
-            <DeleteIcon />
-          </IconButton>
+          Auth.teacherLoggedIn() && (
+            <IconButton onClick={() => setOpen(true)} color="danger">
+              <DeleteIcon />
+            </IconButton>
+          )
         }
       >
         {practicePlan.name}

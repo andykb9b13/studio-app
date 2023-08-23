@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import CreateResource from "./CreateResource";
 import { ADD_RESOURCE } from "../../../../utils/mutations";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import Auth from "../../../../utils/auth";
 
 const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
@@ -44,9 +45,11 @@ const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
           // setResourceUrl={setResourceUrl}
         />
       </RegularModal>
-      <IconButton onClick={() => setOpen(true)}>
-        <AttachFileIcon color="success" />
-      </IconButton>
+      {Auth.teacherLoggedIn() && (
+        <IconButton onClick={() => setOpen(true)}>
+          <AttachFileIcon color="success" />
+        </IconButton>
+      )}
     </>
   );
 };

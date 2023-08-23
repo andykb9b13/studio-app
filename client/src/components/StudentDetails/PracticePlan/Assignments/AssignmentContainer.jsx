@@ -19,6 +19,7 @@ import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
 import CongratsModalContent from "../../../common/Modal/CongratsModalContent";
 import CongratsModal from "../../../common/Modal/CongratsModal";
 import Confetti from "react-confetti";
+import Auth from "../../../../utils/auth";
 
 const AssignmentContainer = ({
   assignment,
@@ -88,17 +89,20 @@ const AssignmentContainer = ({
         }}
       >
         {/* Modal for displaying the delete prompt */}
-        <RegularModal
-          name="deleteAssignment"
-          open={open}
-          onRequestClose={() => setOpen(false)}
-        >
-          <DeleteModalContent
+        {Auth.teacherLoggedIn() && (
+          <RegularModal
+            name="deleteAssignment"
+            open={open}
             onRequestClose={() => setOpen(false)}
-            confirmAction={() => deleteAssignmentFunc()}
-            resourceName="Assignment"
-          />
-        </RegularModal>
+          >
+            <DeleteModalContent
+              onRequestClose={() => setOpen(false)}
+              confirmAction={() => deleteAssignmentFunc()}
+              resourceName="Assignment"
+            />
+          </RegularModal>
+        )}
+
         {/* Pop up modal for when an assignment is marked completed */}
         <CongratsModal
           completedOpen={completedOpen}
@@ -111,9 +115,12 @@ const AssignmentContainer = ({
           />
           <Confetti />
         </CongratsModal>
-        <IconButton color="danger" onClick={() => setOpen(true)}>
-          <DeleteIcon />
-        </IconButton>
+        {Auth.teacherLoggedIn() && (
+          <IconButton color="danger" onClick={() => setOpen(true)}>
+            <DeleteIcon />
+          </IconButton>
+        )}
+
         <IconButton>
           <EditIcon />
         </IconButton>
