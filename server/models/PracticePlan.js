@@ -29,6 +29,12 @@ const practicePlanSchema = new Schema({
       ref: "SkillSheet",
     },
   ],
+  resources: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Resource",
+    },
+  ],
 });
 
 const practicePlan = model("PracticePlan", practicePlanSchema);

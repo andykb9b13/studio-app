@@ -38,15 +38,6 @@ const assignmentSchema = new Schema({
       ref: "Streak",
     },
   ],
-  resources: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Resource",
-    },
-  ],
-  resourceUrl: {
-    type: String,
-  },
 });
 
 const Assignment = model("Assignment", assignmentSchema);

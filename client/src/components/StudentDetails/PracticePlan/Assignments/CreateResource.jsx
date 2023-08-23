@@ -5,15 +5,14 @@ import UploadWidget from "../../../../utils/UploadWidget";
 import { useForm } from "react-hook-form";
 
 const CreateResource = ({
-  //   resourceUrl,
-  //   setResourceUrl,
-  resources,
-  setResources,
+  resourceUrl,
+  setResourceUrl,
+  // resources,
+  // setResources,
   createResourceFunc,
   onRequestClose,
 }) => {
   const { handleSubmit, register } = useForm();
-  const [resourceUrl, setResourceUrl] = useState();
 
   function handleOnUpload(error, result, widget) {
     if (error) {
@@ -29,10 +28,8 @@ const CreateResource = ({
     try {
       await createResourceFunc(userInput);
       onRequestClose();
-      alert("Resource created");
     } catch (err) {
       console.error(err);
-      alert("could not create resource");
     }
   };
 
@@ -42,7 +39,7 @@ const CreateResource = ({
         <Typography>Resource Name</Typography>
         <Input type="text" {...register("resourceName")} />
         <Typography>Url</Typography>
-        <Input type="text" value={resourceUrl} {...register("url")} />
+        <Input type="text" /*value={resourceUrl}*/ {...register("url")} />
         <Typography>Description</Typography>
         <Textarea minRows={4} {...register("description")} />
         <UploadWidget onUpload={handleOnUpload}>

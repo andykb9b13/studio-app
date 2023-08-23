@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { Sheet, Typography, IconButton, Card } from "@mui/joy";
+import { Sheet, Typography, IconButton, Card, Button } from "@mui/joy";
 import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import CreateAssignmentContainer from "./Assignments/CreateAssignmentContainer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PracticePlanTable from "./PracticePlanTable";
+import CreateResourceContainer from "../PracticePlan/Assignments/CreateResourceContainer";
 
 const styles = {
   sheet: {
@@ -70,6 +71,8 @@ const PracticePlanCard = ({
     }
   };
 
+  practicePlan.resources?.map((resource) => console.log(resource));
+
   return (
     <Sheet sx={styles.sheet}>
       <Typography
@@ -82,6 +85,7 @@ const PracticePlanCard = ({
       >
         {practicePlan.name}
       </Typography>
+      <CreateResourceContainer practicePlan={practicePlan} />
       <Typography level="h4">Plan Points: {planPoints}</Typography>
       <Typography level="h4">Points Earned: {completedPoints}</Typography>
       <Typography level="body1">{practicePlan.planNotes}</Typography>
@@ -113,8 +117,11 @@ const PracticePlanCard = ({
       />
       <Card>
         <Typography level="h3">Resource Links</Typography>
-        {practicePlan.assignments?.map((assignment) => (
-          <a href={assignment.resourceUrl}>{assignment.resourceUrl}</a>
+        {practicePlan.resources?.map((resource) => (
+          <>
+            <Typography>{resource._id}</Typography>
+            <a href={resource.url}>{resource.resourceName}</a>
+          </>
         ))}
       </Card>
     </Sheet>

@@ -15,6 +15,7 @@ import Auth from "../../utils/auth";
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student, id } = useContext(StudentContext);
+  console.log(student);
 
   // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {

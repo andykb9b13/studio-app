@@ -215,6 +215,28 @@ export const ADD_PRACTICEPLAN = gql`
   }
 `;
 
+export const ADD_RESOURCE = gql`
+  mutation addResource(
+    $practicePlanId: String
+    $resourceName: String
+    $url: String
+    $description: String
+  ) {
+    addResource(
+      practicePlanId: $practicePlanId
+      resourceName: $resourceName
+      url: $url
+      description: $description
+    ) {
+      _id
+      practicePlanId
+      resourceName
+      url
+      description
+    }
+  }
+`;
+
 export const EDIT_STUDENT = gql`
   mutation editStudent(
     $studentId: ID!

@@ -29,10 +29,16 @@ const resolvers = {
       return await Student.findById(_id)
         .populate({
           path: "practicePlans",
-          populate: {
-            path: "assignments",
-            model: "Assignment",
-          },
+          populate: [
+            {
+              path: "assignments",
+              model: "Assignment",
+            },
+            {
+              path: "resources",
+              model: "Resource",
+            },
+          ],
         })
         .populate("assignments");
     },
@@ -222,18 +228,14 @@ const resolvers = {
       { studentId, planId, pointsWorth, resourceUrl, completed, ...args }
     ) => {
       console.log({ ...args });
-      const assignment = await Assignment.create(
-        {
-          studentId,
-          planId,
-          pointsWorth,
-          completed,
-          resourceUrl,
-          ...args,
-        }
-        // { $addToSet: { resources: resourceUrl } },
-        // { new: true }
-      );
+      const assignment = await Assignment.create({
+        studentId,
+        planId,
+        pointsWorth,
+        completed,
+        resourceUrl,
+        ...args,
+      });
 
       const practicePlan = await PracticePlan.findByIdAndUpdate(
         planId,
@@ -253,15 +255,18 @@ const resolvers = {
 
     addResource: async (
       parent,
-      { assignmentId, resourceName, url, description }
+      { practicePlanId, resourceName, url, description }
     ) => {
+      console.log(resourceName, url, description, practicePlanId);
       const resource = await Resource.create({
+        practicePlanId,
         resourceName,
         url,
         description,
       });
-      const assignment = await Assignment.findByIdAndUpdate(
-        assignmentId,
+      console.log("resource in resolver", resource);
+      const practicePlan = await PracticePlan.findByIdAndUpdate(
+        practicePlanId,
         { $addToSet: { resources: resource._id } },
         { new: true }
       );

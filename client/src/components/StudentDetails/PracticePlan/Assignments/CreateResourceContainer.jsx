@@ -7,27 +7,30 @@ import { Add } from "@mui/icons-material";
 import CreateResource from "./CreateResource";
 import { ADD_RESOURCE } from "../../../../utils/mutations";
 
-const CreateResourceContainer = () => {
+const CreateResourceContainer = ({ practicePlan }) => {
   const { student } = useContext(StudentContext);
-  const [resources, setResources] = useState();
+  // const [resources, setResources] = useState();
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
-  //   const [resourceUrl, setResourceUrl] = useState([]);
+  const [resourceUrl, setResourceUrl] = useState([]);
 
   const createResourceFunc = async (userInput) => {
     console.log(userInput);
+    console.log(practicePlan._id);
     try {
       const { data } = await createResource({
         variables: {
+          practicePlanId: practicePlan._id,
           ...userInput,
         },
       });
-      setResources([...resources, data.createResource]);
-      alert("Assignment Created");
+      console.log(data);
+      // setResources([...resources, data.createResource]);
+      alert("Resource Created");
       setOpen(false);
     } catch (err) {
       console.error(err);
-      alert("Could not create assignment");
+      alert("Could not create resource");
     }
   };
 
@@ -38,10 +41,10 @@ const CreateResourceContainer = () => {
           onRequestClose={() => setOpen(false)}
           resourceName="Create Resource"
           createResourceFunc={createResourceFunc}
-          resources={resources}
-          setResources={setResources}
-          //   resourceUrl={resourceUrl}
-          //   setResourceUrl={setResourceUrl}
+          // resources={resources}
+          // setResources={setResources}
+          resourceUrl={resourceUrl}
+          setResourceUrl={setResourceUrl}
         />
       </RegularModal>
       <IconButton onClick={() => setOpen(true)}>

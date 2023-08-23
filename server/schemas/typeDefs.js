@@ -47,8 +47,6 @@ const typeDefs = gql`
     pointsWorth: Int
     completed: Boolean
     streaks: [Streak]
-    resources: [Resource]
-    resourceUrl: String
   }
 
   type Streak {
@@ -93,10 +91,12 @@ const typeDefs = gql`
     assignments: [Assignment]
     goals: [Goal]
     skillSheets: [SkillSheet]
+    resources: [Resource]
   }
 
   type Resource {
     _id: ID
+    practicePlanId: String
     resourceName: String
     url: String
     description: String
@@ -168,7 +168,6 @@ const typeDefs = gql`
       specialNotes: String
       metronome: String
       pointsWorth: Int
-      resourceUrl: String
       completed: Boolean
       pages: String
     ): Assignment
@@ -176,6 +175,7 @@ const typeDefs = gql`
     completeAssignment(assignmentId: ID, completed: Boolean): Assignment
 
     addResource(
+      practicePlanId: String
       resourceName: String
       url: String
       description: String
