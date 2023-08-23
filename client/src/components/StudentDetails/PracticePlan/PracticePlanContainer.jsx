@@ -6,6 +6,7 @@ import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
 import CreatePracticePlan from "./Resources/CreatePracticePlan";
 import PracticePlanCard from "./PracticePlanCard";
 import RegularModal from "../../common/Modal/RegularModal";
+import Auth from "../../../utils/auth";
 
 // displays practice plans from a student
 export default function PracticePlanContainer() {
@@ -13,6 +14,21 @@ export default function PracticePlanContainer() {
   const [open, setOpen] = useState(false);
   const [studentPlans, setStudentPlans] = useState(practicePlans);
   const [totalPlanPoints, setTotalPlanPoints] = useState(0);
+
+  // useEffect(() => {
+  //   setTotalPlanPoints(studentPlans.assignments);
+  // });
+
+  useEffect(() => {
+    let pointsArr = [];
+    studentPlans.map((plan) =>
+      plan.assignments.map((assignment) =>
+        pointsArr.push(assignment.pointsWorth)
+      )
+    );
+    const totalPoints = pointsArr.reduce((acc, curr) => acc + curr);
+    setTotalPlanPoints(totalPoints);
+  }, [setTotalPlanPoints, studentPlans]);
 
   useEffect(() => {
     setStudentPlans(practicePlans);
@@ -45,14 +61,19 @@ export default function PracticePlanContainer() {
       <Typography level="h4">
         Total Points for all Practice Plans: {totalPlanPoints}
       </Typography>
-      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <CreatePracticePlan
-          onRequestClose={() => setOpen(false)}
-          resourceName="Create Practice Plan"
-          createPracticePlanFunc={createPracticePlanFunc}
-        />
-      </RegularModal>
-      <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
+      {Auth.teacherLoggedIn() && (
+        <>
+          <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+            <CreatePracticePlan
+              onRequestClose={() => setOpen(false)}
+              resourceName="Create Practice Plan"
+              createPracticePlanFunc={createPracticePlanFunc}
+            />
+          </RegularModal>
+          <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
+        </>
+      )}
+
       {studentPlans &&
         studentPlans.map((practicePlan) => (
           <PracticePlanCard

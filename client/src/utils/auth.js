@@ -17,7 +17,6 @@ class AuthService {
 
   teacherLoggedIn() {
     const user = this.getUser();
-    console.log(user);
     return user === "teacher";
   }
 

@@ -28,7 +28,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
       </thead>
       <tbody>
         {assignments &&
-          assignments.map((assignment) => (
+          assignments?.map((assignment) => (
             <React.Fragment key={assignment._id}>
               <tr
                 style={

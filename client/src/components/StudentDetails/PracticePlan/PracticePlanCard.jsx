@@ -35,6 +35,7 @@ const PracticePlanCard = ({
   const [completedPoints, setCompletedPoints] = useState(0);
   const [resources, setResources] = useState(practicePlan.resources);
 
+  // Setting the total points available to earn for the plan
   useEffect(() => {
     if (assignments !== undefined) {
       const pointsArr = assignments.map((assignment) => assignment.pointsWorth);
@@ -44,6 +45,7 @@ const PracticePlanCard = ({
     }
   }, [assignments]);
 
+  // Setting the amount of completed points a student has earned by completing assignments
   useEffect(() => {
     if (assignments !== undefined) {
       const completedAssignments = assignments.filter(
@@ -57,6 +59,7 @@ const PracticePlanCard = ({
     }
   }, [assignments]);
 
+  // Setting the assignments
   useEffect(() => {
     setAssignments(assignments || []);
   }, [assignments]);
