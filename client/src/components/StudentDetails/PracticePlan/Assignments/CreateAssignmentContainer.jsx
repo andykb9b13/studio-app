@@ -15,6 +15,7 @@ const CreateAssignmentContainer = ({
   const { student } = useContext(StudentContext);
   const [createAssignment, { error }] = useMutation(ADD_ASSIGNMENT);
   const [open, setOpen] = useState(false);
+  const [resourceUrl, setResourceUrl] = useState("");
 
   const createAssignmentFunc = async (userInput) => {
     const pointsWorth = parseInt(userInput.points);
@@ -24,6 +25,7 @@ const CreateAssignmentContainer = ({
           studentId: student._id,
           planId: practicePlan._id,
           pointsWorth: pointsWorth,
+          resourceUrl: resourceUrl,
           completed: false,
           ...userInput,
         },
@@ -44,6 +46,8 @@ const CreateAssignmentContainer = ({
           onRequestClose={() => setOpen(false)}
           resourceName="Create Practice Plan"
           createAssignmentFunc={createAssignmentFunc}
+          resourceUrl={resourceUrl}
+          setResourceUrl={setResourceUrl}
         />
       </RegularModal>
       <IconButton onClick={() => setOpen(true)}>

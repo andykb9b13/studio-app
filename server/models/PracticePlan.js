@@ -8,6 +8,9 @@ const practicePlanSchema = new Schema({
   studentId: {
     type: String,
   },
+  planNotes: {
+    type: String,
+  },
   assignments: [
     {
       type: Schema.Types.ObjectId,
@@ -24,6 +27,12 @@ const practicePlanSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "SkillSheet",
+    },
+  ],
+  resources: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Resource",
     },
   ],
 });

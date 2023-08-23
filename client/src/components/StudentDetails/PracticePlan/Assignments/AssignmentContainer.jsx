@@ -75,7 +75,17 @@ const AssignmentContainer = ({
       >
         {assignment.exerciseName}
       </Typography>
-      <Card sx={{ mt: 2 }}>
+      <Card
+        sx={{
+          mt: 2,
+          boxShadow: "md",
+          maxHeight: "max-content",
+          maxWidth: "100%",
+          mx: "auto",
+          overflow: "auto",
+          resize: "vertical",
+        }}
+      >
         {/* Modal for displaying the delete prompt */}
         <RegularModal
           name="deleteAssignment"
@@ -107,6 +117,14 @@ const AssignmentContainer = ({
           <EditIcon />
         </IconButton>
         <CardContent>
+          <a href={assignment.resourceUrl} alt="assignment resource">
+            Click for link
+          </a>
+          <img
+            src={assignment.resourceUrl}
+            alt="assignment resource"
+            style={{ maxWidth: "75px" }}
+          />
           <Typography>
             <b>Points: {assignment.pointsWorth}</b>
           </Typography>

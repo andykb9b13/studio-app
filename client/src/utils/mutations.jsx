@@ -115,6 +115,7 @@ export const ADD_ASSIGNMENT = gql`
     $specialNotes: String
     $metronome: String
     $pointsWorth: Int
+    $resourceUrl: String
     $completed: Boolean
     $pages: String
   ) {
@@ -127,6 +128,7 @@ export const ADD_ASSIGNMENT = gql`
       specialNotes: $specialNotes
       metronome: $metronome
       pointsWorth: $pointsWorth
+      resourceUrl: $resourceUrl
       completed: $completed
       pages: $pages
     ) {
@@ -138,6 +140,7 @@ export const ADD_ASSIGNMENT = gql`
       specialNotes
       metronome
       pointsWorth
+      resourceUrl
       completed
       pages
     }
@@ -198,11 +201,38 @@ export const ADD_SKILLSHEET = gql`
 `;
 
 export const ADD_PRACTICEPLAN = gql`
-  mutation addPracticePlan($name: String!, $studentId: String) {
-    addPracticePlan(name: $name, studentId: $studentId) {
+  mutation addPracticePlan(
+    $name: String!
+    $studentId: String
+    $planNotes: String
+  ) {
+    addPracticePlan(name: $name, studentId: $studentId, planNotes: $planNotes) {
       _id
       name
       studentId
+      planNotes
+    }
+  }
+`;
+
+export const ADD_RESOURCE = gql`
+  mutation addResource(
+    $practicePlanId: String
+    $resourceName: String
+    $url: String
+    $description: String
+  ) {
+    addResource(
+      practicePlanId: $practicePlanId
+      resourceName: $resourceName
+      url: $url
+      description: $description
+    ) {
+      _id
+      practicePlanId
+      resourceName
+      url
+      description
     }
   }
 `;

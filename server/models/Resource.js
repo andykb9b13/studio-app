@@ -1,6 +1,9 @@
 const { Schema, model } = require("mongoose");
 
 const resourceSchema = new Schema({
+  practicePlanId: {
+    type: String,
+  },
   resourceName: {
     type: String,
   },
