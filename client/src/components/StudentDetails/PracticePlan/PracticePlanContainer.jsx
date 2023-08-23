@@ -14,6 +14,7 @@ export default function PracticePlanContainer() {
   const [open, setOpen] = useState(false);
   const [studentPlans, setStudentPlans] = useState(practicePlans);
   const [totalPlanPoints, setTotalPlanPoints] = useState(0);
+  const [totalCompletedPoints, setTotalCompletedPoints] = useState(0);
 
   // useEffect(() => {
   //   setTotalPlanPoints(studentPlans.assignments);
@@ -29,6 +30,22 @@ export default function PracticePlanContainer() {
     const totalPoints = pointsArr.reduce((acc, curr) => acc + curr);
     setTotalPlanPoints(totalPoints);
   }, [setTotalPlanPoints, studentPlans]);
+
+  useEffect(() => {
+    console.log(studentPlans);
+    let assignArr = [];
+    studentPlans.map((plan) =>
+      plan.assignments.map((assignment) => assignArr.push(assignment))
+    );
+    let completedArr = assignArr.filter(
+      (assignment) => assignment.completed === true
+    );
+    console.log(completedArr);
+    let pointsArr = completedArr.map((assignment) => assignment.pointsWorth);
+    console.log(pointsArr);
+    let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    setTotalCompletedPoints(totalPoints);
+  }, [setTotalCompletedPoints, studentPlans]);
 
   useEffect(() => {
     setStudentPlans(practicePlans);
@@ -60,6 +77,9 @@ export default function PracticePlanContainer() {
       <Typography level="h2">Practice Plans</Typography>
       <Typography level="h4">
         Total Points for all Practice Plans: {totalPlanPoints}
+      </Typography>
+      <Typography level="h4">
+        Total Completed Points: {totalCompletedPoints}
       </Typography>
       {Auth.teacherLoggedIn() && (
         <>
