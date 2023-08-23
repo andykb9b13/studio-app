@@ -1,35 +1,37 @@
 import React from "react";
 import { Sheet, Button, Input, Typography, Textarea } from "@mui/joy";
 import { useForm } from "react-hook-form";
-import UploadWidget from "../../../../utils/UploadWidget";
+import CreateResourceContainer from "../Resources/CreateResourceContainer";
 
 const CreateAssignment = ({
   createAssignmentFunc,
-  resourceUrl,
+  resources,
+  setResources,
   setResourceUrl,
+  practicePlan,
+  resourceUrl,
 }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (userInput) => {
     try {
       await createAssignmentFunc(userInput);
+      setResources(...resources);
     } catch (err) {
       console.error(err);
       alert("Could not create assignment");
     }
   };
 
-  function handleOnUpload(error, result, widget) {
-    if (error) {
-      widget.close({
-        quiet: true,
-      });
-      return;
-    }
-    setResourceUrl(result?.info?.secure_url);
-  }
-
-  console.log(resourceUrl);
+  // function handleOnUpload(error, result, widget) {
+  //   if (error) {
+  //     widget.close({
+  //       quiet: true,
+  //     });
+  //     return;
+  //   }
+  //   setResourceUrl(result?.info?.secure_url);
+  // }
 
   return (
     <Sheet
@@ -62,27 +64,11 @@ const CreateAssignment = ({
         <Typography>Points Worth</Typography>
         <Input type="number" {...register("points")} />
         <Typography>Resources</Typography>
-        {resourceUrl && (
-          <>
-            <Typography level="h4">Resource Image</Typography>
-            <img
-              src={resourceUrl}
-              alt="Uploaded resource"
-              style={{ maxWidth: "80%" }}
-            />
-            <Typography level="h5">{resourceUrl}</Typography>
-          </>
-        )}
-        <UploadWidget onUpload={handleOnUpload}>
-          {({ open }) => {
-            function handleOnClick(e) {
-              e.preventDefault();
-              open();
-            }
-            return <Button onClick={handleOnClick}>Upload a Resource</Button>;
-          }}
-        </UploadWidget>
-
+        <CreateResourceContainer
+          practicePlan={practicePlan}
+          resources={resources}
+          setResources={setResources}
+        />
         <Button type="submit" color="success">
           Create Assignment
         </Button>

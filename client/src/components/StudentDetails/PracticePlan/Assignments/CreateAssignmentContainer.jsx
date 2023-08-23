@@ -11,6 +11,8 @@ const CreateAssignmentContainer = ({
   practicePlan,
   assignments,
   setAssignments,
+  resources,
+  setResources,
 }) => {
   const { student } = useContext(StudentContext);
   const [createAssignment, { error }] = useMutation(ADD_ASSIGNMENT);
@@ -25,7 +27,6 @@ const CreateAssignmentContainer = ({
           studentId: student._id,
           planId: practicePlan._id,
           pointsWorth: pointsWorth,
-          resourceUrl: resourceUrl,
           completed: false,
           ...userInput,
         },
@@ -46,8 +47,9 @@ const CreateAssignmentContainer = ({
           onRequestClose={() => setOpen(false)}
           resourceName="Create Practice Plan"
           createAssignmentFunc={createAssignmentFunc}
-          resourceUrl={resourceUrl}
-          setResourceUrl={setResourceUrl}
+          resources={resources}
+          setResources={setResources}
+          practicePlan={practicePlan}
         />
       </RegularModal>
       <IconButton onClick={() => setOpen(true)}>

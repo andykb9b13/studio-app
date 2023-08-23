@@ -108,6 +108,8 @@ const PracticePlanCard = ({
         practicePlan={practicePlan}
         assignments={assignments}
         setAssignments={setAssignments}
+        resources={resources}
+        setResources={setResources}
       />
 
       {/* Container for creating a resource */}

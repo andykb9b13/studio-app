@@ -9,14 +9,16 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
-  const [resourceUrl, setResourceUrl] = useState([]);
+  // const [resourceUrl, setResourceUrl] = useState(null);
 
   const createResourceFunc = async (userInput) => {
     console.log(userInput);
     console.log(practicePlan._id);
+    // console.log(resourceUrl);
     try {
       const { data } = await createResource({
         variables: {
+          // url: resourceUrl,
           practicePlanId: practicePlan._id,
           ...userInput,
         },
@@ -38,10 +40,8 @@ const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
           onRequestClose={() => setOpen(false)}
           resourceName="Create Resource"
           createResourceFunc={createResourceFunc}
-          // resources={resources}
-          // setResources={setResources}
-          resourceUrl={resourceUrl}
-          setResourceUrl={setResourceUrl}
+          // resourceUrl={resourceUrl}
+          // setResourceUrl={setResourceUrl}
         />
       </RegularModal>
       <IconButton onClick={() => setOpen(true)}>

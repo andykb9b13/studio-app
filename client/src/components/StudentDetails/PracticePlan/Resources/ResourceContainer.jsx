@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Card, Link, IconButton } from "@mui/joy";
+import { Typography, Card, Link, IconButton, Grid } from "@mui/joy";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
 import DeleteModalContent from "../../../common/Modal/DeleteModalContent";
@@ -28,12 +28,12 @@ const ResourceContainer = ({ practicePlan, resources, setResources }) => {
   return (
     <Card>
       <Typography level="h3">Resource Links</Typography>
+
       {resources?.map((resource) => (
         <React.Fragment key={resource._id}>
           <Link href={resource.url} alt="resource url">
             {resource.resourceName}
           </Link>
-
           <Typography>{resource.description}</Typography>
           <RegularModal
             name="deleteResource"
