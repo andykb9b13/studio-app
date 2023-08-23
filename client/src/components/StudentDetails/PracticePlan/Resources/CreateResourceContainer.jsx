@@ -1,16 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { IconButton } from "@mui/joy";
-import { StudentContext } from "../../../../pages/StudentDetails";
 import { useMutation } from "@apollo/client";
-import { Add } from "@mui/icons-material";
 import CreateResource from "./CreateResource";
 import { ADD_RESOURCE } from "../../../../utils/mutations";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 
-const CreateResourceContainer = ({ practicePlan }) => {
-  const { student } = useContext(StudentContext);
-  // const [resources, setResources] = useState();
+const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
   const [resourceUrl, setResourceUrl] = useState([]);
@@ -26,7 +22,7 @@ const CreateResourceContainer = ({ practicePlan }) => {
         },
       });
       console.log(data);
-      // setResources([...resources, data.createResource]);
+      setResources([...resources, data.addResource]);
       alert("Resource Created");
       setOpen(false);
     } catch (err) {

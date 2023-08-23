@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { Sheet, Typography, IconButton, Card, Link } from "@mui/joy";
+import { Sheet, Typography, IconButton } from "@mui/joy";
 import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import CreateAssignmentContainer from "./Assignments/CreateAssignmentContainer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PracticePlanTable from "./PracticePlanTable";
-import CreateResourceContainer from "../PracticePlan/Assignments/CreateResourceContainer";
-import ResourceContainer from "./ResourceContainer";
-import { DELETE_RESOURCE } from "../../../utils/mutations";
+import CreateResourceContainer from "./Resources/CreateResourceContainer";
+import ResourceContainer from "./Resources/ResourceContainer";
 
 const styles = {
   sheet: {
@@ -30,10 +29,10 @@ const PracticePlanCard = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
-
   const [assignments, setAssignments] = useState(practicePlan.assignments);
   const [planPoints, setPlanPoints] = useState(0);
   const [completedPoints, setCompletedPoints] = useState(0);
+  const [resources, setResources] = useState(practicePlan.resources);
 
   useEffect(() => {
     if (assignments !== undefined) {
@@ -112,7 +111,11 @@ const PracticePlanCard = ({
       />
 
       {/* Container for creating a resource */}
-      <CreateResourceContainer practicePlan={practicePlan} />
+      <CreateResourceContainer
+        practicePlan={practicePlan}
+        resources={resources}
+        setResources={setResources}
+      />
 
       {/* Table displaying list of all practice plans */}
       <PracticePlanTable
@@ -120,7 +123,11 @@ const PracticePlanCard = ({
         setAssignments={setAssignments}
       />
 
-      <ResourceContainer practicePlan={practicePlan} />
+      <ResourceContainer
+        practicePlan={practicePlan}
+        resources={resources}
+        setResources={setResources}
+      />
     </Sheet>
   );
 };

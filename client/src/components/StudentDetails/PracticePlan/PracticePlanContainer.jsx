@@ -3,7 +3,7 @@ import { Typography, Button } from "@mui/joy";
 import { StudentContext } from "../../../pages/StudentDetails";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
-import CreatePracticePlan from "./CreatePracticePlan";
+import CreatePracticePlan from "./Resources/CreatePracticePlan";
 import PracticePlanCard from "./PracticePlanCard";
 import RegularModal from "../../common/Modal/RegularModal";
 

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Typography, Card, Link, IconButton } from "@mui/joy";
-import RegularModal from "../../common/Modal/RegularModal";
+import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
-import DeleteModalContent from "../../common/Modal/DeleteModalContent";
-import { DELETE_RESOURCE } from "../../../utils/mutations";
+import DeleteModalContent from "../../../common/Modal/DeleteModalContent";
+import { DELETE_RESOURCE } from "../../../../utils/mutations";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Divider } from "@mui/material";
 
-const ResourceContainer = ({ practicePlan }) => {
+const ResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [deleteResource, { error }] = useMutation(DELETE_RESOURCE);
   const [open, setOpen] = useState(false);
-  const [resources, setResources] = useState(practicePlan.resources);
+  // const [resources, setResources] = useState(practicePlan.resources);
 
   const deleteResourceFunc = async (resourceId) => {
     try {
