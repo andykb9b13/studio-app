@@ -14,7 +14,7 @@ const CreateAssignment = ({
   const onSubmit = async (userInput) => {
     try {
       await createAssignmentFunc(userInput);
-      setResources(...resources);
+      // setResources(...resources);
     } catch (err) {
       console.error(err);
       alert("Could not create assignment");
