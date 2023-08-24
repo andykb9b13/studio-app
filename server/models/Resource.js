@@ -4,6 +4,9 @@ const resourceSchema = new Schema({
   practicePlanId: {
     type: String,
   },
+  teacherId: {
+    type: String,
+  },
   resourceName: {
     type: String,
   },

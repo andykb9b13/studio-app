@@ -1,16 +1,48 @@
-import React from "react";
-import { Card, Typography, Box } from "@mui/joy";
-import avatar1 from "../../assets/avatars/avatar1.png";
+import React, { useContext, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { EDIT_STUDENT } from "../../utils/mutations";
+import { Card, Typography, Box, IconButton } from "@mui/joy";
 import level1 from "../../assets/badges/level1.png";
 import level2 from "../../assets/badges/level2.png";
 import level3 from "../../assets/badges/level3.png";
 import level4 from "../../assets/badges/level4.png";
+import CountUp from "react-countup";
+import { StudentContext } from "../../pages/StudentDetails";
+import RegularModal from "../common/Modal/RegularModal";
+import SelectAvatar from "./SelectAvatar";
+import { Edit } from "@mui/icons-material";
+import { avatarList } from "../common/Assets";
 
-const BadgesPoints = ({ totalPlanPoints, totalCompletedPoints }) => {
+const BadgesPoints = () => {
+  const { student } = useContext(StudentContext);
+  const [open, setOpen] = useState(false);
+  const [editStudent, { error }] = useMutation(EDIT_STUDENT);
+
+  const editAvatarFunc = async (avatarId) => {
+    console.log(avatarId);
+    try {
+      await editStudent({
+        variables: {
+          studentId: student._id,
+          avatarId: avatarId,
+        },
+      });
+      alert(`avatar ${avatarId} selected`);
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+      alert("could not select avater");
+    }
+  };
+
   return (
     <Card variant="outlined">
       <img
-        src={avatar1}
+        src={
+          student.avatarId
+            ? avatarList[student.avatarId].name
+            : avatarList[0].name
+        }
         alt="avatar"
         style={{
           borderRadius: "50%",
@@ -18,22 +50,33 @@ const BadgesPoints = ({ totalPlanPoints, totalCompletedPoints }) => {
           marginInline: "auto",
         }}
       />
-      <Typography level="h3">Plan Points: {totalPlanPoints}</Typography>
+      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+        <SelectAvatar
+          onRequestClose={() => setOpen(false)}
+          editAvatarFunc={editAvatarFunc}
+        />
+      </RegularModal>
+      <IconButton onClick={() => setOpen(true)}>
+        <Edit />
+      </IconButton>
       <Typography level="h3">
-        Completed Points: {totalCompletedPoints}
+        Plan Points: <CountUp end={student.totalPlanPoints} />
+      </Typography>
+      <Typography level="h3">
+        Completed Points: <CountUp end={student.totalCompletedPoints} />
       </Typography>
       <Typography level="h3">Badges: </Typography>
       <Box variant="solid">
-        {totalCompletedPoints > 200 && (
+        {student.totalCompletedPoints > 200 && (
           <img src={level1} alt="level1 badge" style={{ width: "25%" }} />
         )}
-        {totalCompletedPoints > 500 && (
+        {student.totalCompletedPoints > 500 && (
           <img src={level2} alt="level2 badge" style={{ width: "25%" }} />
         )}
-        {totalCompletedPoints > 1000 && (
+        {student.totalCompletedPoints > 1000 && (
           <img src={level3} alt="level3 badge" style={{ width: "25%" }} />
         )}
-        {totalCompletedPoints > 2000 && (
+        {student.totalCompletedPoints > 2000 && (
           <img src={level4} alt="level4 badge" style={{ width: "25%" }} />
         )}
       </Box>

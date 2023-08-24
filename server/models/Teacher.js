@@ -41,6 +41,12 @@ const teacherSchema = new Schema({
       ref: "SkillSheet",
     },
   ],
+  resources: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Resource",
+    },
+  ],
 });
 
 // hash user password

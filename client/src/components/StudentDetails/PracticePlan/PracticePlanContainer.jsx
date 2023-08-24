@@ -18,28 +18,27 @@ export default function PracticePlanContainer() {
 
   useEffect(() => {
     let pointsArr = [];
-    studentPlans.map((plan) =>
-      plan.assignments.map((assignment) =>
+
+    studentPlans?.map((plan) =>
+      plan.assignments?.map((assignment) =>
         pointsArr.push(assignment.pointsWorth)
       )
     );
-    const totalPoints = pointsArr.reduce((acc, curr) => acc + curr);
+    const totalPoints = pointsArr?.reduce((acc, curr) => acc + curr, 0);
     setTotalPlanPoints(totalPoints);
   }, [setTotalPlanPoints, studentPlans]);
 
   useEffect(() => {
-    if (studentPlans) {
-      let assignArr = [];
-      studentPlans.forEach((plan) =>
-        plan.assignments.forEach((assignment) => assignArr.push(assignment))
-      );
-      let completedArr = assignArr.filter(
-        (assignment) => assignment.completed === true
-      );
-      let pointsArr = completedArr.map((assignment) => assignment.pointsWorth);
-      let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
-      setTotalCompletedPoints(totalPoints);
-    }
+    let assignArr = [];
+    studentPlans?.forEach((plan) =>
+      plan.assignments.forEach((assignment) => assignArr.push(assignment))
+    );
+    let completedArr = assignArr.filter(
+      (assignment) => assignment.completed === true
+    );
+    let pointsArr = completedArr.map((assignment) => assignment.pointsWorth);
+    let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    setTotalCompletedPoints(totalPoints);
   }, [setTotalCompletedPoints, studentPlans]);
 
   useEffect(() => {

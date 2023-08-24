@@ -50,7 +50,8 @@ const resolvers = {
     teacher: async (parent, { teacherId: _id }) => {
       return await Teacher.findById(_id)
         .populate("students")
-        .populate("skillSheets");
+        .populate("skillSheets")
+        .populate("resources");
     },
     assignments: async () => {
       return await Assignment.find({});
@@ -255,18 +256,24 @@ const resolvers = {
 
     addResource: async (
       parent,
-      { practicePlanId, resourceName, url, description }
+      { practicePlanId, resourceName, url, description, teacherId }
     ) => {
-      console.log(resourceName, url, description, practicePlanId);
+      console.log(resourceName, url, description, practicePlanId, teacherId);
       const resource = await Resource.create({
         practicePlanId,
         resourceName,
         url,
         description,
+        teacherId,
       });
       console.log("resource in resolver", resource);
       const practicePlan = await PracticePlan.findByIdAndUpdate(
         practicePlanId,
+        { $addToSet: { resources: resource._id } },
+        { new: true }
+      );
+      const teacher = await Teacher.findByIdAndUpdate(
+        teacherId,
         { $addToSet: { resources: resource._id } },
         { new: true }
       );
@@ -335,15 +342,77 @@ const resolvers = {
     },
 
     deleteStudent: async (parent, { studentId }) => {
-      return await Student.findOneAndDelete({ _id: studentId });
+      try {
+        const deletedStudent = await Student.findOneAndDelete({
+          _id: studentId,
+        });
+        if (!deletedStudent) {
+          throw new Error("Student not found");
+        }
+        for (const practicePlanId of deletedStudent.practicePlans) {
+          const deletedPlan = await PracticePlan.findOneAndDelete({
+            _id: practicePlanId,
+          });
+          for (const assignmentId of deletedPlan.assignments) {
+            await Assignment.findOneAndDelete({
+              _id: assignmentId,
+            });
+          }
+        }
+        // for (const assignmentId of deletedStudent.assignments) {
+        //   await Assignment.findOneAndDelete({ _id: assignmentId });
+        // }
+
+        await Teacher.updateMany(
+          { students: studentId },
+          { $pull: { students: studentId } }
+        );
+        return deletedStudent;
+      } catch (error) {
+        throw new Error("Error deleting student: " + error.message);
+      }
     },
 
     deleteAssignment: async (parent, { assignmentId }) => {
-      return await Assignment.findOneAndDelete({ _id: assignmentId });
+      try {
+        const deletedAssignment = await Assignment.findOneAndDelete({
+          _id: assignmentId,
+        });
+        if (!deletedAssignment) {
+          throw new Error("Assignment not found");
+        }
+        const deletedFromPlan = await PracticePlan.updateMany(
+          { assignments: assignmentId },
+          { $pull: { assignments: assignmentId } }
+        );
+        console.log("deletedFromPlan", deletedFromPlan);
+        console.log("deletedAssignment", deletedAssignment);
+        return deletedAssignment;
+      } catch (error) {
+        throw new Error("Error deleting the assignment: " + error.message);
+      }
     },
 
     deleteResource: async (parent, { resourceId }) => {
-      return await Resource.findOneAndDelete({ _id: resourceId });
+      try {
+        const deletedResource = await Resource.findOneAndDelete({
+          _id: resourceId,
+        });
+        if (!deletedResource) {
+          throw new Error("Resource not found");
+        }
+        await Teacher.updateMany(
+          { resources: resourceId },
+          { $pull: { resources: resourceId } }
+        );
+        await PracticePlan.updateMany(
+          { resources: resourceId },
+          { $pull: { resources: resourceId } }
+        );
+        return deletedResource;
+      } catch (error) {
+        throw new Error("Error deleting the resource: " + error.message);
+      }
     },
 
     deleteGoal: async (parent, { goalId }) => {
@@ -351,7 +420,21 @@ const resolvers = {
     },
 
     deletePracticePlan: async (parent, { planId }) => {
-      return await PracticePlan.findOneAndDelete({ _id: planId });
+      try {
+        const deletedPlan = await PracticePlan.findOneAndDelete({
+          _id: planId,
+        });
+        if (!deletedPlan) {
+          throw new Error("Practice plan not found");
+        }
+        await Student.updateMany(
+          { practicePlans: planId },
+          { $pull: { practicePlans: planId } }
+        );
+        return deletedPlan;
+      } catch (error) {
+        throw new Error("Error deleting practice plan: ", +error.message);
+      }
     },
 
     deleteSkillSheet: async (parent, { skillSheetId }) => {
@@ -430,6 +513,9 @@ const resolvers = {
       }
       if (args.lessonLocation) {
         student.lessonLocation = args.lessonLocation;
+      }
+      if (args.avatarId) {
+        student.avatarId = args.avatarId;
       }
       if (args.isActive) {
         student.isActive = args.isActive;

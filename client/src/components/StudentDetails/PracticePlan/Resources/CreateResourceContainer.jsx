@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { IconButton } from "@mui/joy";
 import { useMutation } from "@apollo/client";
@@ -6,19 +6,21 @@ import CreateResource from "./CreateResource";
 import { ADD_RESOURCE } from "../../../../utils/mutations";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Auth from "../../../../utils/auth";
+import { StudentContext } from "../../../../pages/StudentDetails";
 
 const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
+  const { student } = useContext(StudentContext);
 
   const createResourceFunc = async (userInput) => {
     console.log(userInput);
     console.log(practicePlan._id);
-    // console.log(resourceUrl);
+
     try {
       const { data } = await createResource({
         variables: {
-          // url: resourceUrl,
+          teacherId: student.teacherId,
           practicePlanId: practicePlan._id,
           ...userInput,
         },

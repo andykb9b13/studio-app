@@ -8,6 +8,13 @@ export const QUERY_TEACHER = gql`
       email
       lastName
       password
+      resources {
+        teacherId
+        practicePlanId
+        resourceName
+        url
+        description
+      }
       skillSheets {
         _id
         arpeggios
@@ -40,6 +47,7 @@ export const QUERY_TEACHER = gql`
         primaryContactEmail
         school
         teacherId
+        avatarId
         username
       }
     }
@@ -64,6 +72,7 @@ export const QUERY_STUDENT = gql`
       lessonLocation
       lessonTime
       school
+      avatarId
       totalPlanPoints
       totalCompletedPoints
       practicePlans {
@@ -72,6 +81,8 @@ export const QUERY_STUDENT = gql`
         planNotes
         resources {
           _id
+          practicePlanId
+          teacherId
           resourceName
           url
           description
@@ -135,6 +146,8 @@ export const QUERY_PRACTICEPLANS = gql`
       planNotes
       resources {
         _id
+        practicePlanId
+        teacherId
         resourceName
         url
         description
