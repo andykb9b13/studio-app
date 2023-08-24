@@ -217,18 +217,21 @@ export const ADD_PRACTICEPLAN = gql`
 
 export const ADD_RESOURCE = gql`
   mutation addResource(
+    $teacherId: String
     $practicePlanId: String
     $resourceName: String
     $url: String
     $description: String
   ) {
     addResource(
+      teacherId: $teacherId
       practicePlanId: $practicePlanId
       resourceName: $resourceName
       url: $url
       description: $description
     ) {
       _id
+      teacherId
       practicePlanId
       resourceName
       url

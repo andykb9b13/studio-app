@@ -35,6 +35,7 @@ const typeDefs = gql`
     password: String
     students: [Student]
     skillSheets: [SkillSheet]
+    resources: [Resource]
   }
 
   type Assignment {
@@ -99,6 +100,7 @@ const typeDefs = gql`
 
   type Resource {
     _id: ID
+    teacherId: String
     practicePlanId: String
     resourceName: String
     url: String
@@ -179,6 +181,7 @@ const typeDefs = gql`
     completeAssignment(assignmentId: ID, completed: Boolean): Assignment
 
     addResource(
+      teacherId: String
       practicePlanId: String
       resourceName: String
       url: String
