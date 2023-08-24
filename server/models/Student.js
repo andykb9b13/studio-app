@@ -63,6 +63,9 @@ const studentSchema = new Schema({
   teacherId: {
     type: String,
   },
+  avatarId: {
+    type: Number,
+  },
   assignments: [
     {
       type: Schema.Types.ObjectId,

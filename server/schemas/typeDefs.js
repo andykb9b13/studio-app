@@ -17,6 +17,7 @@ const typeDefs = gql`
     school: String
     lessonLocation: String
     isActive: Boolean
+    avatarId: Int
     teacherId: String
     totalPlanPoints: Int
     totalCompletedPoints: Int
@@ -157,6 +158,7 @@ const typeDefs = gql`
       grade: String
       school: String
       lessonLocation: String
+      avatarId: Int
       isActive: Boolean
       teacherId: String
     ): Student
@@ -246,6 +248,7 @@ const typeDefs = gql`
       grade: String
       school: String
       lessonLocation: String
+      avatarId: Int
       isActive: Boolean
       teacherId: String
     ): Student!

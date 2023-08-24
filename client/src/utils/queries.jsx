@@ -40,6 +40,7 @@ export const QUERY_TEACHER = gql`
         primaryContactEmail
         school
         teacherId
+        avatarId
         username
       }
     }
@@ -64,6 +65,7 @@ export const QUERY_STUDENT = gql`
       lessonLocation
       lessonTime
       school
+      avatarId
       totalPlanPoints
       totalCompletedPoints
       practicePlans {

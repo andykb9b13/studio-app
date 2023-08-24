@@ -431,6 +431,9 @@ const resolvers = {
       if (args.lessonLocation) {
         student.lessonLocation = args.lessonLocation;
       }
+      if (args.avatarId) {
+        student.avatarId = args.avatarId;
+      }
       if (args.isActive) {
         student.isActive = args.isActive;
       }

@@ -43,6 +43,7 @@ export const ADD_STUDENT = gql`
     $school: String
     $lessonLocation: String
     $teacherId: String
+    $avatarId: Int
   ) {
     addStudent(
       firstName: $firstName
@@ -60,6 +61,7 @@ export const ADD_STUDENT = gql`
       school: $school
       lessonLocation: $lessonLocation
       teacherId: $teacherId
+      avatarId: $avatarId
     ) {
       _id
       email
@@ -76,6 +78,7 @@ export const ADD_STUDENT = gql`
       primaryContactEmail
       school
       teacherId
+      avatarId
       username
     }
   }
@@ -251,6 +254,7 @@ export const EDIT_STUDENT = gql`
     $school: String
     $lessonLocation: String
     $teacherId: String
+    $avatarId: Int
     $isActive: Boolean
   ) {
     editStudent(
@@ -269,6 +273,7 @@ export const EDIT_STUDENT = gql`
       school: $school
       lessonLocation: $lessonLocation
       teacherId: $teacherId
+      avatarId: $avatarId
       isActive: $isActive
     ) {
       _id
@@ -287,6 +292,7 @@ export const EDIT_STUDENT = gql`
       school
       teacherId
       username
+      avatarId
     }
   }
 `;
