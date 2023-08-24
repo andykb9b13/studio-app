@@ -64,6 +64,8 @@ export const QUERY_STUDENT = gql`
       lessonLocation
       lessonTime
       school
+      totalPlanPoints
+      totalCompletedPoints
       practicePlans {
         _id
         name

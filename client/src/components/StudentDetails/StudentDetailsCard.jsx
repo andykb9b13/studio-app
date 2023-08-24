@@ -15,7 +15,7 @@ import Auth from "../../utils/auth";
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student, id } = useContext(StudentContext);
-  console.log(student);
+  console.log(student.totalCompletedPoints);
 
   // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
@@ -39,7 +39,10 @@ export default function StudentDetailsCard({ active, setActive }) {
 
           {/* Accomplishments like points and badges */}
           <Grid xs={12} md={6}>
-            <BadgesPoints />
+            <BadgesPoints
+              totalPlanPoints={student.totalPlanPoints}
+              totalCompletedPoints={student.totalCompletedPoints}
+            />
           </Grid>
 
           {/* A graph showing days practiced and time practiced */}

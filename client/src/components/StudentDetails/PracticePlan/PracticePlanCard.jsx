@@ -38,7 +38,6 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
     if (assignments !== undefined) {
       const pointsArr = assignments.map((assignment) => assignment.pointsWorth);
       const total = pointsArr.reduce((acc, curr) => acc + curr, 0);
-      console.log(total);
       setPlanPoints(total);
     }
   }, [assignments]);
@@ -81,9 +80,23 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
         level="h2"
         endDecorator={
           Auth.teacherLoggedIn() && (
-            <IconButton onClick={() => setOpen(true)} color="danger">
-              <DeleteIcon />
-            </IconButton>
+            <>
+              <IconButton onClick={() => setOpen(true)} color="danger">
+                <DeleteIcon />
+              </IconButton>
+              {/* Modal for deleting a practice plan */}
+              <RegularModal
+                name="deletePracticePlan"
+                open={open}
+                onRequestClose={() => setOpen(false)}
+              >
+                <DeleteModalContent
+                  onRequestClose={() => setOpen(false)}
+                  confirmAction={() => deletePracticePlanFunc()}
+                  resourceName="Practice Plan"
+                />
+              </RegularModal>
+            </>
           )
         }
       >
@@ -107,19 +120,6 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
 
       {revealed && (
         <>
-          {/* Modal for deleting a practice plan */}
-          <RegularModal
-            name="deletePracticePlan"
-            open={open}
-            onRequestClose={() => setOpen(false)}
-          >
-            <DeleteModalContent
-              onRequestClose={() => setOpen(false)}
-              confirmAction={() => deletePracticePlanFunc()}
-              resourceName="Practice Plan"
-            />
-          </RegularModal>
-
           {/* Container for creating an assignment */}
           <CreateAssignmentContainer
             practicePlan={practicePlan}

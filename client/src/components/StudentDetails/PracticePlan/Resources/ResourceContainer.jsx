@@ -33,7 +33,7 @@ const ResourceContainer = ({ practicePlan, resources, setResources }) => {
       {resources &&
         resources.map((resource) => (
           <React.Fragment key={resource._id}>
-            <Link href={resource.url} alt="resource url">
+            <Link href={resource.url} alt="resource url" target="_blank">
               {resource.resourceName}
             </Link>
             <Typography>{resource.description}</Typography>

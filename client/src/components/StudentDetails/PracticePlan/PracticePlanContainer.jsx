@@ -12,13 +12,9 @@ import Auth from "../../../utils/auth";
 export default function PracticePlanContainer() {
   const { id, practicePlans } = useContext(StudentContext);
   const [open, setOpen] = useState(false);
-  const [studentPlans, setStudentPlans] = useState(practicePlans);
+  const [studentPlans, setStudentPlans] = useState(practicePlans ?? []);
   const [totalPlanPoints, setTotalPlanPoints] = useState(0);
   const [totalCompletedPoints, setTotalCompletedPoints] = useState(0);
-
-  // useEffect(() => {
-  //   setTotalPlanPoints(studentPlans.assignments);
-  // });
 
   useEffect(() => {
     let pointsArr = [];
@@ -32,16 +28,18 @@ export default function PracticePlanContainer() {
   }, [setTotalPlanPoints, studentPlans]);
 
   useEffect(() => {
-    let assignArr = [];
-    studentPlans.map((plan) =>
-      plan.assignments.map((assignment) => assignArr.push(assignment))
-    );
-    let completedArr = assignArr.filter(
-      (assignment) => assignment.completed === true
-    );
-    let pointsArr = completedArr.map((assignment) => assignment.pointsWorth);
-    let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
-    setTotalCompletedPoints(totalPoints);
+    if (studentPlans) {
+      let assignArr = [];
+      studentPlans.forEach((plan) =>
+        plan.assignments.forEach((assignment) => assignArr.push(assignment))
+      );
+      let completedArr = assignArr.filter(
+        (assignment) => assignment.completed === true
+      );
+      let pointsArr = completedArr.map((assignment) => assignment.pointsWorth);
+      let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
+      setTotalCompletedPoints(totalPoints);
+    }
   }, [setTotalCompletedPoints, studentPlans]);
 
   useEffect(() => {
@@ -57,8 +55,8 @@ export default function PracticePlanContainer() {
       });
       alert("Practice Plan created");
       // Update studentPlans with the new practice plan
-      setStudentPlans([...studentPlans, data.addPracticePlan]);
       setOpen(false);
+      setStudentPlans([...studentPlans, data.addPracticePlan]);
     } catch (err) {
       console.error(err);
       alert("Could not create Practice Plan");
@@ -68,6 +66,10 @@ export default function PracticePlanContainer() {
   const handleDeletePracticePlan = (deletedPlanId) => {
     setStudentPlans(studentPlans.filter((plan) => plan._id !== deletedPlanId));
   };
+
+  if (!studentPlans) {
+    return <p>Loading practice plans...</p>;
+  }
 
   return (
     <React.Fragment>
@@ -90,8 +92,9 @@ export default function PracticePlanContainer() {
           <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
         </>
       )}
-
-      {studentPlans &&
+      {!studentPlans ? (
+        <p>Loading practice plans...</p>
+      ) : (
         studentPlans.map((practicePlan) => (
           <PracticePlanCard
             practicePlan={practicePlan}
@@ -101,7 +104,8 @@ export default function PracticePlanContainer() {
             totalPlanPoint={totalPlanPoints}
             setTotalPlanPoints={setTotalPlanPoints}
           />
-        ))}
+        ))
+      )}
     </React.Fragment>
   );
 }
