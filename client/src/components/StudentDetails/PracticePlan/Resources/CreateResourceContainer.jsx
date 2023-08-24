@@ -1,32 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { IconButton } from "@mui/joy";
-import { StudentContext } from "../../../../pages/StudentDetails";
 import { useMutation } from "@apollo/client";
-import { Add } from "@mui/icons-material";
 import CreateResource from "./CreateResource";
 import { ADD_RESOURCE } from "../../../../utils/mutations";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import Auth from "../../../../utils/auth";
 
-const CreateResourceContainer = ({ practicePlan }) => {
-  const { student } = useContext(StudentContext);
-  // const [resources, setResources] = useState();
+const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
-  const [resourceUrl, setResourceUrl] = useState([]);
 
   const createResourceFunc = async (userInput) => {
     console.log(userInput);
     console.log(practicePlan._id);
+    // console.log(resourceUrl);
     try {
       const { data } = await createResource({
         variables: {
+          // url: resourceUrl,
           practicePlanId: practicePlan._id,
           ...userInput,
         },
       });
       console.log(data);
-      // setResources([...resources, data.createResource]);
+      setResources([...resources, data.addResource]);
       alert("Resource Created");
       setOpen(false);
     } catch (err) {
@@ -42,15 +40,13 @@ const CreateResourceContainer = ({ practicePlan }) => {
           onRequestClose={() => setOpen(false)}
           resourceName="Create Resource"
           createResourceFunc={createResourceFunc}
-          // resources={resources}
-          // setResources={setResources}
-          resourceUrl={resourceUrl}
-          setResourceUrl={setResourceUrl}
         />
       </RegularModal>
-      <IconButton onClick={() => setOpen(true)}>
-        <AttachFileIcon color="success" />
-      </IconButton>
+      {Auth.teacherLoggedIn() && (
+        <IconButton onClick={() => setOpen(true)}>
+          <AttachFileIcon color="success" />
+        </IconButton>
+      )}
     </>
   );
 };

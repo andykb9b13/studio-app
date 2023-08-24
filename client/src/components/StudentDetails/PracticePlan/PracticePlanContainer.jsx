@@ -3,16 +3,44 @@ import { Typography, Button } from "@mui/joy";
 import { StudentContext } from "../../../pages/StudentDetails";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
-import CreatePracticePlan from "./CreatePracticePlan";
+import CreatePracticePlan from "./Resources/CreatePracticePlan";
 import PracticePlanCard from "./PracticePlanCard";
 import RegularModal from "../../common/Modal/RegularModal";
+import Auth from "../../../utils/auth";
 
 // displays practice plans from a student
 export default function PracticePlanContainer() {
   const { id, practicePlans } = useContext(StudentContext);
   const [open, setOpen] = useState(false);
-  const [studentPlans, setStudentPlans] = useState(practicePlans);
+  const [studentPlans, setStudentPlans] = useState(practicePlans ?? []);
   const [totalPlanPoints, setTotalPlanPoints] = useState(0);
+  const [totalCompletedPoints, setTotalCompletedPoints] = useState(0);
+
+  useEffect(() => {
+    let pointsArr = [];
+    studentPlans.map((plan) =>
+      plan.assignments.map((assignment) =>
+        pointsArr.push(assignment.pointsWorth)
+      )
+    );
+    const totalPoints = pointsArr.reduce((acc, curr) => acc + curr);
+    setTotalPlanPoints(totalPoints);
+  }, [setTotalPlanPoints, studentPlans]);
+
+  useEffect(() => {
+    if (studentPlans) {
+      let assignArr = [];
+      studentPlans.forEach((plan) =>
+        plan.assignments.forEach((assignment) => assignArr.push(assignment))
+      );
+      let completedArr = assignArr.filter(
+        (assignment) => assignment.completed === true
+      );
+      let pointsArr = completedArr.map((assignment) => assignment.pointsWorth);
+      let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
+      setTotalCompletedPoints(totalPoints);
+    }
+  }, [setTotalCompletedPoints, studentPlans]);
 
   useEffect(() => {
     setStudentPlans(practicePlans);
@@ -27,8 +55,8 @@ export default function PracticePlanContainer() {
       });
       alert("Practice Plan created");
       // Update studentPlans with the new practice plan
-      setStudentPlans([...studentPlans, data.addPracticePlan]);
       setOpen(false);
+      setStudentPlans([...studentPlans, data.addPracticePlan]);
     } catch (err) {
       console.error(err);
       alert("Could not create Practice Plan");
@@ -39,21 +67,34 @@ export default function PracticePlanContainer() {
     setStudentPlans(studentPlans.filter((plan) => plan._id !== deletedPlanId));
   };
 
+  if (!studentPlans) {
+    return <p>Loading practice plans...</p>;
+  }
+
   return (
     <React.Fragment>
       <Typography level="h2">Practice Plans</Typography>
       <Typography level="h4">
         Total Points for all Practice Plans: {totalPlanPoints}
       </Typography>
-      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <CreatePracticePlan
-          onRequestClose={() => setOpen(false)}
-          resourceName="Create Practice Plan"
-          createPracticePlanFunc={createPracticePlanFunc}
-        />
-      </RegularModal>
-      <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
-      {studentPlans &&
+      <Typography level="h4">
+        Total Completed Points: {totalCompletedPoints}
+      </Typography>
+      {Auth.teacherLoggedIn() && (
+        <>
+          <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+            <CreatePracticePlan
+              onRequestClose={() => setOpen(false)}
+              resourceName="Create Practice Plan"
+              createPracticePlanFunc={createPracticePlanFunc}
+            />
+          </RegularModal>
+          <Button onClick={() => setOpen(true)}>Create Practice Plan</Button>
+        </>
+      )}
+      {!studentPlans ? (
+        <p>Loading practice plans...</p>
+      ) : (
         studentPlans.map((practicePlan) => (
           <PracticePlanCard
             practicePlan={practicePlan}
@@ -63,7 +104,8 @@ export default function PracticePlanContainer() {
             totalPlanPoint={totalPlanPoints}
             setTotalPlanPoints={setTotalPlanPoints}
           />
-        ))}
+        ))
+      )}
     </React.Fragment>
   );
 }

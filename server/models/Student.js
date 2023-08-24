@@ -104,6 +104,45 @@ studentSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
+// Define a virtual property for total points worth
+studentSchema.virtual("totalPlanPoints").get(function () {
+  let totalPointsArr = [];
+  if (this.practicePlans && this.practicePlans.length > 0) {
+    this.practicePlans.forEach((plan) =>
+      plan.assignments.forEach((assignment) =>
+        totalPointsArr.push(assignment.pointsWorth)
+      )
+    );
+  }
+  const filteredArr = totalPointsArr.filter((points) => points !== undefined);
+  const totalPoints = filteredArr.reduce((acc, curr) => acc + curr, 0);
+  return totalPoints;
+});
+
+studentSchema.virtual("totalCompletedPoints").get(function () {
+  let pointsArr = [];
+  let completedAssignArr = [];
+
+  if (this.practicePlans && this.practicePlans.length > 0) {
+    this.practicePlans.forEach((plan) => {
+      plan.assignments.forEach((assignment) => {
+        if (assignment.completed === true) {
+          completedAssignArr.push(assignment);
+        }
+      });
+    });
+  }
+
+  completedAssignArr.forEach((assign) => {
+    if (assign.pointsWorth !== undefined) {
+      pointsArr.push(assign.pointsWorth);
+    }
+  });
+
+  const totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
+  return totalPoints;
+});
+
 const Student = model("Student", studentSchema);
 
 module.exports = Student;

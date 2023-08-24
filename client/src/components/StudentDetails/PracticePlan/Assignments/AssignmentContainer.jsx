@@ -19,11 +19,13 @@ import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
 import CongratsModalContent from "../../../common/Modal/CongratsModalContent";
 import CongratsModal from "../../../common/Modal/CongratsModal";
 import Confetti from "react-confetti";
+import Auth from "../../../../utils/auth";
 
 const AssignmentContainer = ({
   assignment,
   onDelete,
-  setStudentAssignments,
+  assignments,
+  setAssignments,
 }) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
@@ -87,17 +89,20 @@ const AssignmentContainer = ({
         }}
       >
         {/* Modal for displaying the delete prompt */}
-        <RegularModal
-          name="deleteAssignment"
-          open={open}
-          onRequestClose={() => setOpen(false)}
-        >
-          <DeleteModalContent
+        {Auth.teacherLoggedIn() && (
+          <RegularModal
+            name="deleteAssignment"
+            open={open}
             onRequestClose={() => setOpen(false)}
-            confirmAction={() => deleteAssignmentFunc()}
-            resourceName="Assignment"
-          />
-        </RegularModal>
+          >
+            <DeleteModalContent
+              onRequestClose={() => setOpen(false)}
+              confirmAction={() => deleteAssignmentFunc()}
+              resourceName="Assignment"
+            />
+          </RegularModal>
+        )}
+
         {/* Pop up modal for when an assignment is marked completed */}
         <CongratsModal
           completedOpen={completedOpen}
@@ -110,21 +115,16 @@ const AssignmentContainer = ({
           />
           <Confetti />
         </CongratsModal>
-        <IconButton color="danger" onClick={() => setOpen(true)}>
-          <DeleteIcon />
-        </IconButton>
+        {Auth.teacherLoggedIn() && (
+          <IconButton color="danger" onClick={() => setOpen(true)}>
+            <DeleteIcon />
+          </IconButton>
+        )}
+
         <IconButton>
           <EditIcon />
         </IconButton>
         <CardContent>
-          <a href={assignment.resourceUrl} alt="assignment resource">
-            Click for link
-          </a>
-          <img
-            src={assignment.resourceUrl}
-            alt="assignment resource"
-            style={{ maxWidth: "75px" }}
-          />
           <Typography>
             <b>Points: {assignment.pointsWorth}</b>
           </Typography>
@@ -160,7 +160,7 @@ const AssignmentContainer = ({
           />
         </CardContent>
         <CardActions>
-          <Button compoent={Link} to="/student/:id/streakPractice">
+          <Button component={Link} to="/student/:id/streakPractice">
             Start a Streak
           </Button>
         </CardActions>

@@ -6,16 +6,18 @@ import { StudentContext } from "../../../../pages/StudentDetails";
 import { ADD_ASSIGNMENT } from "../../../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Add } from "@mui/icons-material";
+import Auth from "../../../../utils/auth";
 
 const CreateAssignmentContainer = ({
   practicePlan,
   assignments,
   setAssignments,
+  resources,
+  setResources,
 }) => {
   const { student } = useContext(StudentContext);
   const [createAssignment, { error }] = useMutation(ADD_ASSIGNMENT);
   const [open, setOpen] = useState(false);
-  const [resourceUrl, setResourceUrl] = useState("");
 
   const createAssignmentFunc = async (userInput) => {
     const pointsWorth = parseInt(userInput.points);
@@ -25,7 +27,6 @@ const CreateAssignmentContainer = ({
           studentId: student._id,
           planId: practicePlan._id,
           pointsWorth: pointsWorth,
-          resourceUrl: resourceUrl,
           completed: false,
           ...userInput,
         },
@@ -46,13 +47,16 @@ const CreateAssignmentContainer = ({
           onRequestClose={() => setOpen(false)}
           resourceName="Create Practice Plan"
           createAssignmentFunc={createAssignmentFunc}
-          resourceUrl={resourceUrl}
-          setResourceUrl={setResourceUrl}
+          resources={resources}
+          setResources={setResources}
+          practicePlan={practicePlan}
         />
       </RegularModal>
-      <IconButton onClick={() => setOpen(true)}>
-        <Add />
-      </IconButton>
+      {Auth.teacherLoggedIn() && (
+        <IconButton onClick={() => setOpen(true)}>
+          <Add />
+        </IconButton>
+      )}
     </>
   );
 };

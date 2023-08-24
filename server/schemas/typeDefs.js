@@ -18,6 +18,8 @@ const typeDefs = gql`
     lessonLocation: String
     isActive: Boolean
     teacherId: String
+    totalPlanPoints: Int
+    totalCompletedPoints: Int
     assignments: [Assignment]
     goals: [Goal]
     skillSheets: [SkillSheet]
