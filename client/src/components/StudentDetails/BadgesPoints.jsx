@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { EDIT_STUDENT } from "../../utils/mutations";
 import { Card, Typography, Box, IconButton } from "@mui/joy";
-import avatar1 from "../../assets/avatars/avatar1.png";
 import level1 from "../../assets/badges/level1.png";
 import level2 from "../../assets/badges/level2.png";
 import level3 from "../../assets/badges/level3.png";
@@ -15,6 +16,24 @@ import { avatarList } from "../common/Assets";
 const BadgesPoints = () => {
   const { student } = useContext(StudentContext);
   const [open, setOpen] = useState(false);
+  const [editStudent, { error }] = useMutation(EDIT_STUDENT);
+
+  const editAvatarFunc = async (avatarId) => {
+    console.log(avatarId);
+    try {
+      await editStudent({
+        variables: {
+          studentId: student._id,
+          avatarId: avatarId,
+        },
+      });
+      alert(`avatar ${avatarId} selected`);
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+      alert("could not select avater");
+    }
+  };
 
   return (
     <Card variant="outlined">
@@ -32,7 +51,10 @@ const BadgesPoints = () => {
         }}
       />
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <SelectAvatar onRequestClose={() => setOpen(false)} />
+        <SelectAvatar
+          onRequestClose={() => setOpen(false)}
+          editAvatarFunc={editAvatarFunc}
+        />
       </RegularModal>
       <IconButton onClick={() => setOpen(true)}>
         <Edit />
