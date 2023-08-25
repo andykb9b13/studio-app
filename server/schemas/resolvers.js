@@ -351,7 +351,17 @@ const resolvers = {
           throw new Error("Teacher not found");
         }
         for (const studentId of deletedTeacher.students) {
-          this.Mutation.deleteStudent(studentId);
+          await resolvers.Mutation.deleteStudent(null, { studentId });
+        }
+        for (const skillSheetId of deletedTeacher.skillSheets) {
+          await SkillSheet.findOneAndDelete({
+            _id: skillSheetId,
+          });
+        }
+        for (const resourceId of deletedTeacher.resources) {
+          await Resource.findOneAndDelete({
+            _id: resourceId,
+          });
         }
         return deletedTeacher;
       } catch (error) {
