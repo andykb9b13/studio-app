@@ -23,7 +23,7 @@ export default function SignUp() {
 
   // Logging in the user
   const handleLogin = (data) => {
-    Auth.login(data);
+    Auth.teacherLogin(data);
   };
 
   // Sending a request to Apollo for the add_teacher mutation
