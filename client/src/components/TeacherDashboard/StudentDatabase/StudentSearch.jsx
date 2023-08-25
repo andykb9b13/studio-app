@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Input, Typography, Select, Option } from "@mui/joy";
 
-const StudentSearch = ({ students, setStudentSearch }) => {
+const StudentSearch = ({ students, setStudents }) => {
   const [searchParam, setSearchParam] = useState(0);
 
   // sets the search parameter when it is changed
@@ -19,35 +19,35 @@ const StudentSearch = ({ students, setStudentSearch }) => {
         myStudents = students.filter((student) =>
           student.firstName.toLowerCase().includes(value.toLowerCase())
         );
-        setStudentSearch(myStudents);
+        setStudents(myStudents);
         break;
       case 1:
         myStudents = students.filter((student) =>
           student.lastName.toLowerCase().includes(value.toLowerCase())
         );
-        setStudentSearch(myStudents);
+        setStudents(myStudents);
         break;
       case 2:
         myStudents = students.filter((student) => student.grade === value);
-        setStudentSearch(myStudents);
+        setStudents(myStudents);
         break;
       case 3:
         myStudents = students.filter((student) =>
           student.instrument.toLowerCase().includes(value.toLowerCase())
         );
-        setStudentSearch(myStudents);
+        setStudents(myStudents);
         break;
       case 4:
         myStudents = students.filter((student) =>
           student.lessonDay.toLowerCase().includes(value.toLowerCase())
         );
-        setStudentSearch(myStudents);
+        setStudents(myStudents);
         break;
       default:
         myStudents = students.filter((student) =>
           student.firstName.toLowerCase().includes(value.toLowerCase())
         );
-        setStudentSearch(myStudents);
+        setStudents(myStudents);
     }
   };
 

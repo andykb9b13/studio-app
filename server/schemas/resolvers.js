@@ -219,8 +219,6 @@ const resolvers = {
         { $addToSet: { students: student._id } },
         { new: true }
       );
-      console.log("here is student in resolver", student);
-      // const token = signToken(student);
       return { student };
     },
 
@@ -237,8 +235,7 @@ const resolvers = {
         resourceUrl,
         ...args,
       });
-
-      const practicePlan = await PracticePlan.findByIdAndUpdate(
+      await PracticePlan.findByIdAndUpdate(
         planId,
         { $addToSet: { assignments: assignment._id } },
         { new: true }
@@ -266,13 +263,12 @@ const resolvers = {
         description,
         teacherId,
       });
-      console.log("resource in resolver", resource);
-      const practicePlan = await PracticePlan.findByIdAndUpdate(
+      await PracticePlan.findByIdAndUpdate(
         practicePlanId,
         { $addToSet: { resources: resource._id } },
         { new: true }
       );
-      const teacher = await Teacher.findByIdAndUpdate(
+      await Teacher.findByIdAndUpdate(
         teacherId,
         { $addToSet: { resources: resource._id } },
         { new: true }
@@ -310,21 +306,17 @@ const resolvers = {
       parent,
       { teacherId, badgeId, difficulty, ...args }
     ) => {
-      console.log("teacherId in resolver", teacherId);
       const skillSheet = await SkillSheet.create({
         teacherId,
         badgeId,
         difficulty,
         ...args,
       });
-      console.log("skillSheet in resolver", skillSheet);
-
-      const teacher = await Teacher.findByIdAndUpdate(
+      await Teacher.findByIdAndUpdate(
         teacherId,
         { $addToSet: { skillSheets: skillSheet._id } },
         { new: true }
       );
-      console.log("teacher in resolver", teacher);
       return skillSheet;
     },
 
@@ -333,8 +325,7 @@ const resolvers = {
         studentId,
         ...args,
       });
-
-      const student = await Student.findByIdAndUpdate(
+      await Student.findByIdAndUpdate(
         studentId,
         { $addToSet: { practicePlans: practicePlan._id } },
         { new: true }
@@ -343,7 +334,30 @@ const resolvers = {
     },
 
     deleteTeacher: async (parent, { teacherId }) => {
-      return await Teacher.findOneAndDelete({ _id: teacherId });
+      try {
+        const deletedTeacher = await Teacher.findOneAndDelete({
+          _id: teacherId,
+        });
+        if (!deletedTeacher) {
+          throw new Error("Teacher not found");
+        }
+        for (const studentId of deletedTeacher.students) {
+          await resolvers.Mutation.deleteStudent(null, { studentId });
+        }
+        for (const skillSheetId of deletedTeacher.skillSheets) {
+          await SkillSheet.findOneAndDelete({
+            _id: skillSheetId,
+          });
+        }
+        for (const resourceId of deletedTeacher.resources) {
+          await Resource.findOneAndDelete({
+            _id: resourceId,
+          });
+        }
+        return deletedTeacher;
+      } catch (error) {
+        throw new Error("Error deleting teacher: " + error.message);
+      }
     },
 
     deleteStudent: async (parent, { studentId }) => {
@@ -364,10 +378,6 @@ const resolvers = {
             });
           }
         }
-        // for (const assignmentId of deletedStudent.assignments) {
-        //   await Assignment.findOneAndDelete({ _id: assignmentId });
-        // }
-
         await Teacher.updateMany(
           { students: studentId },
           { $pull: { students: studentId } }
@@ -438,12 +448,34 @@ const resolvers = {
         );
         return deletedPlan;
       } catch (error) {
-        throw new Error("Error deleting practice plan: ", +error.message);
+        throw new Error("Error deleting practice plan: " + error.message);
       }
     },
 
     deleteSkillSheet: async (parent, { skillSheetId }) => {
-      return await SkillSheet.findOneAndDelete({ _id: skillSheetId });
+      try {
+        const deletedSkillSheet = await SkillSheet.findOneAndDelete({
+          _id: skillSheetId,
+        });
+        if (!deletedSkillSheet) {
+          throw new Error("Skill Sheet not found");
+        }
+        await Student.updateMany(
+          { skillSheets: skillSheetId },
+          { $pull: { skillSheets: skillSheetId } }
+        );
+        await Teacher.updateMany(
+          { skillSheets: skillSheetId },
+          { $pull: { skillSheets: skillSheetId } }
+        );
+        await Student.updateMany(
+          { skillSheets: skillSheetId },
+          { $pull: { skillSheets: skillSheetId } }
+        );
+        return deletedSkillSheet;
+      } catch (error) {
+        throw new Error("Error deleting Skill Sheet: " + error.message);
+      }
     },
 
     editTeacher: async (

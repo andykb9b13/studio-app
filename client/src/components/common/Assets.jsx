@@ -7,6 +7,7 @@ import avatar6 from "../../assets/avatars/avatar6.png";
 import avatar7 from "../../assets/avatars/avatar7.png";
 import avatar8 from "../../assets/avatars/avatar8.png";
 
+import skillSheetDefaultBadge from "../../assets/badges/skillSheetDefaultBadge.png";
 import climbingHigh from "../../assets/badges/climbingHigh.png";
 import goGetter from "../../assets/badges/goGetter.png";
 import level1 from "../../assets/badges/level1.png";
@@ -26,10 +27,11 @@ export const avatarList = [
 ];
 
 export const badgeList = [
-  { id: 0, name: level1 },
-  { id: 1, name: level2 },
-  { id: 2, name: level3 },
-  { id: 3, name: level4 },
-  { id: 4, name: climbingHigh },
-  { id: 5, name: goGetter },
+  { id: 0, name: skillSheetDefaultBadge },
+  { id: 1, name: level1 },
+  { id: 2, name: level2 },
+  { id: 3, name: level3 },
+  { id: 4, name: level4 },
+  { id: 5, name: climbingHigh },
+  { id: 6, name: goGetter },
 ];

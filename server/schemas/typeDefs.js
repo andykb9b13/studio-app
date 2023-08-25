@@ -78,7 +78,7 @@ const typeDefs = gql`
     exercises: String
     etudes: String
     pieces: String
-    points: Int
+    pointsWorth: Int
     badgeId: Int
     difficulty: String
     completed: Boolean
@@ -203,7 +203,7 @@ const typeDefs = gql`
       exercises: String
       etudes: String
       pieces: String
-      points: Int
+      pointsWorth: Int
       badgeId: Int
       difficulty: String
       completed: Boolean
@@ -281,7 +281,7 @@ const typeDefs = gql`
       exercises: String
       etudes: String
       pieces: String
-      points: Int
+      pointsWorth: Int
       badgeId: Int
       difficulty: String
       completed: Boolean
