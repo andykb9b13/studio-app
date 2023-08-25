@@ -306,10 +306,15 @@ const resolvers = {
       return goal;
     },
 
-    addSkillSheet: async (parent, { teacherId, ...args }) => {
+    addSkillSheet: async (
+      parent,
+      { teacherId, badgeId, difficulty, ...args }
+    ) => {
       console.log("teacherId in resolver", teacherId);
       const skillSheet = await SkillSheet.create({
         teacherId,
+        badgeId,
+        difficulty,
         ...args,
       });
       console.log("skillSheet in resolver", skillSheet);

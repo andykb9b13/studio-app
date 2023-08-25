@@ -17,19 +17,17 @@ export const QUERY_TEACHER = gql`
       }
       skillSheets {
         _id
-        arpeggios
-        articulation
-        completed
-        description
-        difficulty
-        etudes
-        exercises
-        longTones
-        pieces
-        scales
         sheetName
-        slurs
         teacherId
+        description
+        scales
+        exercises
+        etudes
+        pieces
+        points
+        badgeId
+        difficulty
+        completed
       }
       students {
         _id
@@ -111,18 +109,16 @@ export const QUERY_STUDENT = gql`
         skillSheets {
           _id
           sheetName
-          completed
-          description
-          difficulty
-          arpeggios
-          articulation
-          etudes
-          exercises
-          longTones
-          pieces
-          scales
-          slurs
           teacherId
+          description
+          scales
+          exercises
+          etudes
+          pieces
+          points
+          badgeId
+          difficulty
+          completed
         }
         goals {
           _id

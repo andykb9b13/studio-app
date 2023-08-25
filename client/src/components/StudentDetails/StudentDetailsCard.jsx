@@ -11,11 +11,21 @@ import SkillSheetCard from "./SkillSheetsCard";
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";
+import { QUERY_TEACHER } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student, id } = useContext(StudentContext);
-  console.log(student.totalCompletedPoints);
+
+  const { data } = useQuery(QUERY_TEACHER, {
+    variables: {
+      teacherId: student.teacherId,
+    },
+  });
+
+  const teacher = data?.teacher || [];
+  console.log(teacher);
 
   // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
@@ -52,7 +62,7 @@ export default function StudentDetailsCard({ active, setActive }) {
 
           {/* Showing all skill sheets completed */}
           <Grid xs={12} md={6}>
-            <SkillSheetCard />
+            <SkillSheetCard teacher={teacher} />
           </Grid>
         </Grid>
       </CardContent>

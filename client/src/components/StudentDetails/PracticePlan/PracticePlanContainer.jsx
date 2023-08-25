@@ -30,8 +30,8 @@ export default function PracticePlanContainer() {
 
   useEffect(() => {
     let assignArr = [];
-    studentPlans?.forEach((plan) =>
-      plan.assignments.forEach((assignment) => assignArr.push(assignment))
+    studentPlans?.map((plan) =>
+      plan.assignments?.forEach((assignment) => assignArr.push(assignment))
     );
     let completedArr = assignArr.filter(
       (assignment) => assignment.completed === true
