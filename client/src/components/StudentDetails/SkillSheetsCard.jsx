@@ -3,9 +3,12 @@ import { Card, Typography, Table } from "@mui/joy";
 import goGetter from "../../assets/badges/goGetter.png";
 import climbingHigh from "../../assets/badges/climbingHigh.png";
 import { StudentContext } from "../../pages/StudentDetails";
+import { badgeList } from "../common/Assets";
 
-const SkillSheetCard = () => {
+const SkillSheetCard = ({ teacher }) => {
   const { student } = useContext(StudentContext);
+  console.log(teacher.skillSheets);
+
   return (
     <Card variant="outlined">
       <Typography level="h2">Skill Sheets</Typography>
@@ -28,6 +31,17 @@ const SkillSheetCard = () => {
           </tr>
         </thead>
         <tbody>
+          {teacher &&
+            teacher.skillSheets?.map((skillSheet) => (
+              <tr key={skillSheet._id}>
+                <td>{skillSheet.sheetName}</td>
+                <td>
+                  <img src={badgeList[skillSheet.badgeId].name} alt="badge" />
+                </td>
+                <td>{skillSheet.points}</td>
+                <td>{skillSheet.difficulty}</td>
+              </tr>
+            ))}
           <tr>
             <td>Gettin Started</td>
             <td>

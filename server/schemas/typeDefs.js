@@ -75,14 +75,11 @@ const typeDefs = gql`
     teacherId: String
     description: String
     scales: String
-    arpeggios: String
-    articulation: String
-    slurs: String
-    longTones: String
     exercises: String
     etudes: String
     pieces: String
-    badge: String
+    points: Int
+    badgeId: Int
     difficulty: String
     completed: Boolean
   }
@@ -201,16 +198,14 @@ const typeDefs = gql`
     addSkillSheet(
       sheetName: String!
       teacherId: String
-      scales: String
       description: String
-      difficulty: String
-      arpeggios: String
-      articulation: String
-      slurs: String
-      longTones: String
+      scales: String
       exercises: String
       etudes: String
       pieces: String
+      points: Int
+      badgeId: Int
+      difficulty: String
       completed: Boolean
     ): SkillSheet
 
@@ -280,16 +275,15 @@ const typeDefs = gql`
     editSkillSheet(
       skillSheetId: ID!
       sheetName: String
-      scales: String
+      teacherId: String
       description: String
-      difficulty: String
-      arpeggios: String
-      articulation: String
-      slurs: String
-      longTones: String
+      scales: String
       exercises: String
       etudes: String
       pieces: String
+      points: Int
+      badgeId: Int
+      difficulty: String
       completed: Boolean
     ): SkillSheet!
   }

@@ -159,43 +159,37 @@ export const ADD_SKILLSHEET = gql`
   mutation addSkillSheet(
     $sheetName: String!
     $teacherId: String
-    $scales: String
     $description: String
-    $difficulty: String
-    $arpeggios: String
-    $articulation: String
-    $slurs: String
-    $longTones: String
+    $scales: String
     $exercises: String
     $etudes: String
     $pieces: String
+    $points: Int
+    $badgeId: Int
+    $difficulty: String
   ) {
     addSkillSheet(
       sheetName: $sheetName
       teacherId: $teacherId
-      scales: $scales
-      arpeggios: $arpeggios
       description: $description
-      difficulty: $difficulty
-      articulation: $articulation
-      slurs: $slurs
-      longTones: $longTones
+      scales: $scales
       exercises: $exercises
       etudes: $etudes
       pieces: $pieces
+      points: $points
+      badgeId: $badgeId
+      difficulty: $difficulty
     ) {
       sheetName
       teacherId
-      scales
-      arpeggios
       description
-      difficulty
-      articulation
-      slurs
-      longTones
+      scales
       exercises
       etudes
       pieces
+      points
+      badgeId
+      difficulty
     }
   }
 `;

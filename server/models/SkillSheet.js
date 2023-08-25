@@ -15,22 +15,6 @@ const skillSheetSchema = new Schema({
     type: String,
     trim: true,
   },
-  arpeggios: {
-    type: String,
-    trim: true,
-  },
-  articulation: {
-    type: String,
-    trim: true,
-  },
-  slurs: {
-    type: String,
-    trim: true,
-  },
-  longTones: {
-    type: String,
-    trim: true,
-  },
   exercises: {
     type: String,
     trim: true,
@@ -46,8 +30,8 @@ const skillSheetSchema = new Schema({
   points: {
     type: Number,
   },
-  badge: {
-    type: String,
+  badgeId: {
+    type: Number,
   },
   difficulty: {
     type: String,
