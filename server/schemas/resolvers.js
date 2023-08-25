@@ -343,7 +343,20 @@ const resolvers = {
     },
 
     deleteTeacher: async (parent, { teacherId }) => {
-      return await Teacher.findOneAndDelete({ _id: teacherId });
+      try {
+        const deletedTeacher = await Teacher.findOneAndDelete({
+          _id: teacherId,
+        });
+        if (!deletedTeacher) {
+          throw new Error("Teacher not found");
+        }
+        for (const studentId of deletedTeacher.students) {
+          this.Mutation.deleteStudent(studentId);
+        }
+        return deletedTeacher;
+      } catch (error) {
+        throw new Error("Error deleting teacher: " + error.message);
+      }
     },
 
     deleteStudent: async (parent, { studentId }) => {
@@ -364,10 +377,6 @@ const resolvers = {
             });
           }
         }
-        // for (const assignmentId of deletedStudent.assignments) {
-        //   await Assignment.findOneAndDelete({ _id: assignmentId });
-        // }
-
         await Teacher.updateMany(
           { students: studentId },
           { $pull: { students: studentId } }
@@ -438,12 +447,34 @@ const resolvers = {
         );
         return deletedPlan;
       } catch (error) {
-        throw new Error("Error deleting practice plan: ", +error.message);
+        throw new Error("Error deleting practice plan: " + error.message);
       }
     },
 
     deleteSkillSheet: async (parent, { skillSheetId }) => {
-      return await SkillSheet.findOneAndDelete({ _id: skillSheetId });
+      try {
+        const deletedSkillSheet = await SkillSheet.findOneAndDelete({
+          _id: skillSheetId,
+        });
+        if (!deletedSkillSheet) {
+          throw new Error("Skill Sheet not found");
+        }
+        await Student.updateMany(
+          { skillSheets: skillSheetId },
+          { $pull: { skillSheets: skillSheetId } }
+        );
+        await Teacher.updateMany(
+          { skillSheets: skillSheetId },
+          { $pull: { skillSheets: skillSheetId } }
+        );
+        await Student.updateMany(
+          { skillSheets: skillSheetId },
+          { $pull: { skillSheets: skillSheetId } }
+        );
+        return deletedSkillSheet;
+      } catch (error) {
+        throw new Error("Error deleting Skill Sheet: " + error.message);
+      }
     },
 
     editTeacher: async (
