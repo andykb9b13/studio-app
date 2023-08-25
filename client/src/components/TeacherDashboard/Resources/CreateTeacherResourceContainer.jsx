@@ -1,24 +1,23 @@
 import React, { useState, useContext } from "react";
-import RegularModal from "../../../common/Modal/RegularModal";
+import RegularModal from "../../common/Modal/RegularModal";
 import { IconButton } from "@mui/joy";
 import { useMutation } from "@apollo/client";
-import CreateResource from "./CreateResource";
-import { ADD_RESOURCE } from "../../../../utils/mutations";
+import CreateResource from "../../StudentDetails/PracticePlan/Resources/CreateResource";
+import { ADD_RESOURCE } from "../../../utils/mutations";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import Auth from "../../../../utils/auth";
-import { StudentContext } from "../../../../pages/StudentDetails";
+import Auth from "../../../utils/auth";
+import { TeacherContext } from "../../../pages/TeacherDashboard";
 
-const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
+const CreateTeacherResourceContainer = ({ resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
-  const { student } = useContext(StudentContext);
+  const { teacher } = useContext(TeacherContext);
 
   const createResourceFunc = async (userInput) => {
     try {
       const { data } = await createResource({
         variables: {
-          teacherId: student.teacherId,
-          practicePlanId: practicePlan._id,
+          teacherId: teacher._id,
           ...userInput,
         },
       });
@@ -49,4 +48,4 @@ const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   );
 };
 
-export default CreateResourceContainer;
+export default CreateTeacherResourceContainer;

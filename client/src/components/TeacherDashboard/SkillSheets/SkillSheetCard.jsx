@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, CardContent, Typography } from "@mui/joy";
+import { Card, CardContent, CardCover, Typography } from "@mui/joy";
+import musicNotes from "../../../assets/home/musicNotes.png";
 
 const SkillSheetCard = ({ activeSheet }) => {
   return (
