@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Sheet, Table, Button } from "@mui/joy";
+import { Sheet, Table, Button, IconButton } from "@mui/joy";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import RegularModal from "../../common/Modal/RegularModal";
+import DeleteModalContent from "../../common/Modal/DeleteModalContent";
+import { DELETE_STUDENT } from "../../../utils/mutations";
+import { Delete } from "@mui/icons-material";
 
-const StudentDatabaseTable = ({ students }) => {
+const StudentDatabaseTable = ({ students, setStudents }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [deleteStudent, { error }] = useMutation(DELETE_STUDENT);
+  // function for deleting a student
+  const deleteStudentFunc = async (studentId) => {
+    await deleteStudent({ variables: { studentId: studentId } });
+    alert("Student successfully deleted");
+    setOpen(false);
+    setStudents(students.filter((student) => student._id !== studentId));
+  };
 
   // Setting the isMobile state to true if the window width is less than or equal to 768px
   useEffect(() => {
@@ -53,6 +67,20 @@ const StudentDatabaseTable = ({ students }) => {
                   >
                     View Student Info
                   </Button>
+                  <IconButton onClick={() => setOpen(true)} color="danger">
+                    <Delete />
+                  </IconButton>
+
+                  <RegularModal
+                    open={open}
+                    onRequestClose={() => setOpen(false)}
+                  >
+                    <DeleteModalContent
+                      onRequestClose={() => setOpen(false)}
+                      confirmAction={() => deleteStudentFunc(student._id)}
+                      resourceName="student"
+                    />
+                  </RegularModal>
                 </td>
               </tr>
             ))}

@@ -38,28 +38,22 @@ const TeacherDashboard = () => {
       teacherId: id,
     },
   });
+  const { isMobile } = useContext(MobileContext); // checking if the screen size is mobile
   const [deleteTeacher, { error }] = useMutation(DELETE_TEACHER);
+  const [students, setStudents] = useState(data?.teacher.students || []);
+  const [clicked, setClicked] = useState(false); // handler for the tabs
+  const [open, setOpen] = useState(false); // handler for the modal
 
-  // Setting variables for teacher information and student information
-  const students = data?.teacher.students || [];
   const teacher = data?.teacher || [];
-  const [studentSearch, setStudentSearch] = useState(students);
 
-  // handler for the tabs
-  const [clicked, setClicked] = useState(false);
-  // handler for the modal
-  const [open, setOpen] = useState(false);
-  // checking if the screen size is mobile
-  const { isMobile } = useContext(MobileContext);
-
-  // Handles the panel
+  // Handles the panel viewing
   const handleClick = (event) => {
     setClicked(!clicked);
   };
 
   // Setting the students to be displayed initially
   useEffect(() => {
-    setStudentSearch(teacher.students);
+    setStudents(teacher.students);
   }, [teacher.students]);
 
   const deleteTeacherFunc = async () => {
@@ -124,10 +118,7 @@ const TeacherDashboard = () => {
 
               {/* Panel for student database view (includes student search) */}
               <TabPanel value={0} sx={{ p: 2 }}>
-                <StudentSearch
-                  students={students}
-                  setStudentSearch={setStudentSearch}
-                />
+                <StudentSearch students={students} setStudents={setStudents} />
                 <Button
                   onClick={() => {
                     handleClick();
@@ -140,7 +131,10 @@ const TeacherDashboard = () => {
                 </Button>
 
                 {clicked ? <CreateStudent teacherId={id} /> : ""}
-                <StudentDatabaseTable students={studentSearch} />
+                <StudentDatabaseTable
+                  students={students}
+                  setStudents={setStudents}
+                />
                 <RegularModal open={open} onRequestClose={() => setOpen(false)}>
                   <DeleteModalContent
                     onRequestClose={() => setOpen(false)}

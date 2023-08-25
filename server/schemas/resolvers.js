@@ -219,8 +219,6 @@ const resolvers = {
         { $addToSet: { students: student._id } },
         { new: true }
       );
-      console.log("here is student in resolver", student);
-      // const token = signToken(student);
       return { student };
     },
 
@@ -237,8 +235,7 @@ const resolvers = {
         resourceUrl,
         ...args,
       });
-
-      const practicePlan = await PracticePlan.findByIdAndUpdate(
+      await PracticePlan.findByIdAndUpdate(
         planId,
         { $addToSet: { assignments: assignment._id } },
         { new: true }
@@ -266,13 +263,12 @@ const resolvers = {
         description,
         teacherId,
       });
-      console.log("resource in resolver", resource);
-      const practicePlan = await PracticePlan.findByIdAndUpdate(
+      await PracticePlan.findByIdAndUpdate(
         practicePlanId,
         { $addToSet: { resources: resource._id } },
         { new: true }
       );
-      const teacher = await Teacher.findByIdAndUpdate(
+      await Teacher.findByIdAndUpdate(
         teacherId,
         { $addToSet: { resources: resource._id } },
         { new: true }
@@ -310,21 +306,17 @@ const resolvers = {
       parent,
       { teacherId, badgeId, difficulty, ...args }
     ) => {
-      console.log("teacherId in resolver", teacherId);
       const skillSheet = await SkillSheet.create({
         teacherId,
         badgeId,
         difficulty,
         ...args,
       });
-      console.log("skillSheet in resolver", skillSheet);
-
-      const teacher = await Teacher.findByIdAndUpdate(
+      await Teacher.findByIdAndUpdate(
         teacherId,
         { $addToSet: { skillSheets: skillSheet._id } },
         { new: true }
       );
-      console.log("teacher in resolver", teacher);
       return skillSheet;
     },
 
@@ -333,8 +325,7 @@ const resolvers = {
         studentId,
         ...args,
       });
-
-      const student = await Student.findByIdAndUpdate(
+      await Student.findByIdAndUpdate(
         studentId,
         { $addToSet: { practicePlans: practicePlan._id } },
         { new: true }
