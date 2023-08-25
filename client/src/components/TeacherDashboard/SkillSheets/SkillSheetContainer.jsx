@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import { Card, Grid, Button } from "@mui/joy";
-import CreateSkillSheet from "./CreateSkillSheet";
+import { Card, Grid } from "@mui/joy";
+import CreateSkillSheetContainer from "./CreateSkillSheetContainer";
 import SkillSheetTable from "./SkillSheetTable";
 import SkillSheetCard from "./SkillSheetCard";
 import RegularModal from "../../common/Modal/RegularModal";
@@ -15,10 +15,6 @@ const SkillSheetContainer = () => {
   const [skillSheets, setSkillSheets] = useState(teacher.skillSheets);
 
   const [deleteSkillSheet, { error }] = useMutation(DELETE_SKILLSHEET);
-
-  const createSkillSheetFunc = async (userInput) => {
-    console.log("in handleSkillSheet");
-  };
 
   const deleteSkillSheetFunc = async (skillSheetId) => {
     try {
@@ -65,16 +61,10 @@ const SkillSheetContainer = () => {
 
       {/* Modal for creating a skillsheet */}
       <Card variant="outlined">
-        <RegularModal
-          open={modalOpenIndex === 3}
-          onRequestClose={() => setModalOpenIndex(null)}
-        >
-          <CreateSkillSheet
-            onRequestClose={() => setModalOpenIndex(null)}
-            createSkillSheetFunc={createSkillSheetFunc}
-          />
-        </RegularModal>
-        <Button onClick={() => setModalOpenIndex(3)}>Create Skill Sheet</Button>
+        <CreateSkillSheetContainer
+          setSkillSheets={setSkillSheets}
+          skillSheets={skillSheets}
+        />
       </Card>
     </Grid>
   );

@@ -1,5 +1,5 @@
 import { Button, Sheet, Table, IconButton } from "@mui/joy";
-import React, { useState } from "react";
+import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
@@ -19,15 +19,17 @@ const SkillSheetTable = ({
             <th>Sheet Name</th>
             <th>Exercises</th>
             <th>Scales</th>
+            <th>Points</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {skillSheets.map((skillSheet) => (
+          {skillSheets?.map((skillSheet) => (
             <tr key={skillSheet._id}>
               <td>{skillSheet.sheetName}</td>
               <td>{skillSheet.exercises}</td>
               <td>{skillSheet.scales}</td>
+              <td>{skillSheet.points}</td>
               <td>
                 <Button
                   onClick={() => {

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardContent, CardActions, Grid } from "@mui/joy";
 import { StudentContext } from "../../pages/StudentDetails";
@@ -7,7 +7,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import StudentInfo from "./StudentInfo";
 import BadgesPoints from "./BadgesPoints";
 import PracticeGraph from "./PracticeGraph";
-import SkillSheetCard from "./SkillSheetsCard";
+import SkillSheetCard from "./SkillSheetCard";
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";

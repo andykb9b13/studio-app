@@ -24,7 +24,7 @@ export const QUERY_TEACHER = gql`
         exercises
         etudes
         pieces
-        points
+        pointsWorth
         badgeId
         difficulty
         completed
@@ -115,7 +115,7 @@ export const QUERY_STUDENT = gql`
           exercises
           etudes
           pieces
-          points
+          pointsWorth
           badgeId
           difficulty
           completed
@@ -162,18 +162,17 @@ export const QUERY_PRACTICEPLANS = gql`
         practiceDays
       }
       skillSheets {
+        _id
         sheetName
         teacherId
-        scales
-        arpeggios
         description
-        difficulty
-        articulation
-        slurs
-        longTones
+        scales
         exercises
         etudes
         pieces
+        pointsWorth
+        badgeId
+        difficulty
         completed
       }
     }
