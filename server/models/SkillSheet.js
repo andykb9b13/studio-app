@@ -27,7 +27,7 @@ const skillSheetSchema = new Schema({
     type: String,
     trim: true,
   },
-  pointsWorth: {
+  sheetPoints: {
     type: Number,
   },
   badgeId: {

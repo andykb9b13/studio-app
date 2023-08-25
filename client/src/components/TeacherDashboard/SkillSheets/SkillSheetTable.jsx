@@ -3,6 +3,7 @@ import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
+import { badgeList } from "../../common/Assets";
 
 const SkillSheetTable = ({
   setActiveSheet,
@@ -17,9 +18,11 @@ const SkillSheetTable = ({
         <thead>
           <tr>
             <th>Sheet Name</th>
+            <th>Badge</th>
             <th>Exercises</th>
             <th>Scales</th>
             <th>Points</th>
+            <th>Difficulty</th>
             <th></th>
           </tr>
         </thead>
@@ -27,9 +30,21 @@ const SkillSheetTable = ({
           {skillSheets?.map((skillSheet) => (
             <tr key={skillSheet._id}>
               <td>{skillSheet.sheetName}</td>
+              <td>
+                <img
+                  src={
+                    skillSheet.badgeId
+                      ? badgeList[skillSheet.badgeId].name
+                      : badgeList[0].name
+                  }
+                  alt="badge"
+                  style={{ width: "50%" }}
+                />
+              </td>
               <td>{skillSheet.exercises}</td>
               <td>{skillSheet.scales}</td>
-              <td>{skillSheet.points}</td>
+              <td>{skillSheet.sheetPoints}</td>
+              <td>{skillSheet.difficulty}</td>
               <td>
                 <Button
                   onClick={() => {

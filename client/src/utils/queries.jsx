@@ -24,7 +24,7 @@ export const QUERY_TEACHER = gql`
         exercises
         etudes
         pieces
-        pointsWorth
+        sheetPoints
         badgeId
         difficulty
         completed
@@ -115,7 +115,7 @@ export const QUERY_STUDENT = gql`
           exercises
           etudes
           pieces
-          pointsWorth
+          sheetPoints
           badgeId
           difficulty
           completed
@@ -170,7 +170,7 @@ export const QUERY_PRACTICEPLANS = gql`
         exercises
         etudes
         pieces
-        pointsWorth
+        sheetPoints
         badgeId
         difficulty
         completed

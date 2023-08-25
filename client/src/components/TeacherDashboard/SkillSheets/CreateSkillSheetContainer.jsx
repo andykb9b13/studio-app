@@ -5,6 +5,7 @@ import { Button } from "@mui/joy";
 import { TeacherContext } from "../../../pages/TeacherDashboard";
 import RegularModal from "../../common/Modal/RegularModal";
 import CreateSkillSheet from "./CreateSkillSheet";
+import { ExecutableDefinitionsRule } from "graphql";
 
 const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
   const { teacher } = useContext(TeacherContext);
@@ -14,18 +15,26 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
   const [createSkillSheet, { errors }] = useMutation(ADD_SKILLSHEET);
 
   const createSkillSheetFunc = async (userInput) => {
+    const mySheetPoints = parseInt(userInput.sheetPoints);
     try {
       if (!badgeId) {
         setBadgeId(0);
       }
-      const { data } = await createSkillSheet({
+      const { data, client } = await createSkillSheet({
         variables: {
           teacherId: teacher._id,
+          sheetPoints: mySheetPoints,
           difficulty: difficulty,
           badgeId: badgeId,
-          ...userInput,
+          sheetName: userInput.sheetName,
+          description: userInput.description,
+          scales: userInput.scales,
+          exercises: userInput.exercises,
+          etudes: userInput.etudes,
+          pieces: userInput.pieces,
         },
       });
+      console.log(client);
       console.log(data);
       setOpen(null);
       setSkillSheets([...skillSheets, data.addSkillSheet]);
