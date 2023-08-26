@@ -41,6 +41,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const clearApolloCache = () => {
+  client.clearStore();
+};
+
+clearApolloCache();
+
 export const MobileContext = createContext();
 
 function App() {

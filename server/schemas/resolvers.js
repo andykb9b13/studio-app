@@ -304,10 +304,11 @@ const resolvers = {
 
     addSkillSheet: async (
       parent,
-      { teacherId, badgeId, difficulty, ...args }
+      { teacherId, badgeId, difficulty, sheetPoints, ...args }
     ) => {
       const skillSheet = await SkillSheet.create({
         teacherId,
+        sheetPoints,
         badgeId,
         difficulty,
         ...args,

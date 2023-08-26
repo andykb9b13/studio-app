@@ -164,7 +164,7 @@ export const ADD_SKILLSHEET = gql`
     $exercises: String
     $etudes: String
     $pieces: String
-    $pointsWorth: Int
+    $sheetPoints: Int
     $badgeId: Int
     $difficulty: String
   ) {
@@ -176,7 +176,7 @@ export const ADD_SKILLSHEET = gql`
       exercises: $exercises
       etudes: $etudes
       pieces: $pieces
-      pointsWorth: $pointsWorth
+      sheetPoints: $sheetPoints
       badgeId: $badgeId
       difficulty: $difficulty
     ) {
@@ -187,7 +187,7 @@ export const ADD_SKILLSHEET = gql`
       exercises
       etudes
       pieces
-      pointsWorth
+      sheetPoints
       badgeId
       difficulty
     }

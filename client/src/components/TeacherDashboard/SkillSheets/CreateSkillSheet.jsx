@@ -32,7 +32,6 @@ const CreateSkillSheet = ({
 
   const onSubmit = async (userInput) => {
     try {
-      console.log("userInput", userInput);
       await createSkillSheetFunc(userInput);
     } catch (err) {
       console.error(err);
@@ -116,7 +115,7 @@ const CreateSkillSheet = ({
         <Typography>Pieces</Typography>
         <Textarea minRows={3} {...register("pieces")} />
         <Typography>Points</Typography>
-        <Input type="number" {...register("points")} />
+        <Input type="number" {...register("sheetPoints")} />
         {badgeId ? (
           <img
             src={badgeList[badgeId].name}

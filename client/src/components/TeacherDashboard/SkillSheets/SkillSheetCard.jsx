@@ -1,5 +1,7 @@
 import React from "react";
-import { Card, CardContent, Typography } from "@mui/joy";
+import { Card, CardContent, CardCover, Typography } from "@mui/joy";
+import musicNotes from "../../../assets/home/musicNotes.png";
+import { badgeList } from "../../common/Assets";
 
 const SkillSheetCard = ({ activeSheet }) => {
   return (
@@ -19,6 +21,15 @@ const SkillSheetCard = ({ activeSheet }) => {
       </Typography>
       <Typography level="body1">{activeSheet.description}</Typography>
       <CardContent>
+        <img
+          src={
+            activeSheet.badgeId
+              ? badgeList[activeSheet.badgeId].name
+              : badgeList[0].name
+          }
+          alt=""
+          style={{ width: "30%" }}
+        />
         <Typography>
           <b>Scales: </b>
           {activeSheet.scales}
@@ -53,7 +64,7 @@ const SkillSheetCard = ({ activeSheet }) => {
         </Typography>
         <Typography>
           <b>Points: </b>
-          {activeSheet.points}
+          {activeSheet.sheetPoints}
         </Typography>
       </CardContent>
     </Card>

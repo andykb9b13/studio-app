@@ -7,12 +7,10 @@ import { DELETE_RESOURCE } from "../../../../utils/mutations";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Divider } from "@mui/material";
 
-const ResourceContainer = ({ practicePlan, resources, setResources }) => {
+const ResourceContainer = ({ resources, setResources }) => {
   const [deleteResource, { error }] = useMutation(DELETE_RESOURCE);
   const [open, setOpen] = useState(false);
-  // const [studentResources, setStudentResources] = useState(resources);
 
-  console.log(resources);
   const deleteResourceFunc = async (resourceId) => {
     try {
       await deleteResource({

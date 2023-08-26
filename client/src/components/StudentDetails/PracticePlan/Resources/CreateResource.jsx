@@ -5,12 +5,7 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import { useForm } from "react-hook-form";
 
-const CreateResource = ({
-  // resourceUrl,
-  // setResourceUrl,
-  createResourceFunc,
-  onRequestClose,
-}) => {
+const CreateResource = ({ createResourceFunc, onRequestClose }) => {
   const { handleSubmit, register } = useForm();
   const [resourceUrl, setResourceUrl] = useState();
 

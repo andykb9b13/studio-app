@@ -1,6 +1,13 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button, Card, CardContent, CardActions, Grid } from "@mui/joy";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Grid,
+  CardCover,
+} from "@mui/joy";
 import { StudentContext } from "../../pages/StudentDetails";
 import { styles } from "../../styles/studentDetailsStyles";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -13,6 +20,7 @@ import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";
 import { QUERY_TEACHER } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
+import musicNoteBkgd from "../../assets/musicNoteBkgd.png";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
@@ -34,6 +42,12 @@ export default function StudentDetailsCard({ active, setActive }) {
 
   return (
     <Card sx={styles.card}>
+      <CardCover
+        sx={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px), linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px)",
+        }}
+      />
       <CardContent>
         {Auth.teacherLoggedIn() && (
           <Link to={`/teacher/${student.teacherId}`}>

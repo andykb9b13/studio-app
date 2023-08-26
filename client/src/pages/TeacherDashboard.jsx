@@ -25,8 +25,11 @@ import RegularModal from "../components/common/Modal/RegularModal";
 import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
 import StorageIcon from "@mui/icons-material/Storage";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
-import BuildIcon from "@mui/icons-material/Build";
+import ChecklistIcon from "@mui/icons-material/Checklist";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import TeacherResourceContainer from "../components/TeacherDashboard/Resources/TeacherResourceContainer";
+import CreateTeacherResourceContainer from "../components/TeacherDashboard/Resources/CreateTeacherResourceContainer";
 
 export const TeacherContext = createContext();
 
@@ -38,13 +41,13 @@ const TeacherDashboard = () => {
       teacherId: id,
     },
   });
+  const teacher = data?.teacher || [];
   const { isMobile } = useContext(MobileContext); // checking if the screen size is mobile
   const [deleteTeacher, { error }] = useMutation(DELETE_TEACHER);
   const [students, setStudents] = useState(data?.teacher.students || []);
   const [clicked, setClicked] = useState(false); // handler for the tabs
   const [open, setOpen] = useState(false); // handler for the modal
-
-  const teacher = data?.teacher || [];
+  const [resources, setResources] = useState(teacher.resources);
 
   // Handles the panel viewing
   const handleClick = (event) => {
@@ -55,6 +58,11 @@ const TeacherDashboard = () => {
   useEffect(() => {
     setStudents(teacher.students);
   }, [teacher.students]);
+
+  // Setting the resources to be displayed initially
+  useEffect(() => {
+    setResources(data?.teacher.resources);
+  }, [setResources, data]);
 
   const deleteTeacherFunc = async () => {
     await deleteTeacher({
@@ -104,7 +112,15 @@ const TeacherDashboard = () => {
                       <b>SkillSheets</b>
                     </Typography>
                   )}
-                  <BuildIcon />
+                  <ChecklistIcon />
+                </Tab>
+                <Tab>
+                  {!isMobile && (
+                    <Typography>
+                      <b>Resources</b>
+                    </Typography>
+                  )}
+                  <HandymanIcon />
                 </Tab>
                 <Tab>
                   {!isMobile && (
@@ -154,11 +170,22 @@ const TeacherDashboard = () => {
 
               {/* Tab panel for Skill sheets */}
               <TabPanel value={2} sx={{ p: 2 }}>
-                <SkillSheetContainer teacher={teacher} />
+                <SkillSheetContainer />
+              </TabPanel>
+
+              <TabPanel value={3} sx={{ p: 2 }}>
+                <TeacherResourceContainer
+                  resources={resources}
+                  setResources={setResources}
+                />
+                <CreateTeacherResourceContainer
+                  resources={resources}
+                  setResources={setResources}
+                />
               </TabPanel>
 
               {/* Tab panel for showing calendar */}
-              <TabPanel value={3} sx={{ p: 2 }}>
+              <TabPanel value={4} sx={{ p: 2 }}>
                 <Calendar />
               </TabPanel>
             </Tabs>
