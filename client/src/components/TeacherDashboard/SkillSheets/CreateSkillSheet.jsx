@@ -1,7 +1,5 @@
-import { useMutation } from "@apollo/client";
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { ADD_SKILLSHEET } from "../../../utils/mutations";
 import {
   Card,
   Input,
@@ -32,6 +30,7 @@ const CreateSkillSheet = ({
 
   const onSubmit = async (userInput) => {
     try {
+      console.log("userInput", userInput);
       await createSkillSheetFunc(userInput);
     } catch (err) {
       console.error(err);
@@ -115,7 +114,7 @@ const CreateSkillSheet = ({
         <Typography>Pieces</Typography>
         <Textarea minRows={3} {...register("pieces")} />
         <Typography>Points</Typography>
-        <Input type="number" {...register("sheetPoints")} />
+        <Input type="number" {...register("points")} />
         {badgeId ? (
           <img
             src={badgeList[badgeId].name}

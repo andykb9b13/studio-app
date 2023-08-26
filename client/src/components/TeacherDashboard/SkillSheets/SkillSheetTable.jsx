@@ -1,9 +1,12 @@
-import { Button, Sheet, Table, IconButton } from "@mui/joy";
-import React from "react";
+import React, { useContext } from "react";
+import { Button, Sheet, Table, IconButton, Typography } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import { badgeList } from "../../common/Assets";
+import { MobileContext } from "../../../App";
+import CountUp from "react-countup";
 
 const SkillSheetTable = ({
   setActiveSheet,
@@ -12,6 +15,7 @@ const SkillSheetTable = ({
   modalOpenIndex,
   deleteSkillSheetFunc,
 }) => {
+  const { isMobile } = useContext(MobileContext);
   return (
     <Sheet>
       <Table>
@@ -19,8 +23,8 @@ const SkillSheetTable = ({
           <tr>
             <th>Sheet Name</th>
             <th>Badge</th>
-            <th>Exercises</th>
-            <th>Scales</th>
+            {!isMobile && <th>Exercises</th>}
+            {!isMobile && <th>Scales</th>}
             <th>Points</th>
             <th>Difficulty</th>
             <th></th>
@@ -29,7 +33,14 @@ const SkillSheetTable = ({
         <tbody>
           {skillSheets?.map((skillSheet) => (
             <tr key={skillSheet._id}>
-              <td>{skillSheet.sheetName}</td>
+              <td
+                onClick={() => {
+                  setActiveSheet(skillSheet);
+                  setModalOpenIndex(2);
+                }}
+              >
+                <Typography level="h5">{skillSheet.sheetName}</Typography>
+              </td>
               <td>
                 <img
                   src={
@@ -38,22 +49,42 @@ const SkillSheetTable = ({
                       : badgeList[0].name
                   }
                   alt="badge"
-                  style={{ width: "50%" }}
-                />
-              </td>
-              <td>{skillSheet.exercises}</td>
-              <td>{skillSheet.scales}</td>
-              <td>{skillSheet.sheetPoints}</td>
-              <td>{skillSheet.difficulty}</td>
-              <td>
-                <Button
+                  style={{ width: "100%" }}
                   onClick={() => {
                     setActiveSheet(skillSheet);
                     setModalOpenIndex(2);
                   }}
-                >
-                  View
-                </Button>
+                />
+              </td>
+              {!isMobile && (
+                <td>
+                  <Typography>{skillSheet.exercises}</Typography>
+                </td>
+              )}
+              {!isMobile && (
+                <td>
+                  <Typography>{skillSheet.scales}</Typography>
+                </td>
+              )}
+              <td>
+                <Typography>
+                  <CountUp end={skillSheet.sheetPoints} />
+                </Typography>
+              </td>
+              <td>
+                <Typography>{skillSheet.difficulty}</Typography>
+              </td>
+              <td>
+                {!isMobile && (
+                  <IconButton
+                    onClick={() => {
+                      setActiveSheet(skillSheet);
+                      setModalOpenIndex(2);
+                    }}
+                  >
+                    <VisibilityIcon color="neutral" />
+                  </IconButton>
+                )}
                 <IconButton onClick={() => setModalOpenIndex(4)} color="danger">
                   <DeleteIcon />
                 </IconButton>

@@ -20,7 +20,7 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
       if (!badgeId) {
         setBadgeId(0);
       }
-      const { data, client } = await createSkillSheet({
+      const { data } = await createSkillSheet({
         variables: {
           teacherId: teacher._id,
           sheetPoints: mySheetPoints,
@@ -34,7 +34,6 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
           pieces: userInput.pieces,
         },
       });
-      console.log(client);
       console.log(data);
       setOpen(null);
       setSkillSheets([...skillSheets, data.addSkillSheet]);
