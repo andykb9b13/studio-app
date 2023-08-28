@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent, CardCover, Typography } from "@mui/joy";
 import musicNotes from "../../../assets/home/musicNotes.png";
 import { badgeList } from "../../common/Assets";
+import { MobileContext } from "../../../App";
 
 const SkillSheetCard = ({ activeSheet }) => {
   return (
@@ -30,10 +31,12 @@ const SkillSheetCard = ({ activeSheet }) => {
           alt=""
           style={{ width: "30%" }}
         />
+
         <Typography>
           <b>Scales: </b>
           {activeSheet.scales}
         </Typography>
+
         <Typography>
           <b>Arpeggios: </b>
           {activeSheet.arpeggios}
