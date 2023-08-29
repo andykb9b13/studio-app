@@ -5,7 +5,6 @@ import { Button } from "@mui/joy";
 import { TeacherContext } from "../../../pages/TeacherDashboard";
 import RegularModal from "../../common/Modal/RegularModal";
 import CreateSkillSheet from "./CreateSkillSheet";
-import { ExecutableDefinitionsRule } from "graphql";
 
 const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
   const { teacher } = useContext(TeacherContext);
