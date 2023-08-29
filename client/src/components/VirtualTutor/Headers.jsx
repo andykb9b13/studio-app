@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography, Button } from "@mui/joy";
+import { Typography } from "@mui/joy";
 
-export const VisualHeader = ({ setActive }) => {
+export const VisualHeader = () => {
   return (
     <>
       <Typography level="h1">Visual</Typography>
@@ -12,15 +12,14 @@ export const VisualHeader = ({ setActive }) => {
         These will check to see if you are having and trouble understanding what
         the dots on the page are telling you to do.
       </Typography>
-      <Button onClick={() => setActive(1)}>Go On</Button>
     </>
   );
 };
 
-export const AuralHeader = ({ setActive }) => {
+export const AuralHeader = () => {
   return (
     <>
-      <Typography level="h1">Visual</Typography>
+      <Typography level="h1">Aural</Typography>
       <Typography level="h2">
         Trouble with note names, rhythms, slide positions/fingerings, etc.
       </Typography>
@@ -28,15 +27,14 @@ export const AuralHeader = ({ setActive }) => {
         These will check to see if you are having and trouble understanding what
         the dots on the page are telling you to do.
       </Typography>
-      <Button onClick={() => setActive(1)}>Go On</Button>
     </>
   );
 };
 
-export const PhysicalHeader = ({ setActive }) => {
+export const PhysicalHeader = () => {
   return (
     <>
-      <Typography level="h1">Visual</Typography>
+      <Typography level="h1">Physical</Typography>
       <Typography level="h2">
         Trouble with note names, rhythms, slide positions/fingerings, etc.
       </Typography>
@@ -44,15 +42,14 @@ export const PhysicalHeader = ({ setActive }) => {
         These will check to see if you are having and trouble understanding what
         the dots on the page are telling you to do.
       </Typography>
-      <Button onClick={() => setActive(1)}>Go On</Button>
     </>
   );
 };
 
-export const ConceptualHeader = ({ setActive }) => {
+export const ConceptualHeader = () => {
   return (
     <>
-      <Typography level="h1">Visual</Typography>
+      <Typography level="h1">Conceptual</Typography>
       <Typography level="h2">
         Trouble with note names, rhythms, slide positions/fingerings, etc.
       </Typography>
@@ -60,7 +57,6 @@ export const ConceptualHeader = ({ setActive }) => {
         These will check to see if you are having and trouble understanding what
         the dots on the page are telling you to do.
       </Typography>
-      <Button onClick={() => setActive(1)}>Go On</Button>
     </>
   );
 };

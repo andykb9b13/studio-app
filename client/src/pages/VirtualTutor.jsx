@@ -8,7 +8,10 @@ import {
   Card,
   CardContent,
   CardActions,
+  Grid,
+  Divider,
 } from "@mui/joy";
+import { List, ListItem, ListItemText } from "@mui/material";
 import { styles } from "../styles/studentDetailsStyles";
 import RegularModal from "../components/common/Modal/RegularModal";
 import {
@@ -17,6 +20,7 @@ import {
   physicalPromptInfo,
   visualPromptInfo,
 } from "../components/VirtualTutor/promptInfo";
+import troubleshooting from "../assets/home/troubleshooting.png";
 
 const VirtualTutor = () => {
   const [open, setOpen] = useState(null);
@@ -46,47 +50,54 @@ const VirtualTutor = () => {
   ];
 
   return (
-    <Sheet sx={styles.sheet}>
-      <Typography level="h2" textAlign={"center"}>
+    <Grid container sx={styles.sheet}>
+      <Typography level="h1" textAlign={"center"}>
         Virtual Tutor
       </Typography>
+
       <Card variant="outlined" sx={styles.card}>
         <CardContent>
-          <>
-            <Typography level="h4">
-              You've got this!!! Let's figure out what's going on.
-            </Typography>
-            <Typography level="body1">
-              Sometimes it can be hard to figure out what you need to work on.
-              These are some first steps to see if any of these need work. LOOK
-              FOR HESITATION WHEN YOU DO THESE. If you hesitate with any of
-              them, repeat it until you don't have hesitation.
-            </Typography>
-          </>
+          <img
+            src={troubleshooting}
+            alt="troubleshooting"
+            style={{ width: "50%" }}
+          />
+          <Typography level="h4">
+            You've got this!!! Let's figure out what's going on.
+          </Typography>
+          <Typography level="body1">
+            Sometimes it can be hard to figure out what you need to work on.
+            These are some first steps to see if any of these need work. LOOK
+            FOR HESITATION WHEN YOU DO THESE. If you hesitate with any of them,
+            repeat it until you don't have hesitation.
+          </Typography>
+          <Divider />
+          <Typography level="h4">
+            Playing the instrument can be broken down into four main categories
+          </Typography>
         </CardContent>
-        <CardActions>
-          {buttonInfo.map((button) => (
-            <React.Fragment key={button.buttonName}>
-              <RegularModal
-                key={button.id}
-                open={open === button.buttonName.toLowerCase()}
-                onRequestClose={() => setOpen(null)}
-              >
-                {button.component}
-              </RegularModal>
-              <Button
-                onClick={() => {
-                  setIndex(button.id);
-                  setOpen(button.buttonName.toLowerCase());
-                }}
-              >
-                {button.buttonName}
-              </Button>
-            </React.Fragment>
-          ))}
-        </CardActions>
+
+        {buttonInfo.map((button) => (
+          <React.Fragment key={button.buttonName}>
+            <RegularModal
+              key={button.id}
+              open={open === button.buttonName.toLowerCase()}
+              onRequestClose={() => setOpen(null)}
+            >
+              {button.component}
+            </RegularModal>
+            <Button
+              onClick={() => {
+                setIndex(button.id);
+                setOpen(button.buttonName.toLowerCase());
+              }}
+            >
+              {button.buttonName}
+            </Button>
+          </React.Fragment>
+        ))}
       </Card>
-    </Sheet>
+    </Grid>
   );
 };
 
