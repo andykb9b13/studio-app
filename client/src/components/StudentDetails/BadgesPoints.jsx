@@ -7,14 +7,14 @@ import level2 from "../../assets/badges/level2.png";
 import level3 from "../../assets/badges/level3.png";
 import level4 from "../../assets/badges/level4.png";
 import CountUp from "react-countup";
-import { StudentContext } from "../../pages/StudentDetails";
+import { useStudentContext } from "../../utils/Context";
 import RegularModal from "../common/Modal/RegularModal";
 import SelectAvatar from "./SelectAvatar";
 import { Edit } from "@mui/icons-material";
 import { avatarList } from "../common/Assets";
 
 const BadgesPoints = () => {
-  const { student } = useContext(StudentContext);
+  const { student } = useStudentContext();
   const [open, setOpen] = useState(false);
   const [editStudent, { error }] = useMutation(EDIT_STUDENT);
 

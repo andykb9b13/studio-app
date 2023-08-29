@@ -2,7 +2,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import StudentLogin from "./pages/StudentLogin";
 import SignUp from "./pages/SignUp";
-import StudentDashboard from "./pages/StudentDashboard";
 import StudentDetails from "./pages/StudentDetails";
 import PracticeHub from "./pages/PracticeHub";
 import VirtualTutor from "./pages/VirtualTutor";
@@ -36,9 +35,6 @@ const AppRoutes = () => {
             path="/teacher/studentDetails/:id"
             element={<StudentDetails />}
           />
-
-          {/* Student Dashboard (not in use yet) */}
-          <Route path="/student/:id" element={<StudentDashboard />} />
 
           {/* Practice Hub */}
           <Route path="/student/:id/practiceHub" element={<PracticeHub />} />

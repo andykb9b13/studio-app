@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
@@ -6,9 +6,7 @@ import { Sheet, Typography } from "@mui/joy";
 import { styles } from "../styles/studentDetailsStyles";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 import Auth from "../utils/auth";
-
-// Creating student context to be passed to all components in this thread
-export const StudentContext = createContext();
+import { useStudentContext } from "../utils/Context";
 
 // Top component in the tree for students. Provider is passing student info through context.
 export default function StudentDetails() {
@@ -21,11 +19,14 @@ export default function StudentDetails() {
     },
   });
 
-  const student = data?.student || [];
-  const practicePlans = data?.student.practicePlans;
+  const { student, setStudent } = useStudentContext();
+
+  useEffect(() => {
+    setStudent(data?.student || {});
+  }, [setStudent, data]);
 
   return (
-    <StudentContext.Provider value={{ student, practicePlans, id }}>
+    <>
       {Auth.loggedIn() ? (
         <Sheet sx={styles.sheet}>
           {/* Main student details section  */}
@@ -36,6 +37,6 @@ export default function StudentDetails() {
           <Typography>Please Login </Typography>
         </Sheet>
       )}
-    </StudentContext.Provider>
+    </>
   );
 }

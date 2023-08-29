@@ -1,13 +1,13 @@
 import { useMutation } from "@apollo/client";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { ADD_SKILLSHEET } from "../../../utils/mutations";
 import { Button } from "@mui/joy";
-import { TeacherContext } from "../../../pages/TeacherDashboard";
 import RegularModal from "../../common/Modal/RegularModal";
 import CreateSkillSheet from "./CreateSkillSheet";
+import { useTeacherContext } from "../../../utils/Context";
 
 const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
-  const { teacher } = useContext(TeacherContext);
+  const { teacher } = useTeacherContext();
   const [open, setOpen] = useState(false);
   const [difficulty, setDifficulty] = useState("easy");
   const [badgeId, setBadgeId] = useState();

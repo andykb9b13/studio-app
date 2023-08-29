@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useMutation } from "@apollo/client";
 import { EDIT_STUDENT } from "../../utils/mutations";
 import { Sheet, Input, Button, Typography, FormHelperText } from "@mui/joy";
-import { StudentContext } from "../../pages/StudentDetails";
+import { useStudentContext } from "../../utils/Context";
 import { useForm } from "react-hook-form";
 import { styles } from "../../styles/cardstyles";
 
 const EditStudent = () => {
-  const { student } = useContext(StudentContext);
+  const { student } = useStudentContext();
   const [editStudent, { loading, error }] = useMutation(EDIT_STUDENT);
   const { register, handleSubmit } = useForm();
 

@@ -21,11 +21,12 @@ import Auth from "../../utils/auth";
 import { QUERY_TEACHER } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import musicNoteBkgd from "../../assets/musicNoteBkgd.png";
+import { useStudentContext } from "../../utils/Context";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
-  const { student, id } = useContext(StudentContext);
-
+  const { student } = useStudentContext();
+  const id = student._id;
   const { data } = useQuery(QUERY_TEACHER, {
     variables: {
       teacherId: student.teacherId,

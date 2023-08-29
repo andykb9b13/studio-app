@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -10,11 +10,11 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/joy";
-import { TeacherContext } from "../../../pages/TeacherDashboard";
 import { useForm } from "react-hook-form";
 import RegularModal from "../../common/Modal/RegularModal";
 import SelectBadge from "./SelectBadge";
 import { badgeList } from "../../common/Assets";
+import { useTeacherContext } from "../../../utils/Context";
 
 const CreateSkillSheet = ({
   onRequestClose,
@@ -24,7 +24,7 @@ const CreateSkillSheet = ({
   difficulty,
   badgeId,
 }) => {
-  const { teacher } = useContext(TeacherContext);
+  const { teacher } = useTeacherContext();
   const { handleSubmit, register } = useForm();
   const [open, setOpen] = useState(null);
 

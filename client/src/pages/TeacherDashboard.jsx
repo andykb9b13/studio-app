@@ -30,10 +30,12 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import TeacherResourceContainer from "../components/TeacherDashboard/Resources/TeacherResourceContainer";
 import CreateTeacherResourceContainer from "../components/TeacherDashboard/Resources/CreateTeacherResourceContainer";
+import { useTeacherContext } from "../utils/Context";
 
-export const TeacherContext = createContext();
+// export const TeacherContext = createContext();
 
 const TeacherDashboard = () => {
+  const { teacher, setTeacher } = useTeacherContext();
   // getting the teacher info using the id from the URL parameters
   const { id } = useParams();
   const { data } = useQuery(QUERY_TEACHER, {
@@ -41,7 +43,11 @@ const TeacherDashboard = () => {
       teacherId: id,
     },
   });
-  const teacher = data?.teacher || [];
+
+  useEffect(() => {
+    setTeacher(data?.teacher || {});
+  }, [setTeacher, data]);
+
   const { isMobile } = useContext(MobileContext); // checking if the screen size is mobile
   const [deleteTeacher, { error }] = useMutation(DELETE_TEACHER);
   const [students, setStudents] = useState(data?.teacher.students || []);
@@ -76,131 +82,131 @@ const TeacherDashboard = () => {
   };
 
   return (
-    <TeacherContext.Provider value={{ teacher }}>
-      <Sheet>
-        {Auth.loggedIn() ? (
-          <Sheet sx={{ mt: 2 }}>
-            {/* These tabs function as the Navbar */}
-            <Tabs
-              aria-label="Basic tabs"
-              defaultValue={0}
-              sx={{ borderRadius: "lg" }}
-              variant="scrollable"
-              scrollbuttons="auto"
-            >
-              <TabList color="primary">
-                {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
-                <Tab>
-                  {!isMobile && (
-                    <Typography>
-                      <b>Student Database</b>
-                    </Typography>
-                  )}
-                  <StorageIcon />
-                </Tab>
-                <Tab>
-                  {!isMobile && (
-                    <Typography>
-                      <b>Bookkeeping/Invoices</b>
-                    </Typography>
-                  )}
-                  <RequestQuoteIcon />
-                </Tab>
-                <Tab>
-                  {!isMobile && (
-                    <Typography>
-                      <b>SkillSheets</b>
-                    </Typography>
-                  )}
-                  <ChecklistIcon />
-                </Tab>
-                <Tab>
-                  {!isMobile && (
-                    <Typography>
-                      <b>Resources</b>
-                    </Typography>
-                  )}
-                  <HandymanIcon />
-                </Tab>
-                <Tab>
-                  {!isMobile && (
-                    <Typography>
-                      <b>View Calendar</b>
-                    </Typography>
-                  )}
-                  <CalendarMonthIcon />
-                </Tab>
-              </TabList>
+    // <TeacherContext.Provider value={{ teacher }}>
+    <Sheet>
+      {Auth.loggedIn() ? (
+        <Sheet sx={{ mt: 2 }}>
+          {/* These tabs function as the Navbar */}
+          <Tabs
+            aria-label="Basic tabs"
+            defaultValue={0}
+            sx={{ borderRadius: "lg" }}
+            variant="scrollable"
+            scrollbuttons="auto"
+          >
+            <TabList color="primary">
+              {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
+              <Tab>
+                {!isMobile && (
+                  <Typography>
+                    <b>Student Database</b>
+                  </Typography>
+                )}
+                <StorageIcon />
+              </Tab>
+              <Tab>
+                {!isMobile && (
+                  <Typography>
+                    <b>Bookkeeping/Invoices</b>
+                  </Typography>
+                )}
+                <RequestQuoteIcon />
+              </Tab>
+              <Tab>
+                {!isMobile && (
+                  <Typography>
+                    <b>SkillSheets</b>
+                  </Typography>
+                )}
+                <ChecklistIcon />
+              </Tab>
+              <Tab>
+                {!isMobile && (
+                  <Typography>
+                    <b>Resources</b>
+                  </Typography>
+                )}
+                <HandymanIcon />
+              </Tab>
+              <Tab>
+                {!isMobile && (
+                  <Typography>
+                    <b>View Calendar</b>
+                  </Typography>
+                )}
+                <CalendarMonthIcon />
+              </Tab>
+            </TabList>
 
-              {/* Panel for student database view (includes student search) */}
-              <TabPanel value={0} sx={{ p: 2 }}>
-                <StudentSearch students={students} setStudents={setStudents} />
-                <Button
-                  onClick={() => {
-                    handleClick();
-                  }}
-                  sx={{ my: 2 }}
-                  variant="soft"
-                  color="success"
-                >
-                  {clicked ? "Cancel" : "Add Student"}
-                </Button>
+            {/* Panel for student database view (includes student search) */}
+            <TabPanel value={0} sx={{ p: 2 }}>
+              <StudentSearch students={students} setStudents={setStudents} />
+              <Button
+                onClick={() => {
+                  handleClick();
+                }}
+                sx={{ my: 2 }}
+                variant="soft"
+                color="success"
+              >
+                {clicked ? "Cancel" : "Add Student"}
+              </Button>
 
-                {clicked ? <CreateStudent teacherId={id} /> : ""}
-                <StudentDatabaseTable
-                  students={students}
-                  setStudents={setStudents}
+              {clicked ? <CreateStudent teacherId={id} /> : ""}
+              <StudentDatabaseTable
+                students={students}
+                setStudents={setStudents}
+              />
+              <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+                <DeleteModalContent
+                  onRequestClose={() => setOpen(false)}
+                  confirmAction={() => deleteTeacherFunc()}
+                  resourceName="teacher"
                 />
-                <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-                  <DeleteModalContent
-                    onRequestClose={() => setOpen(false)}
-                    confirmAction={() => deleteTeacherFunc()}
-                    resourceName="teacher"
-                  />
-                </RegularModal>
-                <Button onClick={() => setOpen(true)} color="danger">
-                  Delete Teacher Account
-                </Button>
-              </TabPanel>
+              </RegularModal>
+              <Button onClick={() => setOpen(true)} color="danger">
+                Delete Teacher Account
+              </Button>
+            </TabPanel>
 
-              {/* Tab panel for bookkeeping and invoices */}
-              <TabPanel value={1} sx={{ p: 2 }}>
-                Bookkeeping and Invoices are under construction
-              </TabPanel>
+            {/* Tab panel for bookkeeping and invoices */}
+            <TabPanel value={1} sx={{ p: 2 }}>
+              Bookkeeping and Invoices are under construction
+            </TabPanel>
 
-              {/* Tab panel for Skill sheets */}
-              <TabPanel value={2} sx={{ p: 2 }}>
-                <SkillSheetContainer />
-              </TabPanel>
+            {/* Tab panel for Skill sheets */}
+            <TabPanel value={2} sx={{ p: 2 }}>
+              <SkillSheetContainer />
+            </TabPanel>
 
-              <TabPanel value={3} sx={{ p: 2 }}>
-                <TeacherResourceContainer
-                  resources={resources}
-                  setResources={setResources}
-                />
-                <CreateTeacherResourceContainer
-                  resources={resources}
-                  setResources={setResources}
-                />
-              </TabPanel>
+            <TabPanel value={3} sx={{ p: 2 }}>
+              <TeacherResourceContainer
+                resources={resources}
+                setResources={setResources}
+              />
+              <CreateTeacherResourceContainer
+                resources={resources}
+                setResources={setResources}
+              />
+            </TabPanel>
 
-              {/* Tab panel for showing calendar */}
-              <TabPanel value={4} sx={{ p: 2 }}>
-                <Calendar />
-              </TabPanel>
-            </Tabs>
-          </Sheet>
-        ) : (
-          // If the user is not logged in, this will show
-          <Card>
-            <Typography level="h3" component="h3">
-              Please Log In
-            </Typography>
-            <Link to="/login">Login</Link>
-          </Card>
-        )}
-      </Sheet>
-    </TeacherContext.Provider>
+            {/* Tab panel for showing calendar */}
+            <TabPanel value={4} sx={{ p: 2 }}>
+              <Calendar />
+            </TabPanel>
+          </Tabs>
+        </Sheet>
+      ) : (
+        // If the user is not logged in, this will show
+        <Card>
+          <Typography level="h3" component="h3">
+            Please Log In
+          </Typography>
+          <Link to="/login">Login</Link>
+        </Card>
+      )}
+    </Sheet>
+    // </TeacherContext.Provider>
   );
 };
 

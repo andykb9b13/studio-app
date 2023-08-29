@@ -1,20 +1,24 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Button } from "@mui/joy";
-import { StudentContext } from "../../../pages/StudentDetails";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
 import CreatePracticePlan from "./CreatePracticePlan";
 import PracticePlanCard from "./PracticePlanCard";
 import RegularModal from "../../common/Modal/RegularModal";
 import Auth from "../../../utils/auth";
+import { useStudentContext } from "../../../utils/Context";
 
 // displays practice plans from a student
 export default function PracticePlanContainer() {
-  const { id, practicePlans } = useContext(StudentContext);
+  const { student } = useStudentContext();
   const [open, setOpen] = useState(false);
-  const [studentPlans, setStudentPlans] = useState(practicePlans ?? []);
+
   const [totalPlanPoints, setTotalPlanPoints] = useState(0);
   const [totalCompletedPoints, setTotalCompletedPoints] = useState(0);
+
+  const id = student._id;
+  const practicePlans = student.practicePlans;
+  const [studentPlans, setStudentPlans] = useState(practicePlans ?? []);
 
   useEffect(() => {
     let pointsArr = [];

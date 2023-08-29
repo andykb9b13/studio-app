@@ -1,17 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Card, Grid } from "@mui/joy";
 import CreateSkillSheetContainer from "./CreateSkillSheetContainer";
 import SkillSheetTable from "./SkillSheetTable";
 import SkillSheetCard from "./SkillSheetCard";
 import RegularModal from "../../common/Modal/RegularModal";
-import { TeacherContext } from "../../../pages/TeacherDashboard";
 import { DELETE_SKILLSHEET } from "../../../utils/mutations";
 import { useMutation } from "@apollo/client";
+import { useTeacherContext } from "../../../utils/Context";
 
 const SkillSheetContainer = () => {
   const [activeSheet, setActiveSheet] = useState(null);
   const [modalOpenIndex, setModalOpenIndex] = useState(null);
-  const { teacher } = useContext(TeacherContext);
+  const { teacher } = useTeacherContext();
   const [skillSheets, setSkillSheets] = useState(teacher.skillSheets);
 
   const [deleteSkillSheet, { error }] = useMutation(DELETE_SKILLSHEET);
