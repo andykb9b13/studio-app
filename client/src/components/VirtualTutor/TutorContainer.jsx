@@ -27,6 +27,10 @@ const TutorContainer = ({ index, promptInfo }) => {
         resize: "horizontal",
       }}
     >
+      {index === 1 && <VisualHeader setActive={setActive} />}
+      {index === 2 && <AuralHeader setActive={setActive} />}
+      {index === 3 && <PhysicalHeader setActive={setActive} />}
+      {index === 4 && <ConceptualHeader setActive={setActive} />}
       <PromptStepper
         promptInfo={promptInfo}
         active={active}
@@ -34,10 +38,6 @@ const TutorContainer = ({ index, promptInfo }) => {
         setActiveStep={setActiveStep}
         activeStep={activeStep}
       />
-      {index === 1 && <VisualHeader setActive={setActive} />}
-      {index === 2 && <AuralHeader setActive={setActive} />}
-      {index === 3 && <PhysicalHeader setActive={setActive} />}
-      {index === 4 && <ConceptualHeader setActive={setActive} />}
     </Sheet>
   );
 };
