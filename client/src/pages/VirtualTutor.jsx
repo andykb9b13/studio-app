@@ -1,8 +1,5 @@
 import React from "react";
-import Visual from "../components/VirtualTutor/Visual/Visual";
-import Aural from "../components/VirtualTutor/Aural";
-import Physical from "../components/VirtualTutor/Physical";
-import Conceptual from "../components/VirtualTutor/Conceptual";
+import TutorContainer from "../components/VirtualTutor/TutorContainer";
 import { useState } from "react";
 import {
   Typography,
@@ -14,15 +11,38 @@ import {
 } from "@mui/joy";
 import { styles } from "../styles/studentDetailsStyles";
 import RegularModal from "../components/common/Modal/RegularModal";
+import {
+  auralPromptInfo,
+  conceptualPromptInfo,
+  physicalPromptInfo,
+  visualPromptInfo,
+} from "../components/VirtualTutor/promptInfo";
 
 const VirtualTutor = () => {
   const [open, setOpen] = useState(null);
+  const [index, setIndex] = useState(null);
 
   const buttonInfo = [
-    { buttonName: "Visual", component: <Visual /> },
-    { buttonName: "Aural", component: <Aural /> },
-    { buttonName: "Physical", component: <Physical /> },
-    { buttonName: "Conceptual", component: <Conceptual /> },
+    {
+      id: 0,
+      buttonName: "Visual",
+      component: <TutorContainer index={1} promptInfo={visualPromptInfo} />,
+    },
+    {
+      id: 1,
+      buttonName: "Aural",
+      component: <TutorContainer index={2} promptInfo={auralPromptInfo} />,
+    },
+    {
+      id: 2,
+      buttonName: "Physical",
+      component: <TutorContainer index={3} promptInfo={physicalPromptInfo} />,
+    },
+    {
+      id: 3,
+      buttonName: "Conceptual",
+      component: <TutorContainer index={4} promptInfo={conceptualPromptInfo} />,
+    },
   ];
 
   return (
@@ -48,13 +68,18 @@ const VirtualTutor = () => {
           {buttonInfo.map((button) => (
             <React.Fragment key={button.buttonName}>
               <RegularModal
-                key={button.buttonName}
+                key={button.id}
                 open={open === button.buttonName.toLowerCase()}
                 onRequestClose={() => setOpen(null)}
               >
                 {button.component}
               </RegularModal>
-              <Button onClick={() => setOpen(button.buttonName.toLowerCase())}>
+              <Button
+                onClick={() => {
+                  setIndex(button.id);
+                  setOpen(button.buttonName.toLowerCase());
+                }}
+              >
                 {button.buttonName}
               </Button>
             </React.Fragment>

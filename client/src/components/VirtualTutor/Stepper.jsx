@@ -9,6 +9,7 @@ export const PromptStepper = ({
   activeStep,
   setActiveStep,
 }) => {
+  console.log(promptInfo);
   return (
     <Stepper activeStep={activeStep} alternativeLabel>
       {promptInfo.map((prompt) => (
