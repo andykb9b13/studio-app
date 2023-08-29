@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Typography, Box } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
-import { StudentContext } from "../../pages/StudentDetails";
+import { useStudentContext } from "../../utils/Context";
 
 const StudentInfo = ({ handleClick }) => {
-  const { student } = useContext(StudentContext);
+  const { student } = useStudentContext();
   return (
     <Box paddingLeft={4}>
       <Typography

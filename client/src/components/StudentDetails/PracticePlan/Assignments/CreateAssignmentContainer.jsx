@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import RegularModal from "../../../common/Modal/RegularModal";
 import CreateAssignment from "./CreateAssignment";
 import { IconButton } from "@mui/joy";
-import { StudentContext } from "../../../../pages/StudentDetails";
+import { useStudentContext } from "../../../../utils/Context";
 import { ADD_ASSIGNMENT } from "../../../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Add } from "@mui/icons-material";
@@ -15,7 +15,7 @@ const CreateAssignmentContainer = ({
   resources,
   setResources,
 }) => {
-  const { student } = useContext(StudentContext);
+  const { student } = useStudentContext();
   const [createAssignment, { error }] = useMutation(ADD_ASSIGNMENT);
   const [open, setOpen] = useState(false);
 

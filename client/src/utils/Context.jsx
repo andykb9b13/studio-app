@@ -13,3 +13,17 @@ export const StudentProvider = ({ children }) => {
     </StudentContext.Provider>
   );
 };
+
+const TeacherContext = createContext();
+
+export const useTeacherContext = () => useContext(TeacherContext);
+
+export const TeacherProvider = ({ children }) => {
+  const [teacher, setTeacher] = useState({});
+
+  return (
+    <TeacherContext.Provider value={{ teacher, setTeacher }}>
+      {children}
+    </TeacherContext.Provider>
+  );
+};

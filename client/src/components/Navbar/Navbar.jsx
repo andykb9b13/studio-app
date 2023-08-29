@@ -56,7 +56,7 @@ export default function Navbar() {
                 Virtual Tutor
               </MenuItem>
               <MenuItem onClick={() => window.location.assign(`/teacher/:id`)}>
-                StudentDatabase
+                Resources
               </MenuItem>
               <MenuItem onClick={() => logout()}>Logout</MenuItem>
             </Menu>

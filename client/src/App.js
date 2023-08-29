@@ -17,6 +17,8 @@ import {
   THEME_ID as MATERIAL_THEME_ID,
 } from "@mui/material/styles";
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
+import { TeacherProvider } from "./utils/Context";
+import { StudentProvider } from "./utils/Context";
 
 const materialTheme = materialExtendTheme();
 
@@ -65,7 +67,11 @@ function App() {
           <CssBaseline />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <MobileContext.Provider value={{ isMobile }}>
-              <AppRoutes />
+              <TeacherProvider>
+                <StudentProvider>
+                  <AppRoutes />
+                </StudentProvider>
+              </TeacherProvider>
             </MobileContext.Provider>
           </LocalizationProvider>
         </ApolloProvider>

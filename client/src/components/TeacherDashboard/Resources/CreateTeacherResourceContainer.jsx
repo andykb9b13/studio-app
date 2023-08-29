@@ -6,12 +6,12 @@ import CreateResource from "../../StudentDetails/PracticePlan/Resources/CreateRe
 import { ADD_RESOURCE } from "../../../utils/mutations";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Auth from "../../../utils/auth";
-import { TeacherContext } from "../../../pages/TeacherDashboard";
+import { useTeacherContext } from "../../../utils/Context";
 
 const CreateTeacherResourceContainer = ({ resources, setResources }) => {
   const [createResource, { error }] = useMutation(ADD_RESOURCE);
   const [open, setOpen] = useState(false);
-  const { teacher } = useContext(TeacherContext);
+  const { teacher } = useTeacherContext();
 
   const createResourceFunc = async (userInput) => {
     try {
