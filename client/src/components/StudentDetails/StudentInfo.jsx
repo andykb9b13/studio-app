@@ -3,8 +3,9 @@ import { Typography, Box } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import { useStudentContext } from "../../utils/Context";
 
-const StudentInfo = ({ handleClick }) => {
+const StudentInfo = ({ handleClick, teacher }) => {
   const { student } = useStudentContext();
+
   return (
     <Box paddingLeft={4}>
       <Typography
@@ -13,6 +14,9 @@ const StudentInfo = ({ handleClick }) => {
         endDecorator={<EditIcon onClick={() => handleClick(1)} />}
       >
         {student.firstName} {student.lastName}
+      </Typography>
+      <Typography>
+        <b>Teacher:</b> {teacher.firstName} {teacher.lastName}
       </Typography>
       <Typography>
         <b>Email:</b> {student.email}
@@ -25,12 +29,6 @@ const StudentInfo = ({ handleClick }) => {
       </Typography>
       <Typography>
         <b>Instrument:</b> {student.instrument}
-      </Typography>
-      <Typography>
-        <b>Lesson Day:</b> {student.lessonDay}
-      </Typography>
-      <Typography>
-        <b>Lesson Time:</b> {student.lessonTime}
       </Typography>
       <Typography>
         <b>Grade:</b> {student.grade}
