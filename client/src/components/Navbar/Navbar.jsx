@@ -9,8 +9,16 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
+import { useTeacherContext } from "../../utils/Context";
+import { useStudentContext } from "../../utils/Context";
 
 export default function Navbar() {
+  const { student } = useStudentContext();
+  const { teacher } = useTeacherContext();
+
+  console.log("student", student);
+  console.log("teacher", teacher);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

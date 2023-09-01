@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -7,8 +7,9 @@ import {
   CardActions,
   Grid,
   CardCover,
+  Typography,
+  Box,
 } from "@mui/joy";
-import { StudentContext } from "../../pages/StudentDetails";
 import { styles } from "../../styles/studentDetailsStyles";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import StudentInfo from "./StudentInfo";
@@ -20,12 +21,14 @@ import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";
 import { QUERY_TEACHER } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import musicNoteBkgd from "../../assets/musicNoteBkgd.png";
-import { useStudentContext } from "../../utils/Context";
+import { useStudentContext, useTeacherContext } from "../../utils/Context";
+import dateService from "../../utils/dates";
+import Clock from "../../utils/Clock";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student } = useStudentContext();
+  const { teacher, setTeacher } = useTeacherContext();
   const id = student._id;
   const { data } = useQuery(QUERY_TEACHER, {
     variables: {
@@ -33,12 +36,17 @@ export default function StudentDetailsCard({ active, setActive }) {
     },
   });
 
-  const teacher = data?.teacher || [];
-  console.log(teacher);
+  useEffect(() => {
+    setTeacher(data?.teacher || {});
+  }, [data, setTeacher]);
 
   // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
-    setActive(index);
+    if (active === index) {
+      setActive(null);
+    } else {
+      setActive(index);
+    }
   };
 
   return (
@@ -50,6 +58,14 @@ export default function StudentDetailsCard({ active, setActive }) {
         }}
       />
       <CardContent>
+        <Box sx={{ textAlign: "center " }}>
+          <Clock />
+          <Typography level="h4">
+            You're Lesson is on <b>{student.lessonDay}</b> at{" "}
+            <b>{student.lessonTime}</b>
+          </Typography>
+        </Box>
+
         {Auth.teacherLoggedIn() && (
           <Link to={`/teacher/${student.teacherId}`}>
             <ArrowBackIosIcon fontSize="large" />
@@ -59,7 +75,7 @@ export default function StudentDetailsCard({ active, setActive }) {
         {/* Student info: Name, instrument, school, etc. */}
         <Grid container flexGrow={1}>
           <Grid xs={12} md={6}>
-            <StudentInfo handleClick={handleClick} />
+            <StudentInfo handleClick={handleClick} teacher={teacher} />
           </Grid>
 
           {/* Accomplishments like points and badges */}
@@ -86,7 +102,9 @@ export default function StudentDetailsCard({ active, setActive }) {
         <Button component={Link} to={`/student/${id}/practiceHub`}>
           To Practice Hub
         </Button>
-        <Button onClick={() => handleClick(2)}>View Practice Plans</Button>
+        <Button onClick={() => handleClick(2)}>
+          {active === 2 ? "Close" : "View Practice Plans"}
+        </Button>
       </CardActions>
 
       {/* Conditional rendering for button clicks in Card Actions */}
