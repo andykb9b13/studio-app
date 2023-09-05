@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Sheet } from "@mui/joy";
+import { Sheet } from "@mui/joy";
 
 const AddModalContent = ({ children }) => {
   return (
