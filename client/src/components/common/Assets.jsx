@@ -27,6 +27,11 @@ import level3 from "../../assets/badges/level3.png";
 import level4 from "../../assets/badges/level4.png";
 import level5 from "../../assets/badges/level5.png";
 import level6 from "../../assets/badges/level6.png";
+import level7 from "../../assets/badges/level7.png";
+import level8 from "../../assets/badges/level8.png";
+import level9 from "../../assets/badges/level9.png";
+import level10 from "../../assets/badges/level10.png";
+
 import points200 from "../../assets/badges/points200.png";
 import points500 from "../../assets/badges/points500.png";
 import points1000 from "../../assets/badges/points1000.png";
@@ -66,6 +71,10 @@ export const levelList = [
   { id: 4, name: level4 },
   { id: 5, name: level5 },
   { id: 6, name: level6 },
+  { id: 7, name: level7 },
+  { id: 8, name: level8 },
+  { id: 9, name: level9 },
+  { id: 10, name: level10 },
 ];
 
 export const pointsList = [

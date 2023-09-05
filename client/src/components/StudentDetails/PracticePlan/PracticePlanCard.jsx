@@ -113,7 +113,11 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
 
       <Typography level="h4">Plan Points: {planPoints}</Typography>
       <Typography level="h4">Points Earned: {completedPoints}</Typography>
-      <ProgressBar percentage={progressBarPercentage} />
+      <ProgressBar
+        percentage={progressBarPercentage}
+        width={"200px"}
+        height={"200px"}
+      />
       <Typography level="body1">{practicePlan.planNotes}</Typography>
       {!revealed ? (
         <KeyboardArrowDownIcon
