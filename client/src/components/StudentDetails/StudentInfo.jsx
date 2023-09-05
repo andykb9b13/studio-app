@@ -1,13 +1,14 @@
 import React from "react";
-import { Typography, Box } from "@mui/joy";
+import { Typography, Card } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import { useStudentContext } from "../../utils/Context";
+import { styles } from "../../styles/studentDetailsStyles";
 
 const StudentInfo = ({ handleClick, teacher }) => {
   const { student } = useStudentContext();
 
   return (
-    <Box paddingLeft={4}>
+    <Card sx={styles.card}>
       <Typography
         level="h2"
         component="h2"
@@ -39,7 +40,7 @@ const StudentInfo = ({ handleClick, teacher }) => {
       <Typography>
         <b>Lesson Location:</b> {student.lessonLocation}
       </Typography>
-    </Box>
+    </Card>
   );
 };
 

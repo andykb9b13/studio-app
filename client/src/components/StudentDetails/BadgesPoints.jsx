@@ -12,6 +12,7 @@ import RegularModal from "../common/Modal/RegularModal";
 import SelectAvatar from "./SelectAvatar";
 import { Edit } from "@mui/icons-material";
 import { avatarList } from "../common/Assets";
+import { styles } from "../../styles/studentDetailsStyles";
 
 const BadgesPoints = () => {
   const { student } = useStudentContext();
@@ -36,7 +37,7 @@ const BadgesPoints = () => {
   };
 
   return (
-    <Card variant="outlined">
+    <Card sx={styles.card}>
       <img
         src={
           student.avatarId

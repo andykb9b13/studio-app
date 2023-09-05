@@ -49,7 +49,7 @@ export default function StudentDetailsCard({ active, setActive }) {
   };
 
   return (
-    <Card sx={styles.card}>
+    <Card sx={styles.container}>
       <CardCover
         sx={{
           background:

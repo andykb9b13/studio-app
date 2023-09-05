@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT } from "../utils/queries";
@@ -7,6 +7,7 @@ import { styles } from "../styles/studentDetailsStyles";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 import Auth from "../utils/auth";
 import { useStudentContext } from "../utils/Context";
+import { MobileContext } from "../App";
 
 // Top component in the tree for students. Provider is passing student info through context.
 export default function StudentDetails() {
@@ -20,6 +21,7 @@ export default function StudentDetails() {
   });
 
   const { student, setStudent } = useStudentContext();
+  const { isMobile } = useContext(MobileContext);
 
   useEffect(() => {
     setStudent(data?.student || {});
@@ -28,7 +30,7 @@ export default function StudentDetails() {
   return (
     <>
       {Auth.loggedIn() ? (
-        <Sheet sx={styles.sheet}>
+        <Sheet sx={!isMobile ? styles.sheet : null}>
           {/* Main student details section  */}
           <StudentDetailsCard active={active} setActive={setActive} />
         </Sheet>

@@ -1,10 +1,11 @@
 import React from "react";
 import { Card, Typography } from "@mui/joy";
 import sampleGraph from "../../assets/sampleGraph.png";
+import { styles } from "../../styles/studentDetailsStyles";
 
 const PracticeGraph = () => {
   return (
-    <Card>
+    <Card sx={styles.card}>
       <Typography level="h3">Practice Hours / Week</Typography>
       <img
         src={sampleGraph}

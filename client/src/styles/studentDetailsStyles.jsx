@@ -10,12 +10,21 @@ export const styles = {
     display: "flex",
     flexDirection: "column",
   },
-  card: {
+  container: {
     backgroundColor: "white",
     mx: "auto",
     width: "100%",
+    height: "100%",
     p: 3,
     my: 2,
+    borderRadius: "10px",
+  },
+  card: {
+    backgroundColor: "lightblue",
+    outline: "1px solid grey",
+    width: "100%",
+    height: "100%",
+    p: 3,
     borderRadius: "10px",
   },
 };

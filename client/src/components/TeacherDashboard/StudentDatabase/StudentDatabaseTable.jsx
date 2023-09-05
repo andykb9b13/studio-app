@@ -6,6 +6,7 @@ import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import { DELETE_STUDENT } from "../../../utils/mutations";
 import { Delete } from "@mui/icons-material";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const StudentDatabaseTable = ({ students, setStudents }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -37,7 +38,7 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
           borderRadius: "4px",
           boxShadow: "lg",
           p: 2,
-          backgroundColor: "rgb(102, 46, 155, 0.2)",
+          backgroundColor: "lightblue",
         }}
       >
         <thead>
@@ -60,15 +61,18 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
                 {!isMobile ? <td>{student.primaryContact}</td> : null}
                 {!isMobile ? <td>{student.grade}</td> : null}
                 <td>
-                  <Button
+                  <IconButton
+                    onClick={() => setOpen(true)}
+                    color="danger"
+                    sx={{ mx: 1 }}
+                  >
+                    <Delete />
+                  </IconButton>
+                  <IconButton
                     component={Link}
                     to={`/teacher/studentDetails/${student._id}`}
-                    variant="soft"
                   >
-                    View Student Info
-                  </Button>
-                  <IconButton onClick={() => setOpen(true)} color="danger">
-                    <Delete />
+                    <KeyboardArrowRightIcon />
                   </IconButton>
 
                   <RegularModal
