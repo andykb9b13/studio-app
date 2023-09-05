@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import dateService from "./dates";
 import { Typography } from "@mui/joy";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 class Clock extends Component {
   constructor() {
@@ -47,10 +49,11 @@ class Clock extends Component {
     return (
       <>
         <Typography level="h2">
-          <b>Time:</b> {formattedTime}
+          <AccessTimeIcon /> {formattedTime}
         </Typography>
         <Typography level="h3">
-          <b>Today:</b> {formattedDate}
+          <CalendarMonthIcon />
+          {formattedDate}
         </Typography>
       </>
     );

@@ -7,17 +7,31 @@ import avatar6 from "../../assets/avatars/avatar6.png";
 import avatar7 from "../../assets/avatars/avatar7.png";
 import avatar8 from "../../assets/avatars/avatar8.png";
 
-import heavyLifter from "../../assets/badges/heavyLifter.png";
+import badge1 from "../../assets/badges/badge1.png";
+import badge2 from "../../assets/badges/badge2.png";
+import badge3 from "../../assets/badges/badge3.png";
+import badge4 from "../../assets/badges/badge4.png";
+import badge5 from "../../assets/badges/badge5.png";
+import badge6 from "../../assets/badges/badge6.png";
+import badge7 from "../../assets/badges/badge7.png";
+import badge8 from "../../assets/badges/badge8.png";
+import badge9 from "../../assets/badges/badge9.png";
+import badge10 from "../../assets/badges/badge10.png";
+import badge11 from "../../assets/badges/badge11.png";
+import badge12 from "../../assets/badges/badge12.png";
 import skillSheetDefaultBadge from "../../assets/badges/skillSheetDefaultBadge.png";
-import climbingHigh from "../../assets/badges/climbingHigh.png";
-import goGetter from "../../assets/badges/goGetter.png";
-import powerUp from "../../assets/badges/powerUp.png";
+
 import level1 from "../../assets/badges/level1.png";
 import level2 from "../../assets/badges/level2.png";
 import level3 from "../../assets/badges/level3.png";
 import level4 from "../../assets/badges/level4.png";
 import level5 from "../../assets/badges/level5.png";
 import level6 from "../../assets/badges/level6.png";
+import level7 from "../../assets/badges/level7.png";
+import level8 from "../../assets/badges/level8.png";
+import level9 from "../../assets/badges/level9.png";
+import level10 from "../../assets/badges/level10.png";
+
 import points200 from "../../assets/badges/points200.png";
 import points500 from "../../assets/badges/points500.png";
 import points1000 from "../../assets/badges/points1000.png";
@@ -36,18 +50,36 @@ export const avatarList = [
 
 export const badgeList = [
   { id: 0, name: skillSheetDefaultBadge },
+  { id: 1, name: badge1 },
+  { id: 2, name: badge2 },
+  { id: 3, name: badge3 },
+  { id: 4, name: badge4 },
+  { id: 5, name: badge5 },
+  { id: 6, name: badge6 },
+  { id: 7, name: badge7 },
+  { id: 8, name: badge8 },
+  { id: 9, name: badge9 },
+  { id: 10, name: badge10 },
+  { id: 11, name: badge11 },
+  { id: 12, name: badge12 },
+];
+
+export const levelList = [
+  { id: 1, name: level1 },
+  { id: 2, name: level2 },
+  { id: 3, name: level3 },
+  { id: 4, name: level4 },
+  { id: 5, name: level5 },
+  { id: 6, name: level6 },
+  { id: 7, name: level7 },
+  { id: 8, name: level8 },
+  { id: 9, name: level9 },
+  { id: 10, name: level10 },
+];
+
+export const pointsList = [
   { id: 1, name: points200 },
   { id: 2, name: points500 },
   { id: 3, name: points1000 },
   { id: 4, name: points2000 },
-  { id: 5, name: climbingHigh },
-  { id: 6, name: goGetter },
-  { id: 7, name: heavyLifter },
-  { id: 8, name: powerUp },
-  { id: 9, name: level1 },
-  { id: 10, name: level2 },
-  { id: 11, name: level3 },
-  { id: 12, name: level4 },
-  { id: 13, name: level5 },
-  { id: 14, name: level6 },
 ];

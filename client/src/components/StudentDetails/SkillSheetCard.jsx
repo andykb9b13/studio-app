@@ -2,10 +2,11 @@ import React from "react";
 import { Card, Typography, Table } from "@mui/joy";
 
 import { badgeList } from "../common/Assets";
+import { styles } from "../../styles/studentDetailsStyles";
 
 const SkillSheetCard = ({ teacher }) => {
   return (
-    <Card variant="outlined">
+    <Card sx={styles.card}>
       <Typography level="h2">Skill Sheets</Typography>
       <Table
         aria-label="basic table"

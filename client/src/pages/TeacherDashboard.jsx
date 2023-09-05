@@ -85,7 +85,7 @@ const TeacherDashboard = () => {
     // <TeacherContext.Provider value={{ teacher }}>
     <Sheet>
       {Auth.loggedIn() ? (
-        <Sheet sx={{ mt: 2 }}>
+        <Sheet>
           {/* These tabs function as the Navbar */}
           <Tabs
             aria-label="Basic tabs"

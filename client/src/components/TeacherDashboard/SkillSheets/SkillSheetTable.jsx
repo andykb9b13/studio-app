@@ -45,7 +45,7 @@ const SkillSheetTable = ({
                 <img
                   src={
                     skillSheet.badgeId
-                      ? badgeList[skillSheet.badgeId].name
+                      ? badgeList[skillSheet.badgeId]?.name
                       : badgeList[0].name
                   }
                   alt="badge"

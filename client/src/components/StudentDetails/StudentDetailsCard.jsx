@@ -22,7 +22,6 @@ import Auth from "../../utils/auth";
 import { QUERY_TEACHER } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import { useStudentContext, useTeacherContext } from "../../utils/Context";
-import dateService from "../../utils/dates";
 import Clock from "../../utils/Clock";
 
 // the main information about the student
@@ -50,7 +49,7 @@ export default function StudentDetailsCard({ active, setActive }) {
   };
 
   return (
-    <Card sx={styles.card}>
+    <Card sx={styles.container}>
       <CardCover
         sx={{
           background:
@@ -58,6 +57,13 @@ export default function StudentDetailsCard({ active, setActive }) {
         }}
       />
       <CardContent>
+        {Auth.teacherLoggedIn() && (
+          <Link to={`/teacher/${student.teacherId}`}>
+            <ArrowBackIosIcon fontSize="large" />
+          </Link>
+        )}
+
+        {/* Clock */}
         <Box sx={{ textAlign: "center " }}>
           <Clock />
           <Typography level="h4">
@@ -66,20 +72,14 @@ export default function StudentDetailsCard({ active, setActive }) {
           </Typography>
         </Box>
 
-        {Auth.teacherLoggedIn() && (
-          <Link to={`/teacher/${student.teacherId}`}>
-            <ArrowBackIosIcon fontSize="large" />
-          </Link>
-        )}
-
         {/* Student info: Name, instrument, school, etc. */}
         <Grid container flexGrow={1}>
-          <Grid xs={12} md={6}>
+          <Grid xs={12} md={6} my={1}>
             <StudentInfo handleClick={handleClick} teacher={teacher} />
           </Grid>
 
           {/* Accomplishments like points and badges */}
-          <Grid xs={12} md={6}>
+          <Grid xs={12} md={6} my={1}>
             <BadgesPoints
               totalPlanPoints={student.totalPlanPoints}
               totalCompletedPoints={student.totalCompletedPoints}
@@ -87,12 +87,12 @@ export default function StudentDetailsCard({ active, setActive }) {
           </Grid>
 
           {/* A graph showing days practiced and time practiced */}
-          <Grid xs={12} md={6}>
+          {/* <Grid xs={12} md={6} my={1}>
             <PracticeGraph />
-          </Grid>
+          </Grid>  */}
 
           {/* Showing all skill sheets completed */}
-          <Grid xs={12} md={6}>
+          <Grid xs={12} md={6} my={1}>
             <SkillSheetCard teacher={teacher} />
           </Grid>
         </Grid>

@@ -86,6 +86,7 @@ export default function Navbar() {
                 to="/login"
                 color="inherit"
                 variant="outlined"
+                sx={{ mx: 2 }}
               >
                 Teacher Login
               </Button>
@@ -94,6 +95,7 @@ export default function Navbar() {
                 to="/studentLogin"
                 color="inherit"
                 variant="outlined"
+                sx={{ mx: 2 }}
               >
                 Student Login
               </Button>
