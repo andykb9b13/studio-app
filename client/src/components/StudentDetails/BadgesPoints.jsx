@@ -1,39 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
-import { EDIT_STUDENT } from "../../utils/mutations";
-import { Card, Typography, Box, IconButton } from "@mui/joy";
+import { Card, Typography, Box } from "@mui/joy";
 import { levelList } from "../common/Assets";
 import CountUp from "react-countup";
 import { useStudentContext } from "../../utils/Context";
-import RegularModal from "../common/Modal/RegularModal";
-import SelectAvatar from "./SelectAvatar";
-import { Edit } from "@mui/icons-material";
-import { avatarList } from "../common/Assets";
 import { styles } from "../../styles/studentDetailsStyles";
 import ProgressBar from "../common/ProgressBar";
+import { BarChart } from "@mui/x-charts/BarChart";
 
 const BadgesPoints = () => {
   const { student } = useStudentContext();
-  const [open, setOpen] = useState(false);
-  const [editStudent, { error }] = useMutation(EDIT_STUDENT);
-  const [progressPercentage, setProgressPercentage] = useState(0);
 
-  const editAvatarFunc = async (avatarId) => {
-    console.log(avatarId);
-    try {
-      await editStudent({
-        variables: {
-          studentId: student._id,
-          avatarId: avatarId,
-        },
-      });
-      alert(`avatar ${avatarId} selected`);
-      setOpen(false);
-    } catch (err) {
-      console.log(err);
-      alert("could not select avater");
-    }
-  };
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
   // determine which is the next badge
   const nextBadge = (points) => {
@@ -67,28 +44,7 @@ const BadgesPoints = () => {
 
   return (
     <Card sx={styles.card}>
-      <img
-        src={
-          student.avatarId
-            ? avatarList[student.avatarId].name
-            : avatarList[0].name
-        }
-        alt="avatar"
-        style={{
-          borderRadius: "50%",
-          width: "35%",
-          marginInline: "auto",
-        }}
-      />
-      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <SelectAvatar
-          onRequestClose={() => setOpen(false)}
-          editAvatarFunc={editAvatarFunc}
-        />
-      </RegularModal>
-      <IconButton onClick={() => setOpen(true)}>
-        <Edit />
-      </IconButton>
+      <Typography level="h2">Progress</Typography>
       <Typography level="h5">
         Plan Points: <CountUp end={student.totalPlanPoints} />
       </Typography>
@@ -177,6 +133,22 @@ const BadgesPoints = () => {
           />
         )}
       </Box>
+      <BarChart
+        xAxis={[
+          {
+            id: "barCategories",
+            data: ["bar A", "bar B", "bar C"],
+            scaleType: "band",
+          },
+        ]}
+        series={[
+          {
+            data: [2, 5, 3],
+          },
+        ]}
+        width={300}
+        height={300}
+      />
     </Card>
   );
 };
