@@ -22,7 +22,6 @@ import Auth from "../../utils/auth";
 import { QUERY_TEACHER } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import { useStudentContext, useTeacherContext } from "../../utils/Context";
-import dateService from "../../utils/dates";
 import Clock from "../../utils/Clock";
 
 // the main information about the student

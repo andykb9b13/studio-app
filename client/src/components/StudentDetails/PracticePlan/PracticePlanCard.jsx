@@ -12,6 +12,7 @@ import ResourceContainer from "./Resources/ResourceContainer";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardControlKeyIcon from "@mui/icons-material/KeyboardControlKey";
 import Auth from "../../../utils/auth";
+import ProgressBar from "../../common/ProgressBar";
 
 const styles = {
   sheet: {
@@ -32,6 +33,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const [completedPoints, setCompletedPoints] = useState(0);
   const [resources, setResources] = useState(practicePlan.resources);
   const [revealed, setRevealed] = useState(false);
+  const [progressBarPercentage, setProgressBarPercentage] = useState(0);
 
   // Setting the total points available to earn for the plan
   useEffect(() => {
@@ -55,6 +57,12 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
       setCompletedPoints(total);
     }
   }, [assignments]);
+
+  // Setting the progress bar percentage
+  useEffect(() => {
+    const percentage = Math.floor((completedPoints / planPoints) * 100);
+    setProgressBarPercentage(percentage || 0);
+  }, [setProgressBarPercentage, completedPoints, planPoints]);
 
   // Setting the assignments
   useEffect(() => {
@@ -105,6 +113,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
 
       <Typography level="h4">Plan Points: {planPoints}</Typography>
       <Typography level="h4">Points Earned: {completedPoints}</Typography>
+      <ProgressBar percentage={progressBarPercentage} />
       <Typography level="body1">{practicePlan.planNotes}</Typography>
       {!revealed ? (
         <KeyboardArrowDownIcon
