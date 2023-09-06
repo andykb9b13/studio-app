@@ -73,6 +73,20 @@ export const QUERY_STUDENT = gql`
       avatarId
       totalPlanPoints
       totalCompletedPoints
+      skillSheets {
+        _id
+        sheetName
+        teacherId
+        description
+        scales
+        exercises
+        etudes
+        pieces
+        sheetPoints
+        badgeId
+        difficulty
+        completed
+      }
       practicePlans {
         _id
         name
@@ -105,20 +119,6 @@ export const QUERY_STUDENT = gql`
             numSuccess
             numTries
           }
-        }
-        skillSheets {
-          _id
-          sheetName
-          teacherId
-          description
-          scales
-          exercises
-          etudes
-          pieces
-          sheetPoints
-          badgeId
-          difficulty
-          completed
         }
         goals {
           _id

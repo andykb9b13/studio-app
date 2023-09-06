@@ -39,7 +39,7 @@ const BadgesPoints = () => {
       (student.totalCompletedPoints / nextBadge(student.totalCompletedPoints)) *
         100
     );
-    setProgressPercentage(percentage);
+    setProgressPercentage(percentage || 0);
   }, [setProgressPercentage, student]);
 
   return (
@@ -133,7 +133,7 @@ const BadgesPoints = () => {
           />
         )}
       </Box>
-      <BarChart
+      {/* <BarChart
         xAxis={[
           {
             id: "barCategories",
@@ -149,7 +149,7 @@ const BadgesPoints = () => {
         width={325}
         height={400}
         colors={["#662e9b"]}
-      />
+      /> */}
     </Card>
   );
 };

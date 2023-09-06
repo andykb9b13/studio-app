@@ -40,7 +40,8 @@ const resolvers = {
             },
           ],
         })
-        .populate("assignments");
+        .populate("assignments")
+        .populate("skillSheets");
     },
     teachers: async () => {
       return await Teacher.find({})
@@ -249,6 +250,24 @@ const resolvers = {
       });
       console.log(assignment);
       return assignment;
+    },
+
+    completeSkillSheet: async (parent, { skillSheetId, studentId }) => {
+      console.log("In complete SkillSheet");
+
+      const updatedStudent = await Student.findByIdAndUpdate(
+        studentId,
+        { $addToSet: { skillSheets: skillSheetId } },
+        { new: true }
+      );
+      return updatedStudent;
+    },
+
+    removeCompletedSkillSheet: async (parent, { skillSheetId, studentId }) => {
+      const updatedStudent = await Student.findByIdAndUpdate(studentId, {
+        $pull: { skillSheets: skillSheetId },
+      });
+      return updatedStudent;
     },
 
     addResource: async (

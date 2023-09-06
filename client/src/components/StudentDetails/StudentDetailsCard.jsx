@@ -14,8 +14,8 @@ import { styles } from "../../styles/studentDetailsStyles";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import StudentInfo from "./StudentInfo";
 import BadgesPoints from "./BadgesPoints";
-import PracticeGraph from "./PracticeGraph";
-import SkillSheetCard from "./SkillSheetCard";
+import Repertoire from "./Repertoire";
+import StudentSkillSheets from "./StudentSkillSheets";
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";
@@ -29,6 +29,12 @@ export default function StudentDetailsCard({ active, setActive }) {
   const { student } = useStudentContext();
   const { teacher, setTeacher } = useTeacherContext();
   const id = student._id;
+
+  console.log(student);
+
+  console.log(student.skillSheets);
+
+  // This is here so when a student logs in, they are able to get their teacher information to link skillsheets, etc.
   const { data } = useQuery(QUERY_TEACHER, {
     variables: {
       teacherId: student.teacherId,
@@ -92,8 +98,13 @@ export default function StudentDetailsCard({ active, setActive }) {
           </Grid>  */}
 
           {/* Showing all skill sheets completed */}
+          <Grid xs={12} md={12} my={1}>
+            <StudentSkillSheets teacher={teacher} />
+          </Grid>
+
+          {/* Completed Pieces and Etudes */}
           <Grid xs={12} md={6} my={1}>
-            <SkillSheetCard teacher={teacher} />
+            <Repertoire />
           </Grid>
         </Grid>
       </CardContent>

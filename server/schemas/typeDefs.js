@@ -177,6 +177,10 @@ const typeDefs = gql`
 
     completeAssignment(assignmentId: ID, completed: Boolean): Assignment
 
+    completeSkillSheet(studentId: ID, skillSheetId: ID): Student
+
+    removeCompletedSkillSheet(studentId: ID, skillSheetId: ID): Student
+
     addResource(
       teacherId: String
       practicePlanId: String

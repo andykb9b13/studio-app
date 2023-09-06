@@ -155,6 +155,25 @@ export const COMPLETE_ASSIGNMENT = gql`
   }
 `;
 
+export const COMPLETE_SKILLSHEET = gql`
+  mutation completeSkillSheet($studentId: ID, $skillSheetId: ID) {
+    completeSkillSheet(studentId: $studentId, skillSheetId: $skillSheetId) {
+      _id
+    }
+  }
+`;
+
+export const REMOVE_COMPLETED_SKILLSHEET = gql`
+  mutation removeCompletedSkillSheet($studentId: ID, $skillSheetId: ID) {
+    removeCompletedSkillSheet(
+      skillSheetId: $skillSheetId
+      studentId: $studentId
+    ) {
+      _id
+    }
+  }
+`;
+
 export const ADD_SKILLSHEET = gql`
   mutation addSkillSheet(
     $sheetName: String!

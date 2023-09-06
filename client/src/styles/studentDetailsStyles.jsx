@@ -21,7 +21,8 @@ export const styles = {
   },
   card: {
     backgroundColor: "lightblue",
-    width: "100%",
+    width: "98%",
+    mx: "auto",
     height: "100%",
     p: 3,
     borderRadius: "10px",
