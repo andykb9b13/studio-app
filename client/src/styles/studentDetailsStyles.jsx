@@ -16,12 +16,11 @@ export const styles = {
     width: "100%",
     height: "100%",
     p: 3,
-    my: 2,
+
     borderRadius: "10px",
   },
   card: {
     backgroundColor: "lightblue",
-    outline: "1px solid grey",
     width: "100%",
     height: "100%",
     p: 3,

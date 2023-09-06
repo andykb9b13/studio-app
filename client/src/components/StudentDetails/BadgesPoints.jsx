@@ -45,12 +45,10 @@ const BadgesPoints = () => {
   return (
     <Card sx={styles.card}>
       <Typography level="h2">Progress</Typography>
+
+      <Typography level="h5">Skill Sheets:</Typography>
       <Typography level="h5">
-        Plan Points: <CountUp end={student.totalPlanPoints} />
-      </Typography>
-      <Typography level="h5">Skill Sheet Points:</Typography>
-      <Typography level="h5">
-        Completed Points: <CountUp end={student.totalCompletedPoints} />
+        Assignments: <CountUp end={student.totalCompletedPoints} /> points
       </Typography>
       <Typography level="h5">
         Next Badge: {nextBadge(student.totalCompletedPoints)} points
@@ -62,74 +60,76 @@ const BadgesPoints = () => {
       />
       <Typography level="h3">Badges: </Typography>
       <Box variant="solid">
+        {student.totalCompletedPoints < 200 &&
+          "Complete Assignments and Skill Sheets to earn points for badges"}
         {student.totalCompletedPoints > 200 && (
           <img
             src={levelList[0].name}
             alt="level1 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 500 && (
           <img
             src={levelList[1].name}
             alt="level2 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 1000 && (
           <img
             src={levelList[2].name}
             alt="level3 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 1500 && (
           <img
             src={levelList[3].name}
             alt="level4 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 2000 && (
           <img
             src={levelList[4].name}
             alt="level5 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 3000 && (
           <img
             src={levelList[5].name}
             alt="level6 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 4000 && (
           <img
             src={levelList[6].name}
             alt="level7 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 5000 && (
           <img
             src={levelList[7].name}
             alt="level8 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 6000 && (
           <img
             src={levelList[8].name}
             alt="level9 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
         {student.totalCompletedPoints > 7000 && (
           <img
             src={levelList[9].name}
             alt="level10 badge"
-            style={{ width: "25%" }}
+            style={{ width: "50%" }}
           />
         )}
       </Box>
@@ -137,17 +137,18 @@ const BadgesPoints = () => {
         xAxis={[
           {
             id: "barCategories",
-            data: ["bar A", "bar B", "bar C"],
+            data: ["SkillSheets", "Plans", "Studio Avg."],
             scaleType: "band",
           },
         ]}
         series={[
           {
-            data: [2, 5, 3],
+            data: [20, student.totalCompletedPoints, 3],
           },
         ]}
-        width={300}
-        height={300}
+        width={325}
+        height={400}
+        colors={["#662e9b"]}
       />
     </Card>
   );
