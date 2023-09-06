@@ -1,8 +1,14 @@
 import React from "react";
-import { Card, CardContent, Typography } from "@mui/joy";
+import { Card, CardContent, Typography, Switch } from "@mui/joy";
 import { badgeList } from "../../common/Assets";
 
-const SkillSheetCard = ({ activeSheet }) => {
+const SkillSheetCard = ({
+  activeSheet,
+  checked,
+  setChecked,
+  handleCompleteSkillSheet,
+  handleRemoveCompletedSkillSheet,
+}) => {
   return (
     <Card
       variant="outlined"
@@ -66,6 +72,21 @@ const SkillSheetCard = ({ activeSheet }) => {
         <Typography>
           <b>Points: </b>
           {activeSheet.sheetPoints}
+        </Typography>
+        <Typography
+          endDecorator={
+            <Switch
+              checked={checked}
+              color={checked ? "success" : "danger"}
+              onChange={(event) => {
+                const newChecked = event.target.checked;
+                setChecked(newChecked);
+                handleCompleteSkillSheet(newChecked, activeSheet._id);
+              }}
+            />
+          }
+        >
+          <b>Completed?</b>
         </Typography>
       </CardContent>
     </Card>

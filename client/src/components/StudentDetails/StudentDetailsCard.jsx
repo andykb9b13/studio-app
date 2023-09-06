@@ -15,7 +15,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import StudentInfo from "./StudentInfo";
 import BadgesPoints from "./BadgesPoints";
 import Repertoire from "./Repertoire";
-import StudentSkillSheets from "./StudentSkillSheets";
+import StudentSkillSheetContainer from "./SkillSheets/StudentSkillSheetContainer";
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";
@@ -99,7 +99,7 @@ export default function StudentDetailsCard({ active, setActive }) {
 
           {/* Showing all skill sheets completed */}
           <Grid xs={12} md={12} my={1}>
-            <StudentSkillSheets teacher={teacher} />
+            <StudentSkillSheetContainer teacher={teacher} />
           </Grid>
 
           {/* Completed Pieces and Etudes */}
