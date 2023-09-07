@@ -14,7 +14,8 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
   const [createSkillSheet, { errors }] = useMutation(ADD_SKILLSHEET);
 
   const createSkillSheetFunc = async (userInput) => {
-    const mySheetPoints = parseInt(userInput.sheetPoints);
+    const mySheetPoints = parseInt(userInput.points);
+    console.log(mySheetPoints);
     try {
       if (!badgeId) {
         setBadgeId(0);

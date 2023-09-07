@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card } from "@mui/joy";
 import { styles } from "../../../styles/studentDetailsStyles";
 import RegularModal from "../../common/Modal/RegularModal";
@@ -10,9 +10,11 @@ import {
 } from "../../../utils/mutations";
 import { useStudentContext } from "../../../utils/Context";
 import StudentSkillSheetTable from "./StudentSkillSheetTable";
+import { MobileContext } from "../../../App";
 
 const StudentSkillSheetContainer = ({ teacher }) => {
   const { student } = useStudentContext();
+  const { isMobile } = useContext(MobileContext);
 
   const [open, setOpen] = useState(false);
   const [activeSheet, setActiveSheet] = useState(null);
@@ -28,7 +30,6 @@ const StudentSkillSheetContainer = ({ teacher }) => {
     const result = student.skillSheets?.filter(
       (skillSheet) => skillSheet._id === sheetId
     );
-    console.log(result);
     if (!result) {
       return false;
     } else if (result > 0) {
@@ -67,7 +68,7 @@ const StudentSkillSheetContainer = ({ teacher }) => {
   };
 
   return (
-    <Card sx={styles.card}>
+    <Card sx={!isMobile ? styles.card : styles.mobileCard}>
       <StudentSkillSheetTable
         setActiveSheet={setActiveSheet}
         skillSheets={teacher.skillSheets}
@@ -79,6 +80,7 @@ const StudentSkillSheetContainer = ({ teacher }) => {
           activeSheet={activeSheet}
           handleCompleteSkillSheet={handleCompleteSkillSheet}
           handleRemoveDeletedSkillSheet={handleRemoveDeletedSkillSheet}
+          checkIfSheetCompleted={checkIfSheetCompleted}
           checked={checked}
           setChecked={setChecked}
         />

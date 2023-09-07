@@ -6,6 +6,7 @@ const SkillSheetCard = ({
   activeSheet,
   checked,
   setChecked,
+  checkIfSheetCompleted,
   handleCompleteSkillSheet,
   handleRemoveCompletedSkillSheet,
 }) => {
@@ -24,38 +25,21 @@ const SkillSheetCard = ({
       <Typography level="h3">
         {activeSheet.difficulty ? `Difficulty: ${activeSheet.difficulty}` : ""}
       </Typography>
+      <img
+        src={
+          activeSheet.badgeId
+            ? badgeList[activeSheet.badgeId].name
+            : badgeList[0].name
+        }
+        alt=""
+        style={{ width: "50%" }}
+      />
+
       <Typography level="body1">{activeSheet.description}</Typography>
       <CardContent>
-        <img
-          src={
-            activeSheet.badgeId
-              ? badgeList[activeSheet.badgeId].name
-              : badgeList[0].name
-          }
-          alt=""
-          style={{ width: "30%" }}
-        />
-
         <Typography>
           <b>Scales: </b>
           {activeSheet.scales}
-        </Typography>
-
-        <Typography>
-          <b>Arpeggios: </b>
-          {activeSheet.arpeggios}
-        </Typography>
-        <Typography>
-          <b>Articulation: </b>
-          {activeSheet.articulations}
-        </Typography>
-        <Typography>
-          <b>Slurs: </b>
-          {activeSheet.slurs}
-        </Typography>
-        <Typography>
-          <b>Long Tones: </b>
-          {activeSheet.longTones}
         </Typography>
         <Typography>
           <b>Exercises: </b>
@@ -76,12 +60,15 @@ const SkillSheetCard = ({
         <Typography
           endDecorator={
             <Switch
-              checked={checked}
-              color={checked ? "success" : "danger"}
+              checked={() => checkIfSheetCompleted(activeSheet._id)}
+              color={
+                checkIfSheetCompleted(activeSheet.id) ? "success" : "danger"
+              }
               onChange={(event) => {
                 const newChecked = event.target.checked;
                 setChecked(newChecked);
-                handleCompleteSkillSheet(newChecked, activeSheet._id);
+                console.log(newChecked);
+                // handleCompleteSkillSheet(newChecked, activeSheet._id);
               }}
             />
           }

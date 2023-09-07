@@ -27,4 +27,12 @@ export const styles = {
     p: 3,
     borderRadius: "10px",
   },
+  mobileCard: {
+    backgroundColor: "lightblue",
+    width: "100%",
+    mx: "auto",
+    height: "100%",
+    p: 1.5,
+    borderRadius: "10px",
+  },
 };

@@ -36,22 +36,6 @@ const SkillSheetCard = ({ activeSheet }) => {
         </Typography>
 
         <Typography>
-          <b>Arpeggios: </b>
-          {activeSheet.arpeggios}
-        </Typography>
-        <Typography>
-          <b>Articulation: </b>
-          {activeSheet.articulations}
-        </Typography>
-        <Typography>
-          <b>Slurs: </b>
-          {activeSheet.slurs}
-        </Typography>
-        <Typography>
-          <b>Long Tones: </b>
-          {activeSheet.longTones}
-        </Typography>
-        <Typography>
           <b>Exercises: </b>
           {activeSheet.exercises}
         </Typography>

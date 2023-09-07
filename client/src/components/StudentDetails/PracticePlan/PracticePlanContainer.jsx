@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Button } from "@mui/joy";
+import { Typography, Button, Card, Sheet } from "@mui/joy";
 import { useMutation } from "@apollo/client";
 import { ADD_PRACTICEPLAN } from "../../../utils/mutations";
 import CreatePracticePlan from "./CreatePracticePlan";
@@ -7,18 +7,22 @@ import PracticePlanCard from "./PracticePlanCard";
 import RegularModal from "../../common/Modal/RegularModal";
 import Auth from "../../../utils/auth";
 import { useStudentContext } from "../../../utils/Context";
+import { styles } from "../../../styles/studentDetailsStyles";
+import ProgressBar from "../../common/ProgressBar";
 
 // displays practice plans from a student
 export default function PracticePlanContainer() {
   const { student } = useStudentContext();
   const [open, setOpen] = useState(false);
-
+  const [progressBarPercentage, setProgressBarPercentage] = useState(0);
   const [totalPlanPoints, setTotalPlanPoints] = useState(0);
   const [totalCompletedPoints, setTotalCompletedPoints] = useState(0);
 
   const id = student._id;
   const practicePlans = student.practicePlans;
   const [studentPlans, setStudentPlans] = useState(practicePlans ?? []);
+
+  console.log(studentPlans);
 
   useEffect(() => {
     let pointsArr = [];
@@ -44,6 +48,13 @@ export default function PracticePlanContainer() {
     let totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
     setTotalCompletedPoints(totalPoints);
   }, [setTotalCompletedPoints, studentPlans]);
+
+  useEffect(() => {
+    const percentage = Math.floor(
+      (totalCompletedPoints / totalPlanPoints) * 100
+    );
+    setProgressBarPercentage(percentage);
+  }, [setProgressBarPercentage, totalCompletedPoints, totalPlanPoints]);
 
   useEffect(() => {
     setStudentPlans(practicePlans);
@@ -75,14 +86,17 @@ export default function PracticePlanContainer() {
   }
 
   return (
-    <React.Fragment>
+    <Card sx={styles.card}>
       <Typography level="h2">Practice Plans</Typography>
+      <Typography level="h4">All Plan Points: {totalPlanPoints}</Typography>
       <Typography level="h4">
-        Total Points for all Practice Plans: {totalPlanPoints}
+        Completed Points: {totalCompletedPoints}
       </Typography>
-      <Typography level="h4">
-        Total Completed Points: {totalCompletedPoints}
-      </Typography>
+      <ProgressBar
+        percentage={progressBarPercentage}
+        width={"175px"}
+        height={"175px"}
+      />
       {Auth.teacherLoggedIn() && (
         <>
           <RegularModal open={open} onRequestClose={() => setOpen(false)}>
@@ -98,17 +112,25 @@ export default function PracticePlanContainer() {
       {!studentPlans ? (
         <p>Loading practice plans...</p>
       ) : (
-        studentPlans.map((practicePlan) => (
-          <PracticePlanCard
-            practicePlan={practicePlan}
-            studentId={id}
-            key={practicePlan._id}
-            onDelete={() => handleDeletePracticePlan(practicePlan._id)}
-            totalPlanPoint={totalPlanPoints}
-            setTotalPlanPoints={setTotalPlanPoints}
-          />
-        ))
+        <Sheet
+          sx={{
+            display: "flex",
+            flexDirection: "column-reverse",
+            backgroundColor: "transparent",
+          }}
+        >
+          {studentPlans.map((practicePlan, i) => (
+            <PracticePlanCard
+              practicePlan={practicePlan}
+              studentId={id}
+              key={practicePlan._id}
+              onDelete={() => handleDeletePracticePlan(practicePlan._id)}
+              totalPlanPoint={totalPlanPoints}
+              setTotalPlanPoints={setTotalPlanPoints}
+            />
+          ))}
+        </Sheet>
       )}
-    </React.Fragment>
+    </Card>
   );
 }

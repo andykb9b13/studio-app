@@ -22,7 +22,7 @@ const StudentSkillSheetTable = ({
             {!isMobile && <th>Exercises</th>}
             {!isMobile && <th>Scales</th>}
             <th>Points</th>
-            <th>Difficulty</th>
+            {!isMobile && <th>Difficulty</th>}
             <th>Completed</th>
             <th></th>
           </tr>
@@ -61,14 +61,18 @@ const StudentSkillSheetTable = ({
                   <Typography>{skillSheet.scales}</Typography>
                 </td>
               )}
+
               <td>
                 <Typography>
                   <CountUp end={skillSheet.sheetPoints} />
                 </Typography>
               </td>
-              <td>
-                <Typography>{skillSheet.difficulty}</Typography>
-              </td>
+
+              {!isMobile && (
+                <td>
+                  <Typography>{skillSheet.difficulty}</Typography>
+                </td>
+              )}
               <td>{checkIfSheetCompleted(skillSheet._id) ? "Yes" : "No"}</td>
               <td>
                 <IconButton

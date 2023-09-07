@@ -28,11 +28,6 @@ import Clock from "../../utils/Clock";
 export default function StudentDetailsCard({ active, setActive }) {
   const { student } = useStudentContext();
   const { teacher, setTeacher } = useTeacherContext();
-  const id = student._id;
-
-  console.log(student);
-
-  console.log(student.skillSheets);
 
   // This is here so when a student logs in, they are able to get their teacher information to link skillsheets, etc.
   const { data } = useQuery(QUERY_TEACHER, {
@@ -106,21 +101,20 @@ export default function StudentDetailsCard({ active, setActive }) {
           <Grid xs={12} md={6} my={1}>
             <Repertoire />
           </Grid>
+          <Grid xs={12} md={12} my={1}>
+            <PracticePlanContainer />
+          </Grid>
         </Grid>
       </CardContent>
 
       <CardActions>
-        <Button component={Link} to={`/student/${id}/practiceHub`}>
+        {/* <Button component={Link} to={`/student/${id}/practiceHub`}>
           To Practice Hub
-        </Button>
-        <Button onClick={() => handleClick(2)}>
-          {active === 2 ? "Close" : "View Practice Plans"}
-        </Button>
+        </Button> */}
       </CardActions>
 
       {/* Conditional rendering for button clicks in Card Actions */}
       {active === 1 ? <EditStudent studentId={student._id} /> : null}
-      {active === 2 ? <PracticePlanContainer /> : null}
     </Card>
   );
 }

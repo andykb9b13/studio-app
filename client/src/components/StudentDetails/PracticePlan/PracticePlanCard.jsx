@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { Sheet, Typography, IconButton } from "@mui/joy";
+import { Sheet, Typography, IconButton, Grid } from "@mui/joy";
 import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
@@ -84,52 +84,60 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
 
   return (
     <Sheet sx={styles.sheet}>
-      <Typography
-        level="h2"
-        endDecorator={
-          Auth.teacherLoggedIn() && (
-            <>
-              <IconButton onClick={() => setOpen(true)} color="danger">
-                <DeleteIcon />
-              </IconButton>
-              {/* Modal for deleting a practice plan */}
-              <RegularModal
-                name="deletePracticePlan"
-                open={open}
-                onRequestClose={() => setOpen(false)}
-              >
-                <DeleteModalContent
-                  onRequestClose={() => setOpen(false)}
-                  confirmAction={() => deletePracticePlanFunc()}
-                  resourceName="Practice Plan"
-                />
-              </RegularModal>
-            </>
-          )
-        }
-      >
-        {practicePlan.name}
-      </Typography>
+      <Grid container>
+        <Grid xs={12} md={6}>
+          <Typography
+            level="h2"
+            endDecorator={
+              Auth.teacherLoggedIn() && (
+                <>
+                  <IconButton onClick={() => setOpen(true)} color="danger">
+                    <DeleteIcon />
+                  </IconButton>
+                  {/* Modal for deleting a practice plan */}
+                  <RegularModal
+                    name="deletePracticePlan"
+                    open={open}
+                    onRequestClose={() => setOpen(false)}
+                  >
+                    <DeleteModalContent
+                      onRequestClose={() => setOpen(false)}
+                      confirmAction={() => deletePracticePlanFunc()}
+                      resourceName="Practice Plan"
+                    />
+                  </RegularModal>
+                </>
+              )
+            }
+          >
+            {practicePlan.name}
+          </Typography>
 
-      <Typography level="h4">Plan Points: {planPoints}</Typography>
-      <Typography level="h4">Points Earned: {completedPoints}</Typography>
-      <ProgressBar
-        percentage={progressBarPercentage}
-        width={"200px"}
-        height={"200px"}
-      />
-      <Typography level="body1">{practicePlan.planNotes}</Typography>
-      {!revealed ? (
-        <KeyboardArrowDownIcon
-          fontSize="large"
-          onClick={() => setRevealed(true)}
-        />
-      ) : (
-        <KeyboardControlKeyIcon
-          fontSize="large"
-          onClick={() => setRevealed(false)}
-        />
-      )}
+          <Typography level="h4">Plan Points: {planPoints}</Typography>
+          <Typography level="h4">Points Earned: {completedPoints}</Typography>
+        </Grid>
+        <Grid xs={12} md={6}>
+          <ProgressBar
+            percentage={progressBarPercentage}
+            width={"175px"}
+            height={"175px"}
+          />
+        </Grid>
+        <Grid xs={12}>
+          <Typography level="body1">{practicePlan.planNotes}</Typography>
+          {!revealed ? (
+            <KeyboardArrowDownIcon
+              fontSize="large"
+              onClick={() => setRevealed(true)}
+            />
+          ) : (
+            <KeyboardControlKeyIcon
+              fontSize="large"
+              onClick={() => setRevealed(false)}
+            />
+          )}
+        </Grid>
+      </Grid>
 
       {revealed && (
         <>
