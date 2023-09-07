@@ -153,7 +153,7 @@ const BadgesPoints = () => {
         ]}
         series={[
           {
-            data: [student.totalSheetPoints, student.totalCompletedPoints, 3],
+            data: [student.totalSheetPoints, student.totalCompletedPoints, 500],
           },
         ]}
         width={325}
