@@ -65,8 +65,6 @@ const SkillSheetCard = ({
           onChange={(event) => {
             const newChecked = event.target.checked;
             setChecked(newChecked);
-
-            console.log(newChecked);
             handleSkillSheetChange(newChecked, activeSheet._id);
           }}
         />

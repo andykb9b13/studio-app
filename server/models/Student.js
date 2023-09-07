@@ -107,7 +107,7 @@ studentSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-// Define a virtual property for total points worth
+// Define a virtual property for total points the plans are worth
 studentSchema.virtual("totalPlanPoints").get(function () {
   let totalPointsArr = [];
   if (this.practicePlans && this.practicePlans.length > 0) {
@@ -122,6 +122,7 @@ studentSchema.virtual("totalPlanPoints").get(function () {
   return totalPoints;
 });
 
+// Define a virtual property for the total points from assignments that are completed in all plans
 studentSchema.virtual("totalCompletedPoints").get(function () {
   let pointsArr = [];
   let completedAssignArr = [];
@@ -141,6 +142,22 @@ studentSchema.virtual("totalCompletedPoints").get(function () {
       pointsArr.push(assign.pointsWorth);
     }
   });
+
+  const totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
+  return totalPoints;
+});
+
+// Define a virtual property for all points earned from completing skillSheets
+studentSchema.virtual("totalSheetPoints").get(function () {
+  const pointsArr = [];
+
+  if (this.skillSheets && this.skillSheets.length > 0) {
+    this.skillSheets.forEach((sheet) => {
+      if (sheet.sheetPoints !== undefined) {
+        pointsArr.push(sheet.sheetPoints);
+      }
+    });
+  }
 
   const totalPoints = pointsArr.reduce((acc, curr) => acc + curr, 0);
   return totalPoints;

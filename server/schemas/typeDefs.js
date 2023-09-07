@@ -21,6 +21,7 @@ const typeDefs = gql`
     teacherId: String
     totalPlanPoints: Int
     totalCompletedPoints: Int
+    totalSheetPoints: Int
     assignments: [Assignment]
     goals: [Goal]
     skillSheets: [SkillSheet]

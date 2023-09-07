@@ -73,6 +73,7 @@ export const QUERY_STUDENT = gql`
       avatarId
       totalPlanPoints
       totalCompletedPoints
+      totalSheetPoints
       skillSheets {
         _id
         sheetName
