@@ -1,16 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { Card, Typography, Box } from "@mui/joy";
 import { levelList } from "../common/Assets";
+import { badgeList } from "../common/Assets";
 import CountUp from "react-countup";
 import { useStudentContext } from "../../utils/Context";
 import { styles } from "../../styles/studentDetailsStyles";
 import ProgressBar from "../common/ProgressBar";
 import { BarChart } from "@mui/x-charts/BarChart";
 
+const Badges = ({ badgeIndex, badgeArr }) => {
+  console.log(badgeIndex);
+  console.log(badgeArr);
+
+  if (badgeIndex !== null) {
+    return (
+      <img
+        src={badgeList[badgeIndex]?.name}
+        alt="badge"
+        style={{ width: "30%" }}
+      />
+    );
+  } else {
+    return;
+  }
+};
+
 const BadgesPoints = () => {
   const { student } = useStudentContext();
   const [earnedPoints, setEarnedPoints] = useState(0); // Total points from skillSheets and Assignments
   const [progressPercentage, setProgressPercentage] = useState(0); // Percentage to be used in ProgressBar
+  const [badgeArr, setBadgeArr] = useState(null);
+
+  useEffect(() => {
+    setBadgeArr(student.skillSheets?.map((sheet) => sheet.badgeId));
+  }, [setBadgeArr, student]);
+
+  console.log(badgeArr);
 
   // determine which is the next badge the user can earn. Will be displayed on page.
   const nextBadge = (points) => {
@@ -142,6 +167,9 @@ const BadgesPoints = () => {
             style={{ width: "30%" }}
           />
         )}
+        {badgeArr?.map((badgeIndex) => (
+          <Badges badgeIndex={badgeIndex} badgeArr={badgeArr} />
+        ))}
       </Box>
       <BarChart
         xAxis={[
