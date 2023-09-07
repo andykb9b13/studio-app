@@ -13,18 +13,6 @@ const StudentSkillSheetTable = ({
 }) => {
   const { isMobile } = useContext(MobileContext);
 
-  // // Somthing weird happening with the rendering with this function.
-  const checkIfSheetCompleted = async (sheetId) => {
-    const result = completedArr.filter(
-      (skillSheet) => skillSheet._id === sheetId
-    );
-    console.log(result);
-    if (!result) {
-      return false;
-    } else if (result > 0) {
-      return true;
-    }
-  };
   return (
     <Sheet>
       <Table>
@@ -86,7 +74,7 @@ const StudentSkillSheetTable = ({
                   <Typography>{skillSheet.difficulty}</Typography>
                 </td>
               )}
-              <td>{checkIfSheetCompleted(skillSheet._id) ? "Yes" : "No"}</td>
+              <td>{completedArr.includes(skillSheet._id) ? "Yes" : "No"}</td>
               <td>
                 <IconButton
                   onClick={() => {

@@ -22,11 +22,12 @@ const StudentSkillSheetContainer = ({ teacher }) => {
   const [removeCompletedSkillSheet] = useMutation(REMOVE_COMPLETED_SKILLSHEET);
   const [checked, setChecked] = useState(false);
   const [completedArr, setCompletedArr] = useState([]);
-  console.log(completedArr);
 
   useEffect(() => {
-    setCompletedArr(student.skillSheets);
+    setCompletedArr(student.skillSheets?.map((sheet) => sheet._id));
   }, [setCompletedArr, student]);
+
+  console.log(completedArr);
 
   console.log(checked);
 
@@ -41,7 +42,7 @@ const StudentSkillSheetContainer = ({ teacher }) => {
           },
         });
         console.log(data);
-
+        setCompletedArr([...data, skillSheetId]);
         alert("Added skill sheet completed!");
       } catch (err) {
         console.error(err);
@@ -56,6 +57,7 @@ const StudentSkillSheetContainer = ({ teacher }) => {
             studentId: student._id,
           },
         });
+        setCompletedArr(completedArr.filter((id) => id !== skillSheetId));
         alert("Removed skill sheet from completed");
       } catch (err) {
         console.error(err);
@@ -71,13 +73,12 @@ const StudentSkillSheetContainer = ({ teacher }) => {
         skillSheets={teacher.skillSheets}
         setOpen={setOpen}
         completedArr={completedArr}
-        // checkIfSheetCompleted={checkIfSheetCompleted}
       />
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <StudentSkillSheetCard
           activeSheet={activeSheet}
           handleSkillSheetChange={handleSkillSheetChange}
-          // checkIfSheetCompleted={checkIfSheetCompleted}
+          completedArr={completedArr}
           checked={checked}
           setChecked={setChecked}
         />

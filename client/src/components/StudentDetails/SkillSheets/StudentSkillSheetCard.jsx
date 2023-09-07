@@ -6,7 +6,7 @@ const SkillSheetCard = ({
   activeSheet,
   checked,
   setChecked,
-  checkIfSheetCompleted,
+  completedArr,
   handleSkillSheetChange,
 }) => {
   return (
@@ -60,8 +60,8 @@ const SkillSheetCard = ({
           <b>Completed?</b>
         </Typography>
         <Switch
-          checked={checked}
-          color={checked ? "success" : "danger"}
+          checked={completedArr.includes(activeSheet._id)}
+          color={completedArr.includes(activeSheet._id) ? "success" : "danger"}
           onChange={(event) => {
             const newChecked = event.target.checked;
             setChecked(newChecked);
