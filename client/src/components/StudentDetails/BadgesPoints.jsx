@@ -66,70 +66,70 @@ const BadgesPoints = () => {
           <img
             src={levelList[0].name}
             alt="level1 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 500 && (
           <img
             src={levelList[1].name}
             alt="level2 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 1000 && (
           <img
             src={levelList[2].name}
             alt="level3 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 1500 && (
           <img
             src={levelList[3].name}
             alt="level4 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 2000 && (
           <img
             src={levelList[4].name}
             alt="level5 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 3000 && (
           <img
             src={levelList[5].name}
             alt="level6 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 4000 && (
           <img
             src={levelList[6].name}
             alt="level7 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 5000 && (
           <img
             src={levelList[7].name}
             alt="level8 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 6000 && (
           <img
             src={levelList[8].name}
             alt="level9 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
         {student.totalCompletedPoints > 7000 && (
           <img
             src={levelList[9].name}
             alt="level10 badge"
-            style={{ width: "50%" }}
+            style={{ width: "30%" }}
           />
         )}
       </Box>

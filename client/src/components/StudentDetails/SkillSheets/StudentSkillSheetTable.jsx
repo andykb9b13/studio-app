@@ -9,9 +9,22 @@ const StudentSkillSheetTable = ({
   setActiveSheet,
   skillSheets,
   setOpen,
-  checkIfSheetCompleted,
+  completedArr,
 }) => {
   const { isMobile } = useContext(MobileContext);
+
+  // // Somthing weird happening with the rendering with this function.
+  const checkIfSheetCompleted = async (sheetId) => {
+    const result = completedArr.filter(
+      (skillSheet) => skillSheet._id === sheetId
+    );
+    console.log(result);
+    if (!result) {
+      return false;
+    } else if (result > 0) {
+      return true;
+    }
+  };
   return (
     <Sheet>
       <Table>

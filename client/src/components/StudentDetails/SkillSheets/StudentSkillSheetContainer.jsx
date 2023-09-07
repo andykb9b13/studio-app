@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Card } from "@mui/joy";
 import { styles } from "../../../styles/studentDetailsStyles";
 import RegularModal from "../../common/Modal/RegularModal";
@@ -21,49 +21,46 @@ const StudentSkillSheetContainer = ({ teacher }) => {
   const [completeSkillSheet] = useMutation(COMPLETE_SKILLSHEET);
   const [removeCompletedSkillSheet] = useMutation(REMOVE_COMPLETED_SKILLSHEET);
   const [checked, setChecked] = useState(false);
-  const [completedSheetArr, setCompletedSheetArr] = useState(
-    student.skillSheets
-  );
+  const [completedArr, setCompletedArr] = useState([]);
+  console.log(completedArr);
 
-  // Somthing weird happening with the rendering with this function.
-  const checkIfSheetCompleted = async (sheetId) => {
-    const result = student.skillSheets?.filter(
-      (skillSheet) => skillSheet._id === sheetId
-    );
-    if (!result) {
-      return false;
-    } else if (result > 0) {
-      return true;
-    }
-  };
+  useEffect(() => {
+    setCompletedArr(student.skillSheets);
+  }, [setCompletedArr, student]);
 
-  const handleCompleteSkillSheet = async (checked, skillSheetId) => {
-    try {
-      const { data } = await completeSkillSheet({
-        variables: {
-          skillSheetId: skillSheetId,
-          studentId: student._id,
-        },
-      });
-      alert("Added skill sheet completed!");
-    } catch (err) {
-      console.error(err);
-      alert("Could not add skill sheet to completed");
-    }
-  };
+  console.log(checked);
 
-  const handleRemoveDeletedSkillSheet = async (checked, skillSheetId) => {
-    try {
-      const { data } = await removeCompletedSkillSheet({
-        variables: {
-          skillSheetId: skillSheetId,
-          studentId: student._id,
-        },
-      });
-      alert("Removed skill sheet from completed");
-    } catch (err) {
-      console.error(err);
-      alert("Could not remove skill sheet from completed");
+  const handleSkillSheetChange = async (checked, skillSheetId) => {
+    if (checked === true) {
+      console.log(skillSheetId);
+      try {
+        const { data } = await completeSkillSheet({
+          variables: {
+            skillSheetId: skillSheetId,
+            studentId: student._id,
+          },
+        });
+        console.log(data);
+
+        alert("Added skill sheet completed!");
+      } catch (err) {
+        console.error(err);
+        alert("Could not add skill sheet to completed");
+      }
+    } else {
+      console.log(skillSheetId);
+      try {
+        await removeCompletedSkillSheet({
+          variables: {
+            skillSheetId: skillSheetId,
+            studentId: student._id,
+          },
+        });
+        alert("Removed skill sheet from completed");
+      } catch (err) {
+        console.error(err);
+        alert("could not remove skill sheet from completed");
+      }
     }
   };
 
@@ -73,14 +70,14 @@ const StudentSkillSheetContainer = ({ teacher }) => {
         setActiveSheet={setActiveSheet}
         skillSheets={teacher.skillSheets}
         setOpen={setOpen}
-        checkIfSheetCompleted={checkIfSheetCompleted}
+        completedArr={completedArr}
+        // checkIfSheetCompleted={checkIfSheetCompleted}
       />
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <StudentSkillSheetCard
           activeSheet={activeSheet}
-          handleCompleteSkillSheet={handleCompleteSkillSheet}
-          handleRemoveDeletedSkillSheet={handleRemoveDeletedSkillSheet}
-          checkIfSheetCompleted={checkIfSheetCompleted}
+          handleSkillSheetChange={handleSkillSheetChange}
+          // checkIfSheetCompleted={checkIfSheetCompleted}
           checked={checked}
           setChecked={setChecked}
         />

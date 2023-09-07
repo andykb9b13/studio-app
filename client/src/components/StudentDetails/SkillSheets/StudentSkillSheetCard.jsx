@@ -7,8 +7,7 @@ const SkillSheetCard = ({
   checked,
   setChecked,
   checkIfSheetCompleted,
-  handleCompleteSkillSheet,
-  handleRemoveCompletedSkillSheet,
+  handleSkillSheetChange,
 }) => {
   return (
     <Card
@@ -57,24 +56,20 @@ const SkillSheetCard = ({
           <b>Points: </b>
           {activeSheet.sheetPoints}
         </Typography>
-        <Typography
-          endDecorator={
-            <Switch
-              checked={() => checkIfSheetCompleted(activeSheet._id)}
-              color={
-                checkIfSheetCompleted(activeSheet.id) ? "success" : "danger"
-              }
-              onChange={(event) => {
-                const newChecked = event.target.checked;
-                setChecked(newChecked);
-                console.log(newChecked);
-                // handleCompleteSkillSheet(newChecked, activeSheet._id);
-              }}
-            />
-          }
-        >
+        <Typography>
           <b>Completed?</b>
         </Typography>
+        <Switch
+          checked={checked}
+          color={checked ? "success" : "danger"}
+          onChange={(event) => {
+            const newChecked = event.target.checked;
+            setChecked(newChecked);
+
+            console.log(newChecked);
+            handleSkillSheetChange(newChecked, activeSheet._id);
+          }}
+        />
       </CardContent>
     </Card>
   );
