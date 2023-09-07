@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Typography, Box } from "@mui/joy";
+import { Card, Typography, Sheet } from "@mui/joy";
 import { levelList } from "../common/Assets";
 import { badgeList } from "../common/Assets";
 import CountUp from "react-countup";
@@ -8,10 +8,8 @@ import { styles } from "../../styles/studentDetailsStyles";
 import ProgressBar from "../common/ProgressBar";
 import { BarChart } from "@mui/x-charts/BarChart";
 
+// This component sets the badges earned from skillsheets
 const Badges = ({ badgeIndex, badgeArr }) => {
-  console.log(badgeIndex);
-  console.log(badgeArr);
-
   if (badgeIndex !== null) {
     return (
       <img
@@ -75,14 +73,15 @@ const BadgesPoints = () => {
   return (
     <Card sx={styles.card}>
       <Typography level="h2">Progress</Typography>
-      <Typography level="h5">
-        Total Earned Points: <CountUp end={earnedPoints} />
-      </Typography>
+
       <Typography level="h5">
         Skill Sheets: <CountUp end={student.totalSheetPoints} />
       </Typography>
       <Typography level="h5">
         Assignments: <CountUp end={student.totalCompletedPoints} /> points
+      </Typography>
+      <Typography level="h5">
+        Total Earned Points: <CountUp end={earnedPoints} />
       </Typography>
       <Typography level="h5">
         Next Badge: {nextBadge(earnedPoints)} points
@@ -93,7 +92,18 @@ const BadgesPoints = () => {
         height={"150px"}
       />
       <Typography level="h3">Badges: </Typography>
-      <Box variant="solid">
+      <Sheet
+        variant="outlined"
+        sx={{
+          backgroundColor: "lightgrey",
+          borderRadius: "10px",
+          height: "200px",
+          maxWidth: "100%",
+          mx: "auto",
+          overflow: "auto",
+          resize: "vertical",
+        }}
+      >
         {/* This should be refactored into a single component */}
         {earnedPoints < 200 &&
           "Complete Assignments and Skill Sheets to earn points for badges"}
@@ -167,24 +177,29 @@ const BadgesPoints = () => {
             style={{ width: "30%" }}
           />
         )}
-        {badgeArr?.map((badgeIndex) => (
-          <Badges badgeIndex={badgeIndex} badgeArr={badgeArr} />
+        {badgeArr?.map((badgeIndex, i) => (
+          <Badges key={i} badgeIndex={badgeIndex} badgeArr={badgeArr} />
         ))}
-      </Box>
+      </Sheet>
       <BarChart
         xAxis={[
           {
             id: "barCategories",
-            data: ["SkillSheets", "Plans", "Studio Avg."],
+            data: ["SkillSheets", "Plans", "Total Earned", "Studio Avg."],
             scaleType: "band",
           },
         ]}
         series={[
           {
-            data: [student.totalSheetPoints, student.totalCompletedPoints, 500],
+            data: [
+              student.totalSheetPoints,
+              student.totalCompletedPoints,
+              earnedPoints,
+              500,
+            ],
           },
         ]}
-        width={325}
+        width={350}
         height={400}
         colors={["#662e9b"]}
       />

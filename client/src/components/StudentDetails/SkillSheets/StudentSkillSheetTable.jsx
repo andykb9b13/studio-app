@@ -14,8 +14,16 @@ const StudentSkillSheetTable = ({
   const { isMobile } = useContext(MobileContext);
 
   return (
-    <Sheet>
-      <Table>
+    <Sheet
+      sx={{
+        maxHeight: "450px",
+        maxWidth: "100%",
+        mx: "auto",
+        overflow: "auto",
+        resize: "vertical",
+      }}
+    >
+      <Table stickyHeader>
         <thead>
           <tr>
             <th>Sheet Name</th>

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Card } from "@mui/joy";
+import { Card, Typography } from "@mui/joy";
 import { styles } from "../../../styles/studentDetailsStyles";
 import RegularModal from "../../common/Modal/RegularModal";
 import StudentSkillSheetCard from "./StudentSkillSheetCard";
@@ -68,6 +68,7 @@ const StudentSkillSheetContainer = ({ teacher }) => {
 
   return (
     <Card sx={!isMobile ? styles.card : styles.mobileCard}>
+      <Typography level="h2">Skill Sheets</Typography>
       <StudentSkillSheetTable
         setActiveSheet={setActiveSheet}
         skillSheets={teacher.skillSheets}
