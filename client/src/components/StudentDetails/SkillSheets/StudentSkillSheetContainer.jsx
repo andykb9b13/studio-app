@@ -42,7 +42,7 @@ const StudentSkillSheetContainer = ({ teacher }) => {
           },
         });
         console.log(data);
-        setCompletedArr([...data, skillSheetId]);
+        setCompletedArr([...completedArr, skillSheetId]);
         alert("Added skill sheet completed!");
       } catch (err) {
         console.error(err);
