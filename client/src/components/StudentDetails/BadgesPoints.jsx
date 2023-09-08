@@ -6,7 +6,17 @@ import CountUp from "react-countup";
 import { useStudentContext } from "../../utils/Context";
 import { styles } from "../../styles/studentDetailsStyles";
 import ProgressBar from "../common/ProgressBar";
-import { BarChart } from "@mui/x-charts/BarChart";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+// import { BarChart } from "@mui/x-charts/BarChart";
 
 // This component sets the badges earned from skillsheets
 const Badges = ({ badgeIndex, badgeArr }) => {
@@ -34,6 +44,50 @@ const BadgesPoints = () => {
   }, [setBadgeArr, student]);
 
   console.log(badgeArr);
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Points",
+      },
+    },
+  };
+
+  const labels = ["SkillSheets", "Assignments", "Total Points"];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "My Points",
+        data: [
+          student.totalSheetPoints,
+          student.totalCompletedPoints,
+          earnedPoints,
+        ],
+        backgroundColor: "rgba(102, 46, 155)",
+      },
+      {
+        label: "Studio Average",
+        data: "",
+        backgroundColor: "rgba(248, 102, 36)",
+      },
+    ],
+  };
 
   // determine which is the next badge the user can earn. Will be displayed on page.
   const nextBadge = (points) => {
@@ -73,7 +127,6 @@ const BadgesPoints = () => {
   return (
     <Card sx={styles.card}>
       <Typography level="h2">Progress</Typography>
-
       <Typography level="h5">
         Skill Sheets: <CountUp end={student.totalSheetPoints} />
       </Typography>
@@ -97,7 +150,7 @@ const BadgesPoints = () => {
         sx={{
           backgroundColor: "lightgrey",
           borderRadius: "10px",
-          height: "200px",
+          maxHeight: "300px",
           maxWidth: "100%",
           mx: "auto",
           overflow: "auto",
@@ -181,7 +234,11 @@ const BadgesPoints = () => {
           <Badges key={i} badgeIndex={badgeIndex} badgeArr={badgeArr} />
         ))}
       </Sheet>
-      <BarChart
+      <Card>
+        <Bar options={options} data={data} />
+      </Card>
+
+      {/* <BarChart
         xAxis={[
           {
             id: "barCategories",
@@ -202,7 +259,7 @@ const BadgesPoints = () => {
         width={350}
         height={400}
         colors={["#662e9b"]}
-      />
+      /> */}
     </Card>
   );
 };
