@@ -36,8 +36,8 @@ export default function AboutCard() {
 
         <Typography level="body1">
           Whether you are teaching <strong>1</strong> or <strong>100</strong>{" "}
-          students, Studio Hub will help you take you teaching studio or
-          classroom to the next level.
+          students, Studio Hub will help you take your teaching studio or
+          classroom to the next level with interactive and customizable tools.
         </Typography>
 
         <Typography level="h3">Create Skill Sheets...</Typography>

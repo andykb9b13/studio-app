@@ -2,7 +2,7 @@ export const styles = {
   card: {
     width: "80%",
     mx: "auto",
-    my: 10,
+    my: 2,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -12,7 +12,7 @@ export const styles = {
   mobileCard: {
     width: "100%",
     mx: "auto",
-    my: 10,
+    my: 2,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
