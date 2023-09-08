@@ -56,6 +56,7 @@ const BadgesPoints = () => {
 
   const options = {
     responsive: true,
+
     plugins: {
       legend: {
         position: "top",
@@ -234,9 +235,7 @@ const BadgesPoints = () => {
           <Badges key={i} badgeIndex={badgeIndex} badgeArr={badgeArr} />
         ))}
       </Sheet>
-      <Card>
-        <Bar options={options} data={data} />
-      </Card>
+      <Bar options={options} data={data} />
 
       {/* <BarChart
         xAxis={[

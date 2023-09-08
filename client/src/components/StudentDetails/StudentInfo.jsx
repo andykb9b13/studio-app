@@ -33,61 +33,72 @@ const StudentInfo = ({ handleClick, teacher }) => {
   };
 
   return (
-    <Card sx={styles.card}>
-      <Typography
-        level="h2"
-        component="h2"
-        endDecorator={<EditIcon onClick={() => handleClick(1)} />}
-      >
-        {student.firstName} {student.lastName}
-      </Typography>
-      <img
-        src={
-          student.avatarId
-            ? avatarList[student.avatarId].name
-            : avatarList[0].name
-        }
-        alt="avatar"
-        style={{
-          borderRadius: "50%",
-          width: "35%",
-          marginInline: "auto",
-        }}
-      />
-      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <SelectAvatar
-          onRequestClose={() => setOpen(false)}
-          editAvatarFunc={editAvatarFunc}
+    <>
+      <Card sx={styles.card}>
+        <Typography
+          level="h2"
+          component="h2"
+          endDecorator={<EditIcon onClick={() => handleClick(1)} />}
+        >
+          {student.firstName} {student.lastName}
+        </Typography>
+        <img
+          src={
+            student.avatarId
+              ? avatarList[student.avatarId].name
+              : avatarList[0].name
+          }
+          alt="avatar"
+          style={{
+            borderRadius: "50%",
+            width: "35%",
+            marginInline: "auto",
+          }}
         />
-      </RegularModal>
-      <IconButton onClick={() => setOpen(true)}>
-        <Edit />
-      </IconButton>
-      <Typography>
-        <b>Teacher:</b> {teacher.firstName} {teacher.lastName}
-      </Typography>
-      <Typography>
-        <b>Email:</b> {student.email}
-      </Typography>
-      <Typography>
-        <b>Primary Contact:</b> {student.primaryContact}
-      </Typography>
-      <Typography>
-        <b>Primary Contact Email:</b> {student.primaryContactEmail}
-      </Typography>
-      <Typography>
-        <b>Instrument:</b> {student.instrument}
-      </Typography>
-      <Typography>
-        <b>Grade:</b> {student.grade}
-      </Typography>
-      <Typography>
-        <b>School:</b> {student.school}
-      </Typography>
-      <Typography>
-        <b>Lesson Location:</b> {student.lessonLocation}
-      </Typography>
-    </Card>
+        <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+          <SelectAvatar
+            onRequestClose={() => setOpen(false)}
+            editAvatarFunc={editAvatarFunc}
+          />
+        </RegularModal>
+        <IconButton onClick={() => setOpen(true)}>
+          <Edit />
+        </IconButton>
+        <Typography>
+          <b>Teacher:</b> {teacher.firstName} {teacher.lastName}
+        </Typography>
+        <Typography>
+          <b>Username: </b> {student.username}
+        </Typography>
+        <Typography>
+          <b>Email:</b> {student.email}
+        </Typography>
+        <Typography>
+          <b>Primary Contact:</b> {student.primaryContact}
+        </Typography>
+        <Typography>
+          <b>Primary Contact Email:</b> {student.primaryContactEmail}
+        </Typography>
+        <Typography>
+          <b>Instrument:</b> {student.instrument}
+        </Typography>
+        <Typography>
+          <b>Grade:</b> {student.grade}
+        </Typography>
+        <Typography>
+          <b>School:</b> {student.school}
+        </Typography>
+        <Typography>
+          <b>Lesson Day:</b> {student.lessonDay}
+        </Typography>
+        <Typography>
+          <b>Lesson Location:</b> {student.lessonLocation}
+        </Typography>
+        <Card>
+          <Typography level="h2">Goals</Typography>
+        </Card>
+      </Card>
+    </>
   );
 };
 
