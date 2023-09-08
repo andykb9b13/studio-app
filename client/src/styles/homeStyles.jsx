@@ -47,7 +47,8 @@ export const styles = {
     p: 4,
   },
   image: {
-    width: "80%",
     margin: "1%",
+    boxShadow: "1px 1px 5px grey",
+    borderRadius: "10px",
   },
 };

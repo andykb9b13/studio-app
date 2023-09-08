@@ -25,7 +25,7 @@ export default function WelcomeCard() {
   };
 
   return (
-    <Card variant="outlined" sx={styles.card}>
+    <Card variant="outlined" sx={!isMobile ? styles.card : styles.mobileCard}>
       <img
         className="hero-bg"
         src={studioHubLogo}

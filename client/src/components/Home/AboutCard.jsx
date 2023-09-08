@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { Typography, Card, Divider, Box, List, ListItem } from "@mui/joy";
+import { Typography, Card, Divider, List, ListItem, Grid } from "@mui/joy";
 import Animate from "../../utils/ScrollAnimation";
 import getOrganized from "../../assets/home/getOrganized.png";
 import { styles } from "../../styles/homeStyles";
 import liveSiteDemo3 from "../../assets/home/liveSiteDemo/liveSiteDemo3.png";
 import liveSiteDemo2 from "../../assets/home/liveSiteDemo/liveSiteDemo2.png";
+import liveSiteDemo8 from "../../assets/home/liveSiteDemo/liveSiteDemo8.png";
+import liveSiteDemo9 from "../../assets/home/liveSiteDemo/liveSiteDemo9.png";
 import liveSiteDemo10 from "../../assets/home/liveSiteDemo/liveSiteDemo10.png";
+import liveSiteDemo13 from "../../assets/home/liveSiteDemo/liveSiteDemo13.png";
 import { MobileContext } from "../../App";
 
 export default function AboutCard() {
@@ -20,11 +23,9 @@ export default function AboutCard() {
           flexDirection: "column",
           alignItems: "center",
           py: 4,
-
-          // height: "75vh",
         }}
       >
-        <Typography level="h2">Get Organized...</Typography>
+        <Typography level="h2">Customizable Tools and Resources...</Typography>
 
         <img
           className="hero-bg"
@@ -34,21 +35,24 @@ export default function AboutCard() {
         />
 
         <Typography level="body1">
-          It is tough to stay on top of students, assignments, invoices, and
-          more when you are running a private teaching studio. This app is all
-          about helping you manage it easier!
+          Whether you are teaching <strong>1</strong> or <strong>100</strong>{" "}
+          students, Studio Hub will help you take you teaching studio or
+          classroom to the next level.
         </Typography>
+
         <Typography level="h3">Create Skill Sheets...</Typography>
 
         <img
           src={!isMobile ? liveSiteDemo3 : liveSiteDemo10}
           style={styles.image}
+          width={!isMobile ? "70%" : "80%"}
           alt="skill sheets"
         />
+
         <Typography level="h4" sx={{ textDecoration: "underline" }}>
           Flexibility and Customizable
         </Typography>
-        <Typography>
+        <Typography level="h6">
           Teachers can create their own skill sheets to give students extra
           challenges and provide benchmark accomplishments for their entire
           studio.
@@ -64,7 +68,43 @@ export default function AboutCard() {
         <img
           src={liveSiteDemo2}
           style={styles.image}
+          width={!isMobile ? "400px" : "80%"}
           alt="create skill sheet"
+        />
+
+        <Typography level="h3">Make Practice Plans...</Typography>
+        <Typography>
+          Create practice plans for students to keep them on track. Students and
+          teachers can track their progress in each plan to see how much they
+          have accomplished.
+        </Typography>
+        <img
+          src={liveSiteDemo9}
+          style={styles.image}
+          width={!isMobile ? "70%" : "100%"}
+          alt="create practice plan"
+        />
+        <Typography level="h3">Add Assignments...</Typography>
+        <Typography>
+          Add Assignments and give points for completing the assignment.
+        </Typography>
+
+        <img
+          src={liveSiteDemo13}
+          style={styles.image}
+          width={!isMobile ? "400px" : "100%"}
+          alt="create practice plan"
+        />
+        <Typography level="h3">Add Resources...</Typography>
+        <Typography>
+          Add resources to help students with their assignments. Resources can
+          either be uploaded or an existing url can be used.
+        </Typography>
+        <img
+          src={liveSiteDemo8}
+          style={styles.image}
+          width={!isMobile ? "300px" : "75%"}
+          alt="create practice plan"
         />
       </Card>
     </Animate>
