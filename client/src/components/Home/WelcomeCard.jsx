@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Auth from "../../utils/auth";
 import { styles } from "../../styles/homeStyles";
 import {
@@ -13,13 +13,17 @@ import {
 } from "@mui/joy";
 import { Link } from "react-router-dom";
 import studioHubLogo from "../../assets/home/studioHubLogo.png";
+import { MobileContext } from "../../App";
 
 export default function WelcomeCard() {
+  const { isMobile } = useContext(MobileContext);
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
     alert("You are successfully logged out");
   };
+
   return (
     <Card variant="outlined" sx={styles.card}>
       <img

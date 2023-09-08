@@ -9,6 +9,16 @@ export const styles = {
     border: 1,
     boxShadow: "lg",
   },
+  mobileCard: {
+    width: "100%",
+    mx: "auto",
+    my: 10,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    border: 1,
+    boxShadow: "lg",
+  },
   list: {
     listStyleType: "disc",
     fontSize: "1.3em",
@@ -35,5 +45,9 @@ export const styles = {
     alignItems: "center",
     backgroundColor: "white",
     p: 4,
+  },
+  image: {
+    width: "80%",
+    margin: "1%",
   },
 };

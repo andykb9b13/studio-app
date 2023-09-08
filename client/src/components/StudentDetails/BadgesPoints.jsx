@@ -84,7 +84,7 @@ const BadgesPoints = () => {
       },
       {
         label: "Studio Average",
-        data: "",
+        data: [200, 160, 450],
         backgroundColor: "rgba(248, 102, 36)",
       },
     ],
