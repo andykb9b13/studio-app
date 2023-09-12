@@ -11,8 +11,27 @@ const {
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const { findById } = require("../models/Student");
+const { GraphQLScalarType } = require("graphql");
+const { Kind } = require("graphql/language");
 
 const resolvers = {
+  Date: new GraphQLScalarType({
+    name: "Date",
+    description: "Custom Date scalar type",
+    serialize(value) {
+      return new Date(value).toISOString(); // Convert Date to ISO string
+    },
+    parseValue(value) {
+      return new Date(value); // Parse ISO string to Date
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.STRING) {
+        return new Date(ast.value); // Parse string literal to Date
+      }
+      return null;
+    },
+  }),
+
   Query: {
     students: async () => {
       return await Student.find({})

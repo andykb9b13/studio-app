@@ -13,6 +13,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardControlKeyIcon from "@mui/icons-material/KeyboardControlKey";
 import Auth from "../../../utils/auth";
 import ProgressBar from "../../common/ProgressBar";
+import dateService from "../../../utils/dates";
 
 const styles = {
   sheet: {
@@ -111,6 +112,9 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
             }
           >
             {practicePlan.name}
+          </Typography>
+          <Typography>
+            {new Date(practicePlan.dateCreated).toLocaleString()}
           </Typography>
 
           <Typography level="h4">Plan Points: {planPoints}</Typography>

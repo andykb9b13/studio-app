@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  scalar Date
+
   type Student {
     _id: ID
     firstName: String
@@ -88,6 +90,7 @@ const typeDefs = gql`
   type PracticePlan {
     _id: ID
     name: String!
+    dateCreated: Date
     studentId: String
     planNotes: String
     assignments: [Assignment]
@@ -216,6 +219,7 @@ const typeDefs = gql`
 
     addPracticePlan(
       name: String!
+      dateCreated: Date
       studentId: String
       planNotes: String
     ): PracticePlan

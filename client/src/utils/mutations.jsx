@@ -216,12 +216,19 @@ export const ADD_SKILLSHEET = gql`
 export const ADD_PRACTICEPLAN = gql`
   mutation addPracticePlan(
     $name: String!
+    $dateCreated: Date
     $studentId: String
     $planNotes: String
   ) {
-    addPracticePlan(name: $name, studentId: $studentId, planNotes: $planNotes) {
+    addPracticePlan(
+      name: $name
+      dateCreated: $dateCreated
+      studentId: $studentId
+      planNotes: $planNotes
+    ) {
       _id
       name
+      dateCreated
       studentId
       planNotes
     }

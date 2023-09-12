@@ -65,7 +65,7 @@ export default function PracticePlanContainer() {
   const createPracticePlanFunc = async (userInput) => {
     try {
       const { data } = await createPracticePlan({
-        variables: { studentId: id, ...userInput },
+        variables: { studentId: id, dateCreated: new Date(), ...userInput },
       });
       alert("Practice Plan created");
       // Update studentPlans with the new practice plan
