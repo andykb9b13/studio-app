@@ -18,6 +18,17 @@ import avatar16 from "../../assets/avatars/avatar16.png";
 import avatar17 from "../../assets/avatars/avatar17.png";
 import avatar18 from "../../assets/avatars/avatar18.png";
 import avatar19 from "../../assets/avatars/avatar19.png";
+import avatar20 from "../../assets/avatars/avatar20.png";
+import avatar21 from "../../assets/avatars/avatar21.png";
+import avatar22 from "../../assets/avatars/avatar22.png";
+import avatar23 from "../../assets/avatars/avatar23.png";
+import avatar24 from "../../assets/avatars/avatar24.png";
+import avatar25 from "../../assets/avatars/avatar25.png";
+import avatar26 from "../../assets/avatars/avatar26.png";
+import avatar27 from "../../assets/avatars/avatar27.png";
+import avatar28 from "../../assets/avatars/avatar28.png";
+import avatar29 from "../../assets/avatars/avatar29.png";
+import avatar30 from "../../assets/avatars/avatar30.png";
 
 import badge1 from "../../assets/badges/badge1.png";
 import badge2 from "../../assets/badges/badge2.png";
@@ -70,6 +81,17 @@ export const avatarList = [
   { id: 17, name: avatar17 },
   { id: 18, name: avatar18 },
   { id: 19, name: avatar19 },
+  { id: 20, name: avatar20 },
+  { id: 21, name: avatar21 },
+  { id: 22, name: avatar22 },
+  { id: 23, name: avatar23 },
+  { id: 24, name: avatar24 },
+  { id: 25, name: avatar25 },
+  { id: 26, name: avatar26 },
+  { id: 27, name: avatar27 },
+  { id: 28, name: avatar28 },
+  { id: 29, name: avatar29 },
+  { id: 30, name: avatar30 },
 ];
 
 export const badgeList = [
