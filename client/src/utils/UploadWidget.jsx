@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-const myCloudName = process.env.CLOUD_NAME;
-const myUploadPreset = process.env.UPLOAD_PRESET;
+const myCloudName = process.env.REACT_APP_CLOUD_NAME;
+const myUploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 
 console.log(process.env);
 
@@ -44,8 +44,8 @@ const UploadWidget = ({ children, onUpload }) => {
     // about unsigned uploads at: https://cloudinary.com/documentation/upload_images#unsigned_upload
 
     const options = {
-      cloudName: "dezrrgciy",
-      uploadPreset: "studio_hub",
+      cloudName: myCloudName,
+      uploadPreset: myUploadPreset,
     };
 
     return cloudinary?.createUploadWidget(options, function (error, result) {
