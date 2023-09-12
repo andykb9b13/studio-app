@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Sheet, Table, IconButton, Typography } from "@mui/joy";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { badgeList } from "../../common/Assets";
 import { MobileContext } from "../../../App";
 import CountUp from "react-countup";
@@ -84,14 +84,12 @@ const StudentSkillSheetTable = ({
               )}
               <td>{completedArr.includes(skillSheet._id) ? "Yes" : "No"}</td>
               <td>
-                <IconButton
+                <NavigateNextIcon
                   onClick={() => {
                     setActiveSheet(skillSheet);
                     setOpen(true);
                   }}
-                >
-                  <VisibilityIcon color="neutral" />
-                </IconButton>
+                />
               </td>
             </tr>
           ))}
