@@ -59,7 +59,7 @@ export default function WelcomeCard() {
             <Button>Go To Profile</Button>
           </Box>
         )}
-        <Button component={Link} to="/signup">
+        <Button component={Link} to="/signup" color="info">
           Teacher Sign Up
         </Button>
       </CardActions>

@@ -10,10 +10,16 @@ const Animate = ({
   height = "auto",
 }) => {
   useEffect(() => {
-    AOS.init({ duration: 2500, once: true, delay: 500 });
+    AOS.init({ duration: 2500, once: true, delay: 0 });
   });
   return (
-    <Box sx={{ height: { height } }} data-aos={anim} data-aos-delay={delay}>
+    <Box
+      sx={{
+        height: { height },
+      }}
+      data-aos={anim}
+      data-aos-delay={delay}
+    >
       {children}
     </Box>
   );

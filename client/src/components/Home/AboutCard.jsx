@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Typography, Card, Divider, List, ListItem, Grid } from "@mui/joy";
+import { Typography, Card, List, ListItem, Grid } from "@mui/joy";
 import Animate from "../../utils/ScrollAnimation";
 import getOrganized from "../../assets/home/getOrganized.png";
 import { styles } from "../../styles/homeStyles";
@@ -15,7 +15,7 @@ export default function AboutCard() {
   const { isMobile } = useContext(MobileContext);
 
   return (
-    <Animate anim="fade-right" height="100%">
+    <>
       <Card
         sx={{
           backgroundColor: "white",
@@ -33,13 +33,6 @@ export default function AboutCard() {
           style={styles.logo}
           alt="get organized"
         />
-
-        <Typography level="body1">
-          Whether you are teaching <strong>1</strong> or <strong>100</strong>{" "}
-          students, Studio Hub will help you take your teaching studio or
-          classroom to the next level with interactive and customizable tools.
-        </Typography>
-
         <Typography level="h3">Create Skill Sheets...</Typography>
 
         <img
@@ -49,28 +42,35 @@ export default function AboutCard() {
           alt="skill sheets"
         />
 
-        <Typography level="h4" sx={{ textDecoration: "underline" }}>
-          Flexibility and Customizable
-        </Typography>
-        <Typography level="h6">
-          Teachers can create their own skill sheets to give students extra
-          challenges and provide benchmark accomplishments for their entire
-          studio.
-        </Typography>
-        <List>
-          <ListItem>Create your own exercises and skills</ListItem>
-          <ListItem>Select a difficulty</ListItem>
-          <ListItem>
-            Select from a list of badges for students to earn by completing the
-            sheet.
-          </ListItem>
-        </List>
-        <img
-          src={liveSiteDemo2}
-          style={styles.image}
-          width={!isMobile ? "400px" : "80%"}
-          alt="create skill sheet"
-        />
+        <Grid container display={"flex"} justifyContent={"center"}>
+          <Grid xs={12} lg={4}>
+            <Typography level="h4" sx={{ textDecoration: "underline" }}>
+              Flexibility and Customizable
+            </Typography>
+            <Typography level="h6">
+              Teachers can create their own skill sheets to give students extra
+              challenges and provide benchmark accomplishments for their entire
+              studio.
+            </Typography>
+
+            <List>
+              <ListItem>Create your own exercises and skills</ListItem>
+              <ListItem>Select a difficulty</ListItem>
+              <ListItem>
+                Select from a list of badges for students to earn by completing
+                the sheet.
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid xs={12} lg={4} pl={2}>
+            <img
+              src={liveSiteDemo2}
+              style={styles.image}
+              width={!isMobile ? "400px" : "80%"}
+              alt="create skill sheet"
+            />
+          </Grid>
+        </Grid>
 
         <Typography level="h3">Make Practice Plans...</Typography>
         <Typography>
@@ -78,35 +78,42 @@ export default function AboutCard() {
           teachers can track their progress in each plan to see how much they
           have accomplished.
         </Typography>
+
         <img
           src={liveSiteDemo9}
           style={styles.image}
           width={!isMobile ? "70%" : "100%"}
           alt="create practice plan"
         />
-        <Typography level="h3">Add Assignments...</Typography>
-        <Typography>
-          Add Assignments and give points for completing the assignment.
-        </Typography>
 
-        <img
-          src={liveSiteDemo13}
-          style={styles.image}
-          width={!isMobile ? "400px" : "100%"}
-          alt="create practice plan"
-        />
-        <Typography level="h3">Add Resources...</Typography>
-        <Typography>
-          Add resources to help students with their assignments. Resources can
-          either be uploaded or an existing url can be used.
-        </Typography>
-        <img
-          src={liveSiteDemo8}
-          style={styles.image}
-          width={!isMobile ? "300px" : "75%"}
-          alt="create practice plan"
-        />
+        <Grid container display={"flex"} justifyContent={"space-around"}>
+          <Grid xs={12} lg={4}>
+            <Typography level="h3">Add Assignments...</Typography>
+            <Typography>
+              Add Assignments and give points for completing the assignment.
+            </Typography>
+            <img
+              src={liveSiteDemo13}
+              style={styles.image}
+              width={!isMobile ? "400px" : "100%"}
+              alt="create practice plan"
+            />
+          </Grid>
+          <Grid xs={12} lg={4}>
+            <Typography level="h3">Add Resources...</Typography>
+            <Typography>
+              Add resources to help students with their assignments. Resources
+              can either be uploaded or an existing url can be used.
+            </Typography>
+            <img
+              src={liveSiteDemo8}
+              style={styles.image}
+              width={!isMobile ? "300px" : "75%"}
+              alt="create practice plan"
+            />
+          </Grid>
+        </Grid>
       </Card>
-    </Animate>
+    </>
   );
 }

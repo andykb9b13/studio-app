@@ -27,7 +27,7 @@ export const styles = {
   },
   logo: {
     borderRadius: "50%",
-    width: "200px",
+    width: "300px",
     border: "4px solid black",
     transition: "all 0.2s",
     "&:hover": {
