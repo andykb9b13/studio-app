@@ -91,6 +91,7 @@ export const QUERY_STUDENT = gql`
       practicePlans {
         _id
         name
+        dateCreated
         planNotes
         resources {
           _id
@@ -140,6 +141,7 @@ export const QUERY_PRACTICEPLANS = gql`
     practicePlans(studentId: $student) {
       _id
       name
+      dateCreated
       planNotes
       resources {
         _id

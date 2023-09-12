@@ -5,6 +5,9 @@ const practicePlanSchema = new Schema({
     type: String,
     required: true,
   },
+  dateCreated: {
+    type: Date,
+  },
   studentId: {
     type: String,
   },

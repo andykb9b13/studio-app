@@ -57,6 +57,11 @@ class DateService {
     this.dateObj.monthName = this.monthNames[this.dateObj.month];
     return this.dateObj;
   }
+
+  formatDate(date) {
+    const formattedDate = `${date.getDate()} / ${date.getMonth()} / ${date.getDay()} / ${date.getYear()}`;
+    return formattedDate;
+  }
 }
 
 const dateService = new DateService();
