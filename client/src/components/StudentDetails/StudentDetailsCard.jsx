@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -23,11 +23,13 @@ import { QUERY_TEACHER } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import { useStudentContext, useTeacherContext } from "../../utils/Context";
 import Clock from "../../utils/Clock";
+import RegularModal from "../common/Modal/RegularModal";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student } = useStudentContext();
   const { teacher, setTeacher } = useTeacherContext();
+  const [open, setOpen] = useState(false);
 
   // This is here so when a student logs in, they are able to get their teacher information to link skillsheets, etc.
   const { data } = useQuery(QUERY_TEACHER, {
@@ -107,14 +109,15 @@ export default function StudentDetailsCard({ active, setActive }) {
         </Grid>
       </CardContent>
 
-      <CardActions>
-        {/* <Button component={Link} to={`/student/${id}/practiceHub`}>
+      {/* <CardActions>
+        <Button component={Link} to={`/student/${id}/practiceHub`}>
           To Practice Hub
-        </Button> */}
-      </CardActions>
+        </Button>
+      </CardActions> */}
 
-      {/* Conditional rendering for button clicks in Card Actions */}
-      {active === 1 ? <EditStudent studentId={student._id} /> : null}
+      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+        <EditStudent studentId={student._id} />
+      </RegularModal>
     </Card>
   );
 }

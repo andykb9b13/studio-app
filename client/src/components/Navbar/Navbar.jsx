@@ -60,12 +60,12 @@ export default function Navbar() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={() => window.location.assign("/tutor")}>
+              {/* <MenuItem onClick={() => window.location.assign("/tutor")}>
                 Virtual Tutor
               </MenuItem>
               <MenuItem onClick={() => window.location.assign(`/teacher/:id`)}>
                 Resources
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem onClick={() => logout()}>Logout</MenuItem>
             </Menu>
           )}

@@ -2,8 +2,6 @@ import { useEffect } from "react";
 const myCloudName = process.env.REACT_APP_CLOUD_NAME;
 const myUploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 
-console.log(process.env);
-
 let cloudinary;
 let widget;
 

@@ -42,6 +42,7 @@ const StudentInfo = ({ handleClick, teacher }) => {
         >
           {student.firstName} {student.lastName}
         </Typography>
+
         <img
           src={
             student.avatarId
