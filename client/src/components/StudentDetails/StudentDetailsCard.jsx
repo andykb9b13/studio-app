@@ -115,7 +115,7 @@ export default function StudentDetailsCard({ active, setActive }) {
         </Button>
       </CardActions> */}
 
-      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+      <RegularModal open={active === 1} onRequestClose={() => setActive(null)}>
         <EditStudent studentId={student._id} />
       </RegularModal>
     </Card>

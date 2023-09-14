@@ -26,7 +26,19 @@ const EditStudent = () => {
     }
   };
   return (
-    <Sheet>
+    <Sheet
+      sx={{
+        p: 1,
+        borderRadius: "4px",
+        mt: 1,
+        boxShadow: "md",
+        maxHeight: "max-content",
+        maxWidth: "100%",
+        mx: "auto",
+        overflow: "auto",
+        resize: "horizontal",
+      }}
+    >
       <Typography level="h2">Edit Student</Typography>
       {error && (
         <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
