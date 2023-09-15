@@ -24,12 +24,14 @@ import { useQuery } from "@apollo/client";
 import { useStudentContext, useTeacherContext } from "../../utils/Context";
 import Clock from "../../utils/Clock";
 import RegularModal from "../common/Modal/RegularModal";
+import ResourceContainer from "./PracticePlan/Resources/ResourceContainer";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student } = useStudentContext();
   const { teacher, setTeacher } = useTeacherContext();
   const [open, setOpen] = useState(false);
+  const [resourceArr, setResourceArr] = useState([]);
 
   // This is here so when a student logs in, they are able to get their teacher information to link skillsheets, etc.
   const { data } = useQuery(QUERY_TEACHER, {
@@ -37,6 +39,22 @@ export default function StudentDetailsCard({ active, setActive }) {
       teacherId: student.teacherId,
     },
   });
+
+  useEffect(() => {
+    let newResourceArr = [];
+    if (Array.isArray(student.practicePlans)) {
+      for (let plan of student.practicePlans) {
+        if (plan.resources.length > 0) {
+          for (let resource of plan.resources) {
+            newResourceArr.push(resource);
+          }
+        }
+      }
+    }
+    setResourceArr(newResourceArr);
+  }, [setResourceArr, student]);
+
+  console.log(resourceArr);
 
   useEffect(() => {
     setTeacher(data?.teacher || {});
@@ -106,6 +124,9 @@ export default function StudentDetailsCard({ active, setActive }) {
           <Grid xs={12} md={12} my={1}>
             <PracticePlanContainer />
           </Grid>
+        </Grid>
+        <Grid>
+          <ResourceContainer resources={resourceArr} />
         </Grid>
       </CardContent>
 

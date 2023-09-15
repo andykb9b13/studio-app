@@ -6,6 +6,7 @@ import DeleteModalContent from "../../../common/Modal/DeleteModalContent";
 import { DELETE_RESOURCE } from "../../../../utils/mutations";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Divider } from "@mui/material";
+import Auth from "../../../../utils/auth";
 
 const ResourceContainer = ({ resources, setResources }) => {
   const [deleteResource, { error }] = useMutation(DELETE_RESOURCE);
@@ -35,19 +36,24 @@ const ResourceContainer = ({ resources, setResources }) => {
               {resource.resourceName}
             </Link>
             <Typography>{resource.description}</Typography>
-            <RegularModal
-              name="deleteResource"
-              open={open}
-              onRequestClose={() => setOpen(false)}
-            >
-              <DeleteModalContent
-                onRequestClose={() => setOpen(false)}
-                confirmAction={() => deleteResourceFunc(resource._id)}
-              />
-            </RegularModal>
-            <IconButton onClick={() => setOpen(true)} color="danger">
-              <DeleteIcon />
-            </IconButton>
+            {Auth.teacherLoggedIn() && (
+              <>
+                <RegularModal
+                  name="deleteResource"
+                  open={open}
+                  onRequestClose={() => setOpen(false)}
+                >
+                  <DeleteModalContent
+                    onRequestClose={() => setOpen(false)}
+                    confirmAction={() => deleteResourceFunc(resource._id)}
+                  />
+                </RegularModal>
+                <IconButton onClick={() => setOpen(true)} color="danger">
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            )}
+
             <Divider />
           </React.Fragment>
         ))}
