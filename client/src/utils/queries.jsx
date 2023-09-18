@@ -20,6 +20,7 @@ export const QUERY_TEACHER = gql`
         sheetName
         teacherId
         description
+        url
         scales
         exercises
         etudes
@@ -79,6 +80,7 @@ export const QUERY_STUDENT = gql`
         sheetName
         teacherId
         description
+        url
         scales
         exercises
         etudes
@@ -169,6 +171,7 @@ export const QUERY_PRACTICEPLANS = gql`
         sheetName
         teacherId
         description
+        url
         scales
         exercises
         etudes

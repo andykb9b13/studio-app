@@ -28,6 +28,7 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
           badgeId: badgeId,
           sheetName: userInput.sheetName,
           description: userInput.description,
+          url: userInput.url,
           scales: userInput.scales,
           exercises: userInput.exercises,
           etudes: userInput.etudes,

@@ -11,6 +11,9 @@ const skillSheetSchema = new Schema({
   description: {
     type: String,
   },
+  url: {
+    type: String,
+  },
   scales: {
     type: String,
     trim: true,

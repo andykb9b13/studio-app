@@ -77,6 +77,7 @@ const typeDefs = gql`
     sheetName: String!
     teacherId: String
     description: String
+    url: String
     scales: String
     exercises: String
     etudes: String
@@ -207,6 +208,7 @@ const typeDefs = gql`
       sheetName: String!
       teacherId: String
       description: String
+      url: String
       scales: String
       exercises: String
       etudes: String
@@ -286,6 +288,7 @@ const typeDefs = gql`
       sheetName: String
       teacherId: String
       description: String
+      url: String
       scales: String
       exercises: String
       etudes: String

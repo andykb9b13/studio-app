@@ -7,6 +7,7 @@ import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import { badgeList } from "../../common/Assets";
 import { MobileContext } from "../../../App";
 import CountUp from "react-countup";
+import FilePresentIcon from "@mui/icons-material/FilePresent";
 
 const SkillSheetTable = ({
   setActiveSheet,
@@ -23,8 +24,9 @@ const SkillSheetTable = ({
           <tr>
             <th>Sheet Name</th>
             <th>Badge</th>
-            {!isMobile && <th>Exercises</th>}
+            {!isMobile && <th>Description</th>}
             {!isMobile && <th>Scales</th>}
+            {!isMobile && <th>Files</th>}
             <th>Points</th>
             <th>Difficulty</th>
             <th></th>
@@ -58,12 +60,26 @@ const SkillSheetTable = ({
               </td>
               {!isMobile && (
                 <td>
-                  <Typography>{skillSheet.exercises}</Typography>
+                  <Typography>{skillSheet.description}</Typography>
                 </td>
               )}
               {!isMobile && (
                 <td>
                   <Typography>{skillSheet.scales}</Typography>
+                </td>
+              )}
+              {!isMobile && (
+                <td>
+                  <Typography>
+                    <a href={skillSheet.url} target="blank">
+                      <IconButton
+                        color={skillSheet.url ? "success" : "neutral"}
+                        disabled={skillSheet.url ? false : true}
+                      >
+                        <FilePresentIcon />
+                      </IconButton>
+                    </a>
+                  </Typography>
                 </td>
               )}
               <td>

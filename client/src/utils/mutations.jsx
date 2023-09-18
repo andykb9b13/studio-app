@@ -179,6 +179,7 @@ export const ADD_SKILLSHEET = gql`
     $sheetName: String!
     $teacherId: String
     $description: String
+    $url: String
     $scales: String
     $exercises: String
     $etudes: String
@@ -191,6 +192,7 @@ export const ADD_SKILLSHEET = gql`
       sheetName: $sheetName
       teacherId: $teacherId
       description: $description
+      url: $url
       scales: $scales
       exercises: $exercises
       etudes: $etudes
@@ -202,6 +204,7 @@ export const ADD_SKILLSHEET = gql`
       sheetName
       teacherId
       description
+      url
       scales
       exercises
       etudes

@@ -15,6 +15,7 @@ import RegularModal from "../../common/Modal/RegularModal";
 import SelectBadge from "./SelectBadge";
 import { badgeList } from "../../common/Assets";
 import { useTeacherContext } from "../../../utils/Context";
+import UploadWidget from "../../../utils/UploadWidget";
 
 const CreateSkillSheet = ({
   onRequestClose,
@@ -27,6 +28,18 @@ const CreateSkillSheet = ({
   const { teacher } = useTeacherContext();
   const { handleSubmit, register } = useForm();
   const [open, setOpen] = useState(null);
+  const [skillSheetUrl, setSkillSheetUrl] = useState();
+
+  function handleOnUpload(error, result, widget) {
+    if (error) {
+      widget.close({
+        quiet: true,
+      });
+      return;
+    }
+    console.log(result?.info?.secure_url);
+    setSkillSheetUrl(result?.info?.secure_url);
+  }
 
   const onSubmit = async (userInput) => {
     try {
@@ -103,17 +116,50 @@ const CreateSkillSheet = ({
             Expert
           </Radio>
         </RadioGroup>
-        <Typography>Scales</Typography>
+        <Typography>File Link</Typography>
+        <Input type="text" value={skillSheetUrl} {...register("url")} />
+        <UploadWidget onUpload={handleOnUpload}>
+          {({ open }) => {
+            function handleOnClick(e) {
+              e.preventDefault();
+              open();
+            }
+            return <Button onClick={handleOnClick}>Upload a File</Button>;
+          }}
+        </UploadWidget>
+        <Typography level="h3">Additional Requirements</Typography>
+        <Typography>
+          You can also list specific challenges for students in addition to or
+          instead of uploading a file.
+        </Typography>
+        <Typography>
+          <b>Scales</b>
+        </Typography>
         <Textarea minRows={3} {...register("scales")} />
-        <Typography>Arpeggios</Typography>
+        <Typography>
+          <b>Arpeggios</b>
+        </Typography>
         <Textarea minRows={3} {...register("arpeggios")} />
-        <Typography>Exercises</Typography>
+        <Typography>
+          <b>Exercises</b>
+        </Typography>
         <Textarea minRows={3} {...register("exercises")} />
-        <Typography>Etudes</Typography>
+        <Typography>
+          <b>Etudes</b>
+        </Typography>
         <Textarea minRows={3} {...register("etudes")} />
-        <Typography>Pieces</Typography>
+        <Typography>
+          <b>Pieces</b>
+        </Typography>
         <Textarea minRows={3} {...register("pieces")} />
-        <Typography>Points</Typography>
+        <Typography level="h3">Optional Points</Typography>
+        <Typography>
+          Give students an extra incentive by assigning points they can earn
+          when they have completed this sheet
+        </Typography>
+        <Typography>
+          <b>Points</b>
+        </Typography>
         <Input type="number" {...register("points")} />
         {badgeId ? (
           <img
