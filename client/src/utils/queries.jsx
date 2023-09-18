@@ -48,6 +48,15 @@ export const QUERY_TEACHER = gql`
         teacherId
         avatarId
         username
+        totalSheetPoints
+        practicePlans {
+          assignments {
+            pointsWorth
+          }
+        }
+        skillSheets {
+          sheetPoints
+        }
       }
     }
   }
@@ -181,6 +190,19 @@ export const QUERY_PRACTICEPLANS = gql`
         difficulty
         completed
       }
+    }
+  }
+`;
+
+export const QUERY_STUDENTS = gql`
+  query students($teacherId: ID!) {
+    students(teacherId: $teacherId) {
+      _id
+      avatarId
+      username
+      totalSheetPoints
+      totalPlanPoints
+      totalCompletedPoints
     }
   }
 `;

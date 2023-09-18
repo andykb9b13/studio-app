@@ -120,7 +120,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    students: [Student]!
+    students(teacherId: ID!): [Student]!
     student(studentId: ID!): Student
     teachers: [Teacher]!
     teacher(teacherId: ID!): Teacher

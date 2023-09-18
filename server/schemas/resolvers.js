@@ -33,16 +33,27 @@ const resolvers = {
   }),
 
   Query: {
-    students: async () => {
-      return await Student.find({})
-        .populate({
-          path: "practicePlans",
-          populate: {
-            path: "assignments",
-            model: "Assignment",
-          },
-        })
-        .populate("assignments");
+    students: async (parent, { teacherId: _id }) => {
+      const teacher = await Teacher.findById(_id).populate("students");
+
+      const studentArr = [];
+
+      for (const student of teacher.students) {
+        const updatedStudent = Student.findById(student._id)
+          .populate("skillSheets")
+          .populate({
+            path: "practicePlans",
+            populate: [
+              {
+                path: "assignments",
+                model: "Assignment",
+              },
+            ],
+          });
+        studentArr.push(updatedStudent);
+      }
+
+      return studentArr;
     },
     student: async (parent, { studentId: _id }) => {
       return await Student.findById(_id)
@@ -73,6 +84,7 @@ const resolvers = {
         .populate("skillSheets")
         .populate("resources");
     },
+
     assignments: async () => {
       return await Assignment.find({});
     },

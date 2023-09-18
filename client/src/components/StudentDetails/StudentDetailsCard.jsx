@@ -25,6 +25,7 @@ import { useStudentContext, useTeacherContext } from "../../utils/Context";
 import Clock from "../../utils/Clock";
 import RegularModal from "../common/Modal/RegularModal";
 import ResourceContainer from "./PracticePlan/Resources/ResourceContainer";
+import Leaderboard from "./Leaderboard";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
@@ -40,6 +41,7 @@ export default function StudentDetailsCard({ active, setActive }) {
     },
   });
 
+  // setting the resources from ALL practice plans for the student
   useEffect(() => {
     let newResourceArr = [];
     if (Array.isArray(student.practicePlans)) {
@@ -54,8 +56,7 @@ export default function StudentDetailsCard({ active, setActive }) {
     setResourceArr(newResourceArr);
   }, [setResourceArr, student]);
 
-  console.log(resourceArr);
-
+  // Setting the teacher
   useEffect(() => {
     setTeacher(data?.teacher || {});
   }, [data, setTeacher]);
@@ -105,6 +106,10 @@ export default function StudentDetailsCard({ active, setActive }) {
               totalPlanPoints={student.totalPlanPoints}
               totalCompletedPoints={student.totalCompletedPoints}
             />
+          </Grid>
+
+          <Grid xs={12} md={6} my={1}>
+            <Leaderboard />
           </Grid>
 
           {/* A graph showing days practiced and time practiced */}
