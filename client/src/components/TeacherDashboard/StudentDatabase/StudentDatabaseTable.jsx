@@ -38,6 +38,7 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
           borderRadius: "4px",
           boxShadow: "lg",
           p: 2,
+          mb: 3,
           backgroundColor: "lightblue",
         }}
       >

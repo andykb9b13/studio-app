@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "@apollo/client";
 import { Sheet, Table, Typography } from "@mui/joy";
 import { styles } from "../../styles/studentDetailsStyles";
@@ -6,10 +6,12 @@ import { useTeacherContext } from "../../utils/Context";
 import { avatarList } from "../common/Assets";
 import { QUERY_STUDENTS } from "../../utils/queries";
 import { sortArray } from "../../utils/utilities";
+import { MobileContext } from "../../App";
 
 // Here we are going to display the the usernames of the students, their avatars, and and their respective points. They need to be sorted by highest to lowest points
 
 const Leaderboard = () => {
+  const { isMobile } = useContext(MobileContext);
   const { teacher } = useTeacherContext();
   const { data } = useQuery(QUERY_STUDENTS, {
     variables: {
@@ -24,20 +26,16 @@ const Leaderboard = () => {
     setStudents(data?.students);
   }, [data, setStudents]);
 
-  console.log(students);
-
   useEffect(() => {
     if (Array.isArray(students)) {
       setSortedStudents(sortArray(students));
     }
   }, [setSortedStudents, students]);
 
-  console.log(sortedStudents);
-
   return (
-    <Sheet sx={styles.card}>
+    <Sheet sx={!isMobile ? styles.card : styles.mobileCard}>
       <Typography level="h2">Points Leaderboard</Typography>
-      <Table stickyHeader>
+      <Table>
         <thead>
           <tr>
             <th>Rank</th>

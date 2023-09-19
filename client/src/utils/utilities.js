@@ -1,3 +1,4 @@
+// basic bubble sort function for the Leaderboard
 export const sortArray = (array) => {
   const n = array.length;
   const sortedArray = [...array]; // Create a new array to hold the sorted elements

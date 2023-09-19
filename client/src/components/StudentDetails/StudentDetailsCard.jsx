@@ -108,7 +108,7 @@ export default function StudentDetailsCard({ active, setActive }) {
             />
           </Grid>
 
-          <Grid xs={12} md={6} my={1}>
+          <Grid xs={12} md={12} my={1}>
             <Leaderboard />
           </Grid>
 

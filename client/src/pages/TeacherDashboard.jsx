@@ -30,6 +30,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import TeacherResourceContainer from "../components/TeacherDashboard/Resources/TeacherResourceContainer";
 import CreateTeacherResourceContainer from "../components/TeacherDashboard/Resources/CreateTeacherResourceContainer";
+import Leaderboard from "../components/StudentDetails/Leaderboard";
 import { useTeacherContext } from "../utils/Context";
 
 // export const TeacherContext = createContext();
@@ -139,7 +140,14 @@ const TeacherDashboard = () => {
             </TabList>
 
             {/* Panel for student database view (includes student search) */}
-            <TabPanel value={0} sx={{ p: 2 }}>
+            <TabPanel
+              value={0}
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               <StudentSearch students={students} setStudents={setStudents} />
               <Button
                 onClick={() => {
@@ -157,6 +165,7 @@ const TeacherDashboard = () => {
                 students={students}
                 setStudents={setStudents}
               />
+              <Leaderboard />
               <RegularModal open={open} onRequestClose={() => setOpen(false)}>
                 <DeleteModalContent
                   onRequestClose={() => setOpen(false)}
