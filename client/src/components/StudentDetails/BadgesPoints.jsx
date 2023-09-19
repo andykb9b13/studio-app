@@ -6,7 +6,6 @@ import CountUp from "react-countup";
 import { useStudentContext } from "../../utils/Context";
 import { styles } from "../../styles/studentDetailsStyles";
 import ProgressBar from "../common/ProgressBar";
-import StudentPointsChart from "./StudentPointsChart";
 
 // This component sets the badges earned from skillsheets
 const Badges = ({ badgeIndex }) => {
@@ -178,7 +177,6 @@ const BadgesPoints = () => {
           <Badges key={i} badgeIndex={badgeIndex} badgeArr={badgeArr} />
         ))}
       </Sheet>
-      <StudentPointsChart />
     </Card>
   );
 };

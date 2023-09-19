@@ -91,17 +91,19 @@ const VisualInfoCard = ({ revealed, setRevealed }) => {
               the pitches/rhythms/positions/fingerings then you have laid a good
               foundation for quick identification.
             </Typography>
-            <Typography level="h6" sx={{ mb: 2 }}>
-              Extra Resources:
-            </Typography>
-            <Box
+
+            <Card
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-around",
                 alignItems: "center",
               }}
+              variant="outlined"
             >
+              <Typography level="h6" sx={{ mb: 2 }}>
+                Extra Resources:
+              </Typography>
               <Link
                 href="https://sightreadingfactory.com"
                 target="blank"
@@ -116,7 +118,7 @@ const VisualInfoCard = ({ revealed, setRevealed }) => {
               >
                 www.musictheory.net
               </Link>
-            </Box>
+            </Card>
           </CardContent>
         </>
       )}

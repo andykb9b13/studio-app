@@ -1,7 +1,15 @@
 import React from "react";
 import TutorContainer from "../components/VirtualTutor/TutorContainer";
 import { useState } from "react";
-import { Typography, Button, Card, CardContent, Grid } from "@mui/joy";
+import {
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  List,
+  ListItem,
+} from "@mui/joy";
 import { styles } from "../styles/studentDetailsStyles";
 import RegularModal from "../components/common/Modal/RegularModal";
 import {
@@ -70,15 +78,18 @@ const VirtualTutor = () => {
             but something is not clicking. Have no fear, this is where you can
             come to break down your problems and get back on track.
           </Typography>
-
-          <Typography level="h4">
-            Practicing your instrument can be broken down into four main
-            categories:
+          <Typography level="h5" textAlign={"center"}>
+            Practicing music can be broken down into four main aspects.
           </Typography>
+
+          <Typography level="h4" textAlign={"center"}>
+            Click one to begin working with the tutor.
+          </Typography>
+
           <Typography level="body2">
-            (TIP: If you know which one you need to work on, dive right in.
-            Otherwise, explore each concept below to see which one you might
-            need to work on.)
+            (TIP: If you know which one you need to work on, dive right in. If
+            you're not sure, explore each concept below to see which one you
+            might need to work on.)
           </Typography>
         </CardContent>
 

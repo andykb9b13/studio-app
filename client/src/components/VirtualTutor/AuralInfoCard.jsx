@@ -62,15 +62,17 @@ const AuralInfoCard = ({ revealed, setRevealed }) => {
               felt impossible becomes doable once you are sure you are hearing
               the right pitches.
             </Typography>
-            <Typography level="h6">Extra Resources:</Typography>
-            <Box
+
+            <Card
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-around",
                 alignItems: "center",
               }}
+              variant="outlined"
             >
+              <Typography level="h6">Extra Resources:</Typography>
               <Link
                 href="http://dronetonetool.com"
                 target="blank"
@@ -85,7 +87,7 @@ const AuralInfoCard = ({ revealed, setRevealed }) => {
               >
                 Band Mate Tuner
               </Link>
-            </Box>
+            </Card>
           </CardContent>
         </>
       )}
