@@ -108,10 +108,6 @@ export default function StudentDetailsCard({ active, setActive }) {
             />
           </Grid>
 
-          <Grid xs={12} md={12} my={1}>
-            <Leaderboard />
-          </Grid>
-
           {/* A graph showing days practiced and time practiced */}
           {/* <Grid xs={12} md={6} my={1}>
             <PracticeGraph />
