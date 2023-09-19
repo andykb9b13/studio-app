@@ -5,6 +5,7 @@ import { Button } from "@mui/joy";
 import RegularModal from "../../common/Modal/RegularModal";
 import CreateSkillSheet from "./CreateSkillSheet";
 import { useTeacherContext } from "../../../utils/Context";
+import Auth from "../../../utils/auth";
 
 const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
   const { teacher } = useTeacherContext();
@@ -58,7 +59,9 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
           badgeId={badgeId}
         />
       </RegularModal>
-      <Button onClick={() => setOpen(true)}>Create Skill Sheet</Button>
+      {Auth.teacherLoggedIn() && (
+        <Button onClick={() => setOpen(true)}>Create Skill Sheet</Button>
+      )}
     </>
   );
 };

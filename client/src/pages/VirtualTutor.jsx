@@ -1,17 +1,7 @@
 import React from "react";
 import TutorContainer from "../components/VirtualTutor/TutorContainer";
 import { useState } from "react";
-import {
-  Typography,
-  Button,
-  Sheet,
-  Card,
-  CardContent,
-  CardActions,
-  Grid,
-  Divider,
-} from "@mui/joy";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { Typography, Button, Card, CardContent, Grid } from "@mui/joy";
 import { styles } from "../styles/studentDetailsStyles";
 import RegularModal from "../components/common/Modal/RegularModal";
 import {
@@ -21,10 +11,18 @@ import {
   visualPromptInfo,
 } from "../components/VirtualTutor/promptInfo";
 import troubleshooting from "../assets/home/troubleshooting.png";
+import VisualInfoCard from "../components/VirtualTutor/VisualInfoCard";
+import AuralInfoCard from "../components/VirtualTutor/AuralInfoCard";
+import PhysicalInfoCard from "../components/VirtualTutor/PhysicalInfoCard";
+import { useStudentContext } from "../utils/Context";
+import EmotionalInfoCard from "../components/VirtualTutor/EmotionalInfoCard";
 
 const VirtualTutor = () => {
   const [open, setOpen] = useState(null);
   const [index, setIndex] = useState(null);
+  const [revealed, setRevealed] = useState(null);
+
+  const { student } = useStudentContext();
 
   const buttonInfo = [
     {
@@ -44,7 +42,7 @@ const VirtualTutor = () => {
     },
     {
       id: 3,
-      buttonName: "Conceptual",
+      buttonName: "Emotional",
       component: <TutorContainer index={4} promptInfo={conceptualPromptInfo} />,
     },
   ];
@@ -55,25 +53,32 @@ const VirtualTutor = () => {
         Virtual Tutor
       </Typography>
 
-      <Card variant="outlined" sx={styles.card}>
+      <Card sx={styles.card}>
         <CardContent>
+          <Typography level="h4" sx={{ mb: 3 }}>
+            Hey <b>{student.firstName}</b>! You've come to the right place.
+          </Typography>
           <img
             src={troubleshooting}
             alt="troubleshooting"
             style={{ width: "50%" }}
           />
-          <Typography level="h4">
-            You've got this!!! Let's figure out what's going on.
+
+          <Typography level="body1" sx={{ mb: 3 }}>
+            Sometimes it can be challenging to figure out what is going wrong in
+            your playing. You probably feel like you are trying to do it right
+            but something is not clicking. Have no fear, this is where you can
+            come to break down your problems and get back on track.
           </Typography>
-          <Typography level="body1">
-            Sometimes it can be hard to figure out what you need to work on.
-            These are some first steps to see if any of these need work. LOOK
-            FOR HESITATION WHEN YOU DO THESE. If you hesitate with any of them,
-            repeat it until you don't have hesitation.
-          </Typography>
-          <Divider />
+
           <Typography level="h4">
-            Playing the instrument can be broken down into four main categories
+            Practicing your instrument can be broken down into four main
+            categories:
+          </Typography>
+          <Typography level="body2">
+            (TIP: If you know which one you need to work on, dive right in.
+            Otherwise, explore each concept below to see which one you might
+            need to work on.)
           </Typography>
         </CardContent>
 
@@ -97,6 +102,10 @@ const VirtualTutor = () => {
           </React.Fragment>
         ))}
       </Card>
+      <VisualInfoCard revealed={revealed} setRevealed={setRevealed} />
+      <AuralInfoCard revealed={revealed} setRevealed={setRevealed} />
+      <PhysicalInfoCard revealed={revealed} setRevealed={setRevealed} />
+      <EmotionalInfoCard revealed={revealed} setRevealed={setRevealed} />
     </Grid>
   );
 };

@@ -83,7 +83,6 @@ const TeacherDashboard = () => {
   };
 
   return (
-    // <TeacherContext.Provider value={{ teacher }}>
     <Sheet>
       {Auth.loggedIn() ? (
         <Sheet>

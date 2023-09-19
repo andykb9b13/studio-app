@@ -26,32 +26,17 @@ import LinkIcon from "@mui/icons-material/Link";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import QuizIcon from "@mui/icons-material/Quiz";
 import Auth from "../utils/auth";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { styles } from "../styles/studentDetailsStyles";
+import { useStudentContext } from "../utils/Context";
 
 const PracticeHub = () => {
-  const { id } = useParams();
   const [status, setStatus] = useState("home");
 
-  const { loading, error, data } = useQuery(QUERY_STUDENT, {
-    variables: {
-      studentId: id,
-    },
-  });
-
-  const [student, setStudent] = useState(null);
+  const { student } = useStudentContext();
 
   console.log(student);
-
-  useEffect(() => {
-    if (data) {
-      setStudent(data.student);
-    }
-    if (loading) {
-      console.log("loading!!!");
-    }
-    if (error) {
-      console.log("Error", error);
-    }
-  }, [data, error, loading]);
 
   const home = status === "home";
   const timedPractice = status === "timedPractice";
@@ -82,37 +67,6 @@ const PracticeHub = () => {
       image: <ArticleIcon />,
       id: "skillSheets",
     },
-    {
-      label: "Create Assignment",
-      description: "Make an assignment",
-      image: <EditNoteIcon />,
-      id: "createAssignment",
-    },
-    {
-      label: "Track Your Progress",
-      description: "See how far you've come!",
-      image: <InsightsIcon />,
-      id: "progress",
-    },
-    {
-      label: "Resources",
-      description: "Check out some external resources",
-      image: <LinkIcon />,
-      id: "resources",
-    },
-    {
-      label: "View Practice Plans",
-      description: "View all past and present assignments",
-      image: <AddchartIcon />,
-      id: "practicePlan",
-    },
-    {
-      label: "TroubleShooting",
-      description:
-        "Having trouble and not sure where to start? Try the virtual tutor.",
-      image: <QuizIcon />,
-      id: "troubleshooting",
-    },
   ];
 
   const handleClick = (name) => {
@@ -125,19 +79,13 @@ const PracticeHub = () => {
       {Auth.loggedIn() ? (
         <Sheet>
           <Typography level="h1">Practice Hub</Typography>
-          <Link to={`/teacher/studentDetails/${id}`}>
-            <Button> Back to Student Details</Button>
-          </Link>
-          {!home && (
-            <Button onClick={() => setStatus("home")}>
-              Back to Practice Hub
-            </Button>
-          )}
+
+          {!home && <KeyboardArrowLeftIcon onClick={() => setStatus("home")} />}
           {home && (
             <Grid container sx={{ flexGrow: 1, justifyContent: "center" }}>
               {buttonInfo.map((button) => (
                 <Grid xs={10} s={6} md={4} lg={3} m={1}>
-                  <Card variant="outlined">
+                  <Card sx={styles.card}>
                     <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
                       {button.label}
                     </Typography>
@@ -148,14 +96,12 @@ const PracticeHub = () => {
                       <Typography level="body1">
                         {button.description}
                       </Typography>
-                      <Button
+                      <KeyboardArrowRightIcon
                         key={button.id}
                         onClick={() => {
                           handleClick(button.id);
                         }}
-                      >
-                        Start
-                      </Button>
+                      />
                     </CardContent>
                   </Card>
                 </Grid>

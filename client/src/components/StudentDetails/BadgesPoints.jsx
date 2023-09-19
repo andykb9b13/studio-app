@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Card, Typography, Sheet } from "@mui/joy";
+import { Card, Typography, Sheet, Box } from "@mui/joy";
 import { levelList } from "../common/Assets";
 import { badgeList } from "../common/Assets";
 import CountUp from "react-countup";
 import { useStudentContext } from "../../utils/Context";
 import { styles } from "../../styles/studentDetailsStyles";
 import ProgressBar from "../common/ProgressBar";
-import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-// import { BarChart } from "@mui/x-charts/BarChart";
+import StudentPointsChart from "./StudentPointsChart";
 
 // This component sets the badges earned from skillsheets
-const Badges = ({ badgeIndex, badgeArr }) => {
+const Badges = ({ badgeIndex }) => {
   if (badgeIndex !== null) {
     return (
       <img
@@ -42,53 +32,6 @@ const BadgesPoints = () => {
   useEffect(() => {
     setBadgeArr(student.skillSheets?.map((sheet) => sheet.badgeId));
   }, [setBadgeArr, student]);
-
-  console.log(badgeArr);
-
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-
-  const options = {
-    responsive: true,
-
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Points",
-      },
-    },
-  };
-
-  const labels = ["SkillSheets", "Assignments", "Total Points"];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: "My Points",
-        data: [
-          student.totalSheetPoints,
-          student.totalCompletedPoints,
-          earnedPoints,
-        ],
-        backgroundColor: "rgba(102, 46, 155)",
-      },
-      {
-        label: "Studio Average",
-        data: [200, 160, 450],
-        backgroundColor: "rgba(248, 102, 36)",
-      },
-    ],
-  };
 
   // determine which is the next badge the user can earn. Will be displayed on page.
   const nextBadge = (points) => {
@@ -235,30 +178,7 @@ const BadgesPoints = () => {
           <Badges key={i} badgeIndex={badgeIndex} badgeArr={badgeArr} />
         ))}
       </Sheet>
-      <Bar options={options} data={data} />
-
-      {/* <BarChart
-        xAxis={[
-          {
-            id: "barCategories",
-            data: ["SkillSheets", "Plans", "Total Earned", "Studio Avg."],
-            scaleType: "band",
-          },
-        ]}
-        series={[
-          {
-            data: [
-              student.totalSheetPoints,
-              student.totalCompletedPoints,
-              earnedPoints,
-              500,
-            ],
-          },
-        ]}
-        width={350}
-        height={400}
-        colors={["#662e9b"]}
-      /> */}
+      <StudentPointsChart />
     </Card>
   );
 };

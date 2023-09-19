@@ -16,8 +16,8 @@ const TimedPractice = ({ student }) => {
       <Card variant="outlined" sx={{ mx: "auto" }}>
         <Typography level="h2">Timed Practice</Typography>
         <Typography level="body1">
-          Hi there {student.firstName} {student.lastName}! Are you ready to
-          practice your {student.instrument}?
+          Hi there <b>{student.firstName}</b>! Are you ready to practice your{" "}
+          {student.instrument}?
         </Typography>
         <Box mx="auto">
           <Typography
