@@ -281,7 +281,16 @@ export const ADD_POST = gql`
       createdAt: $createdAt
       authorId: $authorId
       isTeacher: $isTeacher
-    )
+    ) {
+      _id
+      studioId
+      title
+      message
+      url
+      createdAt
+      authorId
+      isTeacher
+    }
   }
 `;
 

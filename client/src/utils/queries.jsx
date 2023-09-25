@@ -8,6 +8,26 @@ export const QUERY_TEACHER = gql`
       email
       lastName
       password
+      posts {
+        _id
+        studioId
+        title
+        message
+        url
+        createdAt
+        authorId
+        isTeacher
+        likes
+        comments {
+          _id
+          authorId
+          message
+          createdAt
+          isTeacher
+          likes
+          postId
+        }
+      }
       resources {
         teacherId
         practicePlanId

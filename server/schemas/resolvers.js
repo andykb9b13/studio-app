@@ -84,7 +84,8 @@ const resolvers = {
       return await Teacher.findById(_id)
         .populate("students")
         .populate("skillSheets")
-        .populate("resources");
+        .populate("resources")
+        .populate("posts");
     },
 
     assignments: async () => {
@@ -111,8 +112,13 @@ const resolvers = {
     practicePlan: async (parent, { planId: _id }) => {
       return await PracticePlan.findById(_id);
     },
-    posts: async (parent, { studioId }) => {
-      return await Post.find({ studioId: studioId }).populate("comments");
+    posts: async (parent, { studioId: _id }) => {
+      try {
+        const posts = await Post.find({}).populate("comments");
+        return posts;
+      } catch (err) {
+        console.error(err);
+      }
     },
     post: async (parent, { postId: _id }) => {
       return await Post.findById(_id);
@@ -427,6 +433,7 @@ const resolvers = {
             $addToSet: { posts: post._id },
           });
         }
+        return post;
       } catch (err) {
         console.error(err);
       }
