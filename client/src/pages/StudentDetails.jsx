@@ -14,7 +14,9 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import StudentPointsChart from "../components/StudentDetails/StudentPointsChart";
 import HubIcon from "@mui/icons-material/Hub";
+import MessageIcon from "@mui/icons-material/Message";
 import PracticeHub from "./PracticeHub";
+import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 
 // Top component in the tree for students. Provider is passing student info through context.
 export default function StudentDetails() {
@@ -53,6 +55,10 @@ export default function StudentDetails() {
                 {!isMobile && <b>Overview</b>}
               </Tab>
               <Tab>
+                <MessageIcon />
+                {!isMobile && <b>Message Board</b>}
+              </Tab>
+              <Tab>
                 <TrendingUpIcon />
                 {!isMobile && <b>Leaderboard</b>}
               </Tab>
@@ -70,13 +76,16 @@ export default function StudentDetails() {
               <StudentDetailsCard active={active} setActive={setActive} />
             </TabPanel>
             <TabPanel value={1}>
+              <MessageBoard />
+            </TabPanel>
+            <TabPanel value={2}>
               <StudentPointsChart />
               <Leaderboard />
             </TabPanel>
-            <TabPanel value={2}>
+            <TabPanel value={3}>
               <VirtualTutor />
             </TabPanel>
-            <TabPanel value={3}>
+            <TabPanel value={4}>
               <PracticeHub />
             </TabPanel>
           </Tabs>

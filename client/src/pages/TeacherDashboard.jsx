@@ -31,6 +31,8 @@ import HandymanIcon from "@mui/icons-material/Handyman";
 import TeacherResourceContainer from "../components/TeacherDashboard/Resources/TeacherResourceContainer";
 import CreateTeacherResourceContainer from "../components/TeacherDashboard/Resources/CreateTeacherResourceContainer";
 import Leaderboard from "../components/StudentDetails/Leaderboard";
+import MessageIcon from "@mui/icons-material/Message";
+import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 import { useTeacherContext } from "../utils/Context";
 
 // export const TeacherContext = createContext();
@@ -97,44 +99,52 @@ const TeacherDashboard = () => {
             <TabList color="primary">
               {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
               <Tab>
+                <StorageIcon />
                 {!isMobile && (
                   <Typography>
                     <b>Student Database</b>
                   </Typography>
                 )}
-                <StorageIcon />
               </Tab>
               <Tab>
+                <MessageIcon />
+                {!isMobile && (
+                  <Typography>
+                    <b>Message Board</b>
+                  </Typography>
+                )}
+              </Tab>
+              <Tab>
+                <RequestQuoteIcon />
                 {!isMobile && (
                   <Typography>
                     <b>Bookkeeping/Invoices</b>
                   </Typography>
                 )}
-                <RequestQuoteIcon />
               </Tab>
               <Tab>
+                <ChecklistIcon />
                 {!isMobile && (
                   <Typography>
                     <b>SkillSheets</b>
                   </Typography>
                 )}
-                <ChecklistIcon />
               </Tab>
               <Tab>
+                <HandymanIcon />
                 {!isMobile && (
                   <Typography>
                     <b>Resources</b>
                   </Typography>
                 )}
-                <HandymanIcon />
               </Tab>
               <Tab>
+                <CalendarMonthIcon />
                 {!isMobile && (
                   <Typography>
                     <b>View Calendar</b>
                   </Typography>
                 )}
-                <CalendarMonthIcon />
               </Tab>
             </TabList>
 
@@ -177,17 +187,21 @@ const TeacherDashboard = () => {
               </Button>
             </TabPanel>
 
-            {/* Tab panel for bookkeeping and invoices */}
             <TabPanel value={1} sx={{ p: 2 }}>
+              <MessageBoard />
+            </TabPanel>
+
+            {/* Tab panel for bookkeeping and invoices */}
+            <TabPanel value={2} sx={{ p: 2 }}>
               Bookkeeping and Invoices are under construction
             </TabPanel>
 
             {/* Tab panel for Skill sheets */}
-            <TabPanel value={2} sx={{ p: 2 }}>
+            <TabPanel value={3} sx={{ p: 2 }}>
               <SkillSheetContainer />
             </TabPanel>
 
-            <TabPanel value={3} sx={{ p: 2 }}>
+            <TabPanel value={4} sx={{ p: 2 }}>
               <TeacherResourceContainer
                 resources={resources}
                 setResources={setResources}
@@ -199,7 +213,7 @@ const TeacherDashboard = () => {
             </TabPanel>
 
             {/* Tab panel for showing calendar */}
-            <TabPanel value={4} sx={{ p: 2 }}>
+            <TabPanel value={5} sx={{ p: 2 }}>
               <Calendar />
             </TabPanel>
           </Tabs>

@@ -93,16 +93,17 @@ const BadgesPoints = () => {
         sx={{
           backgroundColor: "lightgrey",
           borderRadius: "10px",
+          minHeight: "200px",
           maxHeight: "300px",
           maxWidth: "100%",
+          minWidth: "100%",
           mx: "auto",
           overflow: "auto",
           resize: "vertical",
         }}
       >
         {/* This should be refactored into a single component */}
-        {earnedPoints < 200 &&
-          "Complete Assignments and Skill Sheets to earn points for badges"}
+
         {earnedPoints > 200 && (
           <img
             src={levelList[0].name}

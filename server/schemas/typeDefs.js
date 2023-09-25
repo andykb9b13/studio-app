@@ -28,6 +28,9 @@ const typeDefs = gql`
     goals: [Goal]
     skillSheets: [SkillSheet]
     practicePlans: [PracticePlan]
+    posts: [Post]
+    comments: [Comment]
+    likes: [Like]
   }
 
   type Teacher {
@@ -39,6 +42,9 @@ const typeDefs = gql`
     students: [Student]
     skillSheets: [SkillSheet]
     resources: [Resource]
+    posts: [Post]
+    comments: [Comment]
+    likes: [Like]
   }
 
   type Assignment {
@@ -109,6 +115,35 @@ const typeDefs = gql`
     description: String
   }
 
+  type Post {
+    _id: ID
+    title: String!
+    message: String!
+    url: String
+    createdAt: Date!
+    authorId: String!
+    isTeacher: Boolean!
+    likes: Int
+    comments: [Comment]
+  }
+
+  type Comment {
+    _id: ID
+    authorId: String!
+    message: String!
+    createdAt: Date!
+    isTeacher: Boolean!
+    likes: Int
+    postId: String!
+  }
+
+  type Like {
+    _id: ID
+    authorID: String!
+    postId: String
+    commentId: String
+  }
+
   type TeacherAuth {
     token: ID!
     teacher: Teacher
@@ -132,6 +167,12 @@ const typeDefs = gql`
     practicePlan(planId: ID!): PracticePlan
     resources: [Resource]
     resource: Resource
+    posts: [Post]
+    post: Post
+    comments: [Comment]
+    comment: Comment
+    likes: [Like]
+    like: Like
   }
 
   type Mutation {
@@ -226,6 +267,25 @@ const typeDefs = gql`
       planNotes: String
     ): PracticePlan
 
+    addPost(
+      title: String!
+      message: String!
+      url: String
+      createdAt: Date!
+      authorId: String!
+      isTeacher: Boolean!
+    ): Post
+
+    addComment(
+      authorId: String!
+      message: String!
+      createdAt: Date!
+      isTeacher: Boolean!
+      postId: String!
+    ): Comment
+
+    addLike(userId: String, postId: ID, commentId: ID): Like
+
     deleteAssignment(assignmentId: ID!): Assignment!
 
     deleteGoal(goalId: ID!): Goal!
@@ -241,6 +301,12 @@ const typeDefs = gql`
     deleteResource(resourceId: ID!): Resource!
 
     deletePracticePlan(planId: ID!): PracticePlan!
+
+    deletePost(postId: ID!): Post!
+
+    deleteComment(commentId: ID!): Comment!
+
+    deleteLike(likeId: ID!): Like!
 
     editStudent(
       studentId: ID!

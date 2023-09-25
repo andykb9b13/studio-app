@@ -7,6 +7,8 @@ const {
   Streak,
   PracticePlan,
   Resource,
+  Like,
+  Post,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -108,6 +110,24 @@ const resolvers = {
     },
     practicePlan: async (parent, { planId: _id }) => {
       return await PracticePlan.findById(_id);
+    },
+    posts: async () => {
+      return await Post.find({});
+    },
+    post: async (parent, { postId: _id }) => {
+      return await Post.findById(_id);
+    },
+    comments: async () => {
+      return await Comment.find({});
+    },
+    comment: async (parent, { commentId: _id }) => {
+      return await Comment.findById(_id);
+    },
+    likes: async () => {
+      return await Like.find({});
+    },
+    like: async (parent, { likeId: _id }) => {
+      return await Like.findById(_id);
     },
   },
 
@@ -384,6 +404,66 @@ const resolvers = {
       return practicePlan;
     },
 
+    addPost: async (parent, { authorId, title, message, ...args }) => {
+      if (!title) {
+        throw new Error("Title is required");
+      }
+      if (!message) {
+        throw new Error("Message is required");
+      }
+      try {
+        const post = await Post.create({
+          authorId,
+          title,
+          message,
+          ...args,
+        });
+        if (post.isTeacher) {
+          await Teacher.findByIdAndUpdate(authorId, {
+            $addToSet: { posts: post._id },
+          });
+        } else {
+          await Student.findByIdAndUpdate(authorId, {
+            $addToSet: { posts: post._id },
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    addComment: async (parent, { authorId, message, ...args }) => {
+      if (!message) {
+        throw new Error("Message is required");
+      }
+      try {
+        const comment = await Comment.create({
+          authorId,
+          message,
+          ...args,
+        });
+        if (comment.isTeacher) {
+          await Teacher.findByIdAndUpdate(authorId, {
+            $addToSet: { comments: comment._id },
+          });
+        } else {
+          await Student.findByIdAndUpdate(authorId, {
+            $addToSet: { comments: comment._id },
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    addLike: async (parent, { userId, ...args }) => {
+      try {
+        const like = await Like.create(userId, ...args);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
     deleteTeacher: async (parent, { teacherId }) => {
       try {
         const deletedTeacher = await Teacher.findOneAndDelete({
@@ -526,6 +606,59 @@ const resolvers = {
         return deletedSkillSheet;
       } catch (error) {
         throw new Error("Error deleting Skill Sheet: " + error.message);
+      }
+    },
+
+    deletePost: async (parent, { postId }) => {
+      try {
+        const deletedPost = await Post.findOneAndDelete({
+          _id: postId,
+        });
+        if (!deletedPost) {
+          throw new Error("Post not found");
+        }
+        if (deletedPost.isTeacher) {
+          await Teacher.updateMany(
+            { posts: postId },
+            { $pull: { posts: postId } }
+          );
+          if (deletedPost.comments.length > 0) {
+            for (const comment of deletedPost.comments) {
+              await Comment.findOneAndDelete({ _id: comment._id });
+            }
+          }
+        } else {
+          await Student.updateMany(
+            { posts: postId },
+            { $pull: { posts: postId } }
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    deleteComment: async (parent, { commentId }) => {
+      try {
+        const deletedComment = await Comment.findOneAndDelete({
+          _id: commentId,
+        });
+        if (!deletedComment) {
+          throw new Error("Comment not found");
+        }
+        if (deletedComment.isTeacher) {
+          await Teacher.updateMany(
+            { comments: commentId },
+            { $pull: { comments: commentId } }
+          );
+        } else {
+          await Student.updateMany(
+            { comments: commentId },
+            { $pull: { comments: commentId } }
+          );
+        }
+      } catch (err) {
+        console.error(err);
       }
     },
 

@@ -90,6 +90,9 @@ const studentSchema = new Schema({
       ref: "PracticePlan",
     },
   ],
+  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  likes: [{ type: Schema.Types.ObjectId, ref: "Like" }],
 });
 
 // hash user password

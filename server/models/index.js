@@ -7,6 +7,9 @@ const SkillSheet = require("./SkillSheet");
 const Streak = require("./Streak");
 const PracticePlan = require("./PracticePlan");
 const Resource = require("./Resource");
+const Post = require("./Post");
+const Comment = require("./Comment");
+const Like = require("./Like");
 
 module.exports = {
   Student,
@@ -18,4 +21,7 @@ module.exports = {
   Streak,
   PracticePlan,
   Resource,
+  Post,
+  Comment,
+  Like,
 };
