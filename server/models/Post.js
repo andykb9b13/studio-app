@@ -1,6 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const postSchema = new Schema({
+  studioId: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

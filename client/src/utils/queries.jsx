@@ -206,3 +206,27 @@ export const QUERY_STUDENTS = gql`
     }
   }
 `;
+
+export const QUERY_POSTS = gql`
+  query posts($studioId: ID!) {
+    posts(studioId: $studioId) {
+      _id
+      title
+      message
+      url
+      createdAt
+      authorId
+      isTeacher
+      likes
+      comments {
+        _id
+        authorId
+        message
+        createdAt
+        isTeacher
+        likes
+        postId
+      }
+    }
+  }
+`;

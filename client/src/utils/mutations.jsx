@@ -263,6 +263,46 @@ export const ADD_RESOURCE = gql`
   }
 `;
 
+export const ADD_POST = gql`
+  mutation addPost(
+    $studioId: String!
+    $title: String!
+    $message: String!
+    $url: String
+    $createdAt: Date!
+    $authorId: String!
+    $isTeacher: Boolean!
+  ) {
+    addPost(
+      studioId: $studioId
+      title: $title
+      message: $message
+      url: $url
+      createdAt: $createdAt
+      authorId: $authorId
+      isTeacher: $isTeacher
+    )
+  }
+`;
+
+export const ADD_COMMENT = gql`
+  mutation addComment(
+    $authorId: String!
+    $message: String!
+    $createdAt: Date!
+    $isTeacher: Boolean!
+    $postId: String!
+  ) {
+    addComment(
+      authorId: $authorId
+      message: $message
+      createdAt: $createdAt
+      isTeacher: $isTeacher
+      postId: $postId
+    )
+  }
+`;
+
 export const EDIT_STUDENT = gql`
   mutation editStudent(
     $studentId: ID!

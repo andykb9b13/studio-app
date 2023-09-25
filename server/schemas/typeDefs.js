@@ -116,6 +116,7 @@ const typeDefs = gql`
   }
 
   type Post {
+    studioId: String!
     _id: ID
     title: String!
     message: String!
@@ -268,6 +269,7 @@ const typeDefs = gql`
     ): PracticePlan
 
     addPost(
+      studioId: String!
       title: String!
       message: String!
       url: String

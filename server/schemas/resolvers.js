@@ -111,8 +111,8 @@ const resolvers = {
     practicePlan: async (parent, { planId: _id }) => {
       return await PracticePlan.findById(_id);
     },
-    posts: async () => {
-      return await Post.find({});
+    posts: async (parent, { studioId }) => {
+      return await Post.find({ studioId: studioId }).populate("comments");
     },
     post: async (parent, { postId: _id }) => {
       return await Post.findById(_id);
