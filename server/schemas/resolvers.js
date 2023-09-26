@@ -670,7 +670,7 @@ const resolvers = {
         if (!deletedComment) {
           throw new Error("Comment not found");
         }
-        if (deletedComment.isTeacher) {
+        if (deletedComment.isTeacher === true) {
           await Teacher.updateMany(
             { comments: commentId },
             { $pull: { comments: commentId } }
@@ -681,6 +681,7 @@ const resolvers = {
             { $pull: { comments: commentId } }
           );
         }
+        return deletedComment;
       } catch (err) {
         console.error(err);
       }
