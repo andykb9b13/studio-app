@@ -17,22 +17,26 @@ const Post = ({ post }) => {
   const [comments, setComments] = useState();
   const [open, setOpen] = useState(false);
   const [createComment, { error }] = useMutation(ADD_COMMENT);
-  const [authorId, setAuthorId] = useState(teacher._id);
+  const [authorId, setAuthorId] = useState();
+  const [isTeacher, setIsTeacher] = useState(false);
 
   useEffect(() => {
     setComments(post.comments);
   }, [setComments, post]);
 
-  console.log(comments);
+  useEffect(() => {
+    if (Auth.teacherLoggedIn()) {
+      setAuthorId(teacher._id);
+      setIsTeacher(true);
+    } else {
+      setAuthorId(student._id);
+    }
+  }, []);
+
+  console.log(authorId);
 
   const createCommentFunc = async (userInput) => {
     const createdAt = new Date();
-    let isTeacher = true;
-
-    if (!Auth.teacherLoggedIn()) {
-      setAuthorId(student._id);
-      isTeacher = false;
-    }
     console.log(userInput);
     try {
       const { data } = await createComment({

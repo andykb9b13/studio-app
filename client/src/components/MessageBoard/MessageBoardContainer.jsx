@@ -21,7 +21,9 @@ const MessageBoard = () => {
 
   return (
     <Sheet>
-      <Typography>This is the message board</Typography>
+      <Typography level="h2" textAlign={"center"}>
+        Studio News
+      </Typography>
       <CreatePostContainer
         open={open}
         setOpen={setOpen}

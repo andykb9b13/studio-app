@@ -52,7 +52,9 @@ const CreatePostContainer = ({ open, setOpen, posts, setPosts }) => {
           createPostFunc={createPostFunc}
         />
       </RegularModal>
-      <Button onClick={() => setOpen(true)}>Create Post</Button>
+      {Auth.teacherLoggedIn() && (
+        <Button onClick={() => setOpen(true)}>Create Post</Button>
+      )}
     </>
   );
 };
