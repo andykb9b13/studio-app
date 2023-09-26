@@ -122,7 +122,7 @@ const typeDefs = gql`
     message: String!
     url: String
     createdAt: Date!
-    authorId: String!
+    authorId: ID!
     isTeacher: Boolean!
     likes: Int
     comments: [Comment]
@@ -274,7 +274,7 @@ const typeDefs = gql`
       message: String!
       url: String
       createdAt: Date!
-      authorId: String!
+      authorId: ID!
       isTeacher: Boolean!
     ): Post
 
@@ -339,14 +339,16 @@ const typeDefs = gql`
     ): Teacher!
 
     editAssignment(
-      assignmentId: ID!
       exerciseName: String
       studentId: String
+      planId: String
       source: String
       assignmentType: String
       specialNotes: String
       metronome: String
       pages: String
+      pointsWorth: Int
+      completed: Boolean
     ): Assignment!
 
     editGoal(goalId: ID!, practiceTime: Int, practiceDays: Int): Goal!

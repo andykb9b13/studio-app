@@ -3,7 +3,7 @@ import { Typography, Card } from "@mui/joy";
 
 const Comment = ({ comment }) => {
   return (
-    <Card>
+    <Card sx={{ mt: 2 }}>
       <Typography>By: {comment.authorId}</Typography>
       <Typography>{comment.message}</Typography>
     </Card>

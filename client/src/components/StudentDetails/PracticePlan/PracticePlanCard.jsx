@@ -67,7 +67,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   // Setting the assignments
   useEffect(() => {
     setAssignments(assignments || []);
-  }, [assignments]);
+  }, [setAssignments, assignments]);
 
   const deletePracticePlanFunc = async () => {
     try {

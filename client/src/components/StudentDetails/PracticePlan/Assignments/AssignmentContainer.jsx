@@ -60,6 +60,8 @@ const AssignmentContainer = ({
       if (checked === true) {
         setCompletedOpen(true);
       }
+      console.log(data);
+      setAssignments(assignments);
     } catch (err) {
       console.error(err);
     }

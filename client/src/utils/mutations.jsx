@@ -270,7 +270,7 @@ export const ADD_POST = gql`
     $message: String!
     $url: String
     $createdAt: Date!
-    $authorId: String!
+    $authorId: ID!
     $isTeacher: Boolean!
   ) {
     addPost(

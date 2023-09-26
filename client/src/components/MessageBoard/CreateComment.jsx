@@ -16,10 +16,12 @@ const CreateComment = ({ open, setOpen, createCommentFunc }) => {
 
   return (
     <>
-      <Typography level="h2">Create Comment</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography>Message</Typography>
-        <Textarea minRows={6} {...register("message")} />
+        <Textarea
+          minRows={1}
+          {...register("message")}
+          placeholder="Write a comment..."
+        />
         <Button type="submit" color="success">
           Create Comment
         </Button>

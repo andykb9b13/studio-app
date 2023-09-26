@@ -21,8 +21,8 @@ const postSchema = new Schema({
     required: true,
   },
   authorId: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: "Teacher",
   },
   isTeacher: {
     type: Boolean,

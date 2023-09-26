@@ -20,8 +20,10 @@ const Post = ({ post }) => {
   const [authorId, setAuthorId] = useState(teacher._id);
 
   useEffect(() => {
-    setComments([post.comments]);
+    setComments(post.comments);
   }, [setComments, post]);
+
+  console.log(comments);
 
   const createCommentFunc = async (userInput) => {
     const createdAt = new Date();
@@ -52,25 +54,21 @@ const Post = ({ post }) => {
   };
 
   return (
-    <Card sx={styles.card}>
+    <Card sx={styles.sheet}>
       <CardContent>
         <Typography level="h3">{post.title}</Typography>
         <Typography level="body2">Created on: {post.createdAt}</Typography>
         <Typography>{post.message}</Typography>
         <Typography level="h4">Comments</Typography>
-        {post.comments?.map((comment) => (
+        {comments?.map((comment) => (
           <Comment comment={comment} key={comment._id} />
         ))}
       </CardContent>
-      <CardActions>
-        <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-          <CreateComment
-            onRequestClose={() => setOpen(false)}
-            createCommentFunc={createCommentFunc}
-          />
-        </RegularModal>
-        <Button onClick={() => setOpen(true)}>Comment</Button>
-      </CardActions>
+
+      <CreateComment
+        onRequestClose={() => setOpen(false)}
+        createCommentFunc={createCommentFunc}
+      />
     </Card>
   );
 };

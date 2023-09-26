@@ -123,7 +123,9 @@ const resolvers = {
     },
     posts: async (parent, { studioId: _id }) => {
       try {
-        const posts = await Post.find({}).populate("comments");
+        const posts = await Post.find({})
+          .populate("comments")
+          .populate("authorId");
         return posts;
       } catch (err) {
         console.error(err);

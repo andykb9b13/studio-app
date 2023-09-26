@@ -13,8 +13,10 @@ const MessageBoard = () => {
 
   console.log(teacher);
 
+  console.log(posts);
+
   useEffect(() => {
-    setPosts(teacher?.posts);
+    setPosts(teacher.posts);
   }, [setPosts, teacher]);
 
   return (
