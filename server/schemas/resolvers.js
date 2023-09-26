@@ -9,6 +9,7 @@ const {
   Resource,
   Like,
   Post,
+  Comment,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -85,7 +86,15 @@ const resolvers = {
         .populate("students")
         .populate("skillSheets")
         .populate("resources")
-        .populate("posts");
+        .populate({
+          path: "posts",
+          populate: [
+            {
+              path: "comments",
+              model: "Comment",
+            },
+          ],
+        });
     },
 
     assignments: async () => {
@@ -439,7 +448,7 @@ const resolvers = {
       }
     },
 
-    addComment: async (parent, { authorId, message, ...args }) => {
+    addComment: async (parent, { postId, authorId, message, ...args }) => {
       if (!message) {
         throw new Error("Message is required");
       }
@@ -447,7 +456,12 @@ const resolvers = {
         const comment = await Comment.create({
           authorId,
           message,
+          postId,
           ...args,
+        });
+
+        await Post.findByIdAndUpdate(postId, {
+          $addToSet: { comments: comment._id },
         });
         if (comment.isTeacher) {
           await Teacher.findByIdAndUpdate(authorId, {
@@ -458,6 +472,7 @@ const resolvers = {
             $addToSet: { comments: comment._id },
           });
         }
+        return comment;
       } catch (err) {
         console.error(err);
       }

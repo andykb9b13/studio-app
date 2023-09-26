@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Input, Textarea, Typography, Button } from "@mui/joy";
+import { Input, Textarea, Typography, Button, Sheet } from "@mui/joy";
 
 const CreatePost = ({ createPostFunc }) => {
   const { handleSubmit, register } = useForm();
@@ -14,19 +14,19 @@ const CreatePost = ({ createPostFunc }) => {
     }
   };
   return (
-    <>
+    <Sheet sx={{ width: "80vw" }}>
       <Typography level="h2">Create a Post</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>Title</Typography>
         <Input type="text" {...register("title")} />
         <Typography>Message</Typography>
-        <Textarea minRows={4} {...register("message")} />
+        <Textarea minRows={10} {...register("message")} />
         {/* going to add the cloudinary widget to add media to it */}
         <Button type="submit" color="success">
           Create Post
         </Button>
       </form>
-    </>
+    </Sheet>
   );
 };
 

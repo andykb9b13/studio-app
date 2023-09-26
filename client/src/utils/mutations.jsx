@@ -308,7 +308,13 @@ export const ADD_COMMENT = gql`
       createdAt: $createdAt
       isTeacher: $isTeacher
       postId: $postId
-    )
+    ) {
+      authorId
+      message
+      createdAt
+      isTeacher
+      postId
+    }
   }
 `;
 

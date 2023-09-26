@@ -13,13 +13,9 @@ const MessageBoard = () => {
 
   console.log(teacher);
 
-  //   const { data } = useQuery(QUERY_POSTS, {
-  //     studioId: teacher._id,
-  //   });
-
-  //   useEffect(() => {
-  //     setPosts(data);
-  //   }, [setPosts, data]);
+  useEffect(() => {
+    setPosts(teacher?.posts);
+  }, [setPosts, teacher]);
 
   return (
     <Sheet>
@@ -30,8 +26,8 @@ const MessageBoard = () => {
         posts={posts}
         setPosts={setPosts}
       />
-      {teacher.posts?.map((post) => (
-        <Post post={post} />
+      {posts?.map((post) => (
+        <Post post={post} key={post._id} />
       ))}
     </Sheet>
   );
