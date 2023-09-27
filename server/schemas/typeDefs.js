@@ -155,6 +155,8 @@ const typeDefs = gql`
     student: Student
   }
 
+  union TeacherOrStudent = Teacher | Student
+
   type Query {
     students(teacherId: ID!): [Student]!
     student(studentId: ID!): Student
@@ -174,6 +176,7 @@ const typeDefs = gql`
     comment: Comment
     likes: [Like]
     like: Like
+    author(authorId: ID!, isTeacher: Boolean!): TeacherOrStudent
   }
 
   type Mutation {

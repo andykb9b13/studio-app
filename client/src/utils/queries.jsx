@@ -247,6 +247,26 @@ export const QUERY_POSTS = gql`
         authorId
         _id
         message
+        isTeacher
+      }
+    }
+  }
+`;
+
+export const QUERY_AUTHOR = gql`
+  query Author($authorId: ID!, $isTeacher: Boolean!) {
+    author(authorId: $authorId, isTeacher: $isTeacher) {
+      ... on Teacher {
+        _id
+        firstName
+        lastName
+      }
+      ... on Student {
+        _id
+        firstName
+        lastName
+        username
+        avatarId
       }
     }
   }

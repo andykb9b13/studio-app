@@ -35,6 +35,16 @@ const resolvers = {
     },
   }),
 
+  TeacherOrStudent: {
+    __resolveType(obj) {
+      if (obj.isTeacher) {
+        return "Teacher";
+      } else {
+        return "Student";
+      }
+    },
+  },
+
   Query: {
     students: async (parent, { teacherId: _id }) => {
       const teacher = await Teacher.findById(_id).populate("students");
@@ -148,6 +158,13 @@ const resolvers = {
     },
     like: async (parent, { likeId: _id }) => {
       return await Like.findById(_id);
+    },
+    author: async (parent, { authorId: _id, isTeacher }) => {
+      if (isTeacher) {
+        return await Teacher.findById(_id);
+      } else {
+        return await Student.findById(_id);
+      }
     },
   },
 

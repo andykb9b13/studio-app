@@ -14,7 +14,7 @@ const MessageBoard = () => {
   console.log(teacher);
   const { data } = useQuery(QUERY_POSTS, {
     variables: {
-      studioId: id,
+      studioId: teacher._id,
     },
   });
   console.log(data);
