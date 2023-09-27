@@ -98,6 +98,9 @@ const Post = ({ post, deletePostFunc }) => {
 
         <Typography level="h3">{post.title}</Typography>
         <Typography level="body2">Created on: {post.createdAt}</Typography>
+        <Typography level="body2">
+          By: {post.authorId.firstName} {post.authorId.lastName}
+        </Typography>
         <Typography>{post.message}</Typography>
         <Typography level="h4">Comments</Typography>
         {comments?.map((comment) => (

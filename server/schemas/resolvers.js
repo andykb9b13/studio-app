@@ -82,6 +82,7 @@ const resolvers = {
         .populate("skillSheets");
     },
     teacher: async (parent, { teacherId: _id }) => {
+      console.log("In teacher resolver");
       return await Teacher.findById(_id)
         .populate("students")
         .populate("skillSheets")
@@ -122,10 +123,12 @@ const resolvers = {
       return await PracticePlan.findById(_id);
     },
     posts: async (parent, { studioId: _id }) => {
+      console.log("in posts resolver");
       try {
-        const posts = await Post.find({})
+        const posts = await Post.find({ studioId: _id })
           .populate("comments")
           .populate("authorId");
+        console.log("posts in resolver", posts);
         return posts;
       } catch (err) {
         console.error(err);

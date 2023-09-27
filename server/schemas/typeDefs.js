@@ -122,7 +122,7 @@ const typeDefs = gql`
     message: String!
     url: String
     createdAt: Date!
-    authorId: ID!
+    authorId: Teacher
     isTeacher: Boolean!
     likes: Int
     comments: [Comment]
@@ -168,7 +168,7 @@ const typeDefs = gql`
     practicePlan(planId: ID!): PracticePlan
     resources: [Resource]
     resource: Resource
-    posts: [Post]
+    posts(studioId: ID!): [Post]
     post: Post
     comments: [Comment]
     comment: Comment

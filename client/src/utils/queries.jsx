@@ -10,21 +10,20 @@ export const QUERY_TEACHER = gql`
       password
       posts {
         _id
-        studioId
-        title
-        message
-        url
         createdAt
-        authorId
         isTeacher
         likes
+        message
+        studioId
+        title
+        url
         comments {
           _id
           authorId
-          message
           createdAt
           isTeacher
           likes
+          message
           postId
         }
       }
@@ -228,24 +227,25 @@ export const QUERY_STUDENTS = gql`
 `;
 
 export const QUERY_POSTS = gql`
-  query posts($studioId: ID!) {
+  query Query($studioId: ID!) {
     posts(studioId: $studioId) {
       _id
-      title
-      message
-      url
       createdAt
-      authorId
       isTeacher
       likes
-      comments {
+      message
+      studioId
+      title
+      url
+      authorId {
         _id
+        email
+        firstName
+        lastName
+      }
+      comments {
         authorId
-        message
-        createdAt
-        isTeacher
-        likes
-        postId
+        _id
       }
     }
   }
