@@ -12,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useQuery } from "@apollo/client";
 import { QUERY_AUTHOR } from "../../utils/queries";
 import { avatarList } from "../common/Assets";
+import CreateComment from "./CreateComment";
 
 const Comment = ({ comment, deleteCommentFunc }) => {
   const { student } = useStudentContext();
@@ -27,15 +28,24 @@ const Comment = ({ comment, deleteCommentFunc }) => {
     <Card sx={{ mt: 2 }}>
       <Typography
         endDecorator={
-          <img
-            src={
-              data?.author.avatarId
-                ? avatarList[data?.author.avatarId].name
-                : avatarList[0].name
-            }
-            alt="avatar"
-            style={{ maxWidth: "50px" }}
-          />
+          <>
+            <img
+              src={
+                data?.author.avatarId
+                  ? avatarList[data?.author.avatarId].name
+                  : avatarList[0].name
+              }
+              alt="avatar"
+              style={{ maxWidth: "50px" }}
+            />
+            {comment.authorId === student._id || Auth.teacherLoggedIn() ? (
+              <IconButton color="danger">
+                <DeleteIcon onClick={() => deleteCommentFunc(comment._id)} />
+              </IconButton>
+            ) : (
+              ""
+            )}
+          </>
         }
       >
         <b>{data?.author.username}</b>
@@ -44,15 +54,7 @@ const Comment = ({ comment, deleteCommentFunc }) => {
       <CardContent>
         <Typography>{comment.message}</Typography>
       </CardContent>
-      <CardActions>
-        {comment.authorId === student._id || Auth.teacherLoggedIn() ? (
-          <IconButton color="danger">
-            <DeleteIcon onClick={() => deleteCommentFunc(comment._id)} />
-          </IconButton>
-        ) : (
-          ""
-        )}
-      </CardActions>
+      <CardActions>{/* <CreateComment /> */}</CardActions>
     </Card>
   );
 };

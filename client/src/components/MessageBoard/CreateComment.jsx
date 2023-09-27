@@ -22,8 +22,8 @@ const CreateComment = ({ open, setOpen, createCommentFunc }) => {
           {...register("message")}
           placeholder="Write a comment..."
         />
-        <Button type="submit" color="success">
-          Create Comment
+        <Button type="submit" color="neutral">
+          Comment
         </Button>
       </form>
     </>
