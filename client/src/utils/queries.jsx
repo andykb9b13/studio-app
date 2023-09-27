@@ -246,6 +246,7 @@ export const QUERY_POSTS = gql`
       comments {
         authorId
         _id
+        message
       }
     }
   }
