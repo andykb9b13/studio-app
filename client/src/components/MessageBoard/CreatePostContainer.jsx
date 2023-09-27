@@ -15,14 +15,11 @@ const CreatePostContainer = ({ open, setOpen, posts, setPosts }) => {
 
   const createPostFunc = async (userInput) => {
     const createdAt = new Date();
-    console.log(createdAt);
-    console.log(student);
     let isTeacher = true;
     if (!Auth.teacherLoggedIn()) {
       setAuthorId(student._id);
       isTeacher = false;
     }
-    console.log(userInput);
     try {
       const { data } = await createPost({
         variables: {

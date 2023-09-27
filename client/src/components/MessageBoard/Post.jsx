@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, Typography, CardContent, CardActions, Button } from "@mui/joy";
+import { Card, Typography, CardContent, IconButton } from "@mui/joy";
 import { styles } from "../../styles/studentDetailsStyles";
-import dateService from "../../utils/dates";
 import Comment from "./Comment";
 import CreateComment from "./CreateComment";
 import RegularModal from "../common/Modal/RegularModal";
@@ -10,8 +9,10 @@ import { ADD_COMMENT, DELETE_COMMENT } from "../../utils/mutations";
 import { useTeacherContext } from "../../utils/Context";
 import { useStudentContext } from "../../utils/Context";
 import Auth from "../../utils/auth";
+import Delete from "@mui/icons-material/Delete";
+import DeleteModalContent from "../common/Modal/DeleteModalContent";
 
-const Post = ({ post }) => {
+const Post = ({ post, deletePostFunc }) => {
   const { teacher } = useTeacherContext();
   const { student } = useStudentContext();
   const [comments, setComments] = useState();
@@ -20,6 +21,7 @@ const Post = ({ post }) => {
   const [deleteComment] = useMutation(DELETE_COMMENT);
   const [authorId, setAuthorId] = useState();
   const [isTeacher, setIsTeacher] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     setComments(post.comments);
@@ -76,6 +78,24 @@ const Post = ({ post }) => {
   return (
     <Card sx={styles.sheet}>
       <CardContent>
+        {Auth.teacherLoggedIn() && (
+          <>
+            <RegularModal
+              open={deleteModalOpen}
+              onRequestClose={() => setDeleteModalOpen(false)}
+            >
+              <DeleteModalContent
+                resourceName={" '" + post.title + "' "}
+                confirmAction={() => deletePostFunc(post._id)}
+                onRequestClose={() => setDeleteModalOpen(false)}
+              />
+            </RegularModal>
+            <IconButton color="danger">
+              <Delete onClick={() => setDeleteModalOpen(true)} />
+            </IconButton>
+          </>
+        )}
+
         <Typography level="h3">{post.title}</Typography>
         <Typography level="body2">Created on: {post.createdAt}</Typography>
         <Typography>{post.message}</Typography>

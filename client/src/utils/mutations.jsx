@@ -437,3 +437,11 @@ export const DELETE_COMMENT = gql`
     }
   }
 `;
+
+export const DELETE_POST = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId) {
+      _id
+    }
+  }
+`;

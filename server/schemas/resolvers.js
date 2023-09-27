@@ -642,7 +642,7 @@ const resolvers = {
           throw new Error("Post not found");
         }
         if (deletedPost.isTeacher) {
-          await Teacher.updateMany(
+          const teacher = await Teacher.updateMany(
             { posts: postId },
             { $pull: { posts: postId } }
           );
@@ -652,11 +652,18 @@ const resolvers = {
             }
           }
         } else {
-          await Student.updateMany(
+          const student = await Student.updateMany(
             { posts: postId },
             { $pull: { posts: postId } }
           );
+          if (deletedPost.comments.length > 0) {
+            for (const comment of deletedPost.comments) {
+              await Comment.findOneAndDelete({ _id: comment._id });
+            }
+          }
         }
+
+        return deletedPost;
       } catch (err) {
         console.error(err);
       }

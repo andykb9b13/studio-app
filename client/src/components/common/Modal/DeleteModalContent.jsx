@@ -13,7 +13,7 @@ const DeleteModalContent = ({
       </Typography>
       <Typography id="nested-modal-description" textColor="text.tertiary">
         This action cannot be undone. This will permanently delete the{" "}
-        {resourceName} {""}and remove the data from our servers.
+        <b>{resourceName}</b> {""}and remove the data from our servers.
       </Typography>
       <Sheet
         sx={{
