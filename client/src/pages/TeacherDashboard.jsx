@@ -24,7 +24,7 @@ import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import RegularModal from "../components/common/Modal/RegularModal";
 import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
 import StorageIcon from "@mui/icons-material/Storage";
-import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import PersonIcon from "@mui/icons-material/Person";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HandymanIcon from "@mui/icons-material/Handyman";
@@ -34,6 +34,7 @@ import Leaderboard from "../components/StudentDetails/Leaderboard";
 import MessageIcon from "@mui/icons-material/Message";
 import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 import { useTeacherContext } from "../utils/Context";
+import TeacherProfile from "../components/TeacherDashboard/TeacherProfile/TeacherProfile";
 
 // export const TeacherContext = createContext();
 
@@ -115,10 +116,10 @@ const TeacherDashboard = () => {
                 )}
               </Tab>
               <Tab>
-                <RequestQuoteIcon />
+                <PersonIcon />
                 {!isMobile && (
                   <Typography>
-                    <b>Bookkeeping/Invoices</b>
+                    <b>Profile</b>
                   </Typography>
                 )}
               </Tab>
@@ -191,9 +192,9 @@ const TeacherDashboard = () => {
               <MessageBoard />
             </TabPanel>
 
-            {/* Tab panel for bookkeeping and invoices */}
+            {/* Tab panel for Viewing profile information */}
             <TabPanel value={2} sx={{ p: 2 }}>
-              Bookkeeping and Invoices are under construction
+              <TeacherProfile />
             </TabPanel>
 
             {/* Tab panel for Skill sheets */}

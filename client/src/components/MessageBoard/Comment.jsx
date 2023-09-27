@@ -14,7 +14,7 @@ import { QUERY_AUTHOR } from "../../utils/queries";
 import { avatarList } from "../common/Assets";
 import CreateComment from "./CreateComment";
 
-const Comment = ({ comment, deleteCommentFunc }) => {
+const Comment = ({ comment, deleteCommentFunc, createCommentFunc }) => {
   const { student } = useStudentContext();
 
   const { data } = useQuery(QUERY_AUTHOR, {
@@ -23,6 +23,8 @@ const Comment = ({ comment, deleteCommentFunc }) => {
       isTeacher: comment.isTeacher,
     },
   });
+
+  console.log(data);
 
   return (
     <Card sx={{ mt: 2 }}>
@@ -48,13 +50,18 @@ const Comment = ({ comment, deleteCommentFunc }) => {
           </>
         }
       >
-        <b>{data?.author.username}</b>
+        <b>
+          {data?.author.username ||
+            data?.author.firstName + " " + data?.author.lastName}
+        </b>
       </Typography>
 
       <CardContent>
         <Typography>{comment.message}</Typography>
       </CardContent>
-      <CardActions>{/* <CreateComment /> */}</CardActions>
+      <CardActions>
+        {/* <CreateComment createCommentFunc={createCommentFunc} /> */}
+      </CardActions>
     </Card>
   );
 };

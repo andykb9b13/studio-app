@@ -25,6 +25,18 @@ const teacherSchema = new Schema({
     minLength: [8, "Passwords must be at least 8 characters"],
     required: [true, "Password is required"],
   },
+  avatarId: {
+    type: Number,
+  },
+  aboutInfo: {
+    type: String,
+  },
+  phoneNumber: {
+    type: String,
+  },
+  username: {
+    type: String,
+  },
   students: [
     {
       type: Schema.Types.ObjectId,

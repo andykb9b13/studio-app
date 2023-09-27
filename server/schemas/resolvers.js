@@ -232,6 +232,10 @@ const resolvers = {
         email,
         password,
         confirmPassword,
+        avatarId,
+        aboutInfo,
+        phoneNumber,
+        username,
       });
 
       // validation sent to the front-end
@@ -716,9 +720,21 @@ const resolvers = {
 
     editTeacher: async (
       parent,
-      { teacherId, firstName, lastName, email, password, students }
+      {
+        teacherId,
+        firstName,
+        lastName,
+        email,
+        password,
+        students,
+        avatarId,
+        aboutInfo,
+        phoneNumber,
+        username,
+      }
     ) => {
       const teacher = await Teacher.findById(teacherId);
+      console.log("in edit teacher resolver");
 
       if (!teacher) {
         throw new Error("Teacher not found");
@@ -737,6 +753,18 @@ const resolvers = {
       }
       if (students) {
         teacher.students = students;
+      }
+      if (avatarId) {
+        teacher.avatarId = avatarId;
+      }
+      if (aboutInfo) {
+        teacher.aboutInfo = aboutInfo;
+      }
+      if (phoneNumber) {
+        teacher.phoneNumber = phoneNumber;
+      }
+      if (username) {
+        teacher.username = username;
       }
       await teacher.save();
       return teacher;

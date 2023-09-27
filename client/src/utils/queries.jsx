@@ -8,6 +8,10 @@ export const QUERY_TEACHER = gql`
       email
       lastName
       password
+      avatarId
+      aboutInfo
+      phoneNumber
+      username
       posts {
         _id
         createdAt
@@ -248,6 +252,12 @@ export const QUERY_POSTS = gql`
         _id
         message
         isTeacher
+        comments {
+          authorId
+          _id
+          message
+          isTeacher
+        }
       }
     }
   }

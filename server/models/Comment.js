@@ -22,6 +22,10 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  comments: {
+    type: Schema.Types.ObjectId,
+    ref: "Comment",
+  },
 });
 
 const Comment = model("Comment", commentSchema);

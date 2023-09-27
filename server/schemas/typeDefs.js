@@ -39,6 +39,10 @@ const typeDefs = gql`
     lastName: String
     email: String
     password: String
+    avatarId: Int
+    aboutInfo: String
+    phoneNumber: String
+    username: String
     students: [Student]
     skillSheets: [SkillSheet]
     resources: [Resource]
@@ -136,6 +140,7 @@ const typeDefs = gql`
     isTeacher: Boolean!
     likes: Int
     postId: String!
+    comments: [Comment]
   }
 
   type Like {
@@ -190,6 +195,10 @@ const typeDefs = gql`
       email: String!
       password: String!
       confirmPassword: String!
+      avatarId: Int
+      aboutInfo: String
+      phoneNumber: String
+      username: String
     ): TeacherAuth
 
     addStudent(
@@ -339,6 +348,10 @@ const typeDefs = gql`
       lastName: String
       email: String
       password: String
+      avatarId: Int
+      aboutInfo: String
+      phoneNumber: String
+      username: String
     ): Teacher!
 
     editAssignment(

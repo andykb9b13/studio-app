@@ -105,6 +105,7 @@ const Post = ({ post, deletePostFunc }) => {
         <Typography level="h4">Comments</Typography>
         {comments?.map((comment) => (
           <Comment
+            createCommentFunc={createCommentFunc}
             comment={comment}
             key={comment._id}
             deleteCommentFunc={deleteCommentFunc}
