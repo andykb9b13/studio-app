@@ -34,7 +34,7 @@ const CreatePost = ({ createPostFunc, postUrl, setPostUrl }) => {
   }
 
   return (
-    <Card sx={{ width: "80vw" }}>
+    <Card sx={{ width: "80vw", overflow: "auto", resize: "horizontal" }}>
       <Typography level="h2">Create a Post</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography>
