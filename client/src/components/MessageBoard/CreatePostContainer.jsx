@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Sheet, Button } from "@mui/joy";
+import { Button, Sheet } from "@mui/joy";
 import RegularModal from "../common/Modal/RegularModal";
 import CreatePost from "./CreatePost";
 import { useMutation } from "@apollo/client";
@@ -12,6 +12,7 @@ const CreatePostContainer = ({ open, setOpen, posts, setPosts }) => {
   const { student } = useStudentContext();
   const [createPost, { error }] = useMutation(ADD_POST);
   const [authorId, setAuthorId] = useState(teacher._id);
+  const [postUrl, setPostUrl] = useState();
 
   const createPostFunc = async (userInput) => {
     const createdAt = new Date();
@@ -26,7 +27,7 @@ const CreatePostContainer = ({ open, setOpen, posts, setPosts }) => {
           studioId: teacher._id,
           title: userInput.title,
           message: userInput.message,
-          url: userInput.url,
+          url: postUrl,
           createdAt: createdAt,
           authorId: authorId,
           isTeacher: isTeacher,
@@ -45,6 +46,8 @@ const CreatePostContainer = ({ open, setOpen, posts, setPosts }) => {
     <>
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <CreatePost
+          postUrl={postUrl}
+          setPostUrl={setPostUrl}
           onRequestClose={() => setOpen(false)}
           createPostFunc={createPostFunc}
         />

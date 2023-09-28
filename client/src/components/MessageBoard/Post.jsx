@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Card, Typography, CardContent, IconButton } from "@mui/joy";
+import {
+  Card,
+  Typography,
+  CardContent,
+  IconButton,
+  CardCover,
+  CardOverflow,
+  AspectRatio,
+} from "@mui/joy";
 import { styles } from "../../styles/studentDetailsStyles";
 import Comment from "./Comment";
 import CreateComment from "./CreateComment";
@@ -78,9 +86,16 @@ const Post = ({ post, deletePostFunc }) => {
 
   return (
     <Card sx={styles.sheet}>
+      {post.url && (
+        <CardOverflow>
+          <AspectRatio ratio="3">
+            <img src={post.url} alt="title" loading="lazy" />
+          </AspectRatio>
+        </CardOverflow>
+      )}
       <CardContent>
         <Typography
-          level="h3"
+          level="h2"
           endDecorator={
             Auth.teacherLoggedIn() && (
               <>
@@ -109,7 +124,13 @@ const Post = ({ post, deletePostFunc }) => {
         <Typography level="body2">
           By: {post.authorId.firstName} {post.authorId.lastName}
         </Typography>
+
         <Typography>{post.message}</Typography>
+
+        <CreateComment
+          onRequestClose={() => setOpen(false)}
+          createCommentFunc={createCommentFunc}
+        />
         <Typography level="h4">Comments</Typography>
         {comments?.map((comment) => (
           <Comment
@@ -120,11 +141,6 @@ const Post = ({ post, deletePostFunc }) => {
           />
         ))}
       </CardContent>
-
-      <CreateComment
-        onRequestClose={() => setOpen(false)}
-        createCommentFunc={createCommentFunc}
-      />
     </Card>
   );
 };
