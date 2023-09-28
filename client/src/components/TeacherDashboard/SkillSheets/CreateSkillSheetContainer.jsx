@@ -13,6 +13,7 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
   const [difficulty, setDifficulty] = useState("easy");
   const [badgeId, setBadgeId] = useState();
   const [createSkillSheet, { errors }] = useMutation(ADD_SKILLSHEET);
+  const [skillSheetUrl, setSkillSheetUrl] = useState();
 
   const createSkillSheetFunc = async (userInput) => {
     const mySheetPoints = parseInt(userInput.points);
@@ -29,7 +30,7 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
           badgeId: badgeId,
           sheetName: userInput.sheetName,
           description: userInput.description,
-          url: userInput.url,
+          url: skillSheetUrl,
           scales: userInput.scales,
           exercises: userInput.exercises,
           etudes: userInput.etudes,
@@ -51,6 +52,8 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
     <>
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <CreateSkillSheet
+          skillSheetUrl={skillSheetUrl}
+          setSkillSheetUrl={setSkillSheetUrl}
           onRequestClose={() => setOpen(false)}
           createSkillSheetFunc={createSkillSheetFunc}
           setDifficulty={setDifficulty}

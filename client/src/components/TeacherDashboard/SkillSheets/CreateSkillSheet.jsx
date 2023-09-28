@@ -18,6 +18,8 @@ import { useTeacherContext } from "../../../utils/Context";
 import UploadWidget from "../../../utils/UploadWidget";
 
 const CreateSkillSheet = ({
+  skillSheetUrl,
+  setSkillSheetUrl,
   onRequestClose,
   createSkillSheetFunc,
   setDifficulty,
@@ -28,7 +30,6 @@ const CreateSkillSheet = ({
   const { teacher } = useTeacherContext();
   const { handleSubmit, register } = useForm();
   const [open, setOpen] = useState(null);
-  const [skillSheetUrl, setSkillSheetUrl] = useState();
 
   function handleOnUpload(error, result, widget) {
     if (error) {
