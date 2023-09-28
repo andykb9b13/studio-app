@@ -300,7 +300,11 @@ export const ADD_POST = gql`
       message
       url
       createdAt
-      authorId
+      authorId {
+        _id
+        firstName
+        lastName
+      }
       isTeacher
     }
   }
