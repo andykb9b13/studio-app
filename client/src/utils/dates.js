@@ -59,7 +59,13 @@ class DateService {
   }
 
   formatDate(date) {
-    const formattedDate = `${date.getDate()} / ${date.getMonth()} / ${date.getDay()} / ${date.getYear()}`;
+    const dateObj = new Date(date);
+    const year = dateObj.getFullYear();
+    // Adding 1 to get the correct month (0-based index)
+    const month = dateObj.getMonth() + 1;
+    const day = dateObj.getDate();
+
+    const formattedDate = `${month} /${day} / ${year}`;
     return formattedDate;
   }
 }

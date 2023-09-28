@@ -11,6 +11,7 @@ import { useStudentContext } from "../../utils/Context";
 import Auth from "../../utils/auth";
 import Delete from "@mui/icons-material/Delete";
 import DeleteModalContent from "../common/Modal/DeleteModalContent";
+import dateService from "../../utils/dates";
 
 const Post = ({ post, deletePostFunc }) => {
   const { teacher } = useTeacherContext();
@@ -78,26 +79,33 @@ const Post = ({ post, deletePostFunc }) => {
   return (
     <Card sx={styles.sheet}>
       <CardContent>
-        {Auth.teacherLoggedIn() && (
-          <>
-            <RegularModal
-              open={deleteModalOpen}
-              onRequestClose={() => setDeleteModalOpen(false)}
-            >
-              <DeleteModalContent
-                resourceName={" '" + post.title + "' "}
-                confirmAction={() => deletePostFunc(post._id)}
-                onRequestClose={() => setDeleteModalOpen(false)}
-              />
-            </RegularModal>
-            <IconButton color="danger">
-              <Delete onClick={() => setDeleteModalOpen(true)} />
-            </IconButton>
-          </>
-        )}
-
-        <Typography level="h3">{post.title}</Typography>
-        <Typography level="body2">Created on: {post.createdAt}</Typography>
+        <Typography
+          level="h3"
+          endDecorator={
+            Auth.teacherLoggedIn() && (
+              <>
+                <RegularModal
+                  open={deleteModalOpen}
+                  onRequestClose={() => setDeleteModalOpen(false)}
+                >
+                  <DeleteModalContent
+                    resourceName={" '" + post.title + "' "}
+                    confirmAction={() => deletePostFunc(post._id)}
+                    onRequestClose={() => setDeleteModalOpen(false)}
+                  />
+                </RegularModal>
+                <IconButton color="danger">
+                  <Delete onClick={() => setDeleteModalOpen(true)} />
+                </IconButton>
+              </>
+            )
+          }
+        >
+          {post.title}
+        </Typography>
+        <Typography level="body2">
+          Created on: {dateService.formatDate(post.createdAt)}
+        </Typography>
         <Typography level="body2">
           By: {post.authorId.firstName} {post.authorId.lastName}
         </Typography>
