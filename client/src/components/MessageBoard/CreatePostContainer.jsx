@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Sheet } from "@mui/joy";
+import { Button } from "@mui/joy";
 import RegularModal from "../common/Modal/RegularModal";
 import CreatePost from "./CreatePost";
 import { useMutation } from "@apollo/client";

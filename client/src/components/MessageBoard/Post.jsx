@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Card,
   Typography,
@@ -20,10 +20,12 @@ import Auth from "../../utils/auth";
 import Delete from "@mui/icons-material/Delete";
 import DeleteModalContent from "../common/Modal/DeleteModalContent";
 import dateService from "../../utils/dates";
+import { MobileContext } from "../../App";
 
 const Post = ({ post, deletePostFunc }) => {
   const { teacher } = useTeacherContext();
   const { student } = useStudentContext();
+  const { isMobile } = useContext(MobileContext);
   const [comments, setComments] = useState();
   const [open, setOpen] = useState(false);
   const [createComment, { error }] = useMutation(ADD_COMMENT);
@@ -88,7 +90,7 @@ const Post = ({ post, deletePostFunc }) => {
     <Card sx={styles.sheet}>
       {post.url && (
         <CardOverflow>
-          <AspectRatio ratio="3">
+          <AspectRatio ratio={isMobile ? 1 : 3}>
             <img src={post.url} alt="title" loading="lazy" />
           </AspectRatio>
         </CardOverflow>

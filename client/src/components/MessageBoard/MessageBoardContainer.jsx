@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Sheet, Typography } from "@mui/joy";
+import { Sheet, Typography, Card } from "@mui/joy";
 import { useTeacherContext } from "../../utils/Context";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_POSTS } from "../../utils/queries";
@@ -11,17 +11,17 @@ import { useParams } from "react-router-dom";
 const MessageBoard = () => {
   const { id } = useParams();
   const { teacher } = useTeacherContext();
-  console.log(teacher);
   const { data } = useQuery(QUERY_POSTS, {
     variables: {
       studioId: teacher._id,
     },
   });
-  console.log(data);
-  const [posts, setPosts] = useState();
+  const [posts, setPosts] = useState(data?.posts);
   const [open, setOpen] = useState(false);
   const [deletePost, { error }] = useMutation(DELETE_POST);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  console.log(posts);
 
   useEffect(() => {
     setPosts(data?.posts);
@@ -44,26 +44,38 @@ const MessageBoard = () => {
   };
 
   return (
-    <Sheet>
-      <Typography level="h2" textAlign={"center"}>
-        Studio News
-      </Typography>
-      <CreatePostContainer
-        open={open}
-        setOpen={setOpen}
-        posts={posts}
-        setPosts={setPosts}
-      />
-      {posts?.map((post) => (
-        <Post
-          post={post}
-          key={post._id}
-          deletePostFunc={deletePostFunc}
-          deleteModalOpen={deleteModalOpen}
-          setDeleteModalOpen={setDeleteModalOpen}
+    <>
+      <Card variant="outlined" sx={{ mb: 2 }}>
+        <Typography level="h1" textAlign={"center"}>
+          Studio News
+        </Typography>
+        <CreatePostContainer
+          open={open}
+          setOpen={setOpen}
+          posts={posts}
+          setPosts={setPosts}
         />
-      ))}
-    </Sheet>
+      </Card>
+
+      <Sheet
+        variant="outlined"
+        sx={{
+          display: "flex",
+          flexDirection: "column-reverse",
+          background: "transparent",
+        }}
+      >
+        {posts?.map((post) => (
+          <Post
+            post={post}
+            key={post._id}
+            deletePostFunc={deletePostFunc}
+            deleteModalOpen={deleteModalOpen}
+            setDeleteModalOpen={setDeleteModalOpen}
+          />
+        ))}
+      </Sheet>
+    </>
   );
 };
 
