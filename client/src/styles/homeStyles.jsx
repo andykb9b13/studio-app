@@ -8,6 +8,7 @@ export const styles = {
     alignItems: "center",
     border: 1,
     boxShadow: "lg",
+    whiteSpace: "pre-line",
   },
   mobileCard: {
     width: "100%",
@@ -18,6 +19,7 @@ export const styles = {
     alignItems: "center",
     border: 1,
     boxShadow: "lg",
+    whiteSpace: "pre-line",
   },
   list: {
     listStyleType: "disc",

@@ -88,6 +88,7 @@ const AssignmentContainer = ({
           mx: "auto",
           overflow: "auto",
           resize: "vertical",
+          whiteSpace: "pre-line",
         }}
       >
         {/* Modal for displaying the delete prompt */}

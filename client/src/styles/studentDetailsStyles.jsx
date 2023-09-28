@@ -9,6 +9,7 @@ export const styles = {
     boxShadow: "md",
     display: "flex",
     flexDirection: "column",
+    whiteSpace: "pre-line",
   },
   container: {
     backgroundColor: "white",
@@ -26,6 +27,7 @@ export const styles = {
     height: "100%",
     p: 3,
     borderRadius: "10px",
+    whiteSpace: "pre-line",
   },
   mobileCard: {
     backgroundColor: "lightblue",
@@ -34,5 +36,6 @@ export const styles = {
     height: "100%",
     p: 1.5,
     borderRadius: "10px",
+    whiteSpace: "pre-line",
   },
 };

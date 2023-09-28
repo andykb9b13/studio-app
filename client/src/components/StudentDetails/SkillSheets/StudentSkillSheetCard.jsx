@@ -19,6 +19,7 @@ const SkillSheetCard = ({
         mx: "auto",
         overflow: "auto",
         resize: "horizontal",
+        whiteSpace: "pre-line",
       }}
     >
       <Typography level="h2">{activeSheet.sheetName}</Typography>

@@ -446,6 +446,7 @@ const resolvers = {
     },
 
     addPost: async (parent, { authorId, title, message, ...args }) => {
+      console.log("This is the message in the resolver", message);
       if (!title) {
         throw new Error("Title is required");
       }
