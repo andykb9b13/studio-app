@@ -251,11 +251,13 @@ export const QUERY_POSTS = gql`
         authorId
         _id
         message
+        createdAt
         isTeacher
         comments {
           authorId
           _id
           message
+          createdAt
           isTeacher
         }
       }

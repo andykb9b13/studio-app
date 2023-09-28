@@ -65,7 +65,7 @@ class DateService {
     const month = dateObj.getMonth() + 1;
     const day = dateObj.getDate();
 
-    const formattedDate = `${month} /${day} / ${year}`;
+    const formattedDate = `${month}/${day}/${year}`;
     return formattedDate;
   }
 }

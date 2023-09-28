@@ -13,6 +13,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_AUTHOR } from "../../utils/queries";
 import { avatarList } from "../common/Assets";
 import CreateComment from "./CreateComment";
+import dateService from "../../utils/dates";
 
 const Comment = ({ comment, deleteCommentFunc, createCommentFunc }) => {
   const { student } = useStudentContext();
@@ -54,6 +55,9 @@ const Comment = ({ comment, deleteCommentFunc, createCommentFunc }) => {
           {data?.author.username ||
             data?.author.firstName + " " + data?.author.lastName}
         </b>
+      </Typography>
+      <Typography level="body2">
+        {dateService.formatDate(comment.createdAt)}
       </Typography>
 
       <CardContent>
