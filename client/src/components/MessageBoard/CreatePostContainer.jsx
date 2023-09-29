@@ -14,7 +14,7 @@ const CreatePostContainer = ({ open, setOpen, posts, setPosts }) => {
   const [authorId, setAuthorId] = useState(teacher._id);
   const [postUrl, setPostUrl] = useState();
 
-  const createPostFunc = async (userInput) => {
+  const createPostFunc = async (userInput, message) => {
     const createdAt = new Date();
     let isTeacher = true;
     if (!Auth.teacherLoggedIn()) {
@@ -26,7 +26,7 @@ const CreatePostContainer = ({ open, setOpen, posts, setPosts }) => {
         variables: {
           studioId: teacher._id,
           title: userInput.title,
-          message: userInput.message,
+          message: message,
           url: postUrl,
           createdAt: createdAt,
           authorId: authorId,

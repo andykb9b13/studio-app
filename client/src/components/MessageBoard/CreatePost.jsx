@@ -9,14 +9,17 @@ import {
   CardActions,
 } from "@mui/joy";
 import UploadWidget from "../../utils/UploadWidget";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const CreatePost = ({ createPostFunc, postUrl, setPostUrl }) => {
   const { handleSubmit, register } = useForm();
+  const [value, setValue] = useState("");
 
   const onSubmit = async (userInput) => {
     try {
       console.log("userInput", userInput);
-      await createPostFunc(userInput);
+      await createPostFunc(userInput, value);
     } catch (err) {
       console.error(err);
     }
@@ -48,11 +51,12 @@ const CreatePost = ({ createPostFunc, postUrl, setPostUrl }) => {
         <Typography>
           <b>Message</b>
         </Typography>
-        <Textarea
+        {/* <Textarea
           minRows={10}
           {...register("message")}
           placeholder="Write your message..."
-        />
+        /> */}
+        <ReactQuill theme="snow" value={value} onChange={setValue} />
         <Typography>{postUrl ? "Title Image" : "Add Title Image"}</Typography>
         {postUrl && (
           <img

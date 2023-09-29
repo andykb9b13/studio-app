@@ -6,6 +6,7 @@ import {
   IconButton,
   CardOverflow,
   AspectRatio,
+  Sheet,
   Avatar,
   AvatarGroup,
 } from "@mui/joy";
@@ -23,6 +24,7 @@ import DeleteModalContent from "../common/Modal/DeleteModalContent";
 import dateService from "../../utils/dates";
 import { MobileContext } from "../../App";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import * as DOMPurify from "dompurify";
 
 const Post = ({ post, deletePostFunc }) => {
   const { teacher } = useTeacherContext();
@@ -36,6 +38,7 @@ const Post = ({ post, deletePostFunc }) => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
+  const [parsedHTML, setParsedHTML] = useState(null);
 
   useEffect(() => {
     setComments(post.comments);
@@ -89,6 +92,8 @@ const Post = ({ post, deletePostFunc }) => {
     }
   };
 
+  const cleanMessage = DOMPurify.sanitize(post.message);
+
   return (
     <Card sx={styles.sheet}>
       {post.url && (
@@ -130,9 +135,7 @@ const Post = ({ post, deletePostFunc }) => {
           By: {post.authorId.firstName} {post.authorId.lastName}
         </Typography>
 
-        <Typography sx={{ fontSize: "1.1em", my: 2 }}>
-          {post.message}
-        </Typography>
+        <div dangerouslySetInnerHTML={{ __html: cleanMessage }} />
 
         <CreateComment
           onRequestClose={() => setOpen(false)}
