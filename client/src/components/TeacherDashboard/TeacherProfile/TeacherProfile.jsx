@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Card, IconButton } from "@mui/joy";
+import { Typography, Card, IconButton, AspectRatio } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 
 import { styles } from "../../../styles/studentDetailsStyles";
@@ -10,6 +10,7 @@ import { avatarList } from "../../common/Assets";
 import { useMutation } from "@apollo/client";
 import { EDIT_TEACHER } from "../../../utils/mutations";
 import { useTeacherContext } from "../../../utils/Context";
+import EditTeacher from "./EditTeacher";
 
 const TeacherProfile = () => {
   const { teacher } = useTeacherContext();
@@ -52,6 +53,15 @@ const TeacherProfile = () => {
         >
           {teacher.firstName} {teacher.lastName}
         </Typography>
+        <RegularModal
+          open={active === 1}
+          onRequestClose={() => setActive(null)}
+        >
+          <EditTeacher
+            onRequestClose={() => setActive(null)}
+            setActive={setActive}
+          />
+        </RegularModal>
 
         <img
           src={
@@ -62,10 +72,11 @@ const TeacherProfile = () => {
           alt="avatar"
           style={{
             borderRadius: "50%",
-            width: "35%",
+            width: "20%",
             marginInline: "auto",
           }}
         />
+
         <RegularModal open={open} onRequestClose={() => setOpen(false)}>
           <SelectAvatar
             onRequestClose={() => setOpen(false)}
@@ -85,7 +96,7 @@ const TeacherProfile = () => {
           <b>Email:</b> {teacher.email}
         </Typography>
         <Typography>
-          <b>Phone Number: {teacher.phoneNumber}</b>
+          <b>Phone Number:</b> {teacher.phoneNumber}
         </Typography>
         <Typography>
           <b>About: </b> {teacher.aboutInfo}
