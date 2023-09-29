@@ -13,7 +13,7 @@ import { useTeacherContext } from "../../../utils/Context";
 import EditTeacher from "./EditTeacher";
 
 const TeacherProfile = () => {
-  const { teacher } = useTeacherContext();
+  const { teacher, setTeacher } = useTeacherContext();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const [editTeacher, { error }] = useMutation(EDIT_TEACHER);
@@ -21,12 +21,13 @@ const TeacherProfile = () => {
   const editAvatarFunc = async (avatarId) => {
     console.log(avatarId);
     try {
-      await editTeacher({
+      const editedTeacher = await editTeacher({
         variables: {
           teacherId: teacher._id,
           avatarId: avatarId,
         },
       });
+      setTeacher(editedTeacher.data.editTeacher);
       alert(`avatar ${avatarId} selected`);
       setOpen(false);
     } catch (err) {
