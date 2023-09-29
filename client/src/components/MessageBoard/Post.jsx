@@ -4,9 +4,10 @@ import {
   Typography,
   CardContent,
   IconButton,
-  CardCover,
   CardOverflow,
   AspectRatio,
+  Avatar,
+  AvatarGroup,
 } from "@mui/joy";
 import { styles } from "../../styles/studentDetailsStyles";
 import Comment from "./Comment";
@@ -21,6 +22,7 @@ import Delete from "@mui/icons-material/Delete";
 import DeleteModalContent from "../common/Modal/DeleteModalContent";
 import dateService from "../../utils/dates";
 import { MobileContext } from "../../App";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 
 const Post = ({ post, deletePostFunc }) => {
   const { teacher } = useTeacherContext();
@@ -33,6 +35,7 @@ const Post = ({ post, deletePostFunc }) => {
   const [authorId, setAuthorId] = useState();
   const [isTeacher, setIsTeacher] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [commentOpen, setCommentOpen] = useState(false);
 
   useEffect(() => {
     setComments(post.comments);
@@ -127,21 +130,38 @@ const Post = ({ post, deletePostFunc }) => {
           By: {post.authorId.firstName} {post.authorId.lastName}
         </Typography>
 
-        <Typography>{post.message}</Typography>
+        <Typography sx={{ fontSize: "1.1em", my: 2 }}>
+          {post.message}
+        </Typography>
 
         <CreateComment
           onRequestClose={() => setOpen(false)}
           createCommentFunc={createCommentFunc}
         />
-        <Typography level="h4">Comments</Typography>
-        {comments?.map((comment) => (
-          <Comment
-            createCommentFunc={createCommentFunc}
-            comment={comment}
-            key={comment._id}
-            deleteCommentFunc={deleteCommentFunc}
-          />
-        ))}
+        <Typography
+          level="h4"
+          endDecorator={
+            comments?.length > 0 && <Typography>({comments.length})</Typography>
+          }
+        >
+          Comments
+        </Typography>
+        {commentOpen ? (
+          <>
+            <KeyboardArrowUp onClick={() => setCommentOpen(false)} />
+            {comments?.length < 1 && <Typography>No Comments</Typography>}
+            {comments?.map((comment) => (
+              <Comment
+                createCommentFunc={createCommentFunc}
+                comment={comment}
+                key={comment._id}
+                deleteCommentFunc={deleteCommentFunc}
+              />
+            ))}
+          </>
+        ) : (
+          <KeyboardArrowDown onClick={() => setCommentOpen(true)} />
+        )}
       </CardContent>
     </Card>
   );

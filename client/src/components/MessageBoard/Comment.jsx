@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Typography,
   Card,
   CardActions,
   IconButton,
   CardContent,
+  Avatar,
 } from "@mui/joy";
 import { useStudentContext } from "../../utils/Context";
 import Auth from "../../utils/auth";
@@ -12,10 +13,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useQuery } from "@apollo/client";
 import { QUERY_AUTHOR } from "../../utils/queries";
 import { avatarList } from "../common/Assets";
-import CreateComment from "./CreateComment";
 import dateService from "../../utils/dates";
 
-const Comment = ({ comment, deleteCommentFunc, createCommentFunc }) => {
+const Comment = ({ comment, deleteCommentFunc }) => {
   const { student } = useStudentContext();
 
   const { data } = useQuery(QUERY_AUTHOR, {
@@ -25,21 +25,18 @@ const Comment = ({ comment, deleteCommentFunc, createCommentFunc }) => {
     },
   });
 
-  console.log(data);
-
   return (
     <Card sx={{ mt: 2 }}>
       <Typography
         endDecorator={
           <>
-            <img
+            <Avatar
               src={
                 data?.author.avatarId
                   ? avatarList[data?.author.avatarId].name
                   : avatarList[0].name
               }
               alt="avatar"
-              style={{ maxWidth: "50px" }}
             />
             {comment.authorId === student._id || Auth.teacherLoggedIn() ? (
               <IconButton color="danger">
