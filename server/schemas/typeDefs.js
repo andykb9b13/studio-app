@@ -384,6 +384,12 @@ const typeDefs = gql`
       difficulty: String
       completed: Boolean
     ): SkillSheet!
+
+    editPracticePlan(
+      planId: ID!
+      name: String
+      planNotes: String
+    ): PracticePlan!
   }
 `;
 

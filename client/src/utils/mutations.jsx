@@ -429,6 +429,15 @@ export const EDIT_TEACHER = gql`
   }
 `;
 
+export const EDIT_PRACTICE_PLAN = gql`
+  mutation editPracticePlan($planId: ID!, $name: String, $planNotes: String) {
+    editPracticePlan(planId: $planId, name: $name, planNotes: $planNotes) {
+      name
+      planNotes
+    }
+  }
+`;
+
 export const DELETE_TEACHER = gql`
   mutation deleteTeacher($teacherId: ID!) {
     deleteTeacher(teacherId: $teacherId) {

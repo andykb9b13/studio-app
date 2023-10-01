@@ -825,6 +825,29 @@ const resolvers = {
       await student.save();
       return student;
     },
+
+    editPracticePlan: async (parent, { planId, ...args }) => {
+      console.log("hitting editPracticePlan");
+      console.log(planId);
+
+      try {
+        const practicePlan = await PracticePlan.findByIdAndUpdate(planId);
+
+        if (!practicePlan) {
+          throw new Error("Practice Plan not found");
+        }
+        if (args.name) {
+          practicePlan.name = args.name;
+        }
+        if (args.planNotes) {
+          practicePlan.planNotes = args.planNotes;
+        }
+        await practicePlan.save();
+        return practicePlan;
+      } catch (err) {
+        console.error(err);
+      }
+    },
   },
 };
 

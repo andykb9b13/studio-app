@@ -13,6 +13,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardControlKeyIcon from "@mui/icons-material/KeyboardControlKey";
 import Auth from "../../../utils/auth";
 import ProgressBar from "../../common/ProgressBar";
+import EditIcon from "@mui/icons-material/Edit";
+import EditPracticePlan from "./EditPracticePlan";
 
 const styles = {
   sheet: {
@@ -26,7 +28,7 @@ const styles = {
 
 // The card of an individual practice plan
 const PracticePlanCard = ({ practicePlan, onDelete }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(0);
   const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
   const [assignments, setAssignments] = useState(practicePlan.assignments);
   const [planPoints, setPlanPoints] = useState(0);
@@ -91,19 +93,33 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
             endDecorator={
               Auth.teacherLoggedIn() && (
                 <>
-                  <IconButton onClick={() => setOpen(true)} color="danger">
+                  <IconButton onClick={() => setOpen(1)} color="danger">
                     <DeleteIcon />
                   </IconButton>
                   {/* Modal for deleting a practice plan */}
                   <RegularModal
                     name="deletePracticePlan"
-                    open={open}
-                    onRequestClose={() => setOpen(false)}
+                    open={open === 1}
+                    onRequestClose={() => setOpen(0)}
                   >
                     <DeleteModalContent
-                      onRequestClose={() => setOpen(false)}
+                      onRequestClose={() => setOpen(0)}
                       confirmAction={() => deletePracticePlanFunc()}
                       resourceName="Practice Plan"
+                    />
+                  </RegularModal>
+                  <IconButton onClick={() => setOpen(2)}>
+                    <EditIcon />
+                  </IconButton>
+                  {/* Modal for editing practice plan */}
+                  <RegularModal
+                    name="editPracticePlan"
+                    open={open === 2}
+                    onRequestClose={() => setOpen(0)}
+                  >
+                    <EditPracticePlan
+                      onRequestClose={() => setOpen(0)}
+                      practicePlan={practicePlan}
                     />
                   </RegularModal>
                 </>
