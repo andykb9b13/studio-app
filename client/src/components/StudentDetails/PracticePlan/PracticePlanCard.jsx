@@ -36,6 +36,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const [resources, setResources] = useState(practicePlan.resources);
   const [revealed, setRevealed] = useState(false);
   const [progressBarPercentage, setProgressBarPercentage] = useState(0);
+  const [activePlan, setActivePlan] = useState(practicePlan);
 
   // Setting the total points available to earn for the plan
   useEffect(() => {
@@ -74,7 +75,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const deletePracticePlanFunc = async () => {
     try {
       await deletePracticePlan({
-        variables: { planId: practicePlan._id },
+        variables: { planId: activePlan._id },
       });
       alert("Plan Deleted!");
       setOpen(false);
@@ -119,17 +120,19 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
                   >
                     <EditPracticePlan
                       onRequestClose={() => setOpen(0)}
-                      practicePlan={practicePlan}
+                      setActivePlan={setActivePlan}
+                      setOpen={setOpen}
+                      practicePlan={activePlan}
                     />
                   </RegularModal>
                 </>
               )
             }
           >
-            {practicePlan.name}
+            {activePlan?.name}
           </Typography>
           <Typography>
-            {new Date(practicePlan.dateCreated).toLocaleString()}
+            {new Date(activePlan?.dateCreated).toLocaleString()}
           </Typography>
 
           <Typography level="h4">Plan Points: {planPoints}</Typography>
@@ -143,7 +146,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
           />
         </Grid>
         <Grid xs={12}>
-          <Typography level="body1">{practicePlan.planNotes}</Typography>
+          <Typography level="body1">{activePlan?.planNotes}</Typography>
           {!revealed ? (
             <KeyboardArrowDownIcon
               fontSize="large"
@@ -162,7 +165,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
         <>
           {/* Container for creating an assignment */}
           <CreateAssignmentContainer
-            practicePlan={practicePlan}
+            practicePlan={activePlan}
             assignments={assignments}
             setAssignments={setAssignments}
             resources={resources}
@@ -171,7 +174,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
 
           {/* Container for creating a resource */}
           <CreateResourceContainer
-            practicePlan={practicePlan}
+            practicePlan={activePlan}
             resources={resources}
             setResources={setResources}
           />
@@ -183,7 +186,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
           />
 
           <ResourceContainer
-            practicePlan={practicePlan}
+            practicePlan={activePlan}
             resources={resources}
             setResources={setResources}
           />

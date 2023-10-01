@@ -832,6 +832,7 @@ const resolvers = {
 
       try {
         const practicePlan = await PracticePlan.findByIdAndUpdate(planId);
+        console.log("practicePlan before editing", practicePlan);
 
         if (!practicePlan) {
           throw new Error("Practice Plan not found");
@@ -843,6 +844,7 @@ const resolvers = {
           practicePlan.planNotes = args.planNotes;
         }
         await practicePlan.save();
+        console.log(practicePlan);
         return practicePlan;
       } catch (err) {
         console.error(err);

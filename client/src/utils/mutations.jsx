@@ -434,6 +434,8 @@ export const EDIT_PRACTICE_PLAN = gql`
     editPracticePlan(planId: $planId, name: $name, planNotes: $planNotes) {
       name
       planNotes
+      dateCreated
+      studentId
     }
   }
 `;

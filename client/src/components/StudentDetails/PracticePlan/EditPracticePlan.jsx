@@ -12,7 +12,7 @@ import {
 import { useForm } from "react-hook-form";
 import { styles } from "../../../styles/cardstyles";
 
-const EditPracticePlan = ({ practicePlan }) => {
+const EditPracticePlan = ({ practicePlan, setActivePlan, setOpen }) => {
   const [editPracticePlan, { loading, error }] =
     useMutation(EDIT_PRACTICE_PLAN);
   const { register, handleSubmit } = useForm();
@@ -21,15 +21,19 @@ const EditPracticePlan = ({ practicePlan }) => {
     console.log(practicePlan._id);
     console.log(userInput);
     try {
-      await editPracticePlan({
+      const editedPlan = await editPracticePlan({
         variables: {
           planId: practicePlan?._id,
           ...userInput,
         },
       });
+      console.log(editedPlan.data.editPracticePlan);
+      setActivePlan(editedPlan.data.editPracticePlan);
+      setOpen(0);
       alert("Practice Plan successfully edited!");
     } catch (err) {
       console.error(err);
+      setOpen(0);
       alert("Could not edit practice plan");
     }
   };
