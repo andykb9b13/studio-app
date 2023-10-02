@@ -10,12 +10,7 @@ import CongratsModalContent from "../../common/Modal/CongratsModalContent";
 const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
-  const [planAssignments, setPlanAssignments] = useState(assignments);
   const [completedOpen, setCompletedOpen] = useState(false);
-
-  useEffect(() => {
-    setPlanAssignments(assignments);
-  }, [setPlanAssignments, assignments]);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -36,8 +31,8 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
         </tr>
       </thead>
       <tbody>
-        {planAssignments &&
-          planAssignments?.map((assignment) => (
+        {assignments &&
+          assignments?.map((assignment) => (
             <React.Fragment key={assignment._id}>
               <tr
                 style={
@@ -62,8 +57,8 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                       onRequestClose={() => setIndex(null)}
                       setCompletedOpen={setCompletedOpen}
                       assignment={assignment}
-                      planAssignments={planAssignments}
-                      setPlanAssignments={setPlanAssignments}
+                      assignments={assignments}
+                      setAssignments={setAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
                     />

@@ -25,8 +25,8 @@ import Auth from "../../../../utils/auth";
 const AssignmentContainer = ({
   assignment,
   onDelete,
-  planAssignments,
-  setPlanAssignments,
+  assignments,
+  setAssignments,
   setCompletedOpen,
 }) => {
   const [open, setOpen] = useState(false);
@@ -63,10 +63,10 @@ const AssignmentContainer = ({
       if (checked === true) {
         setCompletedOpen(true);
       }
-      const filteredArr = planAssignments.filter(
+      const filteredArr = assignments.filter(
         (assignment) => assignment._id !== assignmentId
       );
-      setPlanAssignments([
+      setAssignments([
         ...filteredArr,
         editedAssignment.data.completeAssignment,
       ]);
