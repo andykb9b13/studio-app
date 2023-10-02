@@ -11,6 +11,13 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
   const [completedOpen, setCompletedOpen] = useState(false);
+  const [height, setHeight] = useState();
+  const [width, setWidth] = useState();
+
+  useEffect(() => {
+    setHeight(window.innerHeight);
+    setWidth(window.innerWidth);
+  }, [setHeight, setWidth]);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -30,6 +37,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
           <th>Details</th>
         </tr>
       </thead>
+
       <tbody>
         {assignments &&
           assignments?.map((assignment) => (
@@ -74,14 +82,15 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
               {/* Pop up modal for when an assignment is marked completed */}
               <CongratsModal
                 completedOpen={completedOpen}
-                close={() => setCompletedOpen(false)}
+                close={() => {
+                  setCompletedOpen(false);
+                }}
               >
                 <CongratsModalContent
                   close={() => setCompletedOpen(false)}
                   resourceName={assignment.exerciseName}
                   points={assignment.pointsWorth}
                 />
-                <Confetti />
               </CongratsModal>
             </React.Fragment>
           ))}
