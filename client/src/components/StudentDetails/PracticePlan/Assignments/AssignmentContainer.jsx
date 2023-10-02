@@ -14,24 +14,26 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteModalContent from "../../../common/Modal/DeleteModalContent";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
-import { DELETE_ASSIGNMENT } from "../../../../utils/mutations";
+import {
+  DELETE_ASSIGNMENT,
+  EDIT_ASSIGNMENT,
+} from "../../../../utils/mutations";
 import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
-import CongratsModalContent from "../../../common/Modal/CongratsModalContent";
-import CongratsModal from "../../../common/Modal/CongratsModal";
-import Confetti from "react-confetti";
+
 import Auth from "../../../../utils/auth";
 
 const AssignmentContainer = ({
   assignment,
   onDelete,
-  assignments,
-  setAssignments,
+  planAssignments,
+  setPlanAssignments,
+  setCompletedOpen,
 }) => {
   const [open, setOpen] = useState(false);
   const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
   const [completeAssignment] = useMutation(COMPLETE_ASSIGNMENT);
+  const [editAssignment] = useMutation(EDIT_ASSIGNMENT);
   const [checked, setChecked] = useState(assignment.completed);
-  const [completedOpen, setCompletedOpen] = useState(false);
 
   const deleteAssignmentFunc = async () => {
     try {
@@ -49,21 +51,28 @@ const AssignmentContainer = ({
     }
   };
 
-  const handleCompleteAssignment = async (checked) => {
+  const handleCompleteAssignment = async (checked, assignmentId) => {
+    console.log(checked, assignmentId);
     try {
-      const { data } = await completeAssignment({
+      const editedAssignment = await completeAssignment({
         variables: {
-          assignmentId: assignment._id,
+          assignmentId: assignmentId,
           completed: checked,
         },
       });
       if (checked === true) {
         setCompletedOpen(true);
       }
-      console.log(data);
-      setAssignments(assignments);
+      const filteredArr = planAssignments.filter(
+        (assignment) => assignment._id !== assignmentId
+      );
+      setPlanAssignments([
+        ...filteredArr,
+        editedAssignment.data.completeAssignment,
+      ]);
     } catch (err) {
       console.error(err);
+      alert("could not edit assignment");
     }
   };
 
@@ -106,18 +115,6 @@ const AssignmentContainer = ({
           </RegularModal>
         )}
 
-        {/* Pop up modal for when an assignment is marked completed */}
-        <CongratsModal
-          completedOpen={completedOpen}
-          close={() => setCompletedOpen(false)}
-        >
-          <CongratsModalContent
-            close={() => setCompletedOpen(false)}
-            resourceName={assignment.exerciseName}
-            points={assignment.pointsWorth}
-          />
-          <Confetti />
-        </CongratsModal>
         {Auth.teacherLoggedIn() && (
           <IconButton color="danger" onClick={() => setOpen(true)}>
             <DeleteIcon />

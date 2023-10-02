@@ -337,10 +337,9 @@ const resolvers = {
     },
 
     completeAssignment: async (parent, { assignmentId, completed }) => {
-      const assignment = await Assignment.findByIdAndUpdate(assignmentId, {
-        completed: completed,
-      });
-      console.log(assignment);
+      const assignment = await Assignment.findById(assignmentId);
+      assignment.completed = completed;
+      await assignment.save();
       return assignment;
     },
 
@@ -846,6 +845,45 @@ const resolvers = {
         await practicePlan.save();
         console.log(practicePlan);
         return practicePlan;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    editAssignment: async (parent, { assignmentId, ...args }) => {
+      console.log("in edit assignment");
+      console.log(...args);
+      try {
+        const assignment = await Assignment.findById(assignmentId);
+        if (!assignment) {
+          throw new Error("Assignment not found");
+        }
+        if (args.exerciseName) {
+          assignment.exerciseName = args.exerciseName;
+        }
+        if (args.source) {
+          assignment.source = args.source;
+        }
+        if (args.assignmentType) {
+          assignment.assignmentType = args.assignmentType;
+        }
+        if (args.specialNotes) {
+          assignment.specialNotes = args.specialNotes;
+        }
+        if (args.metronome) {
+          assignment.metronome = args.metronome;
+        }
+        if (args.pages) {
+          assignment.pages = args.pages;
+        }
+        if (args.pointsWorth) {
+          assignment.pointsWorth = args.pointsWorth;
+        }
+        if (args.completed) {
+          assignment.completed = args.completed;
+        }
+        await assignment.save();
+        return assignment;
       } catch (err) {
         console.error(err);
       }

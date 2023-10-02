@@ -162,6 +162,15 @@ export const ADD_ASSIGNMENT = gql`
 export const COMPLETE_ASSIGNMENT = gql`
   mutation completeAssignment($assignmentId: ID!, $completed: Boolean) {
     completeAssignment(assignmentId: $assignmentId, completed: $completed) {
+      exerciseName
+      studentId
+      planId
+      source
+      assignmentType
+      specialNotes
+      metronome
+      pages
+      pointsWorth
       completed
     }
   }
@@ -436,6 +445,43 @@ export const EDIT_PRACTICE_PLAN = gql`
       planNotes
       dateCreated
       studentId
+    }
+  }
+`;
+
+export const EDIT_ASSIGNMENT = gql`
+  mutation editAssignment(
+    $assignmentId: ID!
+    $exerciseName: String
+    $source: String
+    $assignmentType: String
+    $specialNotes: String
+    $metronome: String
+    $pages: String
+    $pointsWorth: Int
+    $completed: Boolean
+  ) {
+    editAssignment(
+      assignmentId: $assignmentId
+      exerciseName: $exerciseName
+      source: $source
+      assignmentType: $assignmentType
+      specialNotes: $specialNotes
+      metronome: $metronome
+      pages: $pages
+      pointsWorth: $pointsWorth
+      completed: $completed
+    ) {
+      exerciseName
+      studentId
+      planId
+      source
+      assignmentType
+      specialNotes
+      metronome
+      pages
+      pointsWorth
+      completed
     }
   }
 `;

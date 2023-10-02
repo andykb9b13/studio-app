@@ -1,12 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AssignmentContainer from "./Assignments/AssignmentContainer";
 import { Table, Button } from "@mui/joy";
 import RegularModal from "../../common/Modal/RegularModal";
 import { MobileContext } from "../../../App";
+import CongratsModal from "../../common/Modal/CongratsModal";
+import Confetti from "react-confetti";
+import CongratsModalContent from "../../common/Modal/CongratsModalContent";
 
 const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
+  const [planAssignments, setPlanAssignments] = useState(assignments);
+  const [completedOpen, setCompletedOpen] = useState(false);
+
+  useEffect(() => {
+    setPlanAssignments(assignments);
+  }, [setPlanAssignments, assignments]);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
@@ -27,8 +36,8 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
         </tr>
       </thead>
       <tbody>
-        {assignments &&
-          assignments?.map((assignment) => (
+        {planAssignments &&
+          planAssignments?.map((assignment) => (
             <React.Fragment key={assignment._id}>
               <tr
                 style={
@@ -51,9 +60,10 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                   >
                     <AssignmentContainer
                       onRequestClose={() => setIndex(null)}
+                      setCompletedOpen={setCompletedOpen}
                       assignment={assignment}
-                      assignments={assignments}
-                      setAssignments={setAssignments}
+                      planAssignments={planAssignments}
+                      setPlanAssignments={setPlanAssignments}
                       onDelete={() => handleDeleteAssignment(assignment._id)}
                       key={assignment._id}
                     />
@@ -66,6 +76,18 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                   </Button>
                 </td>
               </tr>
+              {/* Pop up modal for when an assignment is marked completed */}
+              <CongratsModal
+                completedOpen={completedOpen}
+                close={() => setCompletedOpen(false)}
+              >
+                <CongratsModalContent
+                  close={() => setCompletedOpen(false)}
+                  resourceName={assignment.exerciseName}
+                  points={assignment.pointsWorth}
+                />
+                <Confetti />
+              </CongratsModal>
             </React.Fragment>
           ))}
       </tbody>
