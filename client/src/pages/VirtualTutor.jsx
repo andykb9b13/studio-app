@@ -1,15 +1,7 @@
 import React from "react";
 import TutorContainer from "../components/VirtualTutor/TutorContainer";
 import { useState } from "react";
-import {
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  List,
-  ListItem,
-} from "@mui/joy";
+import { Typography, Button, Card, CardContent, Grid } from "@mui/joy";
 import { styles } from "../styles/studentDetailsStyles";
 import RegularModal from "../components/common/Modal/RegularModal";
 import {

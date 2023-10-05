@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Card, Link, IconButton, Grid } from "@mui/joy";
+import { Typography, Card, Link, IconButton } from "@mui/joy";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
 import DeleteModalContent from "../../../common/Modal/DeleteModalContent";

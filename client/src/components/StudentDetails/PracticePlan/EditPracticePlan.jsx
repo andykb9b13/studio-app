@@ -18,8 +18,6 @@ const EditPracticePlan = ({ practicePlan, setActivePlan, setOpen }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (userInput) => {
-    console.log(practicePlan._id);
-    console.log(userInput);
     try {
       const editedPlan = await editPracticePlan({
         variables: {
@@ -27,7 +25,6 @@ const EditPracticePlan = ({ practicePlan, setActivePlan, setOpen }) => {
           ...userInput,
         },
       });
-      console.log(editedPlan.data.editPracticePlan);
       setActivePlan(editedPlan.data.editPracticePlan);
       setOpen(0);
       alert("Practice Plan successfully edited!");

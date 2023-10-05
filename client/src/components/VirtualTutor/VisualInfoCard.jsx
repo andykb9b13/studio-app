@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Typography,
-  Link,
-  CardContent,
-  List,
-  ListItem,
-  Box,
-} from "@mui/joy";
+import { Card, Typography, Link, CardContent, List, ListItem } from "@mui/joy";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardControlKeyIcon from "@mui/icons-material/KeyboardControlKey";
 

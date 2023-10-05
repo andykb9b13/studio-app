@@ -6,9 +6,6 @@ import {
   IconButton,
   CardOverflow,
   AspectRatio,
-  Sheet,
-  Avatar,
-  AvatarGroup,
 } from "@mui/joy";
 import { styles } from "../../styles/studentDetailsStyles";
 import Comment from "./Comment";
@@ -38,7 +35,6 @@ const Post = ({ post, deletePostFunc }) => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
-  const [parsedHTML, setParsedHTML] = useState(null);
 
   useEffect(() => {
     setComments(post.comments);

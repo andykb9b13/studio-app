@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Input,
-  Textarea,
-  Typography,
-  Button,
-  Card,
-  CardActions,
-} from "@mui/joy";
+import { Input, Typography, Button, Card, CardActions } from "@mui/joy";
 import UploadWidget from "../../utils/UploadWidget";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";

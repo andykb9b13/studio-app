@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Typography, Card, List, ListItem, Grid } from "@mui/joy";
-import Animate from "../../utils/ScrollAnimation";
 import getOrganized from "../../assets/home/getOrganized.png";
 import { styles } from "../../styles/homeStyles";
 import liveSiteDemo3 from "../../assets/home/liveSiteDemo/liveSiteDemo3.png";

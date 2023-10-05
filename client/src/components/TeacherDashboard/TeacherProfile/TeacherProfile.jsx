@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Card, IconButton, AspectRatio } from "@mui/joy";
+import { Typography, Card, IconButton } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 
 import { styles } from "../../../styles/studentDetailsStyles";

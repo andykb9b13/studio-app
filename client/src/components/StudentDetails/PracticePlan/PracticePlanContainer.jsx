@@ -22,8 +22,6 @@ export default function PracticePlanContainer() {
   const practicePlans = student.practicePlans;
   const [studentPlans, setStudentPlans] = useState(practicePlans ?? []);
 
-  console.log(studentPlans);
-
   useEffect(() => {
     let pointsArr = [];
 

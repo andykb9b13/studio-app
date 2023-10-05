@@ -6,10 +6,8 @@ import { QUERY_POSTS } from "../../utils/queries";
 import CreatePostContainer from "./CreatePostContainer";
 import Post from "./Post";
 import { DELETE_POST } from "../../utils/mutations";
-import { useParams } from "react-router-dom";
 
 const MessageBoard = () => {
-  const { id } = useParams();
   const { teacher } = useTeacherContext();
   const { data } = useQuery(QUERY_POSTS, {
     variables: {

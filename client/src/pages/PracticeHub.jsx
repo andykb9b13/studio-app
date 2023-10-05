@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { QUERY_STUDENT } from "../utils/queries";
+import React, { useState } from "react";
 import {
   AspectRatio,
-  Button,
   Card,
   CardContent,
   Grid,
@@ -20,11 +16,6 @@ import PracticePlanCard from "../components/StudentDetails/PracticePlan/Practice
 import TimerIcon from "@mui/icons-material/Timer";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArticleIcon from "@mui/icons-material/Article";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import InsightsIcon from "@mui/icons-material/Insights";
-import LinkIcon from "@mui/icons-material/Link";
-import AddchartIcon from "@mui/icons-material/Addchart";
-import QuizIcon from "@mui/icons-material/Quiz";
 import Auth from "../utils/auth";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";

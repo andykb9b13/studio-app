@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardActions,
-  Grid,
-  CardCover,
-  Typography,
-  Box,
-} from "@mui/joy";
+import { Card, CardContent, Grid, CardCover, Typography, Box } from "@mui/joy";
 import { styles } from "../../styles/studentDetailsStyles";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import StudentInfo from "./StudentInfo";
@@ -25,13 +16,11 @@ import { useStudentContext, useTeacherContext } from "../../utils/Context";
 import Clock from "../../utils/Clock";
 import RegularModal from "../common/Modal/RegularModal";
 import ResourceContainer from "./PracticePlan/Resources/ResourceContainer";
-import Leaderboard from "./Leaderboard";
 
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student } = useStudentContext();
   const { teacher, setTeacher } = useTeacherContext();
-  const [open, setOpen] = useState(false);
   const [resourceArr, setResourceArr] = useState([]);
 
   // This is here so when a student logs in, they are able to get their teacher information to link skillsheets, etc.

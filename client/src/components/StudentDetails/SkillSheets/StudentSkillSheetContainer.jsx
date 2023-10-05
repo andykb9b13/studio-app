@@ -27,13 +27,8 @@ const StudentSkillSheetContainer = ({ teacher }) => {
     setCompletedArr(student.skillSheets?.map((sheet) => sheet._id));
   }, [setCompletedArr, student]);
 
-  console.log(completedArr);
-
-  console.log(checked);
-
   const handleSkillSheetChange = async (checked, skillSheetId) => {
     if (checked === true) {
-      console.log(skillSheetId);
       try {
         const { data } = await completeSkillSheet({
           variables: {
@@ -41,7 +36,6 @@ const StudentSkillSheetContainer = ({ teacher }) => {
             studentId: student._id,
           },
         });
-        console.log(data);
         setCompletedArr([...completedArr, skillSheetId]);
         alert("Added skill sheet completed!");
       } catch (err) {
@@ -49,7 +43,6 @@ const StudentSkillSheetContainer = ({ teacher }) => {
         alert("Could not add skill sheet to completed");
       }
     } else {
-      console.log(skillSheetId);
       try {
         await removeCompletedSkillSheet({
           variables: {

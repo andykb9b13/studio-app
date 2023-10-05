@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Typography } from "@mui/joy";
-import sampleGraph from "../../assets/sampleGraph.png";
 import { styles } from "../../styles/studentDetailsStyles";
 
 const PracticeGraph = () => {

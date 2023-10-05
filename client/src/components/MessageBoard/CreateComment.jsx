@@ -1,5 +1,5 @@
 import React from "react";
-import { Textarea, Typography, Button } from "@mui/joy";
+import { Textarea, Button } from "@mui/joy";
 import { useForm } from "react-hook-form";
 
 const CreateComment = ({ open, setOpen, createCommentFunc }) => {

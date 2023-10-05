@@ -1,23 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import AssignmentContainer from "./Assignments/AssignmentContainer";
 import { Table, Button } from "@mui/joy";
 import RegularModal from "../../common/Modal/RegularModal";
 import { MobileContext } from "../../../App";
 import CongratsModal from "../../common/Modal/CongratsModal";
-import Confetti from "react-confetti";
 import CongratsModalContent from "../../common/Modal/CongratsModalContent";
 
 const PracticePlanTable = ({ assignments, setAssignments }) => {
   const [index, setIndex] = useState();
   const { isMobile } = useContext(MobileContext);
   const [completedOpen, setCompletedOpen] = useState(false);
-  const [height, setHeight] = useState();
-  const [width, setWidth] = useState();
-
-  useEffect(() => {
-    setHeight(window.innerHeight);
-    setWidth(window.innerWidth);
-  }, [setHeight, setWidth]);
 
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(

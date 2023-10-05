@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Typography, Sheet, Box } from "@mui/joy";
+import { Card, Typography, Sheet } from "@mui/joy";
 import { levelList } from "../common/Assets";
 import { badgeList } from "../common/Assets";
 import CountUp from "react-countup";
