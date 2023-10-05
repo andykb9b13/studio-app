@@ -107,6 +107,15 @@ export const QUERY_STUDENT = gql`
       totalPlanPoints
       totalCompletedPoints
       totalSheetPoints
+      pieces {
+        _id
+        pieceName
+        composer
+        description
+        dateCompleted
+        pieceType
+        difficulty
+      }
       skillSheets {
         _id
         sheetName

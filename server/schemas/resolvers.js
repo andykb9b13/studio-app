@@ -10,6 +10,7 @@ const {
   Like,
   Post,
   Comment,
+  Piece,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -54,6 +55,7 @@ const resolvers = {
       for (const student of teacher.students) {
         const updatedStudent = Student.findById(student._id)
           .populate("skillSheets")
+          .popilate("pieces")
           .populate({
             path: "practicePlans",
             populate: [
@@ -84,7 +86,8 @@ const resolvers = {
           ],
         })
         .populate("assignments")
-        .populate("skillSheets");
+        .populate("skillSheets")
+        .populate("pieces");
     },
     teachers: async () => {
       return await Teacher.find({})
@@ -165,6 +168,9 @@ const resolvers = {
       } else {
         return await Student.findById(_id);
       }
+    },
+    piece: async (parent, { pieceId: _id }) => {
+      return await Piece.findById(_id);
     },
   },
 
@@ -507,6 +513,22 @@ const resolvers = {
     addLike: async (parent, { userId, ...args }) => {
       try {
         const like = await Like.create(userId, ...args);
+        return like;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    addPiece: async (parent, { studentId, ...args }) => {
+      try {
+        const piece = await Piece.create({ ...args });
+
+        const student = await Student.findByIdAndUpdate(
+          studentId,
+          { $addToSet: { pieces: piece._id } },
+          { new: true }
+        );
+        return piece;
       } catch (err) {
         console.error(err);
       }

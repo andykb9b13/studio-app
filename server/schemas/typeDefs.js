@@ -28,6 +28,7 @@ const typeDefs = gql`
     goals: [Goal]
     skillSheets: [SkillSheet]
     practicePlans: [PracticePlan]
+    pieces: [Piece]
     posts: [Post]
     comments: [Comment]
     likes: [Like]
@@ -150,6 +151,16 @@ const typeDefs = gql`
     commentId: String
   }
 
+  type Piece {
+    _id: ID
+    pieceName: String!
+    composer: String!
+    description: String!
+    dateCompleted: Date!
+    pieceType: String
+    difficulty: String
+  }
+
   type TeacherAuth {
     token: ID!
     teacher: Teacher
@@ -182,6 +193,8 @@ const typeDefs = gql`
     likes: [Like]
     like: Like
     author(authorId: ID!, isTeacher: Boolean!): TeacherOrStudent
+    pieces: [Piece]
+    piece: Piece
   }
 
   type Mutation {
@@ -298,6 +311,16 @@ const typeDefs = gql`
       postId: String!
     ): Comment
 
+    addPiece(
+      studentId: ID!
+      pieceName: String!
+      composer: String!
+      description: String!
+      dateCompleted: Date!
+      pieceType: String
+      difficulty: String
+    ): Piece
+
     addLike(userId: String, postId: ID, commentId: ID): Like
 
     deleteAssignment(assignmentId: ID!): Assignment!
@@ -321,6 +344,8 @@ const typeDefs = gql`
     deleteComment(commentId: ID!): Comment!
 
     deleteLike(likeId: ID!): Like!
+
+    deletePiece(pieceId: ID!): Piece!
 
     editStudent(
       studentId: ID!
@@ -390,6 +415,14 @@ const typeDefs = gql`
       name: String
       planNotes: String
     ): PracticePlan!
+
+    editPiece(
+      pieceId: ID!
+      pieceName: String
+      description: String
+      pieceType: String
+      difficulty: String
+    ): Piece!
   }
 `;
 

@@ -10,6 +10,7 @@ const Resource = require("./Resource");
 const Post = require("./Post");
 const Comment = require("./Comment");
 const Like = require("./Like");
+const Piece = require("./Piece");
 
 module.exports = {
   Student,
@@ -24,4 +25,5 @@ module.exports = {
   Post,
   Comment,
   Like,
+  Piece,
 };

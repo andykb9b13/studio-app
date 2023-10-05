@@ -343,6 +343,35 @@ export const ADD_COMMENT = gql`
   }
 `;
 
+export const ADD_PIECE = gql`
+  mutation addPiece(
+    $studentId: ID!
+    $pieceName: String!
+    $composer: String!
+    $description: String!
+    $dateCompleted: Date!
+    $pieceType: String
+    $difficulty: String
+  ) {
+    addPiece(
+      studentId: $studentId
+      pieceName: $pieceName
+      composer: $composer
+      description: $description
+      dateCompleted: $dateCompleted
+      pieceType: $pieceType
+      difficulty: $difficulty
+    ) {
+      pieceName
+      composer
+      description
+      dateCompleted
+      pieceType
+      difficulty
+    }
+  }
+`;
+
 export const EDIT_STUDENT = gql`
   mutation editStudent(
     $studentId: ID!
@@ -549,6 +578,14 @@ export const DELETE_COMMENT = gql`
 export const DELETE_POST = gql`
   mutation deletePost($postId: ID!) {
     deletePost(postId: $postId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_PIECE = gql`
+  mutation deletePiece($pieceId: ID!) {
+    deletePiece(pieceId: $pieceId) {
       _id
     }
   }
