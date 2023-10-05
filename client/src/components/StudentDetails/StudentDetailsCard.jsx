@@ -108,7 +108,7 @@ export default function StudentDetailsCard({ active, setActive }) {
           </Grid>
 
           {/* Completed Pieces and Etudes */}
-          <Grid xs={12} md={6} my={1}>
+          <Grid xs={12} md={12} my={1}>
             <RepertoireContainer />
           </Grid>
           <Grid xs={12} md={12} my={1}>
