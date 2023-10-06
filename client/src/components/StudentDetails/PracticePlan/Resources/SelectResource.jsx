@@ -1,9 +1,22 @@
+import React, { useEffect, useState } from "react";
 import { Card, Table, Typography, IconButton } from "@mui/joy";
-import React from "react";
 import CheckIcon from "@mui/icons-material/Check";
 
-const SelectResource = ({ teacherResources, selectResourceFunc }) => {
+const SelectResource = ({
+  teacherResources,
+  resources,
+  selectResourceFunc,
+}) => {
   console.log(teacherResources);
+  const [alreadySelected, setAlreadySelected] = useState([]);
+
+  useEffect(() => {
+    const resourceArr = [];
+    resources?.forEach((resource) => resourceArr.push(resource._id));
+    setAlreadySelected(resourceArr);
+  }, []);
+
+  console.log(alreadySelected);
 
   return (
     <Card
@@ -37,7 +50,7 @@ const SelectResource = ({ teacherResources, selectResourceFunc }) => {
                 <td>{resource.resourceType}</td>
                 <td>{resource.description}</td>
                 <td>
-                  <IconButton>
+                  <IconButton disabled={alreadySelected.includes(resource._id)}>
                     <CheckIcon
                       onClick={() => {
                         selectResourceFunc(resource._id);

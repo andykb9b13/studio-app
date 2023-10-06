@@ -13,8 +13,6 @@ const SelectResourceContainer = ({ practicePlan, resources, setResources }) => {
   const [editPracticePlan] = useMutation(EDIT_PRACTICE_PLAN);
 
   const selectResourceFunc = async (resourceId) => {
-    console.log(resourceId);
-
     try {
       const { data } = await editPracticePlan({
         variables: {
@@ -24,29 +22,12 @@ const SelectResourceContainer = ({ practicePlan, resources, setResources }) => {
       });
       alert("Selected resource for plan");
       setOpen(false);
+      setResources([...resources, data.editPracticePlan]);
     } catch (err) {
       alert("Could not select resource for plan");
       console.error(err);
     }
   };
-
-  //   const createResourceFunc = async (userInput) => {
-  //     try {
-  //       const { data } = await createResource({
-  //         variables: {
-  //           teacherId: student.teacherId,
-  //           practicePlanId: practicePlan._id,
-  //           ...userInput,
-  //         },
-  //       });
-  //       setResources([...resources, data.addResource]);
-  //       alert("Resource Created");
-  //       setOpen(false);
-  //     } catch (err) {
-  //       console.error(err);
-  //       alert("Could not create resource");
-  //     }
-  //   };
 
   return (
     <>
@@ -57,6 +38,7 @@ const SelectResourceContainer = ({ practicePlan, resources, setResources }) => {
         <SelectResource
           teacherResources={teacher?.resources}
           selectResourceFunc={selectResourceFunc}
+          resources={resources}
         />
       </RegularModal>
     </>
