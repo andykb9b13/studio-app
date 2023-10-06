@@ -43,12 +43,14 @@ const ResourceContainer = ({ resources, setResources, practicePlan }) => {
               >
                 {resource.resourceName}
               </Link>
-              <IconButton
-                color="neutral"
-                onClick={() => removeResourceFunc(resource._id)}
-              >
-                <ClearIcon />
-              </IconButton>
+              {Auth.teacherLoggedIn() && (
+                <IconButton
+                  color="neutral"
+                  onClick={() => removeResourceFunc(resource._id)}
+                >
+                  <ClearIcon />
+                </IconButton>
+              )}
             </Box>
 
             <Typography>{resource.description}</Typography>

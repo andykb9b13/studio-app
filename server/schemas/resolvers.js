@@ -862,12 +862,10 @@ const resolvers = {
     },
 
     editPracticePlan: async (parent, { planId, ...args }) => {
-      console.log("hitting editPracticePlan");
-      console.log(planId);
-
       try {
-        const practicePlan = await PracticePlan.findByIdAndUpdate(planId);
-        console.log("practicePlan before editing", practicePlan);
+        const practicePlan = await PracticePlan.findByIdAndUpdate(
+          planId
+        ).populate("resources");
 
         if (!practicePlan) {
           throw new Error("Practice Plan not found");
@@ -882,8 +880,8 @@ const resolvers = {
           practicePlan.resources = [...practicePlan.resources, args.resourceId];
         }
         await practicePlan.save();
-        console.log(practicePlan);
-        return practicePlan;
+        const editedPlan = practicePlan.populate("resources");
+        return editedPlan;
       } catch (err) {
         console.error(err);
       }

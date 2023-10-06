@@ -11,6 +11,7 @@ const SelectResourceContainer = ({ practicePlan, resources, setResources }) => {
   const { teacher } = useTeacherContext();
   const [open, setOpen] = useState(false);
   const [editPracticePlan] = useMutation(EDIT_PRACTICE_PLAN);
+  console.log(resources);
 
   const selectResourceFunc = async (resourceId) => {
     try {
@@ -22,7 +23,8 @@ const SelectResourceContainer = ({ practicePlan, resources, setResources }) => {
       });
       alert("Selected resource for plan");
       setOpen(false);
-      setResources([...resources, data.editPracticePlan]);
+      setResources(data.editPracticePlan.resources);
+      console.log(data);
     } catch (err) {
       alert("Could not select resource for plan");
       console.error(err);

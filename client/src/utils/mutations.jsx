@@ -484,6 +484,13 @@ export const EDIT_PRACTICE_PLAN = gql`
       planNotes
       dateCreated
       studentId
+      resources {
+        _id
+        resourceName
+        resourceType
+        url
+        description
+      }
     }
   }
 `;
