@@ -32,11 +32,13 @@ export const QUERY_TEACHER = gql`
         }
       }
       resources {
+        _id
         teacherId
         practicePlanId
         resourceName
         url
         description
+        resourceType
       }
       skillSheets {
         _id
@@ -107,6 +109,15 @@ export const QUERY_STUDENT = gql`
       totalPlanPoints
       totalCompletedPoints
       totalSheetPoints
+      pieces {
+        _id
+        pieceName
+        composer
+        description
+        dateCompleted
+        pieceType
+        difficulty
+      }
       skillSheets {
         _id
         sheetName
@@ -134,6 +145,7 @@ export const QUERY_STUDENT = gql`
           resourceName
           url
           description
+          resourceType
         }
         assignments {
           _id
@@ -184,6 +196,7 @@ export const QUERY_PRACTICEPLANS = gql`
         resourceName
         url
         description
+        resourceType
       }
       assignments {
         _id

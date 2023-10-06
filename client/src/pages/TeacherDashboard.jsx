@@ -207,10 +207,6 @@ const TeacherDashboard = () => {
                 resources={resources}
                 setResources={setResources}
               />
-              <CreateTeacherResourceContainer
-                resources={resources}
-                setResources={setResources}
-              />
             </TabPanel>
 
             {/* Tab panel for showing calendar */}

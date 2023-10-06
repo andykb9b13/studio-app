@@ -343,6 +343,35 @@ export const ADD_COMMENT = gql`
   }
 `;
 
+export const ADD_PIECE = gql`
+  mutation addPiece(
+    $studentId: ID!
+    $pieceName: String!
+    $composer: String!
+    $description: String!
+    $dateCompleted: Date!
+    $pieceType: String
+    $difficulty: String
+  ) {
+    addPiece(
+      studentId: $studentId
+      pieceName: $pieceName
+      composer: $composer
+      description: $description
+      dateCompleted: $dateCompleted
+      pieceType: $pieceType
+      difficulty: $difficulty
+    ) {
+      pieceName
+      composer
+      description
+      dateCompleted
+      pieceType
+      difficulty
+    }
+  }
+`;
+
 export const EDIT_STUDENT = gql`
   mutation editStudent(
     $studentId: ID!
@@ -439,12 +468,37 @@ export const EDIT_TEACHER = gql`
 `;
 
 export const EDIT_PRACTICE_PLAN = gql`
-  mutation editPracticePlan($planId: ID!, $name: String, $planNotes: String) {
-    editPracticePlan(planId: $planId, name: $name, planNotes: $planNotes) {
+  mutation editPracticePlan(
+    $planId: ID!
+    $name: String
+    $planNotes: String
+    $resourceId: ID
+  ) {
+    editPracticePlan(
+      planId: $planId
+      name: $name
+      planNotes: $planNotes
+      resourceId: $resourceId
+    ) {
       name
       planNotes
       dateCreated
       studentId
+      resources {
+        _id
+        resourceName
+        resourceType
+        url
+        description
+      }
+    }
+  }
+`;
+
+export const REMOVE_RESOURCE_FROM_PRACTICE_PLAN = gql`
+  mutation removeResourceFromPracticePlan($planId: ID!, $resourceId: ID!) {
+    removeResourceFromPracticePlan(planId: $planId, resourceId: $resourceId) {
+      _id
     }
   }
 `;
@@ -549,6 +603,14 @@ export const DELETE_COMMENT = gql`
 export const DELETE_POST = gql`
   mutation deletePost($postId: ID!) {
     deletePost(postId: $postId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_PIECE = gql`
+  mutation deletePiece($pieceId: ID!) {
+    deletePiece(pieceId: $pieceId) {
       _id
     }
   }

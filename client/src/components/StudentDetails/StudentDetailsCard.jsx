@@ -5,7 +5,7 @@ import { styles } from "../../styles/studentDetailsStyles";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import StudentInfo from "./StudentInfo";
 import BadgesPoints from "./BadgesPoints";
-import Repertoire from "./Repertoire";
+import RepertoireContainer from "./Repertoire/RepertoireContainer";
 import StudentSkillSheetContainer from "./SkillSheets/StudentSkillSheetContainer";
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
@@ -108,13 +108,17 @@ export default function StudentDetailsCard({ active, setActive }) {
           </Grid>
 
           {/* Completed Pieces and Etudes */}
-          <Grid xs={12} md={6} my={1}>
-            <Repertoire />
+          <Grid xs={12} md={12} my={1}>
+            <RepertoireContainer />
           </Grid>
+
+          {/* Student Practice Plans */}
           <Grid xs={12} md={12} my={1}>
             <PracticePlanContainer />
           </Grid>
         </Grid>
+
+        {/* Resources specific to the student */}
         <Grid>
           <ResourceContainer resources={resourceArr} />
         </Grid>

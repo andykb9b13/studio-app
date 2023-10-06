@@ -10,6 +10,7 @@ const {
   Like,
   Post,
   Comment,
+  Piece,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
@@ -47,6 +48,7 @@ const resolvers = {
 
   Query: {
     students: async (parent, { teacherId: _id }) => {
+      console.log("in query students");
       const teacher = await Teacher.findById(_id).populate("students");
 
       const studentArr = [];
@@ -65,7 +67,7 @@ const resolvers = {
           });
         studentArr.push(updatedStudent);
       }
-
+      console.log(studentArr);
       return studentArr;
     },
     student: async (parent, { studentId: _id }) => {
@@ -84,7 +86,8 @@ const resolvers = {
           ],
         })
         .populate("assignments")
-        .populate("skillSheets");
+        .populate("skillSheets")
+        .populate("pieces");
     },
     teachers: async () => {
       return await Teacher.find({})
@@ -92,7 +95,6 @@ const resolvers = {
         .populate("skillSheets");
     },
     teacher: async (parent, { teacherId: _id }) => {
-      console.log("In teacher resolver");
       return await Teacher.findById(_id)
         .populate("students")
         .populate("skillSheets")
@@ -165,6 +167,9 @@ const resolvers = {
       } else {
         return await Student.findById(_id);
       }
+    },
+    piece: async (parent, { pieceId: _id }) => {
+      return await Piece.findById(_id);
     },
   },
 
@@ -363,11 +368,26 @@ const resolvers = {
 
     addResource: async (
       parent,
-      { practicePlanId, resourceName, url, description, teacherId }
+      {
+        practicePlanId,
+        resourceName,
+        url,
+        description,
+        resourceType,
+        teacherId,
+      }
     ) => {
-      console.log(resourceName, url, description, practicePlanId, teacherId);
+      console.log(
+        resourceName,
+        url,
+        description,
+        practicePlanId,
+        resourceType,
+        teacherId
+      );
       const resource = await Resource.create({
         practicePlanId,
+        resourceType,
         resourceName,
         url,
         description,
@@ -507,6 +527,22 @@ const resolvers = {
     addLike: async (parent, { userId, ...args }) => {
       try {
         const like = await Like.create(userId, ...args);
+        return like;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    addPiece: async (parent, { studentId, ...args }) => {
+      try {
+        const piece = await Piece.create({ ...args });
+
+        const student = await Student.findByIdAndUpdate(
+          studentId,
+          { $addToSet: { pieces: piece._id } },
+          { new: true }
+        );
+        return piece;
       } catch (err) {
         console.error(err);
       }
@@ -826,12 +862,10 @@ const resolvers = {
     },
 
     editPracticePlan: async (parent, { planId, ...args }) => {
-      console.log("hitting editPracticePlan");
-      console.log(planId);
-
       try {
-        const practicePlan = await PracticePlan.findByIdAndUpdate(planId);
-        console.log("practicePlan before editing", practicePlan);
+        const practicePlan = await PracticePlan.findByIdAndUpdate(
+          planId
+        ).populate("resources");
 
         if (!practicePlan) {
           throw new Error("Practice Plan not found");
@@ -842,8 +876,23 @@ const resolvers = {
         if (args.planNotes) {
           practicePlan.planNotes = args.planNotes;
         }
+        if (args.resourceId) {
+          practicePlan.resources = [...practicePlan.resources, args.resourceId];
+        }
         await practicePlan.save();
-        console.log(practicePlan);
+        const editedPlan = practicePlan.populate("resources");
+        return editedPlan;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    removeResourceFromPracticePlan: async (parent, { planId, resourceId }) => {
+      try {
+        const practicePlan = await PracticePlan.findByIdAndUpdate(planId, {
+          $pull: { resources: resourceId },
+        });
+        practicePlan.save();
         return practicePlan;
       } catch (err) {
         console.error(err);

@@ -28,6 +28,7 @@ const typeDefs = gql`
     goals: [Goal]
     skillSheets: [SkillSheet]
     practicePlans: [PracticePlan]
+    pieces: [Piece]
     posts: [Post]
     comments: [Comment]
     likes: [Like]
@@ -117,6 +118,7 @@ const typeDefs = gql`
     resourceName: String
     url: String
     description: String
+    resourceType: Int
   }
 
   type Post {
@@ -148,6 +150,16 @@ const typeDefs = gql`
     authorID: String!
     postId: String
     commentId: String
+  }
+
+  type Piece {
+    _id: ID
+    pieceName: String!
+    composer: String!
+    description: String!
+    dateCompleted: Date!
+    pieceType: String
+    difficulty: String
   }
 
   type TeacherAuth {
@@ -182,6 +194,8 @@ const typeDefs = gql`
     likes: [Like]
     like: Like
     author(authorId: ID!, isTeacher: Boolean!): TeacherOrStudent
+    pieces: [Piece]
+    piece: Piece
   }
 
   type Mutation {
@@ -246,6 +260,7 @@ const typeDefs = gql`
       resourceName: String
       url: String
       description: String
+      resourceType: Int
     ): Resource
 
     addStreak(
@@ -298,6 +313,16 @@ const typeDefs = gql`
       postId: String!
     ): Comment
 
+    addPiece(
+      studentId: ID!
+      pieceName: String!
+      composer: String!
+      description: String!
+      dateCompleted: Date!
+      pieceType: String
+      difficulty: String
+    ): Piece
+
     addLike(userId: String, postId: ID, commentId: ID): Like
 
     deleteAssignment(assignmentId: ID!): Assignment!
@@ -321,6 +346,8 @@ const typeDefs = gql`
     deleteComment(commentId: ID!): Comment!
 
     deleteLike(likeId: ID!): Like!
+
+    deletePiece(pieceId: ID!): Piece!
 
     editStudent(
       studentId: ID!
@@ -389,7 +416,18 @@ const typeDefs = gql`
       planId: ID!
       name: String
       planNotes: String
+      resourceId: ID
     ): PracticePlan!
+
+    removeResourceFromPracticePlan(planId: ID!, resourceId: ID!): PracticePlan!
+
+    editPiece(
+      pieceId: ID!
+      pieceName: String
+      description: String
+      pieceType: String
+      difficulty: String
+    ): Piece!
   }
 `;
 
