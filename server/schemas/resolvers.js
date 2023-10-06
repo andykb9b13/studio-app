@@ -48,6 +48,7 @@ const resolvers = {
 
   Query: {
     students: async (parent, { teacherId: _id }) => {
+      console.log("in query students");
       const teacher = await Teacher.findById(_id).populate("students");
 
       const studentArr = [];
@@ -55,7 +56,6 @@ const resolvers = {
       for (const student of teacher.students) {
         const updatedStudent = Student.findById(student._id)
           .populate("skillSheets")
-          .popilate("pieces")
           .populate({
             path: "practicePlans",
             populate: [
@@ -67,7 +67,7 @@ const resolvers = {
           });
         studentArr.push(updatedStudent);
       }
-
+      console.log(studentArr);
       return studentArr;
     },
     student: async (parent, { studentId: _id }) => {
@@ -95,7 +95,6 @@ const resolvers = {
         .populate("skillSheets");
     },
     teacher: async (parent, { teacherId: _id }) => {
-      console.log("In teacher resolver");
       return await Teacher.findById(_id)
         .populate("students")
         .populate("skillSheets")

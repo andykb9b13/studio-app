@@ -82,7 +82,7 @@ const RepertoireContainer = () => {
                 <td>{piece.composer}</td>
                 {!isMobile && <td>{piece.description}</td>}
                 <td>{piece.dateCompleted}</td>
-                <td>{piece.type}</td>
+                <td>{piece.pieceType}</td>
                 <td>{piece.difficulty}</td>
               </tr>
             ))}

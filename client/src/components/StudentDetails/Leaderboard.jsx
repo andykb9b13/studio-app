@@ -32,6 +32,8 @@ const Leaderboard = () => {
     }
   }, [setSortedStudents, students]);
 
+  console.log(teacher._id);
+
   return (
     <Sheet sx={!isMobile ? styles.card : styles.mobileCard}>
       <Typography level="h2">Points Leaderboard</Typography>
