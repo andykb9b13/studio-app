@@ -419,6 +419,8 @@ const typeDefs = gql`
       resourceId: ID
     ): PracticePlan!
 
+    removeResourceFromPracticePlan(planId: ID!, resourceId: ID!): PracticePlan!
+
     editPiece(
       pieceId: ID!
       pieceName: String

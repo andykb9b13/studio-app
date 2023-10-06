@@ -14,7 +14,7 @@ const SelectResource = ({
     const resourceArr = [];
     resources?.forEach((resource) => resourceArr.push(resource._id));
     setAlreadySelected(resourceArr);
-  }, []);
+  }, [resources, setAlreadySelected]);
 
   console.log(alreadySelected);
 

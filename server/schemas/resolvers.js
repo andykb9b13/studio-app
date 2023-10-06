@@ -889,6 +889,18 @@ const resolvers = {
       }
     },
 
+    removeResourceFromPracticePlan: async (parent, { planId, resourceId }) => {
+      try {
+        const practicePlan = await PracticePlan.findByIdAndUpdate(planId, {
+          $pull: { resources: resourceId },
+        });
+        practicePlan.save();
+        return practicePlan;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
     editAssignment: async (parent, { assignmentId, ...args }) => {
       console.log("in edit assignment");
       console.log(...args);

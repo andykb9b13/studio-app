@@ -1,28 +1,30 @@
-import React, { useState } from "react";
-import { Typography, Card, Link, IconButton } from "@mui/joy";
-import RegularModal from "../../../common/Modal/RegularModal";
+import React from "react";
+import { Typography, Card, Link, IconButton, Box } from "@mui/joy";
 import { useMutation } from "@apollo/client";
-import DeleteModalContent from "../../../common/Modal/DeleteModalContent";
-import { DELETE_RESOURCE } from "../../../../utils/mutations";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { REMOVE_RESOURCE_FROM_PRACTICE_PLAN } from "../../../../utils/mutations";
+import ClearIcon from "@mui/icons-material/Clear";
 import { Divider } from "@mui/material";
 import Auth from "../../../../utils/auth";
 
-const ResourceContainer = ({ resources, setResources }) => {
-  const [deleteResource, { error }] = useMutation(DELETE_RESOURCE);
-  const [open, setOpen] = useState(false);
+const ResourceContainer = ({ resources, setResources, practicePlan }) => {
+  const [removeResourceFromPracticePlan] = useMutation(
+    REMOVE_RESOURCE_FROM_PRACTICE_PLAN
+  );
 
-  const deleteResourceFunc = async (resourceId) => {
+  const removeResourceFunc = async (resourceId) => {
     try {
-      await deleteResource({
+      await removeResourceFromPracticePlan({
         variables: {
           resourceId: resourceId,
+          planId: practicePlan._id,
         },
       });
-      alert("Resource Deleted!");
+      alert("Resource removed from plan!");
       setResources(resources.filter((resource) => resource._id !== resourceId));
-      setOpen(false);
-    } catch (err) {}
+    } catch (err) {
+      alert("Could not remove resource from plan");
+      console.error(err);
+    }
   };
 
   return (
@@ -32,28 +34,24 @@ const ResourceContainer = ({ resources, setResources }) => {
       {resources &&
         resources.map((resource) => (
           <React.Fragment key={resource._id}>
-            <Link href={resource.url} alt="resource url" target="_blank">
-              {resource.resourceName}
-            </Link>
-            <Typography>{resource.description}</Typography>
-            {Auth.teacherLoggedIn() && (
-              <>
-                <RegularModal
-                  name="deleteResource"
-                  open={open}
-                  onRequestClose={() => setOpen(false)}
-                >
-                  <DeleteModalContent
-                    onRequestClose={() => setOpen(false)}
-                    confirmAction={() => deleteResourceFunc(resource._id)}
-                  />
-                </RegularModal>
-                <IconButton onClick={() => setOpen(true)} color="danger">
-                  <DeleteIcon />
-                </IconButton>
-              </>
-            )}
+            <Box>
+              <Link
+                href={resource.url}
+                alt="resource url"
+                target="_blank"
+                sx={{ fontSize: "1.5em" }}
+              >
+                {resource.resourceName}
+              </Link>
+              <IconButton
+                color="neutral"
+                onClick={() => removeResourceFunc(resource._id)}
+              >
+                <ClearIcon />
+              </IconButton>
+            </Box>
 
+            <Typography>{resource.description}</Typography>
             <Divider />
           </React.Fragment>
         ))}

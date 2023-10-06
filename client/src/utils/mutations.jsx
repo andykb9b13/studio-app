@@ -488,6 +488,14 @@ export const EDIT_PRACTICE_PLAN = gql`
   }
 `;
 
+export const REMOVE_RESOURCE_FROM_PRACTICE_PLAN = gql`
+  mutation removeResourceFromPracticePlan($planId: ID!, $resourceId: ID!) {
+    removeResourceFromPracticePlan(planId: $planId, resourceId: $resourceId) {
+      _id
+    }
+  }
+`;
+
 export const EDIT_ASSIGNMENT = gql`
   mutation editAssignment(
     $assignmentId: ID!
