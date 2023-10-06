@@ -468,8 +468,18 @@ export const EDIT_TEACHER = gql`
 `;
 
 export const EDIT_PRACTICE_PLAN = gql`
-  mutation editPracticePlan($planId: ID!, $name: String, $planNotes: String) {
-    editPracticePlan(planId: $planId, name: $name, planNotes: $planNotes) {
+  mutation editPracticePlan(
+    $planId: ID!
+    $name: String
+    $planNotes: String
+    $resourceId: ID
+  ) {
+    editPracticePlan(
+      planId: $planId
+      name: $name
+      planNotes: $planNotes
+      resourceId: $resourceId
+    ) {
       name
       planNotes
       dateCreated

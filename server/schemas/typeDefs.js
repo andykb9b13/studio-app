@@ -118,6 +118,7 @@ const typeDefs = gql`
     resourceName: String
     url: String
     description: String
+    resourceType: Int
   }
 
   type Post {
@@ -259,6 +260,7 @@ const typeDefs = gql`
       resourceName: String
       url: String
       description: String
+      resourceType: Int
     ): Resource
 
     addStreak(
@@ -414,6 +416,7 @@ const typeDefs = gql`
       planId: ID!
       name: String
       planNotes: String
+      resourceId: ID
     ): PracticePlan!
 
     editPiece(

@@ -368,11 +368,26 @@ const resolvers = {
 
     addResource: async (
       parent,
-      { practicePlanId, resourceName, url, description, teacherId }
+      {
+        practicePlanId,
+        resourceName,
+        url,
+        description,
+        resourceType,
+        teacherId,
+      }
     ) => {
-      console.log(resourceName, url, description, practicePlanId, teacherId);
+      console.log(
+        resourceName,
+        url,
+        description,
+        practicePlanId,
+        resourceType,
+        teacherId
+      );
       const resource = await Resource.create({
         practicePlanId,
+        resourceType,
         resourceName,
         url,
         description,
@@ -862,6 +877,9 @@ const resolvers = {
         }
         if (args.planNotes) {
           practicePlan.planNotes = args.planNotes;
+        }
+        if (args.resourceId) {
+          practicePlan.resources = [...practicePlan.resources, args.resourceId];
         }
         await practicePlan.save();
         console.log(practicePlan);

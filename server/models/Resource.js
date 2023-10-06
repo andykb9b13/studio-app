@@ -10,6 +10,9 @@ const resourceSchema = new Schema({
   resourceName: {
     type: String,
   },
+  resourceType: {
+    type: Number,
+  },
   url: {
     type: String,
   },

@@ -15,6 +15,7 @@ import Auth from "../../../utils/auth";
 import ProgressBar from "../../common/ProgressBar";
 import EditIcon from "@mui/icons-material/Edit";
 import EditPracticePlan from "./EditPracticePlan";
+import SelectResourceContainer from "./Resources/SelectResourceContainer";
 
 const styles = {
   sheet: {
@@ -174,6 +175,13 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
 
           {/* Container for creating a resource */}
           <CreateResourceContainer
+            practicePlan={activePlan}
+            resources={resources}
+            setResources={setResources}
+          />
+
+          {/* Container for selecting a resource from pool of teacher resources */}
+          <SelectResourceContainer
             practicePlan={activePlan}
             resources={resources}
             setResources={setResources}

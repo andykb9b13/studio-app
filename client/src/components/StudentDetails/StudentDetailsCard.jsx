@@ -111,10 +111,14 @@ export default function StudentDetailsCard({ active, setActive }) {
           <Grid xs={12} md={12} my={1}>
             <RepertoireContainer />
           </Grid>
+
+          {/* Student Practice Plans */}
           <Grid xs={12} md={12} my={1}>
             <PracticePlanContainer />
           </Grid>
         </Grid>
+
+        {/* Resources specific to the student */}
         <Grid>
           <ResourceContainer resources={resourceArr} />
         </Grid>
