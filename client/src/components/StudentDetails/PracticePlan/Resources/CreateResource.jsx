@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import { Typography, Button, Input, Textarea, Sheet } from "@mui/joy";
+import {
+  Typography,
+  Button,
+  Input,
+  Textarea,
+  Sheet,
+  Select,
+  Option,
+} from "@mui/joy";
 import UploadWidget from "../../../../utils/UploadWidget";
 import CheckIcon from "@mui/icons-material/Check";
 
 import { useForm } from "react-hook-form";
+import { useTeacherContext } from "../../../../utils/Context";
 
 const CreateResource = ({ createResourceFunc, onRequestClose }) => {
   const { handleSubmit, register } = useForm();
   const [resourceUrl, setResourceUrl] = useState();
+  const { teacher } = useTeacherContext();
 
   console.log(resourceUrl);
 
@@ -60,6 +70,20 @@ const CreateResource = ({ createResourceFunc, onRequestClose }) => {
           }}
         </UploadWidget>
         {resourceUrl && <CheckIcon color="success" />}
+        <Typography>Select Resource Type</Typography>
+        <Select {...register("resourceType")}>
+          {teacher?.resourceTypes?.map((resourceType) => (
+            <Option key={resourceType} value={resourceType}>
+              {resourceType}
+            </Option>
+          ))}
+        </Select>
+        <Typography>New Type</Typography>
+        <Input
+          type="text"
+          {...register("resourceType")}
+          placeholder="Create new resource type"
+        />
         <Typography>Description</Typography>
         <Textarea minRows={4} {...register("description")} />
         <Button type="submit">Create Resource</Button>

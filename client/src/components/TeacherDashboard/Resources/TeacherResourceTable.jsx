@@ -10,6 +10,7 @@ const TeacherReasourceTable = ({
   open,
   setOpen,
 }) => {
+  console.log(resources);
   return (
     <Sheet>
       <Table>
@@ -35,7 +36,7 @@ const TeacherReasourceTable = ({
                     <b>{resource.resourceName}</b>
                   </Link>
                 </td>
-                <td>Type</td>
+                <td>{resource.resourceType}</td>
                 <td>
                   <Typography>{resource.description}</Typography>
                 </td>

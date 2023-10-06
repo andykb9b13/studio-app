@@ -14,6 +14,7 @@ const CreateTeacherResourceContainer = ({ resources, setResources }) => {
   const { teacher } = useTeacherContext();
 
   const createResourceFunc = async (userInput) => {
+    console.log("userInput from createResourceFunc", userInput);
     try {
       const { data } = await createResource({
         variables: {
@@ -24,6 +25,7 @@ const CreateTeacherResourceContainer = ({ resources, setResources }) => {
       setResources([...resources, data.addResource]);
       alert("Resource Created");
       setOpen(false);
+      console.log(data);
     } catch (err) {
       console.error(err);
       alert("Could not create resource");

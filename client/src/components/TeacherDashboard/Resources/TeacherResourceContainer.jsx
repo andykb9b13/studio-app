@@ -24,15 +24,20 @@ const TeacherResourceContainer = ({ resources, setResources }) => {
 
   return (
     <>
-      <Typography level="h2" textAlign={"center"}>
-        Resource Links
-      </Typography>
-      <Typography level="body2">Create Resource</Typography>
-      <CreateTeacherResourceContainer
-        resources={resources}
-        setResources={setResources}
-      />
       <Card variant="outlined">
+        <Typography level="h2" textAlign={"center"}>
+          Create Resource
+        </Typography>
+        <CreateTeacherResourceContainer
+          resources={resources}
+          setResources={setResources}
+        />
+      </Card>
+
+      <Card variant="outlined">
+        <Typography level="h2" textAlign={"center"}>
+          Resource Links
+        </Typography>
         <TeacherReasourceTable
           deleteResourceFunc={deleteResourceFunc}
           resources={resources}

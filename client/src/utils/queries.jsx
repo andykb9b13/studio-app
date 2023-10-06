@@ -12,6 +12,7 @@ export const QUERY_TEACHER = gql`
       aboutInfo
       phoneNumber
       username
+      resourceTypes
       posts {
         _id
         createdAt

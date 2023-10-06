@@ -14,6 +14,7 @@ const CreateResourceContainer = ({ practicePlan, resources, setResources }) => {
   const { student } = useStudentContext();
 
   const createResourceFunc = async (userInput) => {
+    console.log(userInput);
     try {
       const { data } = await createResource({
         variables: {

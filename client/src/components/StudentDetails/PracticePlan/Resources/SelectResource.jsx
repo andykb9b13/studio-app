@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Table, Typography, IconButton } from "@mui/joy";
+import { Card, Table, Typography, IconButton, Link } from "@mui/joy";
 import CheckIcon from "@mui/icons-material/Check";
 
 const SelectResource = ({
@@ -19,16 +19,7 @@ const SelectResource = ({
   console.log(alreadySelected);
 
   return (
-    <Card
-      sx={{
-        maxHeight: "max-content",
-        maxWidth: "100%",
-        mx: "auto",
-        overflow: "auto",
-        resize: "horizontal",
-        whiteSpace: "pre-line",
-      }}
-    >
+    <Card sx={{ width: "80vw", overflow: "auto", resize: "horizontal" }}>
       <Typography level="h2" textAlign={"center"}>
         Select a Resource
       </Typography>
@@ -46,9 +37,19 @@ const SelectResource = ({
             teacherResources.map((resource, i) => (
               <tr key={resource._id}>
                 <td>{i + 1}</td>
-                <td>{resource.resourceName}</td>
-                <td>{resource.resourceType}</td>
-                <td>{resource.description}</td>
+                <td>
+                  <Typography level="h6">
+                    <Link href={resource.url} target="_blank">
+                      {resource.resourceName}
+                    </Link>
+                  </Typography>
+                </td>
+                <td>
+                  <Typography>{resource.resourceType}</Typography>
+                </td>
+                <td>
+                  <Typography>{resource.description}</Typography>
+                </td>
                 <td>
                   <IconButton disabled={alreadySelected.includes(resource._id)}>
                     <CheckIcon

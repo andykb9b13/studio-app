@@ -79,6 +79,16 @@ teacherSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
+teacherSchema.virtual("resourceTypes").get(function () {
+  let resourceTypes = [];
+  if (this.resources && this.resources.length > 0) {
+    this.resources.forEach((resource) =>
+      resourceTypes.push(resource.resourceType)
+    );
+  }
+  return resourceTypes;
+});
+
 const Teacher = model("Teacher", teacherSchema);
 
 module.exports = Teacher;

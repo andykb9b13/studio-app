@@ -50,6 +50,7 @@ const typeDefs = gql`
     posts: [Post]
     comments: [Comment]
     likes: [Like]
+    resourceTypes: [String]
   }
 
   type Assignment {
@@ -118,7 +119,7 @@ const typeDefs = gql`
     resourceName: String
     url: String
     description: String
-    resourceType: Int
+    resourceType: String
   }
 
   type Post {
@@ -260,7 +261,7 @@ const typeDefs = gql`
       resourceName: String
       url: String
       description: String
-      resourceType: Int
+      resourceType: String
     ): Resource
 
     addStreak(

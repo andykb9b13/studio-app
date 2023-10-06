@@ -11,7 +11,7 @@ const resourceSchema = new Schema({
     type: String,
   },
   resourceType: {
-    type: Number,
+    type: String,
   },
   url: {
     type: String,

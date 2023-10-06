@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IconButton } from "@mui/joy";
+import { IconButton, Sheet } from "@mui/joy";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { useTeacherContext } from "../../../../utils/Context";
 import SelectResource from "./SelectResource";
