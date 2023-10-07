@@ -5,7 +5,7 @@ import { QUERY_STUDENT } from "../utils/queries";
 import { Sheet, Typography, Tabs, TabList, Tab, TabPanel } from "@mui/joy";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 import Auth from "../utils/auth";
-import { useStudentContext } from "../utils/Context";
+import { useStudentContext, useTeacherContext } from "../utils/Context";
 import { MobileContext } from "../App";
 import Leaderboard from "../components/StudentDetails/Leaderboard";
 import VirtualTutor from "./VirtualTutor";
@@ -31,8 +31,6 @@ export default function StudentDetails() {
 
   const { student, setStudent } = useStudentContext();
   const { isMobile } = useContext(MobileContext);
-
-  console.log(student);
 
   useEffect(() => {
     setStudent(data?.student || {});

@@ -94,6 +94,7 @@ export default function StudentDetailsCard({ active, setActive }) {
             <BadgesPoints
               totalPlanPoints={student.totalPlanPoints}
               totalCompletedPoints={student.totalCompletedPoints}
+              teacher={teacher}
             />
           </Grid>
 

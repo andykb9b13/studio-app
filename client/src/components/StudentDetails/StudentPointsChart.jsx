@@ -28,8 +28,6 @@ const StudentPointsChart = () => {
   const [studioAssignPointsAvg, setStudioAssignPointsAvg] = useState();
   const [studioSheetPointsAvg, setStudioSheetPointsAvg] = useState();
 
-  console.log(teacher);
-
   useEffect(() => {
     let pointsArr = [];
     teacher?.students?.forEach((student) =>
