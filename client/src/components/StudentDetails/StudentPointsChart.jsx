@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { useStudentContext } from "../../utils/Context";
+import { useTeacherContext } from "../../utils/Context";
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +23,30 @@ ChartJS.register(
 
 const StudentPointsChart = () => {
   const { student } = useStudentContext();
-  const [earnedPoints, setEarnedPoints] = useState(0); // Total points from skillSheets and Assignments
+  const { teacher } = useTeacherContext();
+  const [earnedPoints, setEarnedPoints] = useState(0);
+  const [studioAssignPointsAvg, setStudioAssignPointsAvg] = useState();
+  const [studioSheetPointsAvg, setStudioSheetPointsAvg] = useState();
+
+  console.log(teacher);
+
+  useEffect(() => {
+    let pointsArr = [];
+    teacher?.students?.forEach((student) =>
+      pointsArr.push(student.totalSheetPoints)
+    );
+    const studioSheetAvg = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    setStudioSheetPointsAvg(studioSheetAvg);
+  }, [teacher, setStudioSheetPointsAvg]);
+
+  useEffect(() => {
+    let pointsArr = [];
+    teacher?.students?.forEach((student) =>
+      pointsArr.push(student.totalCompletedPoints)
+    );
+    const studioAssignAvg = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    setStudioAssignPointsAvg(studioAssignAvg);
+  }, [teacher, setStudioAssignPointsAvg]);
 
   // Sets the earnedPoints which is the total of points from completed assignments and skill sheets
   useEffect(() => {
@@ -59,7 +83,11 @@ const StudentPointsChart = () => {
       },
       {
         label: "Studio Average",
-        data: [200, 160, 450],
+        data: [
+          studioSheetPointsAvg,
+          studioAssignPointsAvg,
+          studioAssignPointsAvg + studioSheetPointsAvg,
+        ],
         backgroundColor: "rgba(248, 102, 36)",
       },
     ],

@@ -29,7 +29,6 @@ import ChecklistIcon from "@mui/icons-material/Checklist";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import TeacherResourceContainer from "../components/TeacherDashboard/Resources/TeacherResourceContainer";
-import CreateTeacherResourceContainer from "../components/TeacherDashboard/Resources/CreateTeacherResourceContainer";
 import Leaderboard from "../components/StudentDetails/Leaderboard";
 import MessageIcon from "@mui/icons-material/Message";
 import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
@@ -66,8 +65,8 @@ const TeacherDashboard = () => {
 
   // Setting the students to be displayed initially
   useEffect(() => {
-    setStudents(teacher.students);
-  }, [teacher.students]);
+    setStudents(teacher?.students);
+  }, [teacher?.students]);
 
   // Setting the resources to be displayed initially
   useEffect(() => {

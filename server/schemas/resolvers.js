@@ -67,7 +67,6 @@ const resolvers = {
           });
         studentArr.push(updatedStudent);
       }
-      console.log(studentArr);
       return studentArr;
     },
     student: async (parent, { studentId: _id }) => {
