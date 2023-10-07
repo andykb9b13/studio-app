@@ -82,9 +82,10 @@ teacherSchema.methods.isCorrectPassword = async function (password) {
 teacherSchema.virtual("resourceTypes").get(function () {
   let resourceTypes = [];
   if (this.resources && this.resources.length > 0) {
-    this.resources.forEach((resource) =>
-      resourceTypes.push(resource.resourceType)
-    );
+    this.resources.forEach((resource) => {
+      if (resource.resourceType !== null)
+        resourceTypes.push(resource.resourceType);
+    });
   }
   return resourceTypes;
 });

@@ -266,6 +266,7 @@ export const ADD_RESOURCE = gql`
     $resourceName: String
     $url: String
     $description: String
+    $resourceType: String
   ) {
     addResource(
       teacherId: $teacherId
@@ -273,6 +274,7 @@ export const ADD_RESOURCE = gql`
       resourceName: $resourceName
       url: $url
       description: $description
+      resourceType: $resourceType
     ) {
       _id
       teacherId
@@ -280,6 +282,7 @@ export const ADD_RESOURCE = gql`
       resourceName
       url
       description
+      resourceType
     }
   }
 `;
