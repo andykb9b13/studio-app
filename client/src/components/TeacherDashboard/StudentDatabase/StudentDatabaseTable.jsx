@@ -13,7 +13,7 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);
   const [deleteStudent, { error }] = useMutation(DELETE_STUDENT);
-  const [orderedStudents, setOrderedStudents] = useState(students);
+  const [orderedStudents, setOrderedStudents] = useState();
   // function for deleting a student
   const deleteStudentFunc = async (studentId) => {
     await deleteStudent({ variables: { studentId: studentId } });
@@ -28,6 +28,10 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
       setIsMobile(true);
     }
   }, []);
+
+  useEffect(() => {
+    setOrderedStudents(students);
+  }, [students, setOrderedStudents]);
 
   return (
     <Sheet>
