@@ -58,6 +58,8 @@ const TeacherDashboard = () => {
   const [clicked, setClicked] = useState(false); // handler for the tabs
   const [open, setOpen] = useState(false); // handler for the modal
   const [resources, setResources] = useState(teacher.resources);
+  const [studioSheetAvg, setStudioSheetAvg] = useState(0);
+  const [studioAssignAvg, setStudioAssignAvg] = useState(0);
 
   // Handles the panel viewing
   const handleClick = (event) => {
@@ -84,6 +86,56 @@ const TeacherDashboard = () => {
     setOpen(false);
     window.location.assign(`/`);
   };
+
+  // Finding the average of assignment points for all students
+  const findStudioSkillSheetAverage = (students) => {
+    let sheetPointsArr = [];
+
+    students?.forEach((student) => {
+      sheetPointsArr.push(student.totalSheetPoints);
+    });
+
+    const totalSheetPoints = sheetPointsArr.reduce(
+      (curr, acc) => acc + curr,
+      0
+    );
+    const studioSheetAverage = Math.floor(totalSheetPoints / students?.length);
+    console.log(studioSheetAverage);
+    return studioSheetAverage;
+  };
+
+  // Finding the average of assignment points for all students
+  const findStudioAssignmentAverage = (students) => {
+    let assignPointsArr = [];
+    console.log(students);
+
+    students?.forEach((student) => {
+      assignPointsArr.push(student.totalCompletedPoints);
+    });
+
+    const totalAssignPoints = assignPointsArr.reduce(
+      (curr, acc) => acc + curr,
+      0
+    );
+    const studioAssignAverage = Math.floor(
+      totalAssignPoints / students?.length
+    );
+    console.log(studioAssignAverage);
+    return studioAssignAverage;
+  };
+
+  useEffect(() => {
+    const studioAvg = findStudioSkillSheetAverage(students);
+    setStudioSheetAvg(studioAvg);
+  }, [students, setStudioSheetAvg]);
+
+  useEffect(() => {
+    const studioAvg = findStudioAssignmentAverage(students);
+    setStudioAssignAvg(studioAvg);
+  }, [students, setStudioAssignAvg]);
+
+  console.log(studioAssignAvg);
+  console.log(studioSheetAvg);
 
   return (
     <Sheet>

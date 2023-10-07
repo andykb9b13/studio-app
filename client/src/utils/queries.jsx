@@ -75,6 +75,7 @@ export const QUERY_TEACHER = gql`
         avatarId
         username
         totalSheetPoints
+        totalCompletedPoints
         practicePlans {
           assignments {
             pointsWorth
