@@ -56,8 +56,6 @@ const CreateResource = ({ createResourceFunc, onRequestClose }) => {
     setType(event.target.value.toLowerCase());
   };
 
-  console.log(type);
-
   return (
     <Sheet
       sx={{
