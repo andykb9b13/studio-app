@@ -7,11 +7,13 @@ import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import { DELETE_STUDENT } from "../../../utils/mutations";
 import { Delete } from "@mui/icons-material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import StudentSort from "./StudentSort";
 
 const StudentDatabaseTable = ({ students, setStudents }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);
   const [deleteStudent, { error }] = useMutation(DELETE_STUDENT);
+  const [orderedStudents, setOrderedStudents] = useState(students);
   // function for deleting a student
   const deleteStudentFunc = async (studentId) => {
     await deleteStudent({ variables: { studentId: studentId } });
@@ -29,6 +31,11 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
 
   return (
     <Sheet>
+      <StudentSort
+        setOrderedStudents={setOrderedStudents}
+        students={students}
+      />
+
       <Table
         aria-label="basic table"
         stickyHeader
@@ -52,8 +59,8 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
           </tr>
         </thead>
         <tbody>
-          {students &&
-            students.map((student, i) => (
+          {orderedStudents &&
+            orderedStudents?.map((student, i) => (
               <tr key={i}>
                 <td>
                   {student.firstName} {student.lastName}
