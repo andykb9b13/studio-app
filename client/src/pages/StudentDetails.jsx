@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { QUERY_STUDENT } from "../utils/queries";
+import { QUERY_STUDENT, QUERY_TEACHER } from "../utils/queries";
 import { Sheet, Typography, Tabs, TabList, Tab, TabPanel } from "@mui/joy";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 import Auth from "../utils/auth";
@@ -21,6 +21,7 @@ import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 // Top component in the tree for students. Provider is passing student info through context.
 export default function StudentDetails() {
   const [active, setActive] = useState(0);
+  const { teacher, setTeacher } = useTeacherContext();
   const { id } = useParams();
   // query for finding individual student information
   const { data } = useQuery(QUERY_STUDENT, {
@@ -32,9 +33,21 @@ export default function StudentDetails() {
   const { student, setStudent } = useStudentContext();
   const { isMobile } = useContext(MobileContext);
 
+  // This is here so when a student logs in, they are able to get their teacher information to link skillsheets, etc.
+  const activeTeacher = useQuery(QUERY_TEACHER, {
+    variables: {
+      teacherId: student.teacherId,
+    },
+  });
+
   useEffect(() => {
     setStudent(data?.student || {});
   }, [setStudent, data]);
+
+  // Setting the teacher
+  useEffect(() => {
+    setTeacher(activeTeacher.data?.teacher || {});
+  }, [activeTeacher, setTeacher]);
 
   return (
     <>

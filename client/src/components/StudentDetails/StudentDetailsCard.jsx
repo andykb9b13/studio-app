@@ -10,7 +10,7 @@ import StudentSkillSheetContainer from "./SkillSheets/StudentSkillSheetContainer
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";
-import { QUERY_TEACHER } from "../../utils/queries";
+
 import { useQuery } from "@apollo/client";
 import { useStudentContext, useTeacherContext } from "../../utils/Context";
 import Clock from "../../utils/Clock";
@@ -20,15 +20,8 @@ import ResourceContainer from "./PracticePlan/Resources/ResourceContainer";
 // the main information about the student
 export default function StudentDetailsCard({ active, setActive }) {
   const { student } = useStudentContext();
-  const { teacher, setTeacher } = useTeacherContext();
+  const { teacher } = useTeacherContext();
   const [resourceArr, setResourceArr] = useState([]);
-
-  // This is here so when a student logs in, they are able to get their teacher information to link skillsheets, etc.
-  const { data } = useQuery(QUERY_TEACHER, {
-    variables: {
-      teacherId: student.teacherId,
-    },
-  });
 
   // setting the resources from ALL practice plans for the student
   useEffect(() => {
@@ -44,11 +37,6 @@ export default function StudentDetailsCard({ active, setActive }) {
     }
     setResourceArr(newResourceArr);
   }, [setResourceArr, student]);
-
-  // Setting the teacher
-  useEffect(() => {
-    setTeacher(data?.teacher || {});
-  }, [data, setTeacher]);
 
   // click handler for opening either the Edit Student or Practice Plan cards
   const handleClick = (index) => {
@@ -94,7 +82,6 @@ export default function StudentDetailsCard({ active, setActive }) {
             <BadgesPoints
               totalPlanPoints={student.totalPlanPoints}
               totalCompletedPoints={student.totalCompletedPoints}
-              teacher={teacher}
             />
           </Grid>
 
