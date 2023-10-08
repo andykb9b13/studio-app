@@ -90,8 +90,8 @@ export default function StudentDetails() {
               <MessageBoard />
             </TabPanel>
             <TabPanel value={2}>
-              <StudentPointsChart />
               <Leaderboard />
+              <StudentPointsChart />
             </TabPanel>
             <TabPanel value={3}>
               <VirtualTutor />

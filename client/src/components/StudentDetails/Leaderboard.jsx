@@ -7,6 +7,7 @@ import { avatarList } from "../common/Assets";
 import { QUERY_STUDENTS } from "../../utils/queries";
 import { sortArray } from "../../utils/utilities";
 import { MobileContext } from "../../App";
+import CountUp from "react-countup";
 
 // Here we are going to display the the usernames of the students, their avatars, and and their respective points. They need to be sorted by highest to lowest points
 
@@ -36,20 +37,32 @@ const Leaderboard = () => {
 
   return (
     <Sheet sx={!isMobile ? styles.card : styles.mobileCard}>
-      <Typography level="h2">Points Leaderboard</Typography>
+      <Typography level="h2" textAlign={"Center"}>
+        Points Leaderboard
+      </Typography>
       <Table>
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Avatar</th>
-            <th>User</th>
-            <th>Points</th>
+            <th>
+              <Typography level="h4">Rank</Typography>
+            </th>
+            <th>
+              <Typography level="h4">Avatar</Typography>
+            </th>
+            <th>
+              <Typography level="h4">User</Typography>
+            </th>
+            <th>
+              <Typography level="h4">Points</Typography>
+            </th>
           </tr>
         </thead>
         <tbody>
           {sortedStudents?.map((student, i) => (
             <tr key={student._id}>
-              <td>{i + 1}</td>
+              <td>
+                <Typography fontSize={"1.2em"}>{i + 1}</Typography>
+              </td>
               <td>
                 <img
                   src={
@@ -65,9 +78,19 @@ const Leaderboard = () => {
                   }}
                 />
               </td>
-              <td>{student.username}</td>
+              <td>
+                <Typography fontSize={"1.2em"}>{student.username}</Typography>
+              </td>
 
-              <td>{student.totalCompletedPoints + student.totalSheetPoints}</td>
+              <td>
+                <Typography fontSize={"1.2em"} fontWeight={"bold"}>
+                  <CountUp
+                    end={
+                      student.totalCompletedPoints + student.totalSheetPoints
+                    }
+                  />
+                </Typography>
+              </td>
             </tr>
           ))}
         </tbody>

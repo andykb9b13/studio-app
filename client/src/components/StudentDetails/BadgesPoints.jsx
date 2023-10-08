@@ -69,24 +69,31 @@ const BadgesPoints = () => {
 
   return (
     <Card sx={styles.card}>
-      <Typography level="h2">Progress</Typography>
-      <Typography level="h5">
-        Skill Sheets: <CountUp end={student.totalSheetPoints} />
+      <Typography level="h2" textAlign={"center"}>
+        Progress
       </Typography>
-      <Typography level="h5">
-        Assignments: <CountUp end={student.totalCompletedPoints} /> points
-      </Typography>
-      <Typography level="h5">
-        Total Earned Points: <CountUp end={earnedPoints} />
-      </Typography>
-      <Typography level="h5">
-        Next Badge: {nextBadge(earnedPoints)} points
-      </Typography>
-      <ProgressBar
-        percentage={progressPercentage}
-        width={"150px"}
-        height={"150px"}
-      />
+      <Card>
+        <Typography level="h3">Points</Typography>
+        <Typography level="h5">
+          <b>Skill Sheets: </b>
+          <CountUp end={student.totalSheetPoints} />
+        </Typography>
+        <Typography level="h5">
+          <b>Assignments:</b> <CountUp end={student.totalCompletedPoints} />{" "}
+        </Typography>
+        <Typography level="h5">
+          <b>Total Earned Points:</b> <CountUp end={earnedPoints} />
+        </Typography>
+        <Typography level="h5">
+          <b>Next Badge:</b> {nextBadge(earnedPoints)} points
+        </Typography>
+        <ProgressBar
+          percentage={progressPercentage}
+          width={"150px"}
+          height={"150px"}
+        />
+      </Card>
+
       <Typography level="h3">Badges: </Typography>
       <Sheet
         variant="outlined"
