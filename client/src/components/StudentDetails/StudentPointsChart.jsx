@@ -33,7 +33,8 @@ const StudentPointsChart = () => {
     teacher?.students?.forEach((student) =>
       pointsArr.push(student.totalSheetPoints)
     );
-    const studioSheetAvg = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    const studioSheetTotal = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    const studioSheetAvg = studioSheetTotal / teacher?.students?.length;
     setStudioSheetPointsAvg(studioSheetAvg);
   }, [teacher, setStudioSheetPointsAvg]);
 
@@ -42,7 +43,8 @@ const StudentPointsChart = () => {
     teacher?.students?.forEach((student) =>
       pointsArr.push(student.totalCompletedPoints)
     );
-    const studioAssignAvg = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    const studioAssignTotal = pointsArr.reduce((acc, curr) => acc + curr, 0);
+    const studioAssignAvg = studioAssignTotal / teacher?.students?.length;
     setStudioAssignPointsAvg(studioAssignAvg);
   }, [teacher, setStudioAssignPointsAvg]);
 
