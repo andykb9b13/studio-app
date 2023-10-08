@@ -39,7 +39,6 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
         setOrderedStudents={setOrderedStudents}
         students={students}
       />
-
       <Table
         aria-label="basic table"
         stickyHeader

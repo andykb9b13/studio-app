@@ -35,6 +35,21 @@ const Leaderboard = () => {
 
   console.log(teacher._id);
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
+  };
+
   return (
     <Sheet sx={!isMobile ? styles.card : styles.mobileCard}>
       <Typography level="h2" textAlign={"Center"}>

@@ -29,6 +29,23 @@ import avatar27 from "../../assets/avatars/avatar27.png";
 import avatar28 from "../../assets/avatars/avatar28.png";
 import avatar29 from "../../assets/avatars/avatar29.png";
 import avatar30 from "../../assets/avatars/avatar30.png";
+import avatar31 from "../../assets/avatars/avatar31.png";
+import avatar32 from "../../assets/avatars/avatar32.png";
+import avatar33 from "../../assets/avatars/avatar33.png";
+import avatar34 from "../../assets/avatars/avatar34.png";
+import avatar35 from "../../assets/avatars/avatar35.png";
+import avatar36 from "../../assets/avatars/avatar36.png";
+import avatar37 from "../../assets/avatars/avatar37.png";
+import avatar38 from "../../assets/avatars/avatar38.png";
+import avatar39 from "../../assets/avatars/avatar39.png";
+import avatar40 from "../../assets/avatars/avatar40.png";
+import avatar41 from "../../assets/avatars/avatar41.png";
+import avatar42 from "../../assets/avatars/avatar42.png";
+import avatar43 from "../../assets/avatars/avatar43.png";
+import avatar44 from "../../assets/avatars/avatar44.png";
+import avatar45 from "../../assets/avatars/avatar45.png";
+import avatar46 from "../../assets/avatars/avatar46.png";
+import avatar47 from "../../assets/avatars/avatar47.png";
 
 import badge1 from "../../assets/badges/badge1.png";
 import badge2 from "../../assets/badges/badge2.png";
@@ -92,6 +109,23 @@ export const avatarList = [
   { id: 28, name: avatar28 },
   { id: 29, name: avatar29 },
   { id: 30, name: avatar30 },
+  { id: 31, name: avatar31 },
+  { id: 32, name: avatar32 },
+  { id: 33, name: avatar33 },
+  { id: 34, name: avatar34 },
+  { id: 35, name: avatar35 },
+  { id: 36, name: avatar36 },
+  { id: 37, name: avatar37 },
+  { id: 38, name: avatar38 },
+  { id: 39, name: avatar39 },
+  { id: 40, name: avatar40 },
+  { id: 41, name: avatar41 },
+  { id: 42, name: avatar42 },
+  { id: 43, name: avatar43 },
+  { id: 44, name: avatar44 },
+  { id: 45, name: avatar45 },
+  { id: 46, name: avatar46 },
+  { id: 47, name: avatar47 },
 ];
 
 export const badgeList = [

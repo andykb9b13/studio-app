@@ -1,5 +1,5 @@
 import React from "react";
-import { Sheet, Typography, Select, Option, Grid } from "@mui/joy";
+import { Typography, Select, Option, Grid } from "@mui/joy";
 
 const StudentSort = ({ setOrderedStudents, students }) => {
   const orderStudentsFirstName = (students) => {
@@ -33,7 +33,7 @@ const StudentSort = ({ setOrderedStudents, students }) => {
   };
 
   return (
-    <Grid container>
+    <Grid container justifyContent={"center"} mb={4}>
       <Grid xs={12} lg={4}>
         <Typography level="h4">Sort Students</Typography>
         <Select placeholder="Sort By...">
