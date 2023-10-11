@@ -3,7 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TEACHER_LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { Button, Typography, Input, Card, FormHelperText } from "@mui/joy";
+import {
+  Button,
+  Typography,
+  Input,
+  Card,
+  FormHelperText,
+  Sheet,
+} from "@mui/joy";
 import { useForm } from "react-hook-form";
 import { styles } from "../styles/cardstyles";
 
@@ -32,7 +39,12 @@ const Login = () => {
   };
 
   return (
-    <>
+    <Sheet
+      sx={{
+        backgroundColor: "transparent",
+        height: "100vh",
+      }}
+    >
       <Card sx={styles.card}>
         <Typography level="h2">Teacher Login</Typography>
         {error && (
@@ -59,7 +71,7 @@ const Login = () => {
           Not a User?
         </Typography>
       </Card>
-    </>
+    </Sheet>
   );
 };
 

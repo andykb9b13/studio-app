@@ -2,7 +2,7 @@ export const styles = {
   card: {
     width: 400,
     mx: "auto",
-    height: "100vh",
+    height: "auto",
     mt: 5,
     p: 2,
     borderRadius: "sm",

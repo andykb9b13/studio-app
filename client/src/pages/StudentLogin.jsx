@@ -3,7 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { STUDENT_LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { Button, Typography, Input, Card, FormHelperText } from "@mui/joy";
+import {
+  Button,
+  Typography,
+  Input,
+  Card,
+  FormHelperText,
+  Sheet,
+} from "@mui/joy";
 import { useForm } from "react-hook-form";
 import { styles } from "../styles/cardstyles";
 
@@ -33,26 +40,33 @@ const StudentLogin = () => {
   };
 
   return (
-    <Card sx={styles.card}>
-      <Typography level="h2">Student Login</Typography>
-      {error && (
-        <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
-      )}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography>Email</Typography>
-        <Input {...register("email")} placeholder="Email" type="email" />
-        <Typography>Password</Typography>
-        <Input
-          {...register("password")}
-          placeholder="password"
-          type="password"
-        />
-        <Button type="submit" variant="soft" color="success">
-          Login
-        </Button>
-      </form>
-      <Link to="/">Back to Homepage</Link>
-    </Card>
+    <Sheet
+      sx={{
+        backgroundColor: "transparent",
+        height: "100vh",
+      }}
+    >
+      <Card sx={styles.card}>
+        <Typography level="h2">Student Login</Typography>
+        {error && (
+          <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
+        )}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Typography>Email</Typography>
+          <Input {...register("email")} placeholder="Email" type="email" />
+          <Typography>Password</Typography>
+          <Input
+            {...register("password")}
+            placeholder="password"
+            type="password"
+          />
+          <Button type="submit" variant="soft" color="success">
+            Login
+          </Button>
+        </form>
+        <Link to="/">Back to Homepage</Link>
+      </Card>
+    </Sheet>
   );
 };
 
