@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Link, Typography, IconButton, Sheet } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
@@ -11,6 +11,29 @@ const TeacherReasourceTable = ({
   setOpen,
 }) => {
   console.log(resources);
+  const [sortedResources, setSortedResources] = useState();
+
+  const sortResources = (resources) => {
+    const resourceNameArr = [];
+    const sortedResourceArr = [];
+    resources.forEach((resource) =>
+      resourceNameArr.push(resource.resourceName)
+    );
+    resourceNameArr.sort();
+    for (let i = 0; i < resources.length; i++) {
+      for (let j = 0; j < resources.length; j++) {
+        if (resources[j].resourceName === resourceNameArr[i]) {
+          sortedResourceArr.push(resources[j]);
+        }
+      }
+    }
+    return sortedResourceArr;
+  };
+
+  useEffect(() => {
+    setSortedResources(sortResources(resources));
+  }, [resources]);
+
   return (
     <Sheet>
       <Table>
@@ -22,9 +45,9 @@ const TeacherReasourceTable = ({
           </tr>
         </thead>
         <tbody>
-          {resources &&
-            resources.map((resource) => (
-              <tr>
+          {sortedResources &&
+            sortedResources?.map((resource) => (
+              <tr key={resource._id}>
                 <td>
                   <Link
                     href={resource.url}
