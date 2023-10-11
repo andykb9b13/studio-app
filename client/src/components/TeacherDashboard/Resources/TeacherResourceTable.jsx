@@ -3,6 +3,7 @@ import { Table, Link, Typography, IconButton, Sheet } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import RegularModal from "../../common/Modal/RegularModal";
+import { sortResources } from "../../../utils/utilities";
 
 const TeacherReasourceTable = ({
   deleteResourceFunc,
@@ -12,23 +13,6 @@ const TeacherReasourceTable = ({
 }) => {
   console.log(resources);
   const [sortedResources, setSortedResources] = useState();
-
-  const sortResources = (resources) => {
-    const resourceNameArr = [];
-    const sortedResourceArr = [];
-    resources.forEach((resource) =>
-      resourceNameArr.push(resource.resourceName)
-    );
-    resourceNameArr.sort();
-    for (let i = 0; i < resources.length; i++) {
-      for (let j = 0; j < resources.length; j++) {
-        if (resources[j].resourceName === resourceNameArr[i]) {
-          sortedResourceArr.push(resources[j]);
-        }
-      }
-    }
-    return sortedResourceArr;
-  };
 
   useEffect(() => {
     setSortedResources(sortResources(resources));

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Table, Typography, IconButton, Link } from "@mui/joy";
 import CheckIcon from "@mui/icons-material/Check";
+import { sortResources } from "../../../../utils/utilities";
 
 const SelectResource = ({
   teacherResources,
@@ -9,6 +10,7 @@ const SelectResource = ({
 }) => {
   console.log(teacherResources);
   const [alreadySelected, setAlreadySelected] = useState([]);
+  const [sortedResources, setSortedResources] = useState([]);
 
   useEffect(() => {
     const resourceArr = [];
@@ -16,7 +18,9 @@ const SelectResource = ({
     setAlreadySelected(resourceArr);
   }, [resources, setAlreadySelected]);
 
-  console.log(alreadySelected);
+  useEffect(() => {
+    setSortedResources(sortResources(teacherResources));
+  }, [teacherResources]);
 
   return (
     <Card sx={{ width: "80vw", overflow: "auto", resize: "horizontal" }}>
@@ -33,8 +37,8 @@ const SelectResource = ({
           </tr>
         </thead>
         <tbody>
-          {teacherResources &&
-            teacherResources.map((resource, i) => (
+          {sortedResources &&
+            sortedResources.map((resource, i) => (
               <tr key={resource._id}>
                 <td>{i + 1}</td>
                 <td>

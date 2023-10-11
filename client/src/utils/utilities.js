@@ -21,3 +21,18 @@ export const sortArray = (array) => {
 
   return sortedArray.reverse(); // Return the sorted array
 };
+
+export const sortResources = (resources) => {
+  const resourceNameArr = [];
+  const sortedResourceArr = [];
+  resources.forEach((resource) => resourceNameArr.push(resource.resourceName));
+  resourceNameArr.sort();
+  for (let i = 0; i < resources.length; i++) {
+    for (let j = 0; j < resources.length; j++) {
+      if (resources[j].resourceName === resourceNameArr[i]) {
+        sortedResourceArr.push(resources[j]);
+      }
+    }
+  }
+  return sortedResourceArr;
+};
