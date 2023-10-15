@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// Mutations are in alphabetical order
 export const ADD_ASSIGNMENT = gql`
   mutation addAssignment(
     $exerciseName: String!
@@ -325,6 +326,14 @@ export const COMPLETE_ASSIGNMENT = gql`
       pages
       pointsWorth
       completed
+    }
+  }
+`;
+
+export const COMPLETE_PIECE = gql`
+  mutation completePiece($studentId: ID, $pieceID: ID) {
+    completePiece(studentId: $studentId, pieceID: $pieceID) {
+      _id
     }
   }
 `;

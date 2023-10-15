@@ -3,6 +3,116 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   scalar Date
 
+  type Assignment {
+    _id: ID
+    exerciseName: String
+    studentId: String
+    planId: String
+    source: String
+    assignmentType: String
+    specialNotes: String
+    metronome: String
+    pages: String
+    pointsWorth: Int
+    completed: Boolean
+    streaks: [Streak]
+  }
+
+  type Comment {
+    _id: ID
+    authorId: String!
+    message: String!
+    createdAt: Date!
+    isTeacher: Boolean!
+    likes: Int
+    postId: String!
+    comments: [Comment]
+  }
+
+  type Goal {
+    _id: ID
+    practiceTime: Int
+    practiceDays: Int
+    skillSheet: SkillSheet
+  }
+
+  type Like {
+    _id: ID
+    authorID: String!
+    postId: String
+    commentId: String
+  }
+
+  type Piece {
+    _id: ID
+    pieceName: String!
+    composer: String!
+    description: String!
+    pieceType: String
+    difficulty: String
+    url: String
+  }
+
+  type Post {
+    studioId: String!
+    _id: ID
+    title: String!
+    message: String!
+    url: String
+    createdAt: Date!
+    authorId: Teacher
+    isTeacher: Boolean!
+    likes: Int
+    comments: [Comment]
+  }
+
+  type PracticePlan {
+    _id: ID
+    name: String!
+    dateCreated: Date
+    studentId: String
+    planNotes: String
+    assignments: [Assignment]
+    goals: [Goal]
+    skillSheets: [SkillSheet]
+    resources: [Resource]
+  }
+
+  type Resource {
+    _id: ID
+    teacherId: String
+    practicePlanId: String
+    resourceName: String
+    url: String
+    description: String
+    resourceType: String
+  }
+
+  type SkillSheet {
+    _id: ID
+    sheetName: String!
+    teacherId: String
+    description: String
+    url: String
+    scales: String
+    exercises: String
+    etudes: String
+    pieces: String
+    sheetPoints: Int
+    badgeId: Int
+    difficulty: String
+    completed: Boolean
+  }
+
+  type Streak {
+    _id: ID
+    date: String!
+    assignmentId: String!
+    numTries: Int
+    numSuccess: Int
+    numFail: Int
+  }
+
   type Student {
     _id: ID
     firstName: String
@@ -34,6 +144,11 @@ const typeDefs = gql`
     likes: [Like]
   }
 
+  type StudentAuth {
+    token: ID!
+    student: Student
+  }
+
   type Teacher {
     _id: ID
     firstName: String
@@ -54,168 +169,120 @@ const typeDefs = gql`
     pieces: [Piece]
   }
 
-  type Assignment {
-    _id: ID
-    exerciseName: String
-    studentId: String
-    planId: String
-    source: String
-    assignmentType: String
-    specialNotes: String
-    metronome: String
-    pages: String
-    pointsWorth: Int
-    completed: Boolean
-    streaks: [Streak]
-  }
-
-  type Streak {
-    _id: ID
-    date: String!
-    assignmentId: String!
-    numTries: Int
-    numSuccess: Int
-    numFail: Int
-  }
-
-  type Goal {
-    _id: ID
-    practiceTime: Int
-    practiceDays: Int
-    skillSheet: SkillSheet
-  }
-
-  type SkillSheet {
-    _id: ID
-    sheetName: String!
-    teacherId: String
-    description: String
-    url: String
-    scales: String
-    exercises: String
-    etudes: String
-    pieces: String
-    sheetPoints: Int
-    badgeId: Int
-    difficulty: String
-    completed: Boolean
-  }
-
-  type PracticePlan {
-    _id: ID
-    name: String!
-    dateCreated: Date
-    studentId: String
-    planNotes: String
-    assignments: [Assignment]
-    goals: [Goal]
-    skillSheets: [SkillSheet]
-    resources: [Resource]
-  }
-
-  type Resource {
-    _id: ID
-    teacherId: String
-    practicePlanId: String
-    resourceName: String
-    url: String
-    description: String
-    resourceType: String
-  }
-
-  type Post {
-    studioId: String!
-    _id: ID
-    title: String!
-    message: String!
-    url: String
-    createdAt: Date!
-    authorId: Teacher
-    isTeacher: Boolean!
-    likes: Int
-    comments: [Comment]
-  }
-
-  type Comment {
-    _id: ID
-    authorId: String!
-    message: String!
-    createdAt: Date!
-    isTeacher: Boolean!
-    likes: Int
-    postId: String!
-    comments: [Comment]
-  }
-
-  type Like {
-    _id: ID
-    authorID: String!
-    postId: String
-    commentId: String
-  }
-
-  type Piece {
-    _id: ID
-    pieceName: String!
-    composer: String!
-    description: String!
-    pieceType: String
-    difficulty: String
-    url: String
-  }
-
   type TeacherAuth {
     token: ID!
     teacher: Teacher
   }
 
-  type StudentAuth {
-    token: ID!
-    student: Student
-  }
-
   union TeacherOrStudent = Teacher | Student
 
   type Query {
-    students(teacherId: ID!): [Student]!
-    student(studentId: ID!): Student
-    teachers: [Teacher]!
-    teacher(teacherId: ID!): Teacher
     assignments: [Assignment]!
     assignment(assignmentId: ID!): Assignment
+    author(authorId: ID!, isTeacher: Boolean!): TeacherOrStudent
+    comments: [Comment]
+    comment: Comment
     goals: [Goal]!
     goal(goalId: ID!): Goal
+    likes: [Like]
+    like: Like
+    pieces: [Piece]
+    piece: Piece
+    posts(studioId: ID!): [Post]
+    post: Post
     practicePlans: [PracticePlan]
     practicePlan(planId: ID!): PracticePlan
     resources: [Resource]
     resource: Resource
-    posts(studioId: ID!): [Post]
-    post: Post
-    comments: [Comment]
-    comment: Comment
-    likes: [Like]
-    like: Like
-    author(authorId: ID!, isTeacher: Boolean!): TeacherOrStudent
-    pieces: [Piece]
-    piece: Piece
+    students(teacherId: ID!): [Student]!
+    student(studentId: ID!): Student
+    teachers: [Teacher]!
+    teacher(teacherId: ID!): Teacher
   }
 
   type Mutation {
-    teacherLogin(email: String!, password: String!): TeacherAuth
+    addAssignment(
+      exerciseName: String
+      studentId: String
+      planId: String
+      source: String
+      assignmentType: String
+      specialNotes: String
+      metronome: String
+      pointsWorth: Int
+      completed: Boolean
+      pages: String
+    ): Assignment
 
-    studentLogin(email: String!, password: String!): StudentAuth
+    addComment(
+      authorId: String!
+      message: String!
+      createdAt: Date!
+      isTeacher: Boolean!
+      postId: String!
+    ): Comment
 
-    addTeacher(
-      firstName: String!
-      lastName: String!
-      email: String!
-      password: String!
-      confirmPassword: String!
-      avatarId: Int
-      aboutInfo: String
-      phoneNumber: String
-      username: String
-    ): TeacherAuth
+    addGoal(practiceTime: Int, practiceDays: Int): Goal
+
+    addLike(userId: String, postId: ID, commentId: ID): Like
+
+    addPiece(
+      teacherId: ID!
+      pieceName: String!
+      composer: String!
+      description: String!
+      pieceType: String
+      difficulty: String
+    ): Piece
+
+    addPost(
+      studioId: String!
+      title: String!
+      message: String!
+      url: String
+      createdAt: Date!
+      authorId: ID!
+      isTeacher: Boolean!
+    ): Post
+
+    addPracticePlan(
+      name: String!
+      dateCreated: Date
+      studentId: String
+      planNotes: String
+    ): PracticePlan
+
+    addResource(
+      teacherId: String
+      practicePlanId: String
+      resourceName: String
+      url: String
+      description: String
+      resourceType: String
+    ): Resource
+
+    addSkillSheet(
+      sheetName: String!
+      teacherId: String
+      description: String
+      url: String
+      scales: String
+      exercises: String
+      etudes: String
+      pieces: String
+      sheetPoints: Int
+      badgeId: Int
+      difficulty: String
+      completed: Boolean
+    ): SkillSheet
+
+    addStreak(
+      date: String
+      assignmentId: String
+      numTries: Int
+      numSuccess: Int
+      numFail: Int
+    ): Streak
 
     addStudent(
       firstName: String!
@@ -237,7 +304,47 @@ const typeDefs = gql`
       teacherId: String
     ): Student
 
-    addAssignment(
+    addTeacher(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+      confirmPassword: String!
+      avatarId: Int
+      aboutInfo: String
+      phoneNumber: String
+      username: String
+    ): TeacherAuth
+
+    completeAssignment(assignmentId: ID, completed: Boolean): Assignment
+
+    completeSkillSheet(studentId: ID, skillSheetId: ID): Student
+
+    deleteAssignment(assignmentId: ID!): Assignment!
+
+    deleteComment(commentId: ID!): Comment!
+
+    deleteGoal(goalId: ID!): Goal!
+
+    deleteLike(likeId: ID!): Like!
+
+    deletePiece(pieceId: ID!): Piece!
+
+    deletePost(postId: ID!): Post!
+
+    deletePracticePlan(planId: ID!): PracticePlan!
+
+    deleteResource(resourceId: ID!): Resource!
+
+    deleteSkillSheet(skillSheetId: ID!): SkillSheet!
+
+    deleteStreak(streakId: ID!): Streak!
+
+    deleteStudent(studentId: ID!): Student!
+
+    deleteTeacher(teacherId: ID!): Teacher!
+
+    editAssignment(
       exerciseName: String
       studentId: String
       planId: String
@@ -245,38 +352,31 @@ const typeDefs = gql`
       assignmentType: String
       specialNotes: String
       metronome: String
+      pages: String
       pointsWorth: Int
       completed: Boolean
-      pages: String
-    ): Assignment
+    ): Assignment!
 
-    completeAssignment(assignmentId: ID, completed: Boolean): Assignment
+    editGoal(goalId: ID!, practiceTime: Int, practiceDays: Int): Goal!
 
-    completeSkillSheet(studentId: ID, skillSheetId: ID): Student
-
-    removeCompletedSkillSheet(studentId: ID, skillSheetId: ID): Student
-
-    addResource(
-      teacherId: String
-      practicePlanId: String
-      resourceName: String
-      url: String
+    editPiece(
+      pieceId: ID!
+      pieceName: String
       description: String
-      resourceType: String
-    ): Resource
+      pieceType: String
+      difficulty: String
+    ): Piece!
 
-    addStreak(
-      date: String
-      assignmentId: String
-      numTries: Int
-      numSuccess: Int
-      numFail: Int
-    ): Streak
+    editPracticePlan(
+      planId: ID!
+      name: String
+      planNotes: String
+      resourceId: ID
+    ): PracticePlan!
 
-    addGoal(practiceTime: Int, practiceDays: Int): Goal
-
-    addSkillSheet(
-      sheetName: String!
+    editSkillSheet(
+      skillSheetId: ID!
+      sheetName: String
       teacherId: String
       description: String
       url: String
@@ -288,67 +388,7 @@ const typeDefs = gql`
       badgeId: Int
       difficulty: String
       completed: Boolean
-    ): SkillSheet
-
-    addPracticePlan(
-      name: String!
-      dateCreated: Date
-      studentId: String
-      planNotes: String
-    ): PracticePlan
-
-    addPost(
-      studioId: String!
-      title: String!
-      message: String!
-      url: String
-      createdAt: Date!
-      authorId: ID!
-      isTeacher: Boolean!
-    ): Post
-
-    addComment(
-      authorId: String!
-      message: String!
-      createdAt: Date!
-      isTeacher: Boolean!
-      postId: String!
-    ): Comment
-
-    addPiece(
-      teacherId: ID!
-      pieceName: String!
-      composer: String!
-      description: String!
-      pieceType: String
-      difficulty: String
-    ): Piece
-
-    addLike(userId: String, postId: ID, commentId: ID): Like
-
-    deleteAssignment(assignmentId: ID!): Assignment!
-
-    deleteGoal(goalId: ID!): Goal!
-
-    deleteStreak(streakId: ID!): Streak!
-
-    deleteStudent(studentId: ID!): Student!
-
-    deleteTeacher(teacherId: ID!): Teacher!
-
-    deleteSkillSheet(skillSheetId: ID!): SkillSheet!
-
-    deleteResource(resourceId: ID!): Resource!
-
-    deletePracticePlan(planId: ID!): PracticePlan!
-
-    deletePost(postId: ID!): Post!
-
-    deleteComment(commentId: ID!): Comment!
-
-    deleteLike(likeId: ID!): Like!
-
-    deletePiece(pieceId: ID!): Piece!
+    ): SkillSheet!
 
     editStudent(
       studentId: ID!
@@ -382,53 +422,13 @@ const typeDefs = gql`
       username: String
     ): Teacher!
 
-    editAssignment(
-      exerciseName: String
-      studentId: String
-      planId: String
-      source: String
-      assignmentType: String
-      specialNotes: String
-      metronome: String
-      pages: String
-      pointsWorth: Int
-      completed: Boolean
-    ): Assignment!
-
-    editGoal(goalId: ID!, practiceTime: Int, practiceDays: Int): Goal!
-
-    editSkillSheet(
-      skillSheetId: ID!
-      sheetName: String
-      teacherId: String
-      description: String
-      url: String
-      scales: String
-      exercises: String
-      etudes: String
-      pieces: String
-      sheetPoints: Int
-      badgeId: Int
-      difficulty: String
-      completed: Boolean
-    ): SkillSheet!
-
-    editPracticePlan(
-      planId: ID!
-      name: String
-      planNotes: String
-      resourceId: ID
-    ): PracticePlan!
+    removeCompletedSkillSheet(studentId: ID, skillSheetId: ID): Student
 
     removeResourceFromPracticePlan(planId: ID!, resourceId: ID!): PracticePlan!
 
-    editPiece(
-      pieceId: ID!
-      pieceName: String
-      description: String
-      pieceType: String
-      difficulty: String
-    ): Piece!
+    studentLogin(email: String!, password: String!): StudentAuth
+
+    teacherLogin(email: String!, password: String!): TeacherAuth
   }
 `;
 
