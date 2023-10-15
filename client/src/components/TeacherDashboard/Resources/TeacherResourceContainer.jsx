@@ -4,7 +4,7 @@ import TeacherReasourceTable from "./TeacherResourceTable";
 import { useMutation } from "@apollo/client";
 import CreateTeacherResourceContainer from "./CreateTeacherResourceContainer";
 import { DELETE_RESOURCE } from "../../../utils/mutations";
-import TeacherPiecesContainer from './Repertoire/TeacherPiecesContainer'
+import TeacherPiecesContainer from "./Repertoire/TeacherPiecesContainer";
 
 const TeacherResourceContainer = ({ resources, setResources }) => {
   const [deleteResource, { error }] = useMutation(DELETE_RESOURCE);
@@ -25,10 +25,9 @@ const TeacherResourceContainer = ({ resources, setResources }) => {
 
   return (
     <>
-    <Card variant='outlined'>
-      <Typography level='h2'>Pieces</Typography>
-      <TeacherPiecesContainer />
-    </Card>
+      <Card variant="outlined">
+        <TeacherPiecesContainer />
+      </Card>
       <Card variant="outlined">
         <Typography level="h2" textAlign={"center"}>
           Create Resource

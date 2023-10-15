@@ -18,6 +18,10 @@ const TeacherPiecesContainer = () => {
   const [pieceUrl, setPieceUrl] = useState();
   const [teacherPieces, setTeacherPieces] = useState(teacher.pieces);
 
+  useEffect(() => {
+    setTeacherPieces(teacher.pieces);
+  }, [teacher, teacherPieces]);
+
   const createPieceFunc = async (userInput) => {
     try {
       const piece = await createPiece({

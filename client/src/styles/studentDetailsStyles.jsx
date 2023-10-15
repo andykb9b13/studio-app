@@ -38,4 +38,14 @@ export const styles = {
     borderRadius: "10px",
     whiteSpace: "pre-line",
   },
+  tableCard: {
+    backgroundColor: "lightblue",
+    width: "98%",
+    mx: "auto",
+    maxHeight: "30%",
+    overflow: "auto",
+    p: 3,
+    borderRadius: "10px",
+    whiteSpace: "pre-line",
+  },
 };

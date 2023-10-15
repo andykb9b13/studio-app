@@ -42,40 +42,41 @@ const TeacherPieceTable = ({ teacherPieces, isMobile }) => {
         </tr>
       </thead>
       <tbody>
-        {teacherPieces?.map((piece) => (
-          <tr key={piece._id}>
-            <td>
-              <Typography>{piece.pieceName}</Typography>
-            </td>
-            <td>
-              <Typography>{piece.composer}</Typography>
-            </td>
-            {!isMobile && (
+        {teacherPieces?.length > 0 &&
+          teacherPieces?.map((piece) => (
+            <tr key={piece._id}>
               <td>
-                <Typography>{piece.description}</Typography>
+                <Typography>{piece.pieceName}</Typography>
               </td>
-            )}
-            <td>
-              <Typography>{piece.dateCompleted}</Typography>
-            </td>
-            <td>
-              <Typography>{piece.pieceType}</Typography>
-            </td>
-            <td>
-              <Typography>{piece.difficulty}</Typography>
-            </td>
-            <Typography>
-              <a href={piece.url} target="blank">
-                <IconButton
-                  color={piece.url ? "success" : "neutral"}
-                  disabled={piece.url ? false : true}
-                >
-                  <FilePresentIcon />
-                </IconButton>
-              </a>
-            </Typography>
-          </tr>
-        ))}
+              <td>
+                <Typography>{piece.composer}</Typography>
+              </td>
+              {!isMobile && (
+                <td>
+                  <Typography>{piece.description}</Typography>
+                </td>
+              )}
+              <td>
+                <Typography>{piece.dateCompleted}</Typography>
+              </td>
+              <td>
+                <Typography>{piece.pieceType}</Typography>
+              </td>
+              <td>
+                <Typography>{piece.difficulty}</Typography>
+              </td>
+              <Typography>
+                <a href={piece.url} target="blank">
+                  <IconButton
+                    color={piece.url ? "success" : "neutral"}
+                    disabled={piece.url ? false : true}
+                  >
+                    <FilePresentIcon />
+                  </IconButton>
+                </a>
+              </Typography>
+            </tr>
+          ))}
       </tbody>
     </Table>
   );
