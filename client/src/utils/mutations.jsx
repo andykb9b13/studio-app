@@ -1,39 +1,217 @@
 import { gql } from "@apollo/client";
 
-export const ADD_TEACHER = gql`
-  mutation addTeacher(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-    $confirmPassword: String!
-    $avatarId: Int
-    $aboutInfo: String
-    $phoneNumber: String
-    $username: String
+export const ADD_ASSIGNMENT = gql`
+  mutation addAssignment(
+    $exerciseName: String!
+    $studentId: String
+    $planId: String
+    $source: String
+    $assignmentType: String
+    $specialNotes: String
+    $metronome: String
+    $pointsWorth: Int
+    $completed: Boolean
+    $pages: String
   ) {
-    addTeacher(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-      confirmPassword: $confirmPassword
-      avatarId: $avatarId
-      aboutInfo: $aboutInfo
-      phoneNumber: $phoneNumber
-      username: $username
+    addAssignment(
+      exerciseName: $exerciseName
+      studentId: $studentId
+      planId: $planId
+      source: $source
+      assignmentType: $assignmentType
+      specialNotes: $specialNotes
+      metronome: $metronome
+      pointsWorth: $pointsWorth
+      completed: $completed
+      pages: $pages
     ) {
-      token
-      teacher {
+      exerciseName
+      studentId
+      planId
+      source
+      assignmentType
+      specialNotes
+      metronome
+      pointsWorth
+      completed
+      pages
+    }
+  }
+`;
+
+export const ADD_COMMENT = gql`
+  mutation addComment(
+    $authorId: String!
+    $message: String!
+    $createdAt: Date!
+    $isTeacher: Boolean!
+    $postId: String!
+  ) {
+    addComment(
+      authorId: $authorId
+      message: $message
+      createdAt: $createdAt
+      isTeacher: $isTeacher
+      postId: $postId
+    ) {
+      authorId
+      message
+      createdAt
+      isTeacher
+      postId
+    }
+  }
+`;
+
+export const ADD_PIECE = gql`
+  mutation addPiece(
+    $teacherId: ID!
+    $pieceName: String!
+    $composer: String!
+    $description: String!
+    $pieceType: String
+    $difficulty: String
+  ) {
+    addPiece(
+      teacherId: $teacherId
+      pieceName: $pieceName
+      composer: $composer
+      description: $description
+      pieceType: $pieceType
+      difficulty: $difficulty
+    ) {
+      pieceName
+      composer
+      description
+      pieceType
+      difficulty
+    }
+  }
+`;
+
+export const ADD_POST = gql`
+  mutation addPost(
+    $studioId: String!
+    $title: String!
+    $message: String!
+    $url: String
+    $createdAt: Date!
+    $authorId: ID!
+    $isTeacher: Boolean!
+  ) {
+    addPost(
+      studioId: $studioId
+      title: $title
+      message: $message
+      url: $url
+      createdAt: $createdAt
+      authorId: $authorId
+      isTeacher: $isTeacher
+    ) {
+      _id
+      studioId
+      title
+      message
+      url
+      createdAt
+      authorId {
         _id
         firstName
         lastName
-        email
-        avatarId
-        aboutInfo
-        phoneNumber
-        username
       }
+      isTeacher
+    }
+  }
+`;
+
+export const ADD_PRACTICEPLAN = gql`
+  mutation addPracticePlan(
+    $name: String!
+    $dateCreated: Date
+    $studentId: String
+    $planNotes: String
+  ) {
+    addPracticePlan(
+      name: $name
+      dateCreated: $dateCreated
+      studentId: $studentId
+      planNotes: $planNotes
+    ) {
+      _id
+      name
+      dateCreated
+      studentId
+      planNotes
+    }
+  }
+`;
+
+export const ADD_RESOURCE = gql`
+  mutation addResource(
+    $teacherId: String
+    $practicePlanId: String
+    $resourceName: String
+    $url: String
+    $description: String
+    $resourceType: String
+  ) {
+    addResource(
+      teacherId: $teacherId
+      practicePlanId: $practicePlanId
+      resourceName: $resourceName
+      url: $url
+      description: $description
+      resourceType: $resourceType
+    ) {
+      _id
+      teacherId
+      practicePlanId
+      resourceName
+      url
+      description
+      resourceType
+    }
+  }
+`;
+
+export const ADD_SKILLSHEET = gql`
+  mutation addSkillSheet(
+    $sheetName: String!
+    $teacherId: String
+    $description: String
+    $url: String
+    $scales: String
+    $exercises: String
+    $etudes: String
+    $pieces: String
+    $sheetPoints: Int
+    $badgeId: Int
+    $difficulty: String
+  ) {
+    addSkillSheet(
+      sheetName: $sheetName
+      teacherId: $teacherId
+      description: $description
+      url: $url
+      scales: $scales
+      exercises: $exercises
+      etudes: $etudes
+      pieces: $pieces
+      sheetPoints: $sheetPoints
+      badgeId: $badgeId
+      difficulty: $difficulty
+    ) {
+      sheetName
+      teacherId
+      description
+      url
+      scales
+      exercises
+      etudes
+      pieces
+      sheetPoints
+      badgeId
+      difficulty
     }
   }
 `;
@@ -96,65 +274,40 @@ export const ADD_STUDENT = gql`
   }
 `;
 
-export const TEACHER_LOGIN = gql`
-  mutation teacherLogin($email: String!, $password: String!) {
-    teacherLogin(email: $email, password: $password) {
+export const ADD_TEACHER = gql`
+  mutation addTeacher(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $confirmPassword: String!
+    $avatarId: Int
+    $aboutInfo: String
+    $phoneNumber: String
+    $username: String
+  ) {
+    addTeacher(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+      confirmPassword: $confirmPassword
+      avatarId: $avatarId
+      aboutInfo: $aboutInfo
+      phoneNumber: $phoneNumber
+      username: $username
+    ) {
       token
       teacher {
         _id
+        firstName
+        lastName
         email
+        avatarId
+        aboutInfo
+        phoneNumber
+        username
       }
-    }
-  }
-`;
-
-export const STUDENT_LOGIN = gql`
-  mutation studentLogin($email: String!, $password: String!) {
-    studentLogin(email: $email, password: $password) {
-      token
-      student {
-        _id
-        email
-      }
-    }
-  }
-`;
-
-export const ADD_ASSIGNMENT = gql`
-  mutation addAssignment(
-    $exerciseName: String!
-    $studentId: String
-    $planId: String
-    $source: String
-    $assignmentType: String
-    $specialNotes: String
-    $metronome: String
-    $pointsWorth: Int
-    $completed: Boolean
-    $pages: String
-  ) {
-    addAssignment(
-      exerciseName: $exerciseName
-      studentId: $studentId
-      planId: $planId
-      source: $source
-      assignmentType: $assignmentType
-      specialNotes: $specialNotes
-      metronome: $metronome
-      pointsWorth: $pointsWorth
-      completed: $completed
-      pages: $pages
-    ) {
-      exerciseName
-      studentId
-      planId
-      source
-      assignmentType
-      specialNotes
-      metronome
-      pointsWorth
-      completed
-      pages
     }
   }
 `;
@@ -184,190 +337,143 @@ export const COMPLETE_SKILLSHEET = gql`
   }
 `;
 
-export const REMOVE_COMPLETED_SKILLSHEET = gql`
-  mutation removeCompletedSkillSheet($studentId: ID, $skillSheetId: ID) {
-    removeCompletedSkillSheet(
-      skillSheetId: $skillSheetId
-      studentId: $studentId
-    ) {
+export const DELETE_TEACHER = gql`
+  mutation deleteTeacher($teacherId: ID!) {
+    deleteTeacher(teacherId: $teacherId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
+
+export const DELETE_STUDENT = gql`
+  mutation deleteStudent($studentId: ID!) {
+    deleteStudent(studentId: $studentId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
+
+export const DELETE_PRACTICE_PLAN = gql`
+  mutation deletePracticePlan($planId: ID!) {
+    deletePracticePlan(planId: $planId) {
       _id
     }
   }
 `;
 
-export const ADD_SKILLSHEET = gql`
-  mutation addSkillSheet(
-    $sheetName: String!
-    $teacherId: String
-    $description: String
-    $url: String
-    $scales: String
-    $exercises: String
-    $etudes: String
-    $pieces: String
-    $sheetPoints: Int
-    $badgeId: Int
-    $difficulty: String
-  ) {
-    addSkillSheet(
-      sheetName: $sheetName
-      teacherId: $teacherId
-      description: $description
-      url: $url
-      scales: $scales
-      exercises: $exercises
-      etudes: $etudes
-      pieces: $pieces
-      sheetPoints: $sheetPoints
-      badgeId: $badgeId
-      difficulty: $difficulty
-    ) {
-      sheetName
-      teacherId
-      description
-      url
-      scales
-      exercises
-      etudes
-      pieces
-      sheetPoints
-      badgeId
-      difficulty
+export const DELETE_ASSIGNMENT = gql`
+  mutation deleteAssignment($assignmentId: ID!) {
+    deleteAssignment(assignmentId: $assignmentId) {
+      _id
     }
   }
 `;
 
-export const ADD_PRACTICEPLAN = gql`
-  mutation addPracticePlan(
-    $name: String!
-    $dateCreated: Date
-    $studentId: String
+export const DELETE_SKILLSHEET = gql`
+  mutation deleteSkillSheet($skillSheetId: ID!) {
+    deleteSkillSheet(skillSheetId: $skillSheetId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_RESOURCE = gql`
+  mutation deleteResource($resourceId: ID!) {
+    deleteResource(resourceId: $resourceId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_COMMENT = gql`
+  mutation deleteComment($commentId: ID!) {
+    deleteComment(commentId: $commentId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_POST = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_PIECE = gql`
+  mutation deletePiece($pieceId: ID!) {
+    deletePiece(pieceId: $pieceId) {
+      _id
+    }
+  }
+`;
+
+export const EDIT_ASSIGNMENT = gql`
+  mutation editAssignment(
+    $assignmentId: ID!
+    $exerciseName: String
+    $source: String
+    $assignmentType: String
+    $specialNotes: String
+    $metronome: String
+    $pages: String
+    $pointsWorth: Int
+    $completed: Boolean
+  ) {
+    editAssignment(
+      assignmentId: $assignmentId
+      exerciseName: $exerciseName
+      source: $source
+      assignmentType: $assignmentType
+      specialNotes: $specialNotes
+      metronome: $metronome
+      pages: $pages
+      pointsWorth: $pointsWorth
+      completed: $completed
+    ) {
+      exerciseName
+      studentId
+      planId
+      source
+      assignmentType
+      specialNotes
+      metronome
+      pages
+      pointsWorth
+      completed
+    }
+  }
+`;
+
+export const EDIT_PRACTICE_PLAN = gql`
+  mutation editPracticePlan(
+    $planId: ID!
+    $name: String
     $planNotes: String
+    $resourceId: ID
   ) {
-    addPracticePlan(
+    editPracticePlan(
+      planId: $planId
       name: $name
-      dateCreated: $dateCreated
-      studentId: $studentId
       planNotes: $planNotes
+      resourceId: $resourceId
     ) {
-      _id
       name
+      planNotes
       dateCreated
       studentId
-      planNotes
-    }
-  }
-`;
-
-export const ADD_RESOURCE = gql`
-  mutation addResource(
-    $teacherId: String
-    $practicePlanId: String
-    $resourceName: String
-    $url: String
-    $description: String
-    $resourceType: String
-  ) {
-    addResource(
-      teacherId: $teacherId
-      practicePlanId: $practicePlanId
-      resourceName: $resourceName
-      url: $url
-      description: $description
-      resourceType: $resourceType
-    ) {
-      _id
-      teacherId
-      practicePlanId
-      resourceName
-      url
-      description
-      resourceType
-    }
-  }
-`;
-
-export const ADD_POST = gql`
-  mutation addPost(
-    $studioId: String!
-    $title: String!
-    $message: String!
-    $url: String
-    $createdAt: Date!
-    $authorId: ID!
-    $isTeacher: Boolean!
-  ) {
-    addPost(
-      studioId: $studioId
-      title: $title
-      message: $message
-      url: $url
-      createdAt: $createdAt
-      authorId: $authorId
-      isTeacher: $isTeacher
-    ) {
-      _id
-      studioId
-      title
-      message
-      url
-      createdAt
-      authorId {
+      resources {
         _id
-        firstName
-        lastName
+        resourceName
+        resourceType
+        url
+        description
       }
-      isTeacher
-    }
-  }
-`;
-
-export const ADD_COMMENT = gql`
-  mutation addComment(
-    $authorId: String!
-    $message: String!
-    $createdAt: Date!
-    $isTeacher: Boolean!
-    $postId: String!
-  ) {
-    addComment(
-      authorId: $authorId
-      message: $message
-      createdAt: $createdAt
-      isTeacher: $isTeacher
-      postId: $postId
-    ) {
-      authorId
-      message
-      createdAt
-      isTeacher
-      postId
-    }
-  }
-`;
-
-export const ADD_PIECE = gql`
-  mutation addPiece(
-    $teacherId: ID!
-    $pieceName: String!
-    $composer: String!
-    $description: String!
-    $pieceType: String
-    $difficulty: String
-  ) {
-    addPiece(
-      teacherId: $teacherId
-      pieceName: $pieceName
-      composer: $composer
-      description: $description
-      pieceType: $pieceType
-      difficulty: $difficulty
-    ) {
-      pieceName
-      composer
-      description
-      pieceType
-      difficulty
     }
   }
 `;
@@ -467,30 +573,13 @@ export const EDIT_TEACHER = gql`
   }
 `;
 
-export const EDIT_PRACTICE_PLAN = gql`
-  mutation editPracticePlan(
-    $planId: ID!
-    $name: String
-    $planNotes: String
-    $resourceId: ID
-  ) {
-    editPracticePlan(
-      planId: $planId
-      name: $name
-      planNotes: $planNotes
-      resourceId: $resourceId
+export const REMOVE_COMPLETED_SKILLSHEET = gql`
+  mutation removeCompletedSkillSheet($studentId: ID, $skillSheetId: ID) {
+    removeCompletedSkillSheet(
+      skillSheetId: $skillSheetId
+      studentId: $studentId
     ) {
-      name
-      planNotes
-      dateCreated
-      studentId
-      resources {
-        _id
-        resourceName
-        resourceType
-        url
-        description
-      }
+      _id
     }
   }
 `;
@@ -503,115 +592,26 @@ export const REMOVE_RESOURCE_FROM_PRACTICE_PLAN = gql`
   }
 `;
 
-export const EDIT_ASSIGNMENT = gql`
-  mutation editAssignment(
-    $assignmentId: ID!
-    $exerciseName: String
-    $source: String
-    $assignmentType: String
-    $specialNotes: String
-    $metronome: String
-    $pages: String
-    $pointsWorth: Int
-    $completed: Boolean
-  ) {
-    editAssignment(
-      assignmentId: $assignmentId
-      exerciseName: $exerciseName
-      source: $source
-      assignmentType: $assignmentType
-      specialNotes: $specialNotes
-      metronome: $metronome
-      pages: $pages
-      pointsWorth: $pointsWorth
-      completed: $completed
-    ) {
-      exerciseName
-      studentId
-      planId
-      source
-      assignmentType
-      specialNotes
-      metronome
-      pages
-      pointsWorth
-      completed
+export const STUDENT_LOGIN = gql`
+  mutation studentLogin($email: String!, $password: String!) {
+    studentLogin(email: $email, password: $password) {
+      token
+      student {
+        _id
+        email
+      }
     }
   }
 `;
 
-export const DELETE_TEACHER = gql`
-  mutation deleteTeacher($teacherId: ID!) {
-    deleteTeacher(teacherId: $teacherId) {
-      _id
-      firstName
-      lastName
-    }
-  }
-`;
-
-export const DELETE_STUDENT = gql`
-  mutation deleteStudent($studentId: ID!) {
-    deleteStudent(studentId: $studentId) {
-      _id
-      firstName
-      lastName
-    }
-  }
-`;
-
-export const DELETE_PRACTICE_PLAN = gql`
-  mutation deletePracticePlan($planId: ID!) {
-    deletePracticePlan(planId: $planId) {
-      _id
-    }
-  }
-`;
-
-export const DELETE_ASSIGNMENT = gql`
-  mutation deleteAssignment($assignmentId: ID!) {
-    deleteAssignment(assignmentId: $assignmentId) {
-      _id
-    }
-  }
-`;
-
-export const DELETE_SKILLSHEET = gql`
-  mutation deleteSkillSheet($skillSheetId: ID!) {
-    deleteSkillSheet(skillSheetId: $skillSheetId) {
-      _id
-    }
-  }
-`;
-
-export const DELETE_RESOURCE = gql`
-  mutation deleteResource($resourceId: ID!) {
-    deleteResource(resourceId: $resourceId) {
-      _id
-    }
-  }
-`;
-
-export const DELETE_COMMENT = gql`
-  mutation deleteComment($commentId: ID!) {
-    deleteComment(commentId: $commentId) {
-      _id
-    }
-  }
-`;
-
-export const DELETE_POST = gql`
-  mutation deletePost($postId: ID!) {
-    deletePost(postId: $postId) {
-      _id
-    }
-  }
-`;
-
-export const DELETE_PIECE = gql`
-  mutation deletePiece($pieceId: ID!) {
-    deletePiece(pieceId: $pieceId) {
-      _id
+export const TEACHER_LOGIN = gql`
+  mutation teacherLogin($email: String!, $password: String!) {
+    teacherLogin(email: $email, password: $password) {
+      token
+      teacher {
+        _id
+        email
+      }
     }
   }
 `;

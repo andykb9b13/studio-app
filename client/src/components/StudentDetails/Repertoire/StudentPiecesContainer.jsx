@@ -4,19 +4,20 @@ import { styles } from "../../../styles/studentDetailsStyles";
 import { useStudentContext, useTeacherContext } from "../../../utils/Context";
 import AddIcon from "@mui/icons-material/Add";
 import RegularModal from "../../common/Modal/RegularModal";
-import CreatePiece from "../../TeacherDashboard/Resources/Repertoire/CreatePiece";
 import { useMutation } from "@apollo/client";
 import { ADD_PIECE } from "../../../utils/mutations";
 import { MobileContext } from "../../../App";
+import SelectPieceContainer from "./SelectPieceContainer";
 
-const RepertoireContainer = () => {
+const StudentPiecesContainer = () => {
   const { student } = useStudentContext();
-  const { teacher } = useTeacherContext()
+  const { teacher } = useTeacherContext();
   const { isMobile } = useContext(MobileContext);
   const [open, setOpen] = useState(false);
   const [createPiece] = useMutation(ADD_PIECE);
 
-  const createPieceFunc = async (userInput) => {
+  // Todo this needs to change to be edit student so the piece is added to their schema
+  const addPieceFunc = async (userInput) => {
     try {
       const piece = await createPiece({
         variables: {
@@ -86,10 +87,10 @@ const RepertoireContainer = () => {
         </tbody>
       </Table>
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <CreatePiece createPieceFunc={createPieceFunc} />
+        <SelectPieceContainer addPieceFunc={addPieceFunc} />
       </RegularModal>
     </Sheet>
   );
 };
 
-export default RepertoireContainer;
+export default StudentPiecesContainer;
