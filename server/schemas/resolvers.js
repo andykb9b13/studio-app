@@ -1,16 +1,16 @@
 const {
-  Student,
-  Teacher,
   Assignment,
+  Comment,
   Goal,
-  SkillSheet,
-  Streak,
+  Like,
+  Piece,
+  Post,
   PracticePlan,
   Resource,
-  Like,
-  Post,
-  Comment,
-  Piece,
+  SkillSheet,
+  Streak,
+  Student,
+  Teacher,
 } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
