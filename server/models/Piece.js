@@ -13,16 +13,15 @@ const pieceSchema = new Schema({
     type: String,
     required: true,
   },
-  dateCompleted: {
-    type: Date,
-    required: true,
-  },
   pieceType: {
     type: String,
   },
   difficulty: {
     type: String,
   },
+  url: {
+    type: String,
+  }
 });
 
 const Piece = model("Piece", pieceSchema);

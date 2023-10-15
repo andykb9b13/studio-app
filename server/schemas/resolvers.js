@@ -98,6 +98,7 @@ const resolvers = {
         .populate("students")
         .populate("skillSheets")
         .populate("resources")
+        .populate("pieces")
         .populate({
           path: "posts",
           populate: [
@@ -532,12 +533,12 @@ const resolvers = {
       }
     },
 
-    addPiece: async (parent, { studentId, ...args }) => {
+    addPiece: async (parent, { teacherId, ...args }) => {
       try {
         const piece = await Piece.create({ ...args });
 
-        const student = await Student.findByIdAndUpdate(
-          studentId,
+        await Teacher.findByIdAndUpdate(
+          teacherId,
           { $addToSet: { pieces: piece._id } },
           { new: true }
         );

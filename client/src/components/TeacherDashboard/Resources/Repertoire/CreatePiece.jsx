@@ -1,9 +1,21 @@
 import React from "react";
 import { Card, Typography, Input, Textarea, Button } from "@mui/joy";
 import { useForm } from "react-hook-form";
+import UploadWidget from "../../../../utils/UploadWidget";
 
-const CreatePiece = ({ createPieceFunc }) => {
+const CreatePiece = ({ createPieceFunc, setPieceUrl, pieceUrl }) => {
   const { handleSubmit, register } = useForm();
+
+  function handleOnUpload(error, result, widget) {
+    if (error) {
+      widget.close({
+        quiet: true,
+      });
+      return;
+    }
+    console.log(result?.info?.secure_url);
+    setPieceUrl(result?.info?.secure_url);
+  }
 
   const onSubmit = async (userInput) => {
     try {
@@ -27,6 +39,17 @@ const CreatePiece = ({ createPieceFunc }) => {
         <Input type="text" {...register("pieceType")} />
         <Typography>Difficulty</Typography>
         <Input type="text" {...register("difficulty")} />
+        <Typography>File Link</Typography>
+        <Input type="text" value={pieceUrl} {...register("url")} />
+        <UploadWidget onUpload={handleOnUpload}>
+          {({ open }) => {
+            function handleOnClick(e) {
+              e.preventDefault();
+              open();
+            }
+            return <Button onClick={handleOnClick}>Upload a File</Button>;
+          }}
+        </UploadWidget>
         <Button type="submit">Save</Button>
       </form>
     </Card>

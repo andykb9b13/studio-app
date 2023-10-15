@@ -1,29 +1,26 @@
 import React, { useState, useContext } from "react";
 import { Sheet, Typography, Table, IconButton } from "@mui/joy";
 import { styles } from "../../../styles/studentDetailsStyles";
-import { useStudentContext } from "../../../utils/Context";
+import { useStudentContext, useTeacherContext } from "../../../utils/Context";
 import AddIcon from "@mui/icons-material/Add";
 import RegularModal from "../../common/Modal/RegularModal";
-import CreatePiece from "./CreatePiece";
+import CreatePiece from "../../TeacherDashboard/Resources/Repertoire/CreatePiece";
 import { useMutation } from "@apollo/client";
 import { ADD_PIECE } from "../../../utils/mutations";
 import { MobileContext } from "../../../App";
 
 const RepertoireContainer = () => {
   const { student } = useStudentContext();
+  const { teacher } = useTeacherContext()
   const { isMobile } = useContext(MobileContext);
   const [open, setOpen] = useState(false);
-  const [createPiece, { error }] = useMutation(ADD_PIECE);
-
-  console.log(student._id);
+  const [createPiece] = useMutation(ADD_PIECE);
 
   const createPieceFunc = async (userInput) => {
-    console.log(student._id);
     try {
       const piece = await createPiece({
         variables: {
-          studentId: student._id,
-          dateCompleted: new Date(),
+          teacherId: teacher._id,
           pieceName: userInput.pieceName,
           composer: userInput.composer,
           description: userInput.description,

@@ -51,6 +51,7 @@ const typeDefs = gql`
     comments: [Comment]
     likes: [Like]
     resourceTypes: [String]
+    pieces: [Piece]
   }
 
   type Assignment {
@@ -158,9 +159,9 @@ const typeDefs = gql`
     pieceName: String!
     composer: String!
     description: String!
-    dateCompleted: Date!
     pieceType: String
     difficulty: String
+    url: String
   }
 
   type TeacherAuth {
@@ -315,11 +316,10 @@ const typeDefs = gql`
     ): Comment
 
     addPiece(
-      studentId: ID!
+      teacherId: ID!
       pieceName: String!
       composer: String!
       description: String!
-      dateCompleted: Date!
       pieceType: String
       difficulty: String
     ): Piece

@@ -10,8 +10,6 @@ import StudentSkillSheetContainer from "./SkillSheets/StudentSkillSheetContainer
 import EditStudent from "./EditStudent";
 import PracticePlanContainer from "./PracticePlan/PracticePlanContainer";
 import Auth from "../../utils/auth";
-
-import { useQuery } from "@apollo/client";
 import { useStudentContext, useTeacherContext } from "../../utils/Context";
 import Clock from "../../utils/Clock";
 import RegularModal from "../common/Modal/RegularModal";
@@ -84,11 +82,6 @@ export default function StudentDetailsCard({ active, setActive }) {
               totalCompletedPoints={student.totalCompletedPoints}
             />
           </Grid>
-
-          {/* A graph showing days practiced and time practiced */}
-          {/* <Grid xs={12} md={6} my={1}>
-            <PracticeGraph />
-          </Grid>  */}
 
           {/* Showing all skill sheets completed */}
           <Grid xs={12} md={12} my={1}>

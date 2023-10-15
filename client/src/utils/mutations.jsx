@@ -348,27 +348,24 @@ export const ADD_COMMENT = gql`
 
 export const ADD_PIECE = gql`
   mutation addPiece(
-    $studentId: ID!
+    $teacherId: ID!
     $pieceName: String!
     $composer: String!
     $description: String!
-    $dateCompleted: Date!
     $pieceType: String
     $difficulty: String
   ) {
     addPiece(
-      studentId: $studentId
+      teacherId: $teacherId
       pieceName: $pieceName
       composer: $composer
       description: $description
-      dateCompleted: $dateCompleted
       pieceType: $pieceType
       difficulty: $difficulty
     ) {
       pieceName
       composer
       description
-      dateCompleted
       pieceType
       difficulty
     }

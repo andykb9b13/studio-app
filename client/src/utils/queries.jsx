@@ -13,6 +13,14 @@ export const QUERY_TEACHER = gql`
       phoneNumber
       username
       resourceTypes
+      pieces {
+        pieceName
+        composer
+        description
+        pieceType
+        difficulty
+        url
+      }
       posts {
         _id
         createdAt
@@ -116,7 +124,6 @@ export const QUERY_STUDENT = gql`
         pieceName
         composer
         description
-        dateCompleted
         pieceType
         difficulty
       }

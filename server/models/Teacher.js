@@ -59,6 +59,13 @@ const teacherSchema = new Schema({
       ref: "Resource",
     },
   ],
+  pieces: [
+    {
+    type: 
+      Schema.Types.ObjectId,
+      ref: "Piece"
+    }
+  ],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   likes: [{ type: Schema.Types.ObjectId, ref: "Like" }],
