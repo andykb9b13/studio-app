@@ -1,53 +1,87 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_TEACHER = gql`
-  query Teacher($teacherId: ID!) {
-    teacher(teacherId: $teacherId) {
-      _id
-      firstName
-      email
-      lastName
-      password
-      avatarId
-      aboutInfo
-      phoneNumber
-      username
-      resourceTypes
-      pieces {
-        pieceName
-        composer
-        description
-        pieceType
-        difficulty
-        url
-      }
-      posts {
+export const QUERY_AUTHOR = gql`
+  query Author($authorId: ID!, $isTeacher: Boolean!) {
+    author(authorId: $authorId, isTeacher: $isTeacher) {
+      ... on Teacher {
         _id
+        firstName
+        lastName
+      }
+      ... on Student {
+        _id
+        firstName
+        lastName
+        username
+        avatarId
+      }
+    }
+  }
+`;
+
+export const QUERY_POSTS = gql`
+  query Query($studioId: ID!) {
+    posts(studioId: $studioId) {
+      _id
+      createdAt
+      isTeacher
+      likes
+      message
+      studioId
+      title
+      url
+      authorId {
+        _id
+        email
+        firstName
+        lastName
+      }
+      comments {
+        authorId
+        _id
+        message
         createdAt
         isTeacher
-        likes
-        message
-        studioId
-        title
-        url
         comments {
-          _id
           authorId
+          _id
+          message
           createdAt
           isTeacher
-          likes
-          message
-          postId
         }
       }
+    }
+  }
+`;
+
+export const QUERY_PRACTICEPLANS = gql`
+  query practicePlans($studentId: ID!) {
+    practicePlans(studentId: $student) {
+      _id
+      name
+      dateCreated
+      planNotes
       resources {
         _id
-        teacherId
         practicePlanId
+        teacherId
         resourceName
         url
         description
         resourceType
+      }
+      assignments {
+        _id
+        exerciseName
+        source
+        assignmentType
+        specialNotes
+        metronome
+        pages
+      }
+      goals {
+        practiceTime
+        practiceDays
       }
       skillSheets {
         _id
@@ -63,35 +97,6 @@ export const QUERY_TEACHER = gql`
         badgeId
         difficulty
         completed
-      }
-      students {
-        _id
-        email
-        firstName
-        grade
-        instrument
-        isActive
-        lastName
-        lessonDay
-        lessonLocation
-        lessonTime
-        password
-        primaryContact
-        primaryContactEmail
-        school
-        teacherId
-        avatarId
-        username
-        totalSheetPoints
-        totalCompletedPoints
-        practicePlans {
-          assignments {
-            pointsWorth
-          }
-        }
-        skillSheets {
-          sheetPoints
-        }
       }
     }
   }
@@ -191,34 +196,67 @@ export const QUERY_STUDENT = gql`
   }
 `;
 
-export const QUERY_PRACTICEPLANS = gql`
-  query practicePlans($studentId: ID!) {
-    practicePlans(studentId: $student) {
+export const QUERY_STUDENTS = gql`
+  query students($teacherId: ID!) {
+    students(teacherId: $teacherId) {
       _id
-      name
-      dateCreated
-      planNotes
+      avatarId
+      username
+      totalSheetPoints
+      totalPlanPoints
+      totalCompletedPoints
+    }
+  }
+`;
+
+export const QUERY_TEACHER = gql`
+  query Teacher($teacherId: ID!) {
+    teacher(teacherId: $teacherId) {
+      _id
+      firstName
+      email
+      lastName
+      password
+      avatarId
+      aboutInfo
+      phoneNumber
+      username
+      resourceTypes
+      pieces {
+        pieceName
+        composer
+        description
+        pieceType
+        difficulty
+        url
+      }
+      posts {
+        _id
+        createdAt
+        isTeacher
+        likes
+        message
+        studioId
+        title
+        url
+        comments {
+          _id
+          authorId
+          createdAt
+          isTeacher
+          likes
+          message
+          postId
+        }
+      }
       resources {
         _id
-        practicePlanId
         teacherId
+        practicePlanId
         resourceName
         url
         description
         resourceType
-      }
-      assignments {
-        _id
-        exerciseName
-        source
-        assignmentType
-        specialNotes
-        metronome
-        pages
-      }
-      goals {
-        practiceTime
-        practiceDays
       }
       skillSheets {
         _id
@@ -235,72 +273,34 @@ export const QUERY_PRACTICEPLANS = gql`
         difficulty
         completed
       }
-    }
-  }
-`;
-
-export const QUERY_STUDENTS = gql`
-  query students($teacherId: ID!) {
-    students(teacherId: $teacherId) {
-      _id
-      avatarId
-      username
-      totalSheetPoints
-      totalPlanPoints
-      totalCompletedPoints
-    }
-  }
-`;
-
-export const QUERY_POSTS = gql`
-  query Query($studioId: ID!) {
-    posts(studioId: $studioId) {
-      _id
-      createdAt
-      isTeacher
-      likes
-      message
-      studioId
-      title
-      url
-      authorId {
+      students {
         _id
         email
         firstName
+        grade
+        instrument
+        isActive
         lastName
-      }
-      comments {
-        authorId
-        _id
-        message
-        createdAt
-        isTeacher
-        comments {
-          authorId
-          _id
-          message
-          createdAt
-          isTeacher
-        }
-      }
-    }
-  }
-`;
-
-export const QUERY_AUTHOR = gql`
-  query Author($authorId: ID!, $isTeacher: Boolean!) {
-    author(authorId: $authorId, isTeacher: $isTeacher) {
-      ... on Teacher {
-        _id
-        firstName
-        lastName
-      }
-      ... on Student {
-        _id
-        firstName
-        lastName
-        username
+        lessonDay
+        lessonLocation
+        lessonTime
+        password
+        primaryContact
+        primaryContactEmail
+        school
+        teacherId
         avatarId
+        username
+        totalSheetPoints
+        totalCompletedPoints
+        practicePlans {
+          assignments {
+            pointsWorth
+          }
+        }
+        skillSheets {
+          sheetPoints
+        }
       }
     }
   }
