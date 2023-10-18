@@ -331,8 +331,8 @@ export const COMPLETE_ASSIGNMENT = gql`
 `;
 
 export const COMPLETE_PIECE = gql`
-  mutation completePiece($studentId: ID, $pieceID: ID) {
-    completePiece(studentId: $studentId, pieceID: $pieceID) {
+  mutation completePiece($studentId: ID, $pieceId: ID) {
+    completePiece(studentId: $studentId, pieceId: $pieceId) {
       _id
     }
   }
@@ -506,6 +506,7 @@ export const EDIT_STUDENT = gql`
     $teacherId: String
     $avatarId: Int
     $isActive: Boolean
+    $pieceId: ID
   ) {
     editStudent(
       studentId: $studentId
@@ -525,6 +526,7 @@ export const EDIT_STUDENT = gql`
       teacherId: $teacherId
       avatarId: $avatarId
       isActive: $isActive
+      pieceId: $pieceId
     ) {
       _id
       email

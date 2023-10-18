@@ -318,6 +318,8 @@ const typeDefs = gql`
 
     completeAssignment(assignmentId: ID, completed: Boolean): Assignment
 
+    completePiece(studentId: ID, pieceId: ID): Student
+
     completeSkillSheet(studentId: ID, skillSheetId: ID): Student
 
     deleteAssignment(assignmentId: ID!): Assignment!
@@ -408,6 +410,7 @@ const typeDefs = gql`
       avatarId: Int
       isActive: Boolean
       teacherId: String
+      pieceId: ID
     ): Student!
 
     editTeacher(

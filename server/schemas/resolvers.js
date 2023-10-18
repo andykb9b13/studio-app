@@ -474,6 +474,15 @@ const resolvers = {
       return assignment;
     },
 
+    completePiece: async (parent, { pieceId, studentId }) => {
+      const updatedStudent = await Student.findByIdAndUpdate(
+        studentId,
+        { $addToSet: { pieces: pieceId } },
+        { new: true }
+      );
+      return updatedStudent;
+    },
+
     completeSkillSheet: async (parent, { skillSheetId, studentId }) => {
       console.log("In complete SkillSheet");
 
@@ -483,66 +492,6 @@ const resolvers = {
         { new: true }
       );
       return updatedStudent;
-    },
-
-    removeCompletedSkillSheet: async (parent, { skillSheetId, studentId }) => {
-      const updatedStudent = await Student.findByIdAndUpdate(studentId, {
-        $pull: { skillSheets: skillSheetId },
-      });
-      return updatedStudent;
-    },
-
-    studentLogin: async (parent, { email, password }) => {
-      const student = await Student.findOne({ email });
-
-      if (!email) {
-        throw new Error("Please enter your email");
-      }
-      if (!password) {
-        throw new Error("Please enter your password");
-      }
-
-      const user = student;
-      if (!user) {
-        throw new Error("No user with that email");
-      }
-
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw new Error("Incorrect password!");
-      }
-
-      const token = signToken(user);
-
-      return { token, student: user };
-    },
-
-    teacherLogin: async (parent, { email, password }) => {
-      const teacher = await Teacher.findOne({ email });
-
-      if (!email) {
-        throw new Error("Please enter your email");
-      }
-      if (!password) {
-        throw new Error("Please enter your password");
-      }
-
-      const user = teacher;
-      if (!user) {
-        throw new Error("No user with that email");
-      }
-
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw new Error("Incorrect password!");
-      }
-
-      const token = signToken(user);
-      if (teacher) {
-        return { token, teacher: user };
-      }
     },
 
     deleteAssignment: async (parent, { assignmentId }) => {
@@ -817,7 +766,9 @@ const resolvers = {
     },
 
     editStudent: async (parent, { studentId, ...args }) => {
-      const student = await Student.findByIdAndUpdate(studentId);
+      const student = await Student.findByIdAndUpdate(studentId).populate(
+        "pieces"
+      );
 
       if (!student) {
         throw new Error("Student not found");
@@ -867,8 +818,13 @@ const resolvers = {
       if (args.isActive) {
         student.isActive = args.isActive;
       }
+      if (args.pieceId) {
+        student.pieces = [...student.pieces, args.pieceId];
+      }
+
       await student.save();
-      return student;
+      const editedStudent = student.populate("pieces");
+      return editedStudent;
     },
 
     editTeacher: async (
@@ -923,6 +879,13 @@ const resolvers = {
       return teacher;
     },
 
+    removeCompletedSkillSheet: async (parent, { skillSheetId, studentId }) => {
+      const updatedStudent = await Student.findByIdAndUpdate(studentId, {
+        $pull: { skillSheets: skillSheetId },
+      });
+      return updatedStudent;
+    },
+
     removeResourceFromPracticePlan: async (parent, { planId, resourceId }) => {
       try {
         const practicePlan = await PracticePlan.findByIdAndUpdate(planId, {
@@ -932,6 +895,59 @@ const resolvers = {
         return practicePlan;
       } catch (err) {
         console.error(err);
+      }
+    },
+
+    studentLogin: async (parent, { email, password }) => {
+      const student = await Student.findOne({ email });
+
+      if (!email) {
+        throw new Error("Please enter your email");
+      }
+      if (!password) {
+        throw new Error("Please enter your password");
+      }
+
+      const user = student;
+      if (!user) {
+        throw new Error("No user with that email");
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new Error("Incorrect password!");
+      }
+
+      const token = signToken(user);
+
+      return { token, student: user };
+    },
+
+    teacherLogin: async (parent, { email, password }) => {
+      const teacher = await Teacher.findOne({ email });
+
+      if (!email) {
+        throw new Error("Please enter your email");
+      }
+      if (!password) {
+        throw new Error("Please enter your password");
+      }
+
+      const user = teacher;
+      if (!user) {
+        throw new Error("No user with that email");
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new Error("Incorrect password!");
+      }
+
+      const token = signToken(user);
+      if (teacher) {
+        return { token, teacher: user };
       }
     },
   },

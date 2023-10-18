@@ -223,6 +223,7 @@ export const QUERY_TEACHER = gql`
       username
       resourceTypes
       pieces {
+        _id
         pieceName
         composer
         description
