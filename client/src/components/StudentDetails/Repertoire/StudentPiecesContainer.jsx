@@ -5,30 +5,34 @@ import { useStudentContext, useTeacherContext } from "../../../utils/Context";
 import AddIcon from "@mui/icons-material/Add";
 import RegularModal from "../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
-import { EDIT_STUDENT } from "../../../utils/mutations";
+import {
+  EDIT_STUDENT,
+  REMOVE_PIECE_FROM_STUDENT,
+} from "../../../utils/mutations";
 import { MobileContext } from "../../../App";
 import SelectPieceTable from "./SelectPieceTable";
-import { sortResources } from "../../../utils/utilities";
+import { Delete } from "@mui/icons-material";
 
-const StudentPiecesContainer = () => {
-  const { student } = useStudentContext();
-  const { teacher } = useTeacherContext();
+const StudentPiecesContainer = ({ student, teacher, pieces }) => {
   const { isMobile } = useContext(MobileContext);
   const [open, setOpen] = useState(false);
   const [completePiece] = useMutation(EDIT_STUDENT);
+  const [removePiece] = useMutation(REMOVE_PIECE_FROM_STUDENT);
   const [sortedPieces, setSortedPieces] = useState([]);
   const [alreadySelected, setAlreadySelected] = useState([]);
+  const [studentPieces, setStudentPieces] = useState([]);
+
+  useEffect(() => {
+    setStudentPieces(student?.pieces);
+  }, [student, setStudentPieces]);
 
   useEffect(() => {
     const pieceArr = [];
     student?.pieces?.forEach((piece) => pieceArr.push(piece._id));
     setAlreadySelected(pieceArr);
-  }, [student, setAlreadySelected]);
-
-  console.log(student.pieces);
+  }, [student, setAlreadySelected, studentPieces]);
 
   const selectPieceFunc = async (pieceId) => {
-    console.log(pieceId);
     try {
       const updatedStudent = await completePiece({
         variables: {
@@ -37,10 +41,27 @@ const StudentPiecesContainer = () => {
         },
       });
       alert("Added piece to your repertoire");
-      console.log(updatedStudent);
+      setOpen(false);
       return updatedStudent;
     } catch (err) {
       alert("Could not add piece");
+      console.error(err);
+    }
+  };
+
+  const removePieceFunc = async (pieceId) => {
+    try {
+      const deletedPiece = await removePiece({
+        variables: {
+          studentId: student._id,
+          pieceId: pieceId,
+        },
+      });
+      alert("Piece removed from repertoire");
+      setStudentPieces(studentPieces.filter((piece) => piece._id !== pieceId));
+      return deletedPiece;
+    } catch (err) {
+      alert("Could not remove piece");
       console.error(err);
     }
   };
@@ -77,11 +98,12 @@ const StudentPiecesContainer = () => {
             <th>Date Completed</th>
             <th>Type</th>
             <th>Difficulty</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {student?.pieces &&
-            student.pieces.map((piece) => (
+          {studentPieces &&
+            studentPieces.map((piece) => (
               <tr key={piece._id}>
                 <td>{piece.pieceName}</td>
                 <td>{piece.composer}</td>
@@ -89,6 +111,14 @@ const StudentPiecesContainer = () => {
                 <td>{piece.dateCompleted}</td>
                 <td>{piece.pieceType}</td>
                 <td>{piece.difficulty}</td>
+                <td>
+                  <IconButton
+                    color="danger"
+                    onClick={() => removePieceFunc(piece._id)}
+                  >
+                    <Delete />
+                  </IconButton>
+                </td>
               </tr>
             ))}
         </tbody>

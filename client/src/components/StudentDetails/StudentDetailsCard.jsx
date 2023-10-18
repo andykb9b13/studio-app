@@ -90,7 +90,11 @@ export default function StudentDetailsCard({ active, setActive }) {
 
           {/* Completed Pieces and Etudes */}
           <Grid xs={12} md={12} my={1}>
-            <StudentPiecesContainer />
+            <StudentPiecesContainer
+              student={student}
+              teacher={teacher}
+              pieces={student.pieces}
+            />
           </Grid>
 
           {/* Student Practice Plans */}

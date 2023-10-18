@@ -886,6 +886,13 @@ const resolvers = {
       return updatedStudent;
     },
 
+    removePieceFromStudent: async (parent, { pieceId, studentId }) => {
+      const updatedStudent = await Student.findByIdAndUpdate(studentId, {
+        $pull: { pieces: pieceId },
+      });
+      return updatedStudent;
+    },
+
     removeResourceFromPracticePlan: async (parent, { planId, resourceId }) => {
       try {
         const practicePlan = await PracticePlan.findByIdAndUpdate(planId, {

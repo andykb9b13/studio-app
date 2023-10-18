@@ -427,6 +427,8 @@ const typeDefs = gql`
 
     removeCompletedSkillSheet(studentId: ID, skillSheetId: ID): Student
 
+    removePieceFromStudent(studentId: ID, pieceId: ID): Student
+
     removeResourceFromPracticePlan(planId: ID!, resourceId: ID!): PracticePlan!
 
     studentLogin(email: String!, password: String!): StudentAuth

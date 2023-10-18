@@ -545,6 +545,15 @@ export const EDIT_STUDENT = gql`
       teacherId
       username
       avatarId
+      pieces {
+        _id
+        pieceName
+        composer
+        description
+        pieceType
+        difficulty
+        url
+      }
     }
   }
 `;
@@ -590,6 +599,14 @@ export const REMOVE_COMPLETED_SKILLSHEET = gql`
       skillSheetId: $skillSheetId
       studentId: $studentId
     ) {
+      _id
+    }
+  }
+`;
+
+export const REMOVE_PIECE_FROM_STUDENT = gql`
+  mutation removePieceFromStudent($studentId: ID, $pieceId: ID) {
+    removePieceFromStudent(studentId: $studentId, pieceId: $pieceId) {
       _id
     }
   }
