@@ -27,30 +27,6 @@ const StudentPiecesContainer = () => {
 
   console.log(student.pieces);
 
-  // const sortPieces = (pieces) => {
-  //   console.log(pieces);
-  //   const pieceNameArr = [];
-  //   const sortedPieceArr = [];
-  //   pieces?.forEach((piece) => pieceNameArr.push(piece.pieceName));
-  //   // console.log(pieceNameArr);
-  //   pieceNameArr?.sort();
-
-  //   for (let i = 0; i < pieces.length; i++) {
-  //     for (let j = 0; j < pieces.length; j++) {
-  //       if (pieces[j].resourceName === pieceNameArr[i]) {
-  //         sortedPieceArr.push(pieces[j]);
-  //       }
-  //     }
-  //   }
-  //   console.log(sortedPieceArr);
-  //   return sortedPieceArr;
-  // };
-
-  // useEffect(() => {
-  //   const sortedPieces = sortPieces(teacher?.pieces);
-  //   setSortedPieces(sortedPieces);
-  // }, [teacher]);
-
   const selectPieceFunc = async (pieceId) => {
     console.log(pieceId);
     try {
@@ -122,7 +98,10 @@ const StudentPiecesContainer = () => {
           selectPieceFunc={selectPieceFunc}
           alreadySelected={alreadySelected}
           sortedPieces={sortedPieces}
+          setSortedPieces={setSortedPieces}
+          setAlreadySelected={setAlreadySelected}
           pieces={teacher?.pieces}
+          teacher={teacher}
         />
       </RegularModal>
     </Sheet>

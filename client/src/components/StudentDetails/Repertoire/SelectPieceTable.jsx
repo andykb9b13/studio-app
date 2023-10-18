@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Typography, Table, IconButton } from "@mui/joy";
 import CheckIcon from "@mui/icons-material/Check";
 
 const SelectPieceTable = ({
   selectPieceFunc,
   sortedPieces,
+  setSortedPieces,
+  teacher,
+  setAlreadySelected,
   alreadySelected,
   pieces,
 }) => {
-  console.log(pieces);
+  const sortPieces = (pieces) => {
+    console.log(pieces);
+    const pieceNameArr = [];
+    const sortedPieceArr = [];
+    pieces?.forEach((piece) => pieceNameArr.push(piece.pieceName));
+    console.log(pieceNameArr);
+    pieceNameArr.sort();
+    console.log(pieceNameArr);
+    for (let i = 0; i < pieces.length; i++) {
+      for (let j = 0; j < pieces.length; j++) {
+        if (pieces[j].pieceName === pieceNameArr[i]) {
+          sortedPieceArr.push(pieces[j]);
+        }
+      }
+    }
+    console.log(sortedPieceArr);
+    return sortedPieceArr;
+  };
+
+  useEffect(() => {
+    setSortedPieces(sortPieces(pieces));
+  }, [pieces, setSortedPieces]);
 
   return (
     <Card sx={{ width: "80vw", overflow: "auto", resize: "horizontal" }}>
@@ -28,9 +52,9 @@ const SelectPieceTable = ({
           </tr>
         </thead>
         <tbody>
-          {pieces &&
-            pieces?.map((piece, i) => (
-              <tr>
+          {sortedPieces &&
+            sortedPieces?.map((piece, i) => (
+              <tr key={piece._id}>
                 <td>{i + 1}</td>
                 <td>{piece.pieceName}</td>
                 <td>{piece.composer}</td>
