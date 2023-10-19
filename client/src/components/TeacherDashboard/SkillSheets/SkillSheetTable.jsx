@@ -8,6 +8,7 @@ import { badgeList } from "../../common/Assets";
 import { MobileContext } from "../../../App";
 import CountUp from "react-countup";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
+import { sortSheets } from "../../../utils/utilities";
 
 const SkillSheetTable = ({
   setActiveSheet,
@@ -17,6 +18,9 @@ const SkillSheetTable = ({
   deleteSkillSheetFunc,
 }) => {
   const { isMobile } = useContext(MobileContext);
+
+  const sortedSheets = sortSheets(skillSheets);
+
   return (
     <Sheet>
       <Table>
@@ -33,7 +37,7 @@ const SkillSheetTable = ({
           </tr>
         </thead>
         <tbody>
-          {skillSheets?.map((skillSheet) => (
+          {sortedSheets?.map((skillSheet) => (
             <tr key={skillSheet._id}>
               <td
                 onClick={() => {

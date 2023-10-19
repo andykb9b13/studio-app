@@ -36,3 +36,34 @@ export const sortResources = (resources) => {
   }
   return sortedResourceArr;
 };
+
+export const sortSheets = (sheets) => {
+  const sheetNameArr = [];
+  const beginnerArr = [];
+  const easyArr = [];
+  const mediumArr = [];
+  const advancedArr = [];
+  const expertArr = [];
+  sheets.forEach((sheet) => sheetNameArr.push(sheet.sheetName));
+  sheets.forEach((sheet) => {
+    if (sheet.difficulty.toLowerCase() === "beginner") beginnerArr.push(sheet);
+    if (sheet.difficulty.toLowerCase() === "easy") easyArr.push(sheet);
+    if (sheet.difficulty.toLowerCase() === "medium") mediumArr.push(sheet);
+    if (sheet.difficulty.toLowerCase() === "advanced") advancedArr.push(sheet);
+    if (sheet.difficulty.toLowerCase() === "expert") expertArr.push(sheet);
+  });
+
+  beginnerArr.sort();
+  easyArr.sort();
+  mediumArr.sort();
+  advancedArr.sort();
+  expertArr.sort();
+
+  const sortedSheetArr = beginnerArr.concat(
+    easyArr,
+    mediumArr,
+    advancedArr,
+    expertArr
+  );
+  return sortedSheetArr;
+};
