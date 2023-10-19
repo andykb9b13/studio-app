@@ -131,7 +131,10 @@ const Post = ({ post, deletePostFunc }) => {
           By: {post.authorId.firstName} {post.authorId.lastName}
         </Typography>
 
-        <div dangerouslySetInnerHTML={{ __html: cleanMessage }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: cleanMessage }}
+          style={{ fontSize: "1.2em" }}
+        />
 
         <CreateComment
           onRequestClose={() => setOpen(false)}
