@@ -64,7 +64,7 @@ export default function StudentDetailsCard({ active, setActive }) {
         <Box sx={{ textAlign: "center " }}>
           <Clock />
           <Typography level="h4">
-            You're Lesson is on <b>{student.lessonDay}</b> at{" "}
+            Your Lesson is on <b>{student.lessonDay}</b> at{" "}
             <b>{student.lessonTime}</b>
           </Typography>
         </Box>
