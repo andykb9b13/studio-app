@@ -9,7 +9,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CssBaseline from "@mui/joy/CssBaseline";
 import AppRoutes from "./Routes";
-import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import {
   experimental_extendTheme as materialExtendTheme,
