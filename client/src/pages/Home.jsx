@@ -11,7 +11,7 @@ import mountainBkgd2 from "../assets/mountainBkgd2.png";
 
 const Home = () => {
   return (
-    <Sheet id="mainHomePage" sx={styles.sheet}>
+    <Sheet id="mainHomePageContainer" sx={styles.sheet}>
       <Card id="welcomeCardWrapper">
         <CardCover>
           <img src={mountainBkgd} loading="lazy" alt="mountains" />

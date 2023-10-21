@@ -40,17 +40,18 @@ const Login = () => {
 
   return (
     <Sheet
+      id="teacherLoginContainer"
       sx={{
         backgroundColor: "transparent",
         height: "100vh",
       }}
     >
-      <Card sx={styles.card}>
+      <Card id="teacherLoginCard" sx={styles.card}>
         <Typography level="h2">Teacher Login</Typography>
         {error && (
           <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
         )}
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form id="teacherLoginForm" onSubmit={handleSubmit(onSubmit)}>
           <Typography>Email</Typography>
           <Input {...register("email")} placeholder="Email" type="email" />
           <Typography>Password</Typography>
@@ -59,7 +60,12 @@ const Login = () => {
             placeholder="password"
             type="password"
           />
-          <Button type="submit" variant="soft" color="success">
+          <Button
+            id="teacherLoginSubmitBtn"
+            type="submit"
+            variant="soft"
+            color="success"
+          >
             Login
           </Button>
         </form>
