@@ -22,10 +22,12 @@ import { StudentProvider } from "./utils/Context";
 
 const materialTheme = materialExtendTheme();
 
+// Connecting application to GraphQL server
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
+// Authentication middleware to send the token with every request
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
@@ -38,18 +40,20 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+// instantiate the Apollo Client instance
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  link: authLink.concat(httpLink), // control how graphql requests are made and handled
+  cache: new InMemoryCache(), // cache results of queries so we don't have to make unnecessary requests to the server
 });
 
+// clear the cache on page load
 const clearApolloCache = () => {
   client.clearStore();
 };
 
 clearApolloCache();
 
-export const MobileContext = createContext();
+export const MobileContext = createContext(); // context for mobile display
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
