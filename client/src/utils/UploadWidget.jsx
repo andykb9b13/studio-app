@@ -1,3 +1,5 @@
+// This is the widget that allows users to upload images to Cloudinary.
+
 import { useEffect } from "react";
 const myCloudName = process.env.REACT_APP_CLOUD_NAME;
 const myUploadPreset = process.env.REACT_APP_UPLOAD_PRESET;

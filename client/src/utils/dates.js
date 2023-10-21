@@ -1,3 +1,5 @@
+// Utility functions for working with and manipulating dates
+
 class DateService {
   constructor(today) {
     this.today = today;
