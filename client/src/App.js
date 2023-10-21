@@ -19,6 +19,7 @@ import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import { TeacherProvider } from "./utils/Context";
 import { StudentProvider } from "./utils/Context";
 
+// Material UI theme
 const materialTheme = materialExtendTheme();
 
 // Connecting application to GraphQL server

@@ -8,16 +8,14 @@ class AuthService {
     return decode(this.getToken());
   }
 
-  // check if user's logged in
-  loggedIn() {
-    // Checks if there is a saved token and it's still valid
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(token); // handwaiving here
+  // Retrieves the user token from localStorage
+  getToken() {
+    return localStorage.getItem("id_token");
   }
 
-  teacherLoggedIn() {
-    const user = this.getUser();
-    return user === "teacher";
+  // Retrieves the user type from localStorage
+  getUser() {
+    return localStorage.getItem("user");
   }
 
   // check if token is expired
@@ -32,15 +30,44 @@ class AuthService {
     }
   }
 
-  getToken() {
-    // Retrieves the user token from localStorage
-    return localStorage.getItem("id_token");
+  // Check if user is logged in. This is for security.
+  loggedIn() {
+    const token = this.getToken(); // Checks if there is a saved token and it's still valid
+    return !!token && !this.isTokenExpired(token); // handwaiving here
   }
 
-  getUser() {
-    return localStorage.getItem("user");
+  // Logs user out and redirects to home page
+  logout() {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("user");
+    // this will reload the page and reset the state of the application
+    window.location.assign("/");
+    return true;
   }
 
+  // Saves user token to localStorage, sets "user" as "student" for teacherLoggedIn() method, and redirects to student page
+  studentLogin(data) {
+    let idToken;
+    let studentId;
+    // checks if data is coming from signup (addTeacher) or login
+
+    idToken = data.studentLogin.token;
+    studentId = data.studentLogin.student._id;
+
+    // Saves user token to localStorage
+    localStorage.setItem("id_token", idToken);
+    localStorage.setItem("user", "student");
+    window.location.assign(`/teacher/studentDetails/${studentId}`);
+  }
+
+  // Check if a teacher is logged in. This is only to determine conditional rendering in the appand does not provide any security
+  teacherLoggedIn() {
+    const user = this.getUser();
+    return user === "teacher";
+  }
+
+  // Saves user token to localStorage, sets "user" as "teacher" for teacherLoggedIn() method, and redirects to teacher page
   teacherLogin(data) {
     let idToken;
     let teacherId;
@@ -52,38 +79,15 @@ class AuthService {
       idToken = data.teacherLogin.token;
       teacherId = data.teacherLogin.teacher._id;
     }
-    console.log("This is the_id in Auth.teacherLogin", teacherId);
+
     // Saves user token to localStorage
     localStorage.setItem("id_token", idToken);
     localStorage.setItem("user", "teacher");
     window.location.assign(`/teacher/${teacherId}`);
   }
-
-  studentLogin(data) {
-    let idToken;
-    let studentId;
-    // checks if data is coming from signup (addTeacher) or login
-
-    idToken = data.studentLogin.token;
-    studentId = data.studentLogin.student._id;
-
-    console.log("This is the_id in Auth.studentLogin", studentId);
-    // Saves user token to localStorage
-    localStorage.setItem("id_token", idToken);
-    localStorage.setItem("user", "student");
-    window.location.assign(`/teacher/studentDetails/${studentId}`);
-  }
-
-  logout() {
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("user");
-    // this will reload the page and reset the state of the application
-    window.location.assign("/");
-    return true;
-  }
 }
 
+// instantiate the AuthService class
 const Auth = new AuthService();
 
 export default Auth;
