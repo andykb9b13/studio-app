@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography } from "@mui/joy";
 import { badgeList } from "../../common/Assets";
 
+// Component for selecting a badge
 const SelectBadge = ({ setBadgeId, setOpen }) => {
   return (
     <>

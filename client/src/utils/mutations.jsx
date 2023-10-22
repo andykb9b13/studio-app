@@ -282,10 +282,6 @@ export const ADD_TEACHER = gql`
     $email: String!
     $password: String!
     $confirmPassword: String!
-    $avatarId: Int
-    $aboutInfo: String
-    $phoneNumber: String
-    $username: String
   ) {
     addTeacher(
       firstName: $firstName
@@ -293,10 +289,6 @@ export const ADD_TEACHER = gql`
       email: $email
       password: $password
       confirmPassword: $confirmPassword
-      avatarId: $avatarId
-      aboutInfo: $aboutInfo
-      phoneNumber: $phoneNumber
-      username: $username
     ) {
       token
       teacher {
@@ -304,10 +296,6 @@ export const ADD_TEACHER = gql`
         firstName
         lastName
         email
-        avatarId
-        aboutInfo
-        phoneNumber
-        username
       }
     }
   }

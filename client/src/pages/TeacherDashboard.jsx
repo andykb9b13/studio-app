@@ -20,13 +20,11 @@ import StudentDatabaseTable from "../components/TeacherDashboard/StudentDatabase
 import StudentSearch from "../components/TeacherDashboard/StudentDatabase/StudentSearch";
 import SkillSheetContainer from "../components/TeacherDashboard/SkillSheets/SkillSheetContainer";
 import CreateStudent from "../components/StudentDetails/CreateStudent";
-import Calendar from "../components/TeacherDashboard/Calendar/Calendar";
 import RegularModal from "../components/common/Modal/RegularModal";
 import DeleteModalContent from "../components/common/Modal/DeleteModalContent";
 import StorageIcon from "@mui/icons-material/Storage";
 import PersonIcon from "@mui/icons-material/Person";
 import ChecklistIcon from "@mui/icons-material/Checklist";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import TeacherResourceContainer from "../components/TeacherDashboard/Resources/TeacherResourceContainer";
 import Leaderboard from "../components/StudentDetails/Leaderboard";
@@ -35,28 +33,27 @@ import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 import { useTeacherContext } from "../utils/Context";
 import TeacherProfile from "../components/TeacherDashboard/TeacherProfile/TeacherProfile";
 
-// export const TeacherContext = createContext();
-
+// Top level component for the teacher dashboard. This component is rendered when the user is logged in as a teacher.
 const TeacherDashboard = () => {
-  const { teacher, setTeacher } = useTeacherContext();
-  // getting the teacher info using the id from the URL parameters
-  const { id } = useParams();
+  const { teacher, setTeacher } = useTeacherContext(); // getting the teacher info from the context
+  const { id } = useParams(); // getting the teacher info using the id from the URL parameters
   const { data } = useQuery(QUERY_TEACHER, {
     variables: {
       teacherId: id,
     },
   });
 
+  // Setting the teacher info to be displayed initially
   useEffect(() => {
     setTeacher(data?.teacher || {});
   }, [setTeacher, data]);
 
   const { isMobile } = useContext(MobileContext); // checking if the screen size is mobile
-  const [deleteTeacher, { error }] = useMutation(DELETE_TEACHER);
-  const [students, setStudents] = useState(data?.teacher.students || []);
+  const [deleteTeacher] = useMutation(DELETE_TEACHER); // mutation for deleting a teacher
+  const [students, setStudents] = useState(data?.teacher.students || []); // handler for the students
   const [clicked, setClicked] = useState(false); // handler for the tabs
   const [open, setOpen] = useState(false); // handler for the modal
-  const [resources, setResources] = useState(teacher.resources);
+  const [resources, setResources] = useState(teacher.resources); // handler for the resources
 
   // Handles the panel viewing
   const handleClick = (event) => {
@@ -73,6 +70,7 @@ const TeacherDashboard = () => {
     setResources(data?.teacher.resources);
   }, [setResources, data]);
 
+  // Handles the deletion of the teacher account
   const deleteTeacherFunc = async () => {
     await deleteTeacher({
       variables: {
@@ -85,7 +83,7 @@ const TeacherDashboard = () => {
   };
 
   return (
-    <Sheet>
+    <Sheet id="mainTeacherDashboardContainer">
       {Auth.loggedIn() ? (
         <Sheet>
           {/* These tabs function as the Navbar */}
@@ -98,7 +96,7 @@ const TeacherDashboard = () => {
           >
             <TabList color="primary">
               {/* Tabs have conditional rendering for screen size. Will only display the icon at mobile sizes */}
-              <Tab>
+              <Tab id="studentDatabaseTab">
                 <StorageIcon />
                 {!isMobile && (
                   <Typography>
@@ -106,7 +104,7 @@ const TeacherDashboard = () => {
                   </Typography>
                 )}
               </Tab>
-              <Tab>
+              <Tab id="messageBoardTab">
                 <MessageIcon />
                 {!isMobile && (
                   <Typography>
@@ -114,7 +112,7 @@ const TeacherDashboard = () => {
                   </Typography>
                 )}
               </Tab>
-              <Tab>
+              <Tab id="teacherProfileTab">
                 <PersonIcon />
                 {!isMobile && (
                   <Typography>
@@ -122,7 +120,7 @@ const TeacherDashboard = () => {
                   </Typography>
                 )}
               </Tab>
-              <Tab>
+              <Tab id="teacherSkillSheetsTab">
                 <ChecklistIcon />
                 {!isMobile && (
                   <Typography>
@@ -130,7 +128,7 @@ const TeacherDashboard = () => {
                   </Typography>
                 )}
               </Tab>
-              <Tab>
+              <Tab id="teacherResourcesTab">
                 <HandymanIcon />
                 {!isMobile && (
                   <Typography>
@@ -138,18 +136,11 @@ const TeacherDashboard = () => {
                   </Typography>
                 )}
               </Tab>
-              <Tab>
-                <CalendarMonthIcon />
-                {!isMobile && (
-                  <Typography>
-                    <b>View Calendar</b>
-                  </Typography>
-                )}
-              </Tab>
             </TabList>
 
             {/* Panel for student database view (includes student search) */}
             <TabPanel
+              id="studentDatabaseTabPanel"
               value={0}
               sx={{
                 p: 2,
@@ -157,9 +148,12 @@ const TeacherDashboard = () => {
                 flexDirection: "column",
               }}
             >
+              {/* Component for searching students */}
               <StudentSearch students={students} setStudents={setStudents} />
 
+              {/* Button toggles clicked to open and close CreateStudent */}
               <Button
+                id="addStudentBtn"
                 onClick={() => {
                   handleClick();
                 }}
@@ -170,12 +164,19 @@ const TeacherDashboard = () => {
                 {clicked ? "Cancel" : "Add Student"}
               </Button>
 
+              {/* Opens form to create a new student when clicked is true */}
               {clicked ? <CreateStudent teacherId={id} /> : ""}
+
+              {/* Displays list of students */}
               <StudentDatabaseTable
                 students={students}
                 setStudents={setStudents}
               />
+
+              {/* Displays students in order of their points */}
               <Leaderboard />
+
+              {/* Modal for deleting teacher account */}
               <RegularModal open={open} onRequestClose={() => setOpen(false)}>
                 <DeleteModalContent
                   onRequestClose={() => setOpen(false)}
@@ -183,35 +184,36 @@ const TeacherDashboard = () => {
                   resourceName="teacher"
                 />
               </RegularModal>
-              <Button onClick={() => setOpen(true)} color="danger">
+              <Button
+                id="deleteTeacherBtn"
+                onClick={() => setOpen(true)}
+                color="danger"
+              >
                 Delete Teacher Account
               </Button>
             </TabPanel>
 
-            <TabPanel value={1} sx={{ p: 2 }}>
+            {/* Tab panel for Message Board */}
+            <TabPanel id="messageBoardTabPanel" value={1} sx={{ p: 2 }}>
               <MessageBoard />
             </TabPanel>
 
             {/* Tab panel for Viewing profile information */}
-            <TabPanel value={2} sx={{ p: 2 }}>
+            <TabPanel id="teacherProfileTabPanel" value={2} sx={{ p: 2 }}>
               <TeacherProfile />
             </TabPanel>
 
             {/* Tab panel for Skill sheets */}
-            <TabPanel value={3} sx={{ p: 2 }}>
+            <TabPanel id="teacherSkillSheetTabPanel" value={3} sx={{ p: 2 }}>
               <SkillSheetContainer />
             </TabPanel>
 
-            <TabPanel value={4} sx={{ p: 2 }}>
+            {/* Tab panel for Resources */}
+            <TabPanel id="teacherResourceTabPanel" value={4} sx={{ p: 2 }}>
               <TeacherResourceContainer
                 resources={resources}
                 setResources={setResources}
               />
-            </TabPanel>
-
-            {/* Tab panel for showing calendar */}
-            <TabPanel value={5} sx={{ p: 2 }}>
-              <Calendar />
             </TabPanel>
           </Tabs>
         </Sheet>
@@ -225,7 +227,6 @@ const TeacherDashboard = () => {
         </Card>
       )}
     </Sheet>
-    // </TeacherContext.Provider>
   );
 };
 

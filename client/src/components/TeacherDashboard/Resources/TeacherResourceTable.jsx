@@ -5,22 +5,23 @@ import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 import RegularModal from "../../common/Modal/RegularModal";
 import { sortResources } from "../../../utils/utilities";
 
+// Component for displaying the resources a teacher has created in a table
 const TeacherReasourceTable = ({
   deleteResourceFunc,
   resources,
   open,
   setOpen,
 }) => {
-  console.log(resources);
-  const [sortedResources, setSortedResources] = useState();
+  const [sortedResources, setSortedResources] = useState(); // state for the resources to be sorted
 
+  // sort the resources when the resources prop changes
   useEffect(() => {
     setSortedResources(sortResources(resources));
   }, [resources]);
 
   return (
     <Sheet>
-      <Table>
+      <Table id="teacherResourceTable">
         <thead>
           <tr>
             <th>Name</th>
@@ -47,6 +48,11 @@ const TeacherReasourceTable = ({
                 <td>
                   <Typography>{resource.description}</Typography>
                 </td>
+
+                {/* Modal for deleting a resource */}
+                <IconButton onClick={() => setOpen(true)} color="danger">
+                  <DeleteIcon />
+                </IconButton>
                 <RegularModal
                   name="deleteResource"
                   open={open}
@@ -57,10 +63,6 @@ const TeacherReasourceTable = ({
                     confirmAction={() => deleteResourceFunc(resource._id)}
                   />
                 </RegularModal>
-
-                <IconButton onClick={() => setOpen(true)} color="danger">
-                  <DeleteIcon />
-                </IconButton>
               </tr>
             ))}
         </tbody>

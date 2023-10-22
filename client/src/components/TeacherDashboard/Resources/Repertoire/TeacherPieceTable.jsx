@@ -1,20 +1,18 @@
 import React from "react";
 import { Typography, IconButton, Table } from "@mui/joy";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
+import { styles } from "../../../../styles/teacherStyles";
 
+// Component that displays the teacher's pieces in a table
 const TeacherPieceTable = ({ teacherPieces, isMobile }) => {
   return (
     <Table
+      id="teacherPieceTable"
       aria-label="basic table"
       stickyHeader
       stripe="even"
       variant="soft"
-      sx={{
-        borderRadius: "4px",
-        boxShadow: "lg",
-        p: 2,
-        backgroundColor: "rgb(102, 46, 155, 0.2)",
-      }}
+      sx={styles.teacherPieceTable}
     >
       <thead>
         <tr>

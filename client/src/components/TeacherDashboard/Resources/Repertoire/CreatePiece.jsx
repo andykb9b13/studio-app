@@ -3,9 +3,11 @@ import { Card, Typography, Input, Textarea, Button } from "@mui/joy";
 import { useForm } from "react-hook-form";
 import UploadWidget from "../../../../utils/UploadWidget";
 
+// Component that allows the teacher to create a piece
 const CreatePiece = ({ createPieceFunc, setPieceUrl, pieceUrl }) => {
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register } = useForm(); // form handler from react-hook-form
 
+  // Function that handles the upload of a file
   function handleOnUpload(error, result, widget) {
     if (error) {
       widget.close({
@@ -13,10 +15,10 @@ const CreatePiece = ({ createPieceFunc, setPieceUrl, pieceUrl }) => {
       });
       return;
     }
-    console.log(result?.info?.secure_url);
-    setPieceUrl(result?.info?.secure_url);
+    setPieceUrl(result?.info?.secure_url); // set the pieceUrl to the uploaded file's url. This will be passed to the mutation in TeacherPiecesContainer.jsx.
   }
 
+  // Function that calls the mutation to create a piece
   const onSubmit = async (userInput) => {
     try {
       createPieceFunc(userInput);
@@ -26,9 +28,9 @@ const CreatePiece = ({ createPieceFunc, setPieceUrl, pieceUrl }) => {
   };
 
   return (
-    <Card>
+    <Card id="createPieceCard">
       <Typography level="h2">Add a Piece to your Repertoire</Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="createPieceForm" onSubmit={handleSubmit(onSubmit)}>
         <Typography>Piece Name</Typography>
         <Input type="text" {...register("pieceName")} />
         <Typography>Composer</Typography>
@@ -41,6 +43,8 @@ const CreatePiece = ({ createPieceFunc, setPieceUrl, pieceUrl }) => {
         <Input type="text" {...register("difficulty")} />
         <Typography>File Link</Typography>
         <Input type="text" value={pieceUrl} {...register("url")} />
+
+        {/* Cloudinary upload widget for uploading files */}
         <UploadWidget onUpload={handleOnUpload}>
           {({ open }) => {
             function handleOnClick(e) {

@@ -10,9 +10,6 @@ import {
 import TimedPractice from "../components/PracticeHub/TimedPractice";
 import StreakPractice from "../components/PracticeHub/StreakPractice";
 import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheetContainer";
-import CreateAssignment from "../components/StudentDetails/PracticePlan/Assignments/CreateAssignment";
-import VirtualTutor from "./VirtualTutor";
-import PracticePlanCard from "../components/StudentDetails/PracticePlan/PracticePlanCard";
 import TimerIcon from "@mui/icons-material/Timer";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArticleIcon from "@mui/icons-material/Article";
@@ -24,21 +21,13 @@ import { useStudentContext } from "../utils/Context";
 
 const PracticeHub = () => {
   const [status, setStatus] = useState("home");
-
   const { student } = useStudentContext();
-
-  console.log(student);
-
   const home = status === "home";
   const timedPractice = status === "timedPractice";
   const streakPractice = status === "streakPractice";
   const skillSheets = status === "skillSheets";
-  const createAssignment = status === "createAssignment";
-  const progress = status === "progress";
-  const resources = status === "resources";
-  const practicePlan = status === "practicePlan";
-  const tutor = status === "tutor";
 
+  // Button information for the practice hub to be mapped over to create the different components
   const buttonInfo = [
     {
       label: "Timed Practice",
@@ -68,15 +57,28 @@ const PracticeHub = () => {
   return (
     <>
       {Auth.loggedIn() ? (
-        <Sheet>
+        <Sheet id="mainPracticeHubContainer">
           <Typography level="h1">Practice Hub</Typography>
 
           {!home && <KeyboardArrowLeftIcon onClick={() => setStatus("home")} />}
           {home && (
-            <Grid container sx={{ flexGrow: 1, justifyContent: "center" }}>
+            <Grid
+              id="practiceHubGrid"
+              container
+              sx={{ flexGrow: 1, justifyContent: "center" }}
+            >
+              {/* Mapping button information to create different components for each practiceHub area */}
               {buttonInfo.map((button) => (
-                <Grid xs={10} s={6} md={4} lg={3} m={1}>
-                  <Card sx={styles.card}>
+                <Grid
+                  className="practiceHubAppsContainer"
+                  key={button.id}
+                  xs={10}
+                  s={6}
+                  md={4}
+                  lg={3}
+                  m={1}
+                >
+                  <Card clasName="practiceHubAppCard" sx={styles.card}>
                     <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
                       {button.label}
                     </Typography>
@@ -100,23 +102,9 @@ const PracticeHub = () => {
             </Grid>
           )}
 
-          {/* I need to wrap all of this in the Student Provider so it can have access to the id */}
-
-          {/* Here I've just hardcoded the student id to be passed as a prop but 
-        the problem is I will have to drill it down pretty far if necessary. 
-        I need to use context.  */}
           {timedPractice && <TimedPractice student={student} />}
           {streakPractice && <StreakPractice student={student} />}
           {skillSheets && <SkillSheets student={student} />}
-          {createAssignment && <CreateAssignment student={student} />}
-          {practicePlan && (
-            <PracticePlanCard
-              student={student}
-              studentId={student._id}
-              practicePlans={student.practicePlans}
-            />
-          )}
-          {tutor && <VirtualTutor student={student} />}
         </Sheet>
       ) : (
         <Sheet>Please Login</Sheet>

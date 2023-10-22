@@ -48,4 +48,15 @@ export const styles = {
     borderRadius: "10px",
     whiteSpace: "pre-line",
   },
+  studentDatabaseTable: {
+    borderRadius: "4px",
+    boxShadow: "lg",
+    p: 2,
+    mb: 3,
+    backgroundColor: "lightblue",
+  },
+  studentDetailsCardCover: {
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px), linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px)",
+  },
 };

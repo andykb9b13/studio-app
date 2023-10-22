@@ -10,11 +10,13 @@ import { avatarList } from "../common/Assets";
 import { useMutation } from "@apollo/client";
 import { EDIT_STUDENT } from "../../utils/mutations";
 
+// Component for displaying the student's information
 const StudentInfo = ({ handleClick, teacher }) => {
-  const { student } = useStudentContext();
-  const [open, setOpen] = useState(false);
-  const [editStudent, { error }] = useMutation(EDIT_STUDENT);
+  const { student } = useStudentContext(); // get student from context
+  const [open, setOpen] = useState(false); // state for opening the SelectAvatar modal
+  const [editStudent] = useMutation(EDIT_STUDENT); // mutation for editing the student
 
+  // mutation for editing the student's avatar
   const editAvatarFunc = async (avatarId) => {
     console.log(avatarId);
     try {
@@ -25,7 +27,7 @@ const StudentInfo = ({ handleClick, teacher }) => {
         },
       });
       alert(`avatar ${avatarId} selected`);
-      setOpen(false);
+      setOpen(false); // close the modal
     } catch (err) {
       console.log(err);
       alert("could not select avater");
@@ -34,7 +36,7 @@ const StudentInfo = ({ handleClick, teacher }) => {
 
   return (
     <>
-      <Card sx={styles.card}>
+      <Card id="studentInfoCard" sx={styles.card}>
         <Typography
           level="h2"
           component="h2"
@@ -49,22 +51,25 @@ const StudentInfo = ({ handleClick, teacher }) => {
               ? avatarList[student.avatarId].name
               : avatarList[0].name
           }
-          alt="avatar"
+          alt="student avatar"
           style={{
             borderRadius: "50%",
             width: "35%",
             marginInline: "auto",
           }}
         />
+        {/* Modal for selecting an avatar */}
+        <IconButton onClick={() => setOpen(true)}>
+          <Edit />
+        </IconButton>
         <RegularModal open={open} onRequestClose={() => setOpen(false)}>
           <SelectAvatar
             onRequestClose={() => setOpen(false)}
             editAvatarFunc={editAvatarFunc}
           />
         </RegularModal>
-        <IconButton onClick={() => setOpen(true)}>
-          <Edit />
-        </IconButton>
+
+        {/* Displaying the student's information */}
         <Typography>
           <b>Teacher:</b> {teacher.firstName} {teacher.lastName}
         </Typography>

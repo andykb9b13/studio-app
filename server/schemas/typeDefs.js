@@ -310,10 +310,6 @@ const typeDefs = gql`
       email: String!
       password: String!
       confirmPassword: String!
-      avatarId: Int
-      aboutInfo: String
-      phoneNumber: String
-      username: String
     ): TeacherAuth
 
     completeAssignment(assignmentId: ID, completed: Boolean): Assignment

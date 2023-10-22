@@ -18,7 +18,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import PracticeHub from "./PracticeHub";
 import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 
-// Top component in the tree for students. Provider is passing student info through context.
+// Top component in the tree for students. This is the main entry point for students.
 export default function StudentDetails() {
   const [active, setActive] = useState(0);
   const { teacher, setTeacher } = useTeacherContext();
@@ -52,8 +52,9 @@ export default function StudentDetails() {
   return (
     <>
       {Auth.loggedIn() ? (
-        <Sheet>
+        <Sheet id="mainStudentDetailsContainer">
           <Tabs
+            id="studentDetailsTabs"
             aria-label="Basic tabs"
             defaultValue={0}
             sx={{ borderRadius: "lg" }}
@@ -83,20 +84,24 @@ export default function StudentDetails() {
               </Tab>
             </TabList>
             {/* Main student details section  */}
-            <TabPanel value={0}>
+            <TabPanel className="studentTabPanel" value={0}>
               <StudentDetailsCard active={active} setActive={setActive} />
             </TabPanel>
-            <TabPanel value={1}>
+            {/* Message board for the studio */}
+            <TabPanel className="studentTabPanel" value={1}>
               <MessageBoard />
             </TabPanel>
-            <TabPanel value={2}>
+            {/* Section for viewing student points across the studio and personalized points breakdown */}
+            <TabPanel className="studentTabPanel" value={2}>
               <Leaderboard />
               <StudentPointsChart />
             </TabPanel>
-            <TabPanel value={3}>
+            {/* Section for accessing the Virtual Tutor*/}
+            <TabPanel className="studentTabPanel" value={3}>
               <VirtualTutor />
             </TabPanel>
-            <TabPanel value={4}>
+            {/* Section for accessing the Practice Hub */}
+            <TabPanel className="studentTabPanel" value={4}>
               <PracticeHub />
             </TabPanel>
           </Tabs>

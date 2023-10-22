@@ -13,11 +13,13 @@ import { useTeacherContext } from "../../../utils/Context";
 import { useForm } from "react-hook-form";
 import { styles } from "../../../styles/cardstyles";
 
+// Component for editing a teacher
 const EditTeacher = ({ setActive }) => {
-  const { teacher, setTeacher } = useTeacherContext();
-  const [editTeacher, { loading, error }] = useMutation(EDIT_TEACHER);
-  const { register, handleSubmit } = useForm();
+  const { teacher, setTeacher } = useTeacherContext(); // getting the teacher info from the context
+  const [editTeacher, { error }] = useMutation(EDIT_TEACHER); // mutation for editing a teacher
+  const { register, handleSubmit } = useForm(); // hook for handling the form
 
+  // Handles the submission of the form
   const onSubmit = async (userInput) => {
     try {
       const editedTeacher = await editTeacher({
@@ -26,35 +28,23 @@ const EditTeacher = ({ setActive }) => {
           ...userInput,
         },
       });
-      setTeacher(editedTeacher.data.editTeacher);
-      setActive(null);
+      setTeacher(editedTeacher.data.editTeacher); // setting the teacher info to be displayed
+      setActive(null); // closing the edit modal after the teacher is edited
       alert("Teacher successfully edited!");
     } catch (err) {
       console.error(err);
       alert("Could not edit teacher");
-      setActive(null);
+      setActive(null); // closing the edit modal after the teacher is edited
     }
   };
 
   return (
-    <Sheet
-      sx={{
-        p: 1,
-        borderRadius: "4px",
-        mt: 1,
-        boxShadow: "md",
-        maxHeight: "max-content",
-        width: "80vw",
-        mx: "auto",
-        overflow: "auto",
-        resize: "horizontal",
-      }}
-    >
+    <Sheet id="editTeacherContainer" sx={styles.editTeacherSheet}>
       <Typography level="h2">Edit Teacher</Typography>
       {error && (
         <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
       )}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="editTeacherForm" onSubmit={handleSubmit(onSubmit)}>
         <Typography>First Name</Typography>
         <Input
           type="text"

@@ -15,9 +15,8 @@ import { useForm } from "react-hook-form";
 import { styles } from "../styles/cardstyles";
 
 const Login = () => {
-  const [login, { error }] = useMutation(TEACHER_LOGIN);
-  // form handling from react-hook-form
-  const { register, handleSubmit } = useForm();
+  const [login, { error }] = useMutation(TEACHER_LOGIN); // login mutation from apollo
+  const { register, handleSubmit } = useForm(); // form handling from react-hook-form
 
   const handleLogin = (data) => {
     Auth.teacherLogin(data);

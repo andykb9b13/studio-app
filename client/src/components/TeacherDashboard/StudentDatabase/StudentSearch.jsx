@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Input, Typography, Select, Option } from "@mui/joy";
 
+// Component for searching for a student based on different parameters
 const StudentSearch = ({ students, setStudents }) => {
   const [searchParam, setSearchParam] = useState(0);
 
@@ -52,7 +53,14 @@ const StudentSearch = ({ students, setStudents }) => {
   };
 
   return (
-    <Grid container flexGrow={1} display="flex" justifyContent="center" m={2}>
+    <Grid
+      id="studentSearchContainer"
+      container
+      flexGrow={1}
+      display="flex"
+      justifyContent="center"
+      m={2}
+    >
       <Grid xs={12} md={4}>
         <Typography level="h4">Search for a Student</Typography>
         <Input

@@ -1,7 +1,9 @@
 import React from "react";
 import { Typography, Select, Option, Grid } from "@mui/joy";
 
+// Component for sorting students based on specific parameters
 const StudentSort = ({ setOrderedStudents, students }) => {
+  // function for sorting students by first name
   const orderStudentsFirstName = (students) => {
     const firstNameArr = [];
     const orderedArr = [];
@@ -17,6 +19,7 @@ const StudentSort = ({ setOrderedStudents, students }) => {
     setOrderedStudents(orderedArr);
   };
 
+  // function for sorting students by last name
   const orderStudentsLastName = (students) => {
     const lastNameArr = [];
     const orderedArr = [];
@@ -33,7 +36,7 @@ const StudentSort = ({ setOrderedStudents, students }) => {
   };
 
   return (
-    <Grid container justifyContent={"center"} mb={4}>
+    <Grid id="studentSortContainer" container justifyContent={"center"} mb={4}>
       <Grid xs={12} lg={4}>
         <Typography level="h4">Sort Students</Typography>
         <Select placeholder="Sort By...">

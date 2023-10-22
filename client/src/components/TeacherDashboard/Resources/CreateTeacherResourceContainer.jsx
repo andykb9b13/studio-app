@@ -8,13 +8,14 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Auth from "../../../utils/auth";
 import { useTeacherContext } from "../../../utils/Context";
 
+// Component that controlls CreateResource component and the mutation for creating a resource
 const CreateTeacherResourceContainer = ({ resources, setResources }) => {
-  const [createResource, { error }] = useMutation(ADD_RESOURCE);
-  const [open, setOpen] = useState(false);
-  const { teacher } = useTeacherContext();
+  const [createResource, { error }] = useMutation(ADD_RESOURCE); // mutation for creating a resource
+  const [open, setOpen] = useState(false); // state for opening and closing the modal
+  const { teacher } = useTeacherContext(); // get the teacher from context
 
+  // function for handling creating a resource
   const createResourceFunc = async (userInput) => {
-    console.log("userInput from createResourceFunc", userInput);
     try {
       const { data } = await createResource({
         variables: {
@@ -22,9 +23,9 @@ const CreateTeacherResourceContainer = ({ resources, setResources }) => {
           ...userInput,
         },
       });
-      setResources([...resources, data.addResource]);
+      setResources([...resources, data.addResource]); // add the created resource to the resources array so it is displayed
       alert("Resource Created");
-      setOpen(false);
+      setOpen(false); //  close modal
       console.log(data);
     } catch (err) {
       console.error(err);

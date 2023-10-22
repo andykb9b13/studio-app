@@ -1,21 +1,14 @@
 import React from "react";
 import { Card, CardContent, Typography, IconButton } from "@mui/joy";
+import { styles } from "../../../styles/cardstyles";
 import { badgeList } from "../../common/Assets";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
 
+// Component for displaying a skill sheet
 const SkillSheetCard = ({ activeSheet }) => {
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        maxHeight: "max-content",
-        maxWidth: "100%",
-        mx: "auto",
-        overflow: "auto",
-        resize: "horizontal",
-        whiteSpace: "pre-line",
-      }}
-    >
+    <Card id="skillSheetCard" variant="outlined" sx={styles.skillSheetCard}>
+      {/* Display the information of the skill sheet */}
       <Typography level="h2">{activeSheet.sheetName}</Typography>
       <Typography level="h3">
         {activeSheet.difficulty ? `Difficulty: ${activeSheet.difficulty}` : ""}
@@ -28,10 +21,11 @@ const SkillSheetCard = ({ activeSheet }) => {
               ? badgeList[activeSheet.badgeId].name
               : badgeList[0].name
           }
-          alt=""
+          alt="badge"
           style={{ width: "30%" }}
         />
 
+        {/* Optional entries in the skill sheet will display if they exist */}
         {activeSheet.scales && (
           <Typography>
             <b>Scales: </b>
@@ -56,6 +50,7 @@ const SkillSheetCard = ({ activeSheet }) => {
             {activeSheet.pieces}
           </Typography>
         )}
+        {/* If there is a url for a file stored in Cloudinary in the skillSheet, this will allow access to view the file */}
         {activeSheet.url && (
           <>
             <Typography>Click to view uploaded files</Typography>

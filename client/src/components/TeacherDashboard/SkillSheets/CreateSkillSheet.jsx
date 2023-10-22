@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { styles } from "../../../styles/cardstyles";
 import {
   Card,
   Input,
@@ -17,6 +18,7 @@ import { badgeList } from "../../common/Assets";
 import { useTeacherContext } from "../../../utils/Context";
 import UploadWidget from "../../../utils/UploadWidget";
 
+// Component for creating a new skill sheet
 const CreateSkillSheet = ({
   skillSheetUrl,
   setSkillSheetUrl,
@@ -27,10 +29,11 @@ const CreateSkillSheet = ({
   difficulty,
   badgeId,
 }) => {
-  const { teacher } = useTeacherContext();
-  const { handleSubmit, register } = useForm();
-  const [open, setOpen] = useState(null);
+  const { teacher } = useTeacherContext(); // get teacher info from context
+  const { handleSubmit, register } = useForm(); // react-hook-form to handle form submission
+  const [open, setOpen] = useState(null); // state for opening and closing modal
 
+  // function for handling file upload using Cloudinary widget
   function handleOnUpload(error, result, widget) {
     if (error) {
       widget.close({
@@ -39,13 +42,14 @@ const CreateSkillSheet = ({
       return;
     }
     console.log(result?.info?.secure_url);
-    setSkillSheetUrl(result?.info?.secure_url);
+    setSkillSheetUrl(result?.info?.secure_url); // Set the url of the uploaded file. This will be sent to the resolver in the mutation in the createSkillSheetFunc function from CreateSkillSheetContainer.jsx.
   }
 
+  // function for handling form submission
   const onSubmit = async (userInput) => {
     try {
       console.log("userInput", userInput);
-      await createSkillSheetFunc(userInput);
+      await createSkillSheetFunc(userInput); // call createSkillSheetFunc function from CreateSkillSheetContainer.jsx
     } catch (err) {
       console.error(err);
     }
@@ -53,18 +57,15 @@ const CreateSkillSheet = ({
 
   return (
     <Card
+      id="createSkillSheetCard"
       variant="outlined"
-      sx={{
-        maxHeight: "max-content",
-        maxWidth: "100%",
-        mx: "auto",
-        overflow: "auto",
-        resize: "horizontal",
-      }}
+      sx={styles.createSkillSheet}
     >
       <Typography level="h1">Create Skill Sheet</Typography>
       <Divider inset="none" />
-      <form onSubmit={handleSubmit(onSubmit)}>
+
+      {/* Form for creating a new skillSheet */}
+      <form id="createSkillSheetForm" onSubmit={handleSubmit(onSubmit)}>
         <Typography>Sheet Name</Typography>
         <Input type="text" {...register("sheetName")} />
         <Typography>Description</Typography>
@@ -119,6 +120,8 @@ const CreateSkillSheet = ({
         </RadioGroup>
         <Typography>File Link</Typography>
         <Input type="text" value={skillSheetUrl} {...register("url")} />
+
+        {/* Cloudinary widget for uploading files */}
         <UploadWidget onUpload={handleOnUpload}>
           {({ open }) => {
             function handleOnClick(e) {
@@ -128,6 +131,7 @@ const CreateSkillSheet = ({
             return <Button onClick={handleOnClick}>Upload a File</Button>;
           }}
         </UploadWidget>
+
         <Typography level="h3">Additional Requirements</Typography>
         <Typography>
           You can also list specific challenges for students in addition to or
@@ -175,10 +179,14 @@ const CreateSkillSheet = ({
           Create Skill Sheet
         </Button>
       </form>
+
+      {/* Button and Modal for selecting a badge */}
       <Button onClick={() => setOpen(1)}>Select Badge</Button>
       <RegularModal open={open === 1} onRequestClose={() => setOpen(false)}>
         <SelectBadge setOpen={setOpen} setBadgeId={setBadgeId} />
       </RegularModal>
+
+      {/* Button to close the createSkillSheet Modal */}
       <Button
         component={Link}
         to={`/teacher/${teacher._id}`}

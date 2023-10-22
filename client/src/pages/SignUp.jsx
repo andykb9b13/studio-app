@@ -4,6 +4,7 @@ import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_TEACHER } from "../utils/mutations";
 import {
+  Sheet,
   Card,
   Input,
   Typography,
@@ -15,6 +16,7 @@ import {
 import { useForm } from "react-hook-form";
 import { styles } from "../styles/cardstyles";
 
+// Only "Teachers" can sign up for an account. They will then be able to create different student accounts.
 export default function SignUp() {
   const [createTeacher, { error }] = useMutation(ADD_TEACHER);
 
@@ -44,38 +46,56 @@ export default function SignUp() {
   };
 
   return (
-    <Card sx={styles.card}>
-      <CardContent>
-        <Typography level="h2">Sign Up</Typography>
-        {error && (
-          <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
-        )}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Typography>First Name</Typography>
-          <Input placeholder="John" {...register("firstName")} />
-          <Typography>Last Name</Typography>
-          <Input placeholder="Doe" {...register("lastName")} />
-          <Typography>Email</Typography>
-          <Input
-            placeholder="john@johndoe.com"
-            type="email"
-            {...register("email")}
-          />
-          <Typography>Password</Typography>
-          <Input type="password" {...register("password")} />
-          <Typography>Confirm Password</Typography>
-          <Input type="password" {...register("confirmPassword")} />
-          <Button type="submit" color="success" variant="soft">
-            Sign Up
-          </Button>
-        </form>
-      </CardContent>
-      <CardActions>
-        <Link to="/">Back to Homepage</Link>
-        <Typography level="body1" endDecorator={<Link to="/login">Login</Link>}>
-          Already a User?
-        </Typography>
-      </CardActions>
-    </Card>
+    <Sheet
+      id="signUpContainer"
+      sx={{
+        backgroundColor: "transparent",
+        height: "100vh",
+      }}
+    >
+      <Card id="signUpCard" sx={styles.card}>
+        <CardContent>
+          <Typography level="h2">Sign Up</Typography>
+          {error && (
+            <FormHelperText id="signUpErrorMessage" sx={styles.errorText}>
+              {error.message}
+            </FormHelperText>
+          )}
+          <form id="signUpForm" onSubmit={handleSubmit(onSubmit)}>
+            <Typography>First Name</Typography>
+            <Input placeholder="John" {...register("firstName")} />
+            <Typography>Last Name</Typography>
+            <Input placeholder="Doe" {...register("lastName")} />
+            <Typography>Email</Typography>
+            <Input
+              placeholder="john@johndoe.com"
+              type="email"
+              {...register("email")}
+            />
+            <Typography>Password</Typography>
+            <Input type="password" {...register("password")} />
+            <Typography>Confirm Password</Typography>
+            <Input type="password" {...register("confirmPassword")} />
+            <Button
+              id="signUpSubmitBtn"
+              type="submit"
+              color="success"
+              variant="soft"
+            >
+              Sign Up
+            </Button>
+          </form>
+        </CardContent>
+        <CardActions>
+          <Link to="/">Back to Homepage</Link>
+          <Typography
+            level="body1"
+            endDecorator={<Link to="/login">Login</Link>}
+          >
+            Already a User?
+          </Typography>
+        </CardActions>
+      </Card>
+    </Sheet>
   );
 }

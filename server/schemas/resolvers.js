@@ -442,10 +442,6 @@ const resolvers = {
         email,
         password,
         confirmPassword,
-        avatarId,
-        aboutInfo,
-        phoneNumber,
-        username,
       });
       // validation sent to the front-end
       if (!firstName) {
@@ -467,6 +463,7 @@ const resolvers = {
       const token = signToken({ _id: teacher._id }, process.env.SECRET);
       return { token, teacher };
     },
+
     completeAssignment: async (parent, { assignmentId, completed }) => {
       const assignment = await Assignment.findById(assignmentId);
       assignment.completed = completed;

@@ -10,6 +10,7 @@ import CountUp from "react-countup";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
 import { sortSheets } from "../../../utils/utilities";
 
+// Component for displaying a table of skill sheets
 const SkillSheetTable = ({
   setActiveSheet,
   skillSheets,
@@ -17,13 +18,17 @@ const SkillSheetTable = ({
   modalOpenIndex,
   deleteSkillSheetFunc,
 }) => {
-  const { isMobile } = useContext(MobileContext);
+  const { isMobile } = useContext(MobileContext); // get isMobile state from context to determine if the table should display all columns or not
 
-  const sortedSheets = sortSheets(skillSheets);
+  // set the initial sorting of the sheets
+  let sortedSheets = null;
+  if (skillSheets) {
+    sortedSheets = sortSheets(skillSheets);
+  }
 
   return (
-    <Sheet>
-      <Table>
+    <Sheet id="skillSheetTableContainer">
+      <Table id="skillSheetTable">
         <thead>
           <tr>
             <th>Sheet Name</th>
@@ -105,6 +110,8 @@ const SkillSheetTable = ({
                     <VisibilityIcon color="neutral" />
                   </IconButton>
                 )}
+
+                {/* Delete Skill Sheet */}
                 <IconButton onClick={() => setModalOpenIndex(4)} color="danger">
                   <DeleteIcon />
                 </IconButton>

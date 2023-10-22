@@ -17,13 +17,14 @@ import PhysicalInfoCard from "../components/VirtualTutor/PhysicalInfoCard";
 import { useStudentContext } from "../utils/Context";
 import EmotionalInfoCard from "../components/VirtualTutor/EmotionalInfoCard";
 
+// Component for the virtual tutor page
 const VirtualTutor = () => {
   const [open, setOpen] = useState(null);
   const [index, setIndex] = useState(null);
   const [revealed, setRevealed] = useState(null);
-
   const { student } = useStudentContext();
 
+  // Array of objects containing the information for each button
   const buttonInfo = [
     {
       id: 0,
@@ -48,12 +49,12 @@ const VirtualTutor = () => {
   ];
 
   return (
-    <Grid container sx={styles.sheet}>
+    <Grid id="mainVitualTutorContainer" container sx={styles.sheet}>
       <Typography level="h1" textAlign={"center"}>
         Virtual Tutor
       </Typography>
 
-      <Card sx={styles.card}>
+      <Card id="virtualTutorCard" sx={styles.card}>
         <CardContent>
           <Typography level="h4" sx={{ mb: 3 }}>
             Hey <b>{student.firstName}</b>! You've come to the right place.
@@ -105,6 +106,8 @@ const VirtualTutor = () => {
           </React.Fragment>
         ))}
       </Card>
+
+      {/* Cards to be rendered depending on which is revealed */}
       <VisualInfoCard revealed={revealed} setRevealed={setRevealed} />
       <AuralInfoCard revealed={revealed} setRevealed={setRevealed} />
       <PhysicalInfoCard revealed={revealed} setRevealed={setRevealed} />

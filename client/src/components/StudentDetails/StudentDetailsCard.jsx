@@ -15,11 +15,11 @@ import Clock from "../../utils/Clock";
 import RegularModal from "../common/Modal/RegularModal";
 import ResourceContainer from "./PracticePlan/Resources/ResourceContainer";
 
-// the main information about the student
+// Parent Component for all the Student Details
 export default function StudentDetailsCard({ active, setActive }) {
-  const { student } = useStudentContext();
-  const { teacher } = useTeacherContext();
-  const [resourceArr, setResourceArr] = useState([]);
+  const { student } = useStudentContext(); // get student from context
+  const { teacher } = useTeacherContext(); // get teacher from context
+  const [resourceArr, setResourceArr] = useState([]); // array of resources for the student
 
   // setting the resources from ALL practice plans for the student
   useEffect(() => {
@@ -46,13 +46,10 @@ export default function StudentDetailsCard({ active, setActive }) {
   };
 
   return (
-    <Card sx={styles.container}>
-      <CardCover
-        sx={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px), linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px)",
-        }}
-      />
+    <Card id="studentDetailsCard" sx={styles.container}>
+      <CardCover sx={styles.studentDetailsCardCover} />
+
+      {/* If the teacher is viewing the studentDetailsCard, they can navigate back to the teacherDashboard */}
       <CardContent>
         {Auth.teacherLoggedIn() && (
           <Link to={`/teacher/${student.teacherId}`}>
@@ -61,7 +58,7 @@ export default function StudentDetailsCard({ active, setActive }) {
         )}
 
         {/* Clock */}
-        <Box sx={{ textAlign: "center " }}>
+        <Box id="clockContainer" sx={{ textAlign: "center " }}>
           <Clock />
           <Typography level="h4">
             Your Lesson is on <b>{student.lessonDay}</b> at{" "}
@@ -71,12 +68,12 @@ export default function StudentDetailsCard({ active, setActive }) {
 
         {/* Student info: Name, instrument, school, etc. */}
         <Grid container flexGrow={1}>
-          <Grid xs={12} md={6} my={1}>
+          <Grid id="studentInfoGrid" xs={12} md={6} my={1}>
             <StudentInfo handleClick={handleClick} teacher={teacher} />
           </Grid>
 
           {/* Accomplishments like points and badges */}
-          <Grid xs={12} md={6} my={1}>
+          <Grid id="badgesPointsGrid" xs={12} md={6} my={1}>
             <BadgesPoints
               totalPlanPoints={student.totalPlanPoints}
               totalCompletedPoints={student.totalCompletedPoints}
@@ -84,12 +81,12 @@ export default function StudentDetailsCard({ active, setActive }) {
           </Grid>
 
           {/* Showing all skill sheets completed */}
-          <Grid xs={12} md={12} my={1}>
+          <Grid id="studentSkillSheetGrid" xs={12} md={12} my={1}>
             <StudentSkillSheetContainer teacher={teacher} />
           </Grid>
 
           {/* Completed Pieces and Etudes */}
-          <Grid xs={12} md={12} my={1}>
+          <Grid id="studentPiecesContainerGrid" xs={12} md={12} my={1}>
             <StudentPiecesContainer
               student={student}
               teacher={teacher}
@@ -98,23 +95,18 @@ export default function StudentDetailsCard({ active, setActive }) {
           </Grid>
 
           {/* Student Practice Plans */}
-          <Grid xs={12} md={12} my={1}>
+          <Grid id="practicePlanContainerGrid" xs={12} md={12} my={1}>
             <PracticePlanContainer />
           </Grid>
         </Grid>
 
         {/* Resources specific to the student */}
-        <Grid>
+        <Grid id="resourceContainerGrid">
           <ResourceContainer resources={resourceArr} />
         </Grid>
       </CardContent>
 
-      {/* <CardActions>
-        <Button component={Link} to={`/student/${id}/practiceHub`}>
-          To Practice Hub
-        </Button>
-      </CardActions> */}
-
+      {/* Modal for editing the student */}
       <RegularModal open={active === 1} onRequestClose={() => setActive(null)}>
         <EditStudent studentId={student._id} />
       </RegularModal>

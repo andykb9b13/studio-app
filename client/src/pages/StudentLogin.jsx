@@ -14,6 +14,7 @@ import {
 import { useForm } from "react-hook-form";
 import { styles } from "../styles/cardstyles";
 
+// Login for students
 const StudentLogin = () => {
   const [login, { error }] = useMutation(STUDENT_LOGIN);
   // form handling from react-hook-form
@@ -41,17 +42,18 @@ const StudentLogin = () => {
 
   return (
     <Sheet
+      id="mainStudentLoginContainer"
       sx={{
         backgroundColor: "transparent",
         height: "100vh",
       }}
     >
-      <Card sx={styles.card}>
+      <Card id="studentLoginCard" sx={styles.card}>
         <Typography level="h2">Student Login</Typography>
         {error && (
           <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
         )}
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form id="studentLoginForm" onSubmit={handleSubmit(onSubmit)}>
           <Typography>Email</Typography>
           <Input {...register("email")} placeholder="Email" type="email" />
           <Typography>Password</Typography>

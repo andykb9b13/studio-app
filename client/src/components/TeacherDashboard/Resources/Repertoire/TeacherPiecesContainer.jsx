@@ -10,18 +10,21 @@ import { ADD_PIECE } from "../../../../utils/mutations";
 import { MobileContext } from "../../../../App";
 import TeacherPieceTable from "./TeacherPieceTable";
 
+// Component that controlls CreatePiece component and the mutation for creating a piece
 const TeacherPiecesContainer = () => {
-  const { teacher } = useTeacherContext();
-  const { isMobile } = useContext(MobileContext);
-  const [open, setOpen] = useState(false);
-  const [createPiece] = useMutation(ADD_PIECE);
-  const [pieceUrl, setPieceUrl] = useState();
-  const [teacherPieces, setTeacherPieces] = useState(teacher.pieces);
+  const { teacher } = useTeacherContext(); // get the teacher from context
+  const { isMobile } = useContext(MobileContext); // get the isMobile state from context
+  const [open, setOpen] = useState(false); // state for opening and closing the modal
+  const [createPiece] = useMutation(ADD_PIECE); // mutation for creating a piece
+  const [pieceUrl, setPieceUrl] = useState(); // the url for the piece created by the Cloudinary widget to be passed to the mutation
+  const [teacherPieces, setTeacherPieces] = useState(teacher.pieces); // the pieces array from the teacher object
 
+  // update the teacherPieces state when the teacher object changes
   useEffect(() => {
     setTeacherPieces(teacher.pieces);
   }, [teacher, teacherPieces]);
 
+  // function that calls the mutation to create a piece
   const createPieceFunc = async (userInput) => {
     try {
       const piece = await createPiece({
@@ -37,7 +40,7 @@ const TeacherPiecesContainer = () => {
       });
       alert("Added piece to your list");
       console.log(piece.data.addPiece);
-      setTeacherPieces(...teacherPieces, piece.data.addPiece);
+      setTeacherPieces(...teacherPieces, piece.data.addPiece); // update the teacherPieces state with the new piece to be displayed in the table
       return piece;
     } catch (err) {
       alert("Could not add piece");
@@ -46,7 +49,7 @@ const TeacherPiecesContainer = () => {
   };
 
   return (
-    <Sheet sx={styles.card}>
+    <Sheet id="teacherPiecesContainer" sx={styles.card}>
       <Typography
         level="h2"
         endDecorator={
@@ -57,7 +60,11 @@ const TeacherPiecesContainer = () => {
       >
         Repertoire
       </Typography>
+
+      {/* Displays the pieces a teacher has created */}
       <TeacherPieceTable isMobile={isMobile} teacherPieces={teacherPieces} />
+
+      {/* Modal for creating a new piece */}
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <CreatePiece
           createPieceFunc={createPieceFunc}

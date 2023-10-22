@@ -7,18 +7,21 @@ import CreateSkillSheet from "./CreateSkillSheet";
 import { useTeacherContext } from "../../../utils/Context";
 import Auth from "../../../utils/auth";
 
+// Component that controlls the createSkillSheet component
 const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
-  const { teacher } = useTeacherContext();
-  const [open, setOpen] = useState(false);
-  const [difficulty, setDifficulty] = useState("easy");
-  const [badgeId, setBadgeId] = useState();
-  const [createSkillSheet, { errors }] = useMutation(ADD_SKILLSHEET);
-  const [skillSheetUrl, setSkillSheetUrl] = useState();
+  const { teacher } = useTeacherContext(); // get teacher info from context
+  const [open, setOpen] = useState(false); // state for opening and closing modal
+  const [difficulty, setDifficulty] = useState("easy"); // state for difficulty of skill sheet to be passed into createSkillSheetFunc function
+  const [badgeId, setBadgeId] = useState(); // state for badgeId of skill sheet to be passed into createSkillSheetFunc function
+  const [createSkillSheet] = useMutation(ADD_SKILLSHEET); // mutation for creating a skill sheet
+  const [skillSheetUrl, setSkillSheetUrl] = useState(); // state for url of skill sheet to be passed into createSkillSheetFunc function
 
+  // function for handling form submission and calling createSkillSheet mutation
   const createSkillSheetFunc = async (userInput) => {
     const mySheetPoints = parseInt(userInput.points);
     console.log(mySheetPoints);
     try {
+      // set the default badgeId to 0 if no badge is selected
       if (!badgeId) {
         setBadgeId(0);
       }
@@ -38,8 +41,8 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
         },
       });
       console.log(data);
-      setOpen(null);
-      setSkillSheets([...skillSheets, data.addSkillSheet]);
+      setOpen(null); // close modal
+      setSkillSheets([...skillSheets, data.addSkillSheet]); // add new skill sheet to skillSheets array to be displayed
       alert("Skill Sheet created");
     } catch (err) {
       setOpen(true);
@@ -62,6 +65,7 @@ const CreateSkillSheetContainer = ({ skillSheets, setSkillSheets }) => {
           badgeId={badgeId}
         />
       </RegularModal>
+      {/* Only a teacher can create a new skill sheet but students will be able to view this component as well */}
       {Auth.teacherLoggedIn() && (
         <Button onClick={() => setOpen(true)}>Create Skill Sheet</Button>
       )}
