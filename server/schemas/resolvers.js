@@ -85,12 +85,10 @@ const resolvers = {
       return await Post.findById(_id);
     },
     posts: async (parent, { studioId: _id }) => {
-      console.log("in posts resolver");
       try {
         const posts = await Post.find({ studioId: _id })
           .populate("comments")
           .populate("authorId");
-        console.log("posts in resolver", posts);
         return posts;
       } catch (err) {
         console.error(err);

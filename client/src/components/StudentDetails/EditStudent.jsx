@@ -4,13 +4,15 @@ import { EDIT_STUDENT } from "../../utils/mutations";
 import { Sheet, Input, Button, Typography, FormHelperText } from "@mui/joy";
 import { useStudentContext } from "../../utils/Context";
 import { useForm } from "react-hook-form";
-import { styles } from "../../styles/cardstyles";
+import { styles } from "../../styles/studentDetailsStyles";
 
+// Component for displaying the EditStudent modal
 const EditStudent = () => {
-  const { student } = useStudentContext();
-  const [editStudent, { loading, error }] = useMutation(EDIT_STUDENT);
-  const { register, handleSubmit } = useForm();
+  const { student } = useStudentContext(); // get student from context
+  const [editStudent, { error }] = useMutation(EDIT_STUDENT); // mutation for editing a student
+  const { register, handleSubmit } = useForm(); // react-hook-form for handling the form
 
+  // Function for handling the submit of the form and calling the editStudent mutation
   const onSubmit = async (userInput) => {
     try {
       await editStudent({
@@ -26,24 +28,12 @@ const EditStudent = () => {
     }
   };
   return (
-    <Sheet
-      sx={{
-        p: 1,
-        borderRadius: "4px",
-        mt: 1,
-        boxShadow: "md",
-        maxHeight: "max-content",
-        maxWidth: "100%",
-        mx: "auto",
-        overflow: "auto",
-        resize: "horizontal",
-      }}
-    >
+    <Sheet id="editStudent" sx={styles.editStudent}>
       <Typography level="h2">Edit Student</Typography>
       {error && (
         <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
       )}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="editStudentForm" onSubmit={handleSubmit(onSubmit)}>
         <Typography>First Name</Typography>
         <Input
           type="text"
@@ -99,11 +89,23 @@ const EditStudent = () => {
           defaultValue={student.primaryContactEmail}
         />
         <Typography>Lesson Day</Typography>
-        <Input type="text" {...register("lessonDay")} />
+        <Input
+          type="text"
+          {...register("lessonDay")}
+          defaultValue={student.lessonDay}
+        />
         <Typography>Lesson Time</Typography>
-        <Input type="text" {...register("lessonTime")} />
+        <Input
+          type="text"
+          {...register("lessonTime")}
+          defaultValue={student.lessonTime}
+        />
         <Typography>Lesson Location</Typography>
-        <Input type="text" {...register("lessonLocation")} />
+        <Input
+          type="text"
+          {...register("lessonLocation")}
+          defaultValue={student.lessonLocation}
+        />
         <Button type="submit">Save Changes</Button>
       </form>
     </Sheet>

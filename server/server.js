@@ -7,18 +7,21 @@ const db = require("./config/connection");
 const cors = require("cors");
 require("dotenv").config();
 
-const PORT = process.env.PORT || 3001;
-const app = express();
+const PORT = process.env.PORT || 3001; // process.env.PORT is for Heroku deployment
+const app = express(); // instantiate the Express.js server
+
+// Create a new instance of an Apollo server with the GraphQL schema
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
 });
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: false })); // parse incoming JSON data
+app.use(express.json()); // parse incoming JSON data
+app.use(cors()); // enable CORS
 
+// Serve up static assets
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 
@@ -30,9 +33,10 @@ if (process.env.NODE_ENV === "production") {
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
-  await server.start();
-  server.applyMiddleware({ app });
+  await server.start(); // start the Apollo server
+  server.applyMiddleware({ app }); // integrate Apollo server with Express application as middleware
 
+  // Connect to the Mongo DB
   db.once("open", () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);

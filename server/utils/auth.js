@@ -26,6 +26,8 @@ module.exports = {
 
     return req;
   },
+
+  // function for authenticated routes
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
 

@@ -9,49 +9,34 @@ import { sortArray } from "../../utils/utilities";
 import { MobileContext } from "../../App";
 import CountUp from "react-countup";
 
-// Here we are going to display the the usernames of the students, their avatars, and and their respective points. They need to be sorted by highest to lowest points
-
+// Component for displaying the ranking of students based on their points
 const Leaderboard = () => {
-  const { isMobile } = useContext(MobileContext);
-  const { teacher } = useTeacherContext();
+  const { isMobile } = useContext(MobileContext); // get isMobile from context to determine styling
+  const { teacher } = useTeacherContext(); // get teacher from context
+  // Making a query to get all the students to be able to access their points
   const { data } = useQuery(QUERY_STUDENTS, {
     variables: {
       teacherId: teacher._id,
     },
   });
 
-  const [students, setStudents] = useState();
-  const [sortedStudents, setSortedStudents] = useState();
+  const [students, setStudents] = useState(); // state for storing the students
+  const [sortedStudents, setSortedStudents] = useState(); // state for storing the sorted students
 
+  // Sets the students state when the data is returned from the query
   useEffect(() => {
     setStudents(data?.students);
   }, [data, setStudents]);
 
+  // Sorts the students by their total points using the sortArray function from utilities
   useEffect(() => {
     if (Array.isArray(students)) {
       setSortedStudents(sortArray(students));
     }
   }, [setSortedStudents, students]);
 
-  console.log(teacher._id);
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.5,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1 },
-  };
-
   return (
-    <Sheet sx={!isMobile ? styles.card : styles.mobileCard}>
+    <Sheet id="leaderboard" sx={!isMobile ? styles.card : styles.mobileCard}>
       <Typography level="h2" textAlign={"Center"}>
         Points Leaderboard
       </Typography>

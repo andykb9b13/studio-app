@@ -48,6 +48,28 @@ export const styles = {
     borderRadius: "10px",
     whiteSpace: "pre-line",
   },
+  selectAvatarCard: {
+    p: 1,
+    borderRadius: "4px",
+    mt: 1,
+    boxShadow: "md",
+    maxHeight: "max-content",
+    maxWidth: "100%",
+    mx: "auto",
+    overflow: "auto",
+    resize: "horizontal",
+  },
+  editStudent: {
+    p: 1,
+    borderRadius: "4px",
+    mt: 1,
+    boxShadow: "md",
+    maxHeight: "max-content",
+    maxWidth: "100%",
+    mx: "auto",
+    overflow: "auto",
+    resize: "horizontal",
+  },
   studentDatabaseTable: {
     borderRadius: "4px",
     boxShadow: "lg",
@@ -58,5 +80,21 @@ export const styles = {
   studentDetailsCardCover: {
     background:
       "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px), linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 800px)",
+  },
+  badgesPoints: {
+    backgroundColor: "lightgrey",
+    borderRadius: "10px",
+    minHeight: "200px",
+    maxHeight: "300px",
+    maxWidth: "100%",
+    minWidth: "100%",
+    mx: "auto",
+    overflow: "auto",
+    resize: "vertical",
+  },
+  createStudent: { p: 1, mt: 1, borderRadius: "4px", boxShadow: "lg" },
+  errorText: {
+    color: "red",
+    fontSize: "1.3em",
   },
 };

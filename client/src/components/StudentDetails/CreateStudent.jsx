@@ -3,16 +3,19 @@ import { ADD_STUDENT } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Sheet, Typography, Button, Input, FormHelperText } from "@mui/joy";
 import { useForm } from "react-hook-form";
-import { styles } from "../../styles/cardstyles";
+import { styles } from "../../styles/studentDetailsStyles";
 
+// Component for creating a student
 const CreateStudent = ({ teacherId }) => {
-  const [createStudent, { error }] = useMutation(ADD_STUDENT);
+  const [createStudent, { error }] = useMutation(ADD_STUDENT); // mutation for creating a student
+  const { register, handleSubmit } = useForm(); // react-hook-form for handling the form
+
+  // If there's an error in the mutation, log it to the console
   if (error) {
     console.log(error.message);
   }
 
-  const { register, handleSubmit } = useForm();
-
+  // Function for handling the submit of the form and calling the createStudent mutation
   const onSubmit = async (userInput) => {
     try {
       await createStudent({
@@ -29,11 +32,11 @@ const CreateStudent = ({ teacherId }) => {
   };
 
   return (
-    <Sheet sx={{ p: 1, mt: 1, borderRadius: "4px", boxShadow: "lg" }}>
+    <Sheet id="createStudent" sx={styles.createStudent}>
       <Typography level="h2" component="h2">
         Add Student
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="createStudentForm" onSubmit={handleSubmit(onSubmit)}>
         {error && (
           <FormHelperText sx={styles.errorText}>{error.message}</FormHelperText>
         )}

@@ -13,6 +13,7 @@ const teacherData = require("./teacherData.json");
 const assignmentData = require("./assignmentData.json");
 const practicePlanData = require("./practicePlanData.json");
 
+// Seed data for testing the application in a local environment
 db.once("open", async () => {
   try {
     await SkillSheet.deleteMany({});
@@ -62,7 +63,6 @@ db.once("open", async () => {
         { new: true }
       );
     }
-    console.log(studentArr);
 
     console.log("Seeding Completed");
     process.exit(0);

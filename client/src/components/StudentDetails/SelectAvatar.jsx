@@ -1,25 +1,15 @@
 import React, { useContext } from "react";
 import { Grid, Typography, Sheet } from "@mui/joy";
+import { styles } from "../../styles/studentDetailsStyles";
 import { avatarList } from "../common/Assets";
 import { MobileContext } from "../../App";
 
+// Component for displaying the SelectAvatar modal
 const SelectAvatar = ({ editAvatarFunc }) => {
-  const { isMobile } = useContext(MobileContext);
+  const { isMobile } = useContext(MobileContext); // get isMobile from context to determine the size of the avatar images
 
   return (
-    <Sheet
-      sx={{
-        p: 1,
-        borderRadius: "4px",
-        mt: 1,
-        boxShadow: "md",
-        maxHeight: "max-content",
-        maxWidth: "100%",
-        mx: "auto",
-        overflow: "auto",
-        resize: "horizontal",
-      }}
-    >
+    <Sheet id="selectAvatar" sx={styles.selectAvatarCard}>
       <Typography level="h3" textAlign={"center"}>
         Select Avatar
       </Typography>

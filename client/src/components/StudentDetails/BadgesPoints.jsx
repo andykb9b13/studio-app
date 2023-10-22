@@ -23,11 +23,12 @@ const Badges = ({ badgeIndex }) => {
 };
 
 const BadgesPoints = () => {
-  const { student } = useStudentContext();
+  const { student } = useStudentContext(); // student data from context
   const [earnedPoints, setEarnedPoints] = useState(0); // Total points from skillSheets and Assignments
   const [progressPercentage, setProgressPercentage] = useState(0); // Percentage to be used in ProgressBar
-  const [badgeArr, setBadgeArr] = useState(null);
+  const [badgeArr, setBadgeArr] = useState(null); // Array of badgeIds from skillSheets
 
+  // set the badgeArr to be an array of badgeIds from skillSheets
   useEffect(() => {
     setBadgeArr(student.skillSheets?.map((sheet) => sheet.badgeId));
   }, [setBadgeArr, student]);
@@ -68,11 +69,11 @@ const BadgesPoints = () => {
   }, [setProgressPercentage, student, earnedPoints]);
 
   return (
-    <Card sx={styles.card}>
+    <Card id="badgesPoints" sx={styles.card}>
       <Typography level="h2" textAlign={"center"}>
         Progress
       </Typography>
-      <Card>
+      <Card id="pointsCard">
         <Typography level="h3">Points</Typography>
         <Typography level="h5">
           <b>Skill Sheets: </b>
@@ -95,20 +96,7 @@ const BadgesPoints = () => {
       </Card>
 
       <Typography level="h3">Badges: </Typography>
-      <Sheet
-        variant="outlined"
-        sx={{
-          backgroundColor: "lightgrey",
-          borderRadius: "10px",
-          minHeight: "200px",
-          maxHeight: "300px",
-          maxWidth: "100%",
-          minWidth: "100%",
-          mx: "auto",
-          overflow: "auto",
-          resize: "vertical",
-        }}
-      >
+      <Sheet id="badgesContainer" variant="outlined" sx={styles.badgesPoints}>
         {/* This should be refactored into a single component */}
 
         {earnedPoints > 200 && (
