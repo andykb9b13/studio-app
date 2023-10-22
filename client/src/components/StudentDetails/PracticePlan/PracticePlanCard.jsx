@@ -29,15 +29,15 @@ const styles = {
 
 // The card of an individual practice plan
 const PracticePlanCard = ({ practicePlan, onDelete }) => {
-  const [open, setOpen] = useState(0);
-  const [deletePracticePlan, { error }] = useMutation(DELETE_PRACTICE_PLAN);
-  const [assignments, setAssignments] = useState(practicePlan.assignments);
-  const [planPoints, setPlanPoints] = useState(0);
-  const [completedPoints, setCompletedPoints] = useState(0);
-  const [resources, setResources] = useState(practicePlan.resources);
-  const [revealed, setRevealed] = useState(false);
-  const [progressBarPercentage, setProgressBarPercentage] = useState(0);
-  const [activePlan, setActivePlan] = useState(practicePlan);
+  const [open, setOpen] = useState(0); // for modal
+  const [deletePracticePlan] = useMutation(DELETE_PRACTICE_PLAN); // delete practice plan mutation
+  const [assignments, setAssignments] = useState(practicePlan.assignments); // assignments for the practice plan
+  const [planPoints, setPlanPoints] = useState(0); // total points available to earn for the plan
+  const [completedPoints, setCompletedPoints] = useState(0); // amount of completed points a student has earned by completing assignments
+  const [resources, setResources] = useState(practicePlan.resources); // resources for the practice plan
+  const [revealed, setRevealed] = useState(false); // for revealing the practice plan details
+  const [progressBarPercentage, setProgressBarPercentage] = useState(0); // progress bar percentage
+  const [activePlan, setActivePlan] = useState(practicePlan); // active practice plan
 
   // Setting the total points available to earn for the plan
   useEffect(() => {
@@ -73,6 +73,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
     setAssignments(assignments || []);
   }, [setAssignments, assignments]);
 
+  // Deleting the practice plan
   const deletePracticePlanFunc = async () => {
     try {
       await deletePracticePlan({
@@ -87,7 +88,7 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   };
 
   return (
-    <Sheet sx={styles.sheet}>
+    <Sheet id="practicePlanCard" sx={styles.sheet}>
       <Grid container>
         <Grid xs={12} md={6}>
           <Typography

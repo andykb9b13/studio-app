@@ -6,11 +6,13 @@ import { MobileContext } from "../../../App";
 import CongratsModal from "../../common/Modal/CongratsModal";
 import CongratsModalContent from "../../common/Modal/CongratsModalContent";
 
+// Table for displaying assignments in the practice plan
 const PracticePlanTable = ({ assignments, setAssignments }) => {
-  const [index, setIndex] = useState();
-  const { isMobile } = useContext(MobileContext);
-  const [completedOpen, setCompletedOpen] = useState(false);
+  const [index, setIndex] = useState(); // index of the assignment to be viewed
+  const { isMobile } = useContext(MobileContext); // check to see if the user is on mobile
+  const [completedOpen, setCompletedOpen] = useState(false); // for congrats modal
 
+  // delete assignment from the practice plan
   const handleDeleteAssignment = (deletedAssignmentId) => {
     setAssignments(
       assignments.filter((assignment) => assignment._id !== deletedAssignmentId)
@@ -18,7 +20,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
   };
 
   return (
-    <Table>
+    <Table id="practicePlanTable">
       <thead>
         <tr>
           <th>Name</th>
@@ -47,6 +49,7 @@ const PracticePlanTable = ({ assignments, setAssignments }) => {
                 <td>{assignment.pointsWorth}</td>
                 <td>{assignment.completed ? "Yes" : "No"}</td>
                 <td>
+                  {/* Modal for viewing the assignment */}
                   <RegularModal
                     name="View Assignment"
                     open={index === assignment._id}

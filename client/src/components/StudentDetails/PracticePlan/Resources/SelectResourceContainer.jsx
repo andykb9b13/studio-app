@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { IconButton, Sheet } from "@mui/joy";
+import { IconButton } from "@mui/joy";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { useTeacherContext } from "../../../../utils/Context";
 import SelectResource from "./SelectResource";
 import SearchIcon from "@mui/icons-material/Search";
 import { useMutation } from "@apollo/client";
-import { EDIT_STUDENT } from "../../../../utils/mutations";
+import { EDIT_PRACTICE_PLAN } from "../../../../utils/mutations";
 
 const SelectResourceContainer = ({ practicePlan, resources, setResources }) => {
   const { teacher } = useTeacherContext();
   const [open, setOpen] = useState(false);
-  const [editPracticePlan] = useMutation(EDIT_STUDENT);
+  const [editPracticePlan] = useMutation(EDIT_PRACTICE_PLAN);
   console.log(resources);
 
   const selectResourceFunc = async (resourceId) => {

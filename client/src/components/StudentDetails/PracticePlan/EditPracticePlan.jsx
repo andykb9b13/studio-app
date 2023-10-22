@@ -12,11 +12,12 @@ import {
 import { useForm } from "react-hook-form";
 import { styles } from "../../../styles/cardstyles";
 
+// Component for editing a practice plan
 const EditPracticePlan = ({ practicePlan, setActivePlan, setOpen }) => {
-  const [editPracticePlan, { loading, error }] =
-    useMutation(EDIT_PRACTICE_PLAN);
-  const { register, handleSubmit } = useForm();
+  const [editPracticePlan, { error }] = useMutation(EDIT_PRACTICE_PLAN); // edit practice plan mutation
+  const { register, handleSubmit } = useForm(); // form handling with react-hook-form
 
+  //form submission function that calls the edit practice plan mutation
   const onSubmit = async (userInput) => {
     try {
       const editedPlan = await editPracticePlan({
@@ -25,8 +26,8 @@ const EditPracticePlan = ({ practicePlan, setActivePlan, setOpen }) => {
           ...userInput,
         },
       });
-      setActivePlan(editedPlan.data.editPracticePlan);
-      setOpen(0);
+      setActivePlan(editedPlan.data.editPracticePlan); // set active plan to edited plan
+      setOpen(0); // close modal
       alert("Practice Plan successfully edited!");
     } catch (err) {
       console.error(err);
@@ -37,6 +38,7 @@ const EditPracticePlan = ({ practicePlan, setActivePlan, setOpen }) => {
 
   return (
     <Sheet
+      id="editPracticePlan"
       sx={{
         p: 1,
         borderRadius: "4px",
