@@ -32,8 +32,8 @@ const ResourceContainer = ({ resources, setResources, practicePlan }) => {
       <Typography level="h3">Resource Links</Typography>
 
       {resources &&
-        resources.map((resource) => (
-          <React.Fragment key={resource._id}>
+        resources.map((resource, i) => (
+          <React.Fragment key={i}>
             <Box>
               <Link
                 href={resource.url}
