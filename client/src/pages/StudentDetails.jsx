@@ -17,6 +17,7 @@ import HubIcon from "@mui/icons-material/Hub";
 import MessageIcon from "@mui/icons-material/Message";
 import PracticeHub from "./PracticeHub";
 import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
+import PleaseLogin from "../components/common/PleaseLogin";
 
 // Top component in the tree for students. This is the main entry point for students.
 export default function StudentDetails() {
@@ -107,9 +108,7 @@ export default function StudentDetails() {
           </Tabs>
         </Sheet>
       ) : (
-        <Sheet>
-          <Typography>Please Login </Typography>
-        </Sheet>
+        <PleaseLogin />
       )}
     </>
   );

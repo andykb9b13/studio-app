@@ -32,6 +32,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 import { useTeacherContext } from "../utils/Context";
 import TeacherProfile from "../components/TeacherDashboard/TeacherProfile/TeacherProfile";
+import PleaseLogin from "../components/common/PleaseLogin";
 
 // Top level component for the teacher dashboard. This component is rendered when the user is logged in as a teacher.
 const TeacherDashboard = () => {
@@ -83,7 +84,10 @@ const TeacherDashboard = () => {
   };
 
   return (
-    <Sheet id="mainTeacherDashboardContainer">
+    <Sheet
+      id="mainTeacherDashboardContainer"
+      sx={{ background: "transparent" }}
+    >
       {Auth.loggedIn() ? (
         <Sheet>
           {/* These tabs function as the Navbar */}
@@ -219,12 +223,8 @@ const TeacherDashboard = () => {
         </Sheet>
       ) : (
         // If the user is not logged in, this will show
-        <Card>
-          <Typography level="h3" component="h3">
-            Please Log In
-          </Typography>
-          <Link to="/login">Login</Link>
-        </Card>
+
+        <PleaseLogin />
       )}
     </Sheet>
   );
