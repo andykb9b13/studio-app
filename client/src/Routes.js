@@ -6,6 +6,7 @@ import StudentDetails from "./pages/StudentDetails";
 import PracticeHub from "./pages/PracticeHub";
 import VirtualTutor from "./pages/VirtualTutor";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import NotFound from "./components/common/NotFound";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 
@@ -43,7 +44,7 @@ const AppRoutes = () => {
           <Route path="/tutor" element={<VirtualTutor />} />
 
           {/* Page not found */}
-          <Route path="*" element={<div>404 Page not found</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </main>

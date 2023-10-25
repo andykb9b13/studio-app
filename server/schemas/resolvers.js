@@ -126,7 +126,6 @@ const resolvers = {
         .populate("pieces");
     },
     students: async (parent, { teacherId: _id }) => {
-      console.log("in query students");
       const teacher = await Teacher.findById(_id).populate("students");
 
       const studentArr = [];
