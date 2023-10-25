@@ -22,7 +22,6 @@ export const styles = {
     whiteSpace: "pre-line",
   },
   list: {
-    listStyleType: "disc",
     fontSize: "1.3em",
     display: "flex",
     alignItems: "center",
@@ -52,5 +51,12 @@ export const styles = {
     margin: "1%",
     boxShadow: "1px 1px 5px grey",
     borderRadius: "10px",
+  },
+  listHover: {
+    "&:hover": {
+      color: "#662e9b",
+      transition: "all 0.2s",
+      fontWeight: "bold",
+    },
   },
 };

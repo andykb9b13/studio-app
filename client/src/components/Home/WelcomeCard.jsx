@@ -14,6 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import studioHubLogo from "../../assets/home/studioHubLogo.png";
 import { MobileContext } from "../../App";
+import Animate from "../../utils/ScrollAnimation";
 
 export default function WelcomeCard() {
   const { isMobile } = useContext(MobileContext);
@@ -28,38 +29,44 @@ export default function WelcomeCard() {
     }
   };
 
-  const logout = (event) => {
-    event.preventDefault();
-    Auth.logout();
-    alert("You are successfully logged out");
-  };
-
   return (
-    <Card variant="outlined" sx={!isMobile ? styles.card : styles.mobileCard}>
-      <img
-        className="hero-bg"
-        src={studioHubLogo}
-        style={styles.logo}
-        alt="logo"
-      />
+    <Card
+      id="welcomeCard"
+      variant="outlined"
+      sx={!isMobile ? styles.card : styles.mobileCard}
+    >
+      <Animate>
+        <img
+          className="hero-bg"
+          src={studioHubLogo}
+          style={styles.logo}
+          alt="studio hub logo"
+        />
+      </Animate>
       <Typography level="h2">Welcome!</Typography>
-      <Typography level="h6" textAlign={"center"}>
-        Welcome to Studio Hub. The one place where you can manage all of your
+      <Typography level="h6" textAlign={"center"} sx={{ width: "70%" }}>
+        Welcome to Studio Hub! The one place where you can manage all of your
         music studio needs so that your lessons can be more efficient,
-        productive, and versitile.
+        productive, and versatile.
       </Typography>
       <List sx={styles.list}>
-        <ListItem>Create your own student databse</ListItem>
+        <ListItem sx={styles.listHover}>
+          Create your own student databse
+        </ListItem>
         <Divider />
-        <ListItem>Create assignment plans for you students</ListItem>
+        <ListItem sx={styles.listHover}>
+          Create assignment plans for you students
+        </ListItem>
         <Divider />
-        <ListItem>Track your students' progress</ListItem>
+        <ListItem sx={styles.listHover}>Track your students' progress</ListItem>
         <Divider />
-        <ListItem>
+        <ListItem sx={styles.listHover}>
           Use the Troubleshooting hub to help students identify what needs work
         </ListItem>
         <Divider />
-        <ListItem>Access external resources for students</ListItem>
+        <ListItem sx={styles.listHover}>
+          Access external resources for students
+        </ListItem>
       </List>
 
       <CardActions>

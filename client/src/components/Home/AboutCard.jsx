@@ -9,6 +9,7 @@ import liveSiteDemo9 from "../../assets/home/liveSiteDemo/liveSiteDemo9.png";
 import liveSiteDemo10 from "../../assets/home/liveSiteDemo/liveSiteDemo10.png";
 import liveSiteDemo13 from "../../assets/home/liveSiteDemo/liveSiteDemo13.png";
 import { MobileContext } from "../../App";
+import Animate from "../../utils/ScrollAnimation";
 
 export default function AboutCard() {
   const { isMobile } = useContext(MobileContext);
@@ -16,6 +17,7 @@ export default function AboutCard() {
   return (
     <>
       <Card
+        id="aboutCard"
         sx={{
           backgroundColor: "white",
           display: "flex",
@@ -25,13 +27,15 @@ export default function AboutCard() {
         }}
       >
         <Typography level="h2">Customizable Tools and Resources...</Typography>
+        <Animate>
+          <img
+            className="hero-bg"
+            src={getOrganized}
+            style={styles.logo}
+            alt="get organized"
+          />
+        </Animate>
 
-        <img
-          className="hero-bg"
-          src={getOrganized}
-          style={styles.logo}
-          alt="get organized"
-        />
         <Typography level="h3">Create Skill Sheets...</Typography>
 
         <img
