@@ -18,6 +18,16 @@ import { MobileContext } from "../../App";
 export default function WelcomeCard() {
   const { isMobile } = useContext(MobileContext);
 
+  const redirectToProfile = () => {
+    if (Auth.teacherLoggedIn()) {
+      const userId = Auth.getProfile().data._id;
+      window.location.assign(`/teacher/${userId}`);
+    } else {
+      const userId = Auth.getProfile().data._id;
+      window.location.assign(`/teacher/studentDetails/${userId}`);
+    }
+  };
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -33,7 +43,7 @@ export default function WelcomeCard() {
         alt="logo"
       />
       <Typography level="h2">Welcome!</Typography>
-      <Typography level="h6">
+      <Typography level="h6" textAlign={"center"}>
         Welcome to Studio Hub. The one place where you can manage all of your
         music studio needs so that your lessons can be more efficient,
         productive, and versitile.
@@ -55,11 +65,16 @@ export default function WelcomeCard() {
       <CardActions>
         {Auth.loggedIn() && (
           <Box>
-            <Button onClick={logout}>Logout</Button>
-            <Button>Go To Profile</Button>
+            <Button onClick={redirectToProfile}>Go To Profile</Button>
           </Box>
         )}
-        <Button component={Link} to="/signup" color="info">
+        <Button
+          component={Link}
+          to="/signup"
+          color="success"
+          variant="soft"
+          size="lg"
+        >
           Teacher Sign Up
         </Button>
       </CardActions>
