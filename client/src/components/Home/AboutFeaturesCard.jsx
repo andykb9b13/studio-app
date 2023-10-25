@@ -23,10 +23,14 @@ export default function AboutFeaturesCard() {
           />
 
           <List sx={styles.list}>
-            <ListItem>Get Help identifying the issue</ListItem>
+            <ListItem sx={styles.listHover}>
+              Get Help identifying the issue
+            </ListItem>
             <Divider />
-            <ListItem>
-              Step by stp instructons for troubleshooting the problem
+            <ListItem sx={styles.listHover}>Start fixing the issue</ListItem>
+            <Divider />
+            <ListItem sx={styles.listHover}>
+              Step by step instructons for troubleshooting the problem
             </ListItem>
           </List>
         </Grid>
@@ -41,11 +45,13 @@ export default function AboutFeaturesCard() {
           />
 
           <List sx={styles.list}>
-            <ListItem>Timed Practicing</ListItem>
+            <ListItem sx={styles.listHover}>Timed Practicing</ListItem>
             <Divider />
-            <ListItem>Go on a streak with a certain skill</ListItem>
+            <ListItem sx={styles.listHover}>
+              Go on a streak with a certain skill
+            </ListItem>
             <Divider />
-            <ListItem>View practice plans</ListItem>
+            <ListItem sx={styles.listHover}>View practice plans</ListItem>
           </List>
         </Grid>
         <Grid xs={12} md={4} sx={styles.grid}>
@@ -59,9 +65,17 @@ export default function AboutFeaturesCard() {
           />
 
           <List sx={styles.list}>
-            <ListItem>Create skill sheets to challenge your students</ListItem>
+            <ListItem sx={styles.listHover}>
+              Create skill sheets to challenge your students
+            </ListItem>
             <Divider />
-            <ListItem>Earn Badges for completing sheets</ListItem>
+            <ListItem sx={styles.listHover}>
+              Earn Badges for completing sheets
+            </ListItem>
+            <Divider />
+            <ListItem sx={styles.listHover}>
+              Track your students' progress
+            </ListItem>
           </List>
         </Grid>
       </Grid>

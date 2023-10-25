@@ -10,6 +10,7 @@ import liveSiteDemo10 from "../../assets/home/liveSiteDemo/liveSiteDemo10.png";
 import liveSiteDemo13 from "../../assets/home/liveSiteDemo/liveSiteDemo13.png";
 import { MobileContext } from "../../App";
 import Animate from "../../utils/ScrollAnimation";
+import musicNoteBkgd from "../../assets/musicNoteBkgd.png";
 
 export default function AboutCard() {
   const { isMobile } = useContext(MobileContext);
@@ -29,6 +30,7 @@ export default function AboutCard() {
         <Typography level="h2">Customizable Tools and Resources...</Typography>
         <Animate>
           <img
+            id="getOrganizedLogo"
             className="hero-bg"
             src={getOrganized}
             style={styles.logo}
@@ -39,14 +41,21 @@ export default function AboutCard() {
         <Typography level="h3">Create Skill Sheets...</Typography>
 
         <img
+          id="skillSheetDemo"
           src={!isMobile ? liveSiteDemo3 : liveSiteDemo10}
-          style={styles.image}
+          style={{ ...styles.image, zIndex: "50" }}
           width={!isMobile ? "70%" : "80%"}
           alt="skill sheets"
         />
-
+        {/* Features grid */}
         <Grid container display={"flex"} justifyContent={"center"}>
-          <Grid xs={12} lg={4}>
+          {/* Section for showing how to create a skill sheet */}
+          <Grid
+            id="flexibilityAndCustomizable"
+            xs={12}
+            lg={4}
+            sx={{ zIndex: "50" }}
+          >
             <Typography level="h4" sx={{ textDecoration: "underline" }}>
               Flexibility and Customizable
             </Typography>
@@ -57,15 +66,23 @@ export default function AboutCard() {
             </Typography>
 
             <List>
-              <ListItem>Create your own exercises and skills</ListItem>
-              <ListItem>Select a difficulty</ListItem>
-              <ListItem>
+              <ListItem sx={styles.listHover}>
+                Create your own exercises and skills
+              </ListItem>
+              <ListItem sx={styles.listHover}>Select a difficulty</ListItem>
+              <ListItem sx={styles.listHover}>
                 Select from a list of badges for students to earn by completing
                 the sheet.
               </ListItem>
             </List>
           </Grid>
-          <Grid xs={12} lg={4} pl={2}>
+          {/* Background music note image */}
+          <img
+            src={musicNoteBkgd}
+            alt="music note background"
+            style={styles.backgroundImg}
+          />
+          <Grid xs={12} lg={4} pl={2} sx={{ zIndex: "50" }}>
             <img
               src={liveSiteDemo2}
               style={styles.image}
@@ -74,23 +91,26 @@ export default function AboutCard() {
             />
           </Grid>
         </Grid>
-
+        {/* Section for showing how to make a practice plan */}
         <Typography level="h3">Make Practice Plans...</Typography>
         <Typography>
           Create practice plans for students to keep them on track. Students and
           teachers can track their progress in each plan to see how much they
           have accomplished.
         </Typography>
-
         <img
           src={liveSiteDemo9}
           style={styles.image}
           width={!isMobile ? "70%" : "100%"}
           alt="create practice plan"
         />
-
-        <Grid container display={"flex"} justifyContent={"space-around"}>
-          <Grid xs={12} lg={4}>
+        <Grid
+          id="assignmentsAndResources"
+          container
+          display={"flex"}
+          justifyContent={"space-around"}
+        >
+          <Grid id="assignmentsDemo" xs={12} lg={4}>
             <Typography level="h3">Add Assignments...</Typography>
             <Typography>
               Add Assignments and give points for completing the assignment.
@@ -102,7 +122,7 @@ export default function AboutCard() {
               alt="create practice plan"
             />
           </Grid>
-          <Grid xs={12} lg={4}>
+          <Grid id="resourcesDemo" xs={12} lg={4}>
             <Typography level="h3">Add Resources...</Typography>
             <Typography>
               Add resources to help students with their assignments. Resources

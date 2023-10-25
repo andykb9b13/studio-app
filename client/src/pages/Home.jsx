@@ -33,7 +33,7 @@ const Home = () => {
 
       <Card id="aboutDatabaseCardWrapper">
         <CardCover>
-          <img src={mountainBkgd2} loading="lazy" alt="mountains" />
+          <img src={mountainBkgd2} alt="mountains" />
         </CardCover>
         <CardCover
           sx={{
