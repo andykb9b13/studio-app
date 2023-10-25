@@ -14,11 +14,21 @@ const PleaseLogin = () => {
           </AspectRatio>
         </CardOverflow>
         <Typography level="h2" textAlign={"center"}>
-          Please Login
+          Oops! It looks like you are not logged in.
         </Typography>
-        <Typography textAlign={"center"}>
-          <Link to="/login">Login...</Link>
+        <Typography level="h6" textAlign={"center"}>
+          <Link to="/login">Teacher Login</Link>
         </Typography>
+        <Typography level="h6" textAlign={"center"}>
+          <Link to="/login">Student Login</Link>
+        </Typography>
+        <Typography
+          level="body1"
+          endDecorator={<Link to="/signup">Sign Up</Link>}
+        >
+          Not a User?
+        </Typography>
+        <Link to="/">Back to Home</Link>
       </Card>
     </Sheet>
   );
