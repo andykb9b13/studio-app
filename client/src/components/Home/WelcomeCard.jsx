@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import studioHubLogo from "../../assets/home/studioHubLogo.png";
 import { MobileContext } from "../../App";
-import Animate from "../../utils/ScrollAnimation";
+import musicNoteBkgd from "../../assets/musicNoteBkgd.png";
 
 export default function WelcomeCard() {
   const { isMobile } = useContext(MobileContext);
@@ -35,21 +35,30 @@ export default function WelcomeCard() {
       variant="outlined"
       sx={!isMobile ? styles.card : styles.mobileCard}
     >
-      <Animate>
-        <img
-          className="hero-bg"
-          src={studioHubLogo}
-          style={styles.logo}
-          alt="studio hub logo"
-        />
-      </Animate>
-      <Typography level="h2">Welcome!</Typography>
-      <Typography level="h6" textAlign={"center"} sx={{ width: "70%" }}>
+      <img
+        className="hero-bg"
+        src={studioHubLogo}
+        style={{ ...styles.logo, zIndex: "100" }}
+        alt="studio hub logo"
+      />
+      <img
+        src={musicNoteBkgd}
+        alt="music note background"
+        style={styles.backgroundImg}
+      />
+      <Typography level="h2" sx={{ zIndex: "50" }}>
+        Welcome!
+      </Typography>
+      <Typography
+        level="h6"
+        textAlign={"center"}
+        sx={{ width: "70%", zIndex: "50" }}
+      >
         Welcome to Studio Hub! The one place where you can manage all of your
         music studio needs so that your lessons can be more efficient,
         productive, and versatile.
       </Typography>
-      <List sx={styles.list}>
+      <List sx={{ ...styles.list, zIndex: "50" }}>
         <ListItem sx={styles.listHover}>
           Create your own student databse
         </ListItem>

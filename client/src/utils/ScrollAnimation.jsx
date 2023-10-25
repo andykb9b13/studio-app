@@ -8,7 +8,7 @@ import { useEffect } from "react";
 // Create a wrapper component that will be used to wrap any component that needs to be animated
 const Animate = ({
   children,
-  anim = "zoom-in-up",
+  anim = "zoom-in",
   delay = "0",
   height = "auto",
 }) => {

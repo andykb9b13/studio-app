@@ -10,6 +10,14 @@ export const styles = {
     boxShadow: "lg",
     whiteSpace: "pre-line",
   },
+  backgroundImg: {
+    position: "absolute",
+    width: "50%",
+    top: "30%",
+    left: "auto",
+    opacity: "0.2",
+    zIndex: "auto",
+  },
   mobileCard: {
     width: "100%",
     mx: "auto",
@@ -55,7 +63,7 @@ export const styles = {
   listHover: {
     "&:hover": {
       color: "#662e9b",
-      transition: "all 0.2s",
+      transition: "all 0.2s ease-in-out",
       fontWeight: "bold",
     },
   },
