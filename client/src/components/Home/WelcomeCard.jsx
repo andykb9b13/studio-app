@@ -72,7 +72,14 @@ export default function WelcomeCard() {
       <CardActions>
         {Auth.loggedIn() && (
           <Box>
-            <Button onClick={redirectToProfile}>Go To Profile</Button>
+            <Button
+              onClick={redirectToProfile}
+              size="lg"
+              variant="soft"
+              color="primary"
+            >
+              Go To Profile
+            </Button>
           </Box>
         )}
         <Button

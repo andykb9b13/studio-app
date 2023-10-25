@@ -28,6 +28,7 @@ const Home = () => {
       </Card>
 
       {/* Provides details and previews about features in the application */}
+
       <AboutCard />
 
       <Card id="aboutDatabaseCardWrapper">
