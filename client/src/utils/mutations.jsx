@@ -72,6 +72,7 @@ export const ADD_PIECE = gql`
     $description: String!
     $pieceType: String
     $difficulty: String
+    $url: String
   ) {
     addPiece(
       teacherId: $teacherId
@@ -80,12 +81,14 @@ export const ADD_PIECE = gql`
       description: $description
       pieceType: $pieceType
       difficulty: $difficulty
+      url: $url
     ) {
       pieceName
       composer
       description
       pieceType
       difficulty
+      url
     }
   }
 `;

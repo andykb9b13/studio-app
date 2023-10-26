@@ -233,6 +233,7 @@ const typeDefs = gql`
       description: String!
       pieceType: String
       difficulty: String
+      url: String
     ): Piece
 
     addPost(
