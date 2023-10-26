@@ -39,7 +39,6 @@ const TeacherPiecesContainer = () => {
         },
       });
       alert("Added piece to your list");
-      console.log(piece.data.addPiece);
       setTeacherPieces(...teacherPieces, piece.data.addPiece); // update the teacherPieces state with the new piece to be displayed in the table
       return piece;
     } catch (err) {
