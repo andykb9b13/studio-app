@@ -19,24 +19,29 @@ const TeacherPieceTable = ({ teacherPieces, isMobile }) => {
           <th>
             <Typography>Piece</Typography>
           </th>
-          <th>
-            <Typography>Composer</Typography>
-          </th>
+          {!isMobile && (
+            <th>
+              <Typography>Composer</Typography>
+            </th>
+          )}
           {!isMobile && (
             <th>
               <Typography>Description</Typography>
             </th>
           )}
+          {!isMobile && (
+            <th>
+              <Typography>Type</Typography>
+            </th>
+          )}
+          {!isMobile && (
+            <th>
+              <Typography>Difficulty</Typography>
+            </th>
+          )}
           <th>
-            <Typography>Date Completed</Typography>
+            <Typography>File</Typography>
           </th>
-          <th>
-            <Typography>Type</Typography>
-          </th>
-          <th>
-            <Typography>Difficulty</Typography>
-          </th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -46,23 +51,27 @@ const TeacherPieceTable = ({ teacherPieces, isMobile }) => {
               <td>
                 <Typography>{piece.pieceName}</Typography>
               </td>
-              <td>
-                <Typography>{piece.composer}</Typography>
-              </td>
+              {!isMobile && (
+                <td>
+                  <Typography>{piece.composer}</Typography>
+                </td>
+              )}
               {!isMobile && (
                 <td>
                   <Typography>{piece.description}</Typography>
                 </td>
               )}
-              <td>
-                <Typography>{piece.dateCompleted}</Typography>
-              </td>
-              <td>
-                <Typography>{piece.pieceType}</Typography>
-              </td>
-              <td>
-                <Typography>{piece.difficulty}</Typography>
-              </td>
+              {!isMobile && (
+                <td>
+                  <Typography>{piece.pieceType}</Typography>
+                </td>
+              )}
+              {!isMobile && (
+                <td>
+                  <Typography>{piece.difficulty}</Typography>
+                </td>
+              )}
+
               <Typography>
                 <a href={piece.url} target="blank">
                   <IconButton
