@@ -12,6 +12,7 @@ import {
 import { MobileContext } from "../../../App";
 import SelectPieceTable from "./SelectPieceTable";
 import { Delete } from "@mui/icons-material";
+import FilePresentIcon from "@mui/icons-material/FilePresent";
 
 const StudentPiecesContainer = ({ student, teacher, pieces }) => {
   const { isMobile } = useContext(MobileContext);
@@ -93,11 +94,11 @@ const StudentPiecesContainer = ({ student, teacher, pieces }) => {
         <thead>
           <tr>
             <th>Piece</th>
-            <th>Composer</th>
+            {!isMobile && <th>Composer</th>}
             {!isMobile && <th>Description</th>}
-            <th>Date Completed</th>
-            <th>Type</th>
-            <th>Difficulty</th>
+            {!isMobile && <th>Type</th>}
+            {!isMobile && <th>Difficulty</th>}
+            <th>File</th>
             <th></th>
           </tr>
         </thead>
@@ -105,12 +106,23 @@ const StudentPiecesContainer = ({ student, teacher, pieces }) => {
           {studentPieces &&
             studentPieces.map((piece) => (
               <tr key={piece._id}>
-                <td>{piece.pieceName}</td>
-                <td>{piece.composer}</td>
+                <td>
+                  <b>{piece.pieceName}</b>
+                </td>
+                {!isMobile && <td>{piece.composer}</td>}
                 {!isMobile && <td>{piece.description}</td>}
-                <td>{piece.dateCompleted}</td>
-                <td>{piece.pieceType}</td>
-                <td>{piece.difficulty}</td>
+                {!isMobile && <td>{piece.pieceType}</td>}
+                {!isMobile && <td>{piece.difficulty}</td>}
+                <Typography>
+                  <a href={piece.url} target="blank">
+                    <IconButton
+                      color={piece.url ? "success" : "neutral"}
+                      disabled={piece.url ? false : true}
+                    >
+                      <FilePresentIcon />
+                    </IconButton>
+                  </a>
+                </Typography>
                 <td>
                   <IconButton
                     color="danger"

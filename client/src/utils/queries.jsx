@@ -131,6 +131,7 @@ export const QUERY_STUDENT = gql`
         description
         pieceType
         difficulty
+        url
       }
       skillSheets {
         _id

@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Card, Typography, Table, IconButton } from "@mui/joy";
 import CheckIcon from "@mui/icons-material/Check";
+import FilePresentIcon from "@mui/icons-material/FilePresent";
+import { MobileContext } from "../../../App";
 
 const SelectPieceTable = ({
   selectPieceFunc,
@@ -11,14 +13,13 @@ const SelectPieceTable = ({
   alreadySelected,
   pieces,
 }) => {
+  const { isMobile } = useContext(MobileContext);
+
   const sortPieces = (pieces) => {
-    console.log(pieces);
     const pieceNameArr = [];
     const sortedPieceArr = [];
     pieces?.forEach((piece) => pieceNameArr.push(piece.pieceName));
-    console.log(pieceNameArr);
     pieceNameArr.sort();
-    console.log(pieceNameArr);
     for (let i = 0; i < pieces.length; i++) {
       for (let j = 0; j < pieces.length; j++) {
         if (pieces[j].pieceName === pieceNameArr[i]) {
@@ -26,7 +27,6 @@ const SelectPieceTable = ({
         }
       }
     }
-    console.log(sortedPieceArr);
     return sortedPieceArr;
   };
 
@@ -44,10 +44,10 @@ const SelectPieceTable = ({
           <tr>
             <th></th>
             <th>Piece Name</th>
-            <th>Composer</th>
-            <th>Description</th>
-            <th>Piece Type</th>
-            <th>Difficulty</th>
+            {!isMobile && <th>Composer</th>}
+            {!isMobile && <th>Description</th>}
+            {!isMobile && <th>Piece Type</th>}
+            {!isMobile && <th>Difficulty</th>}
             <th></th>
           </tr>
         </thead>
@@ -56,12 +56,25 @@ const SelectPieceTable = ({
             sortedPieces?.map((piece, i) => (
               <tr key={piece._id}>
                 <td>{i + 1}</td>
-                <td>{piece.pieceName}</td>
-                <td>{piece.composer}</td>
-                <td>{piece.description}</td>
-                <td>{piece.pieceType}</td>
-                <td>{piece.difficulty}</td>
-                <td>URL</td>
+                <td>
+                  <b>{piece.pieceName}</b>
+                </td>
+                {!isMobile && <td>{piece.composer}</td>}
+                {!isMobile && <td>{piece.description}</td>}
+                {!isMobile && <td>{piece.pieceType}</td>}
+                {!isMobile && <td>{piece.difficulty}</td>}
+                <td>
+                  <Typography>
+                    <a href={piece.url} target="blank">
+                      <IconButton
+                        color={piece.url ? "success" : "neutral"}
+                        disabled={piece.url ? false : true}
+                      >
+                        <FilePresentIcon />
+                      </IconButton>
+                    </a>
+                  </Typography>
+                </td>
                 <td>
                   <IconButton disabled={alreadySelected.includes(piece._id)}>
                     <CheckIcon
