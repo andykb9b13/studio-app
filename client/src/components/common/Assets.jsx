@@ -59,6 +59,12 @@ import badge9 from "../../assets/badges/badge9.png";
 import badge10 from "../../assets/badges/badge10.png";
 import badge11 from "../../assets/badges/badge11.png";
 import badge12 from "../../assets/badges/badge12.png";
+import badge13 from "../../assets/badges/badge13.png";
+import badge14 from "../../assets/badges/badge14.png";
+import badge15 from "../../assets/badges/badge15.png";
+import badge16 from "../../assets/badges/badge16.png";
+import badge17 from "../../assets/badges/badge17.png";
+
 import skillSheetDefaultBadge from "../../assets/badges/skillSheetDefaultBadge.png";
 
 import level1 from "../../assets/badges/level1.png";
@@ -142,6 +148,12 @@ export const badgeList = [
   { id: 10, name: badge10 },
   { id: 11, name: badge11 },
   { id: 12, name: badge12 },
+  { id: 13, name: badge13 },
+  { id: 14, name: badge14 },
+  { id: 15, name: badge15 },
+  { id: 16, name: badge16 },
+  { id: 17, name: badge17 },
+  
 ];
 
 export const levelList = [
