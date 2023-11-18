@@ -34,8 +34,25 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
 
   // Setting the orderedStudents state to the students state when the students state changes
   useEffect(() => {
-    setOrderedStudents(students);
+    const orderedArr = orderStudentsLastName(students);
+    setOrderedStudents(orderedArr);
   }, [students, setOrderedStudents]);
+
+  // function for sorting students by last name
+  const orderStudentsLastName = (students) => {
+    const lastNameArr = [];
+    const orderedArr = [];
+    students?.forEach((student) => lastNameArr.push(student.lastName));
+    lastNameArr.sort();
+    for (let i = 0; i < students?.length; i++) {
+      for (let j = 0; j < students?.length; j++) {
+        if (students[j]?.lastName === lastNameArr[i]) {
+          orderedArr.push(students[j]);
+        }
+      }
+    }
+    return orderedArr;
+  };
 
   return (
     <Sheet id="studentDatabaseTableContainer">
