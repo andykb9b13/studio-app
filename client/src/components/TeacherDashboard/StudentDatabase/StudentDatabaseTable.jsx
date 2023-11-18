@@ -84,7 +84,7 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
             orderedStudents?.map((student, i) => (
               <tr key={i}>
                 <td>
-                  {student.firstName} {student.lastName}
+                  <b>{i + 1}</b>. {student.firstName} {student.lastName}
                 </td>
                 {!isMobile ? <td>{student.instrument}</td> : null}
                 {!isMobile ? <td>{student.primaryContact}</td> : null}
