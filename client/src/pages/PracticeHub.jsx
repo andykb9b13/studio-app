@@ -78,7 +78,7 @@ const PracticeHub = () => {
                   lg={3}
                   m={1}
                 >
-                  <Card clasName="practiceHubAppCard" sx={styles.card}>
+                  <Card className="practiceHubAppCard" sx={styles.card}>
                     <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
                       {button.label}
                     </Typography>
