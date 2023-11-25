@@ -13,6 +13,7 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import CheckIcon from "@mui/icons-material/Check";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import { badgeList } from "../common/Assets";
 
 const styles = {
   streakCard: {
@@ -181,10 +182,11 @@ function Tries({ numTries, setNumTries, triesLeft, resetStreak }) {
   );
 }
 
-const ResponseMessage = ({ message }) => {
+const ResponseMessage = ({ message, responseImage }) => {
   return (
     <>
       <Typography level="h1">{message}</Typography>
+      <img src={responseImage.name} alt="response" sx={{ width: "100px" }} />
     </>
   );
 };
@@ -197,6 +199,7 @@ const StreakPractice = ({ setStatus }) => {
   const [responseOpen, setResponseOpen] = useState(false);
   const [result, setResult] = useState(null);
   const [message, setMessage] = useState(null);
+  const [responseImage, setResponseImage] = useState(null);
   const triesLeft = numTries - successCount - blunderCount;
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
@@ -209,28 +212,22 @@ const StreakPractice = ({ setStatus }) => {
   }
 
   useEffect(() => {
-    console.log("in useEffect for result");
-
     if (result === "success") {
       const randomNum = Math.floor(Math.random() * successMessages.length);
+      const randomImgNum = Math.floor(Math.random() * badgeList.length);
+      setResponseImage(badgeList[randomImgNum]);
       setMessage(successMessages[randomNum]);
       setResponseOpen(true);
     } else if (result === "blunder") {
       const randomNum = Math.floor(Math.random() * blunderMessages.length);
+      const randomImgNum = Math.floor(Math.random() * badgeList.length);
+      setResponseImage(badgeList[randomImgNum]);
       setMessage(blunderMessages[randomNum]);
       setResponseOpen(true);
     }
   }, [result]);
 
   useEffect(() => {
-    console.log(
-      "successCount: ",
-      successCount,
-      "blunderCount: ",
-      blunderCount,
-      "triesLeft: ",
-      triesLeft
-    );
     if ((successCount !== 0 || blunderCount !== 0) && triesLeft === 0) {
       setOpen(true);
     }
@@ -243,9 +240,12 @@ const StreakPractice = ({ setStatus }) => {
       </RegularModal>
       <RegularModal
         open={responseOpen}
-        onRequestClose={() => setResponseOpen(false)}
+        onRequestClose={() => {
+          setMessage(null);
+          setResponseOpen(false);
+        }}
       >
-        <ResponseMessage message={message} result={result} />
+        <ResponseMessage message={message} responseImage={responseImage} />
       </RegularModal>
       <Card variant="outlined" sx={styles.streakCard}>
         <Tries
