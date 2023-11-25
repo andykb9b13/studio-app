@@ -1,34 +1,37 @@
-import React, { useState } from "react";
-import { Button, Card, Typography, Input, Grid } from "@mui/joy";
+import React, { useState, useEffect } from "react";
+import { Button, Card, Typography, Input, Grid, CardActions } from "@mui/joy";
+import RegularModal from "../common/Modal/RegularModal";
 
 function Counter({ title, count, setCount, numTries }) {
   return (
-    <Card variant="outlined">
-      <Typography level="h2">{title}</Typography>
-      <Typography level="h3">{count}</Typography>
-      <Button
-        color="success"
-        onClick={() => {
-          setCount(count + 1);
-        }}
-        disabled={numTries === 0}
-      >
-        Add
-      </Button>
-      <Button
-        color="danger"
-        onClick={() => {
-          setCount(count - 1);
-        }}
-        disabled={numTries === 0}
-      >
-        Delete
-      </Button>
-    </Card>
+    <Grid lg={6}>
+      <Card variant="outlined">
+        <Typography level="h2">{title}</Typography>
+        <Typography level="h3">{count}</Typography>
+        <Button
+          color="success"
+          onClick={() => {
+            setCount(count + 1);
+          }}
+          disabled={numTries === 0}
+        >
+          Add
+        </Button>
+        <Button
+          color="danger"
+          onClick={() => {
+            setCount(count - 1);
+          }}
+          disabled={numTries === 0}
+        >
+          Delete
+        </Button>
+      </Card>
+    </Grid>
   );
 }
 
-function SuccessRate({ percentage }) {
+function SuccessRate({ percentage, resetStreak }) {
   let message = "Let's do this!";
   if (percentage <= 25) {
     message = "Don't give up!";
@@ -47,6 +50,11 @@ function SuccessRate({ percentage }) {
       <Typography level="h2">Success Rate</Typography>
       <Typography level="h4">{percentage} % success rate</Typography>
       <Typography level="h4">{message}</Typography>
+      <CardActions>
+        <Button color="success" onClick={resetStreak}>
+          Try Again
+        </Button>
+      </CardActions>
     </Card>
   );
 }
@@ -91,6 +99,7 @@ const StreakPractice = ({ setStatus }) => {
   const [successCount, setSuccessCount] = useState(0);
   const [blunderCount, setBlunderCount] = useState(0);
   const [numTries, setNumTries] = useState(0);
+  const [open, setOpen] = useState(false);
   const triesLeft = numTries - successCount - blunderCount;
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
@@ -99,10 +108,28 @@ const StreakPractice = ({ setStatus }) => {
     setSuccessCount(0);
     setBlunderCount(0);
     setNumTries(0);
+    setOpen(false);
   }
+
+  useEffect(() => {
+    console.log(
+      "successCount: ",
+      successCount,
+      "blunderCount: ",
+      blunderCount,
+      "triesLeft: ",
+      triesLeft
+    );
+    if ((successCount !== 0 || blunderCount !== 0) && triesLeft === 0) {
+      setOpen(true);
+    }
+  }, [triesLeft, successCount, blunderCount]);
 
   return (
     <Grid container mt={4}>
+      <RegularModal open={open} onRequestClose={() => setOpen(false)}>
+        <SuccessRate percentage={percentage} resetStreak={resetStreak} />
+      </RegularModal>
       <Card variant="outlined" sx={{ mx: "auto", minWidth: "50%" }}>
         <Typography level="h1">Streak Practice</Typography>
         <Button onClick={resetStreak}>Reset Streak</Button>
@@ -111,7 +138,8 @@ const StreakPractice = ({ setStatus }) => {
           setNumTries={setNumTries}
           triesLeft={triesLeft}
         />
-        <Grid>
+
+        <Grid sx={{ display: "flex" }}>
           <Counter
             title={"Successes"}
             count={successCount}
@@ -125,7 +153,6 @@ const StreakPractice = ({ setStatus }) => {
             numTries={numTries}
           />
         </Grid>
-        <SuccessRate percentage={percentage} />
       </Card>
     </Grid>
   );
