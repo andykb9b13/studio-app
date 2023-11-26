@@ -76,30 +76,34 @@ const blunderMessages = [
 ];
 
 function Counter({ title, count, setCount, numTries, setResult }) {
+  console.log("count", count);
   return (
     <Card variant="outlined" sx={styles.counterCard}>
       <Typography level="h2">{title}</Typography>
       <Typography level="h3">{count}</Typography>
-      {title.toLowerCase() === "successes" && (
-        <IconButton color="success">
-          <ThumbUpIcon
-            onClick={() => {
-              setCount(count + 1);
-              setResult("success");
-            }}
-            disabled={numTries === 0}
-          />
+      {title === "Successes" && (
+        <IconButton
+          color="success"
+          onClick={() => {
+            setCount(count + 1);
+            setResult("success");
+            console.log("clicked");
+          }}
+          disabled={numTries === 0}
+        >
+          <ThumbUpIcon />
         </IconButton>
       )}
-      {title.toLowerCase() === "blunders" && (
-        <IconButton color="danger">
-          <ThumbDownIcon
-            onClick={() => {
-              setCount(count + 1);
-              setResult("blunder");
-            }}
-            disabled={numTries === 0}
-          />
+      {title === "Blunders" && (
+        <IconButton
+          color="danger"
+          onClick={() => {
+            setCount(count + 1);
+            setResult("blunder");
+          }}
+          disabled={numTries === 0}
+        >
+          <ThumbDownIcon />
         </IconButton>
       )}
     </Card>
@@ -214,9 +218,10 @@ const StreakPractice = ({ setStatus }) => {
     setBlunderCount(0);
     setNumTries(0);
     setOpen(false);
-    setResponseMessage("");
+    setResponseMessage("Let's do this!");
   }
 
+  // TODO Need to redo this because if you do more than one success or blunder in a row, it won't rerender because it hasn't changed.
   useEffect(() => {
     if (result === "success") {
       const randomNum = Math.floor(Math.random() * successMessages.length);
