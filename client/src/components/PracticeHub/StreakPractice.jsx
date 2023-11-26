@@ -13,7 +13,8 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import CheckIcon from "@mui/icons-material/Check";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import { badgeList } from "../common/Assets";
+import { successResponseList } from "../common/Assets";
+import { blunderResponseList } from "../common/Assets";
 
 const styles = {
   streakCard: {
@@ -45,7 +46,7 @@ const successMessages = [
   "I'm impressed!",
   "It's all coming together now!",
   "Radical!",
-  "High Five!",
+  "It's Beautiful!",
   "You're on fire!",
   "Kicking butt!",
   "So good!",
@@ -62,46 +63,46 @@ const blunderMessages = [
   "Once more unto the breach...",
   "Almost...",
   "Keep practicing...",
-  "Don't give up...",
+  "Better do that again...",
   "You're getting closer...",
-  "You're getting better...",
+  "Yeah...",
   "I think you'll get it next time...",
   "Close...",
+  "What was that?...",
   "Persistence is the key...",
-  "It'll come, don't worry...",
-  "You're doing good work...",
+  "That was a stinker...",
+  "Uhhh...",
+  "Really?...",
 ];
 
 function Counter({ title, count, setCount, numTries, setResult }) {
   return (
-    <Grid lg={6}>
-      <Card variant="outlined" sx={styles.counterCard}>
-        <Typography level="h2">{title}</Typography>
-        <Typography level="h3">{count}</Typography>
-        {title.toLowerCase() === "successes" && (
-          <IconButton color="success">
-            <ThumbUpIcon
-              onClick={() => {
-                setCount(count + 1);
-                setResult("success");
-              }}
-              disabled={numTries === 0}
-            />
-          </IconButton>
-        )}
-        {title.toLowerCase() === "blunders" && (
-          <IconButton color="danger">
-            <ThumbDownIcon
-              onClick={() => {
-                setCount(count + 1);
-                setResult("blunder");
-              }}
-              disabled={numTries === 0}
-            />
-          </IconButton>
-        )}
-      </Card>
-    </Grid>
+    <Card variant="outlined" sx={styles.counterCard}>
+      <Typography level="h2">{title}</Typography>
+      <Typography level="h3">{count}</Typography>
+      {title.toLowerCase() === "successes" && (
+        <IconButton color="success">
+          <ThumbUpIcon
+            onClick={() => {
+              setCount(count + 1);
+              setResult("success");
+            }}
+            disabled={numTries === 0}
+          />
+        </IconButton>
+      )}
+      {title.toLowerCase() === "blunders" && (
+        <IconButton color="danger">
+          <ThumbDownIcon
+            onClick={() => {
+              setCount(count + 1);
+              setResult("blunder");
+            }}
+            disabled={numTries === 0}
+          />
+        </IconButton>
+      )}
+    </Card>
   );
 }
 
@@ -182,11 +183,13 @@ function Tries({ numTries, setNumTries, triesLeft, resetStreak }) {
   );
 }
 
-const ResponseMessage = ({ message, responseImage }) => {
+const Response = ({ responseMessage, responseImage }) => {
   return (
     <>
-      <Typography level="h1">{message}</Typography>
-      <img src={responseImage.name} alt="response" sx={{ width: "100px" }} />
+      <img src={responseImage} alt="emoji avatar" style={{ width: "300px" }} />
+      <Typography level="h2" sx={{ color: "white" }}>
+        "{responseMessage}"
+      </Typography>
     </>
   );
 };
@@ -196,34 +199,39 @@ const StreakPractice = ({ setStatus }) => {
   const [blunderCount, setBlunderCount] = useState(0);
   const [numTries, setNumTries] = useState(0);
   const [open, setOpen] = useState(false);
-  const [responseOpen, setResponseOpen] = useState(false);
   const [result, setResult] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [responseImage, setResponseImage] = useState(null);
+  const [responseMessage, setResponseMessage] = useState("Let's do this!");
+  const [responseImage, setResponseImage] = useState(
+    successResponseList[3].name
+  );
   const triesLeft = numTries - successCount - blunderCount;
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
 
   function resetStreak() {
+    setResponseImage(successResponseList[3].name);
     setSuccessCount(0);
     setBlunderCount(0);
     setNumTries(0);
     setOpen(false);
+    setResponseMessage("");
   }
 
   useEffect(() => {
     if (result === "success") {
       const randomNum = Math.floor(Math.random() * successMessages.length);
-      const randomImgNum = Math.floor(Math.random() * badgeList.length);
-      setResponseImage(badgeList[randomImgNum]);
-      setMessage(successMessages[randomNum]);
-      setResponseOpen(true);
+      const randomImgNum = Math.floor(
+        Math.random() * successResponseList.length
+      );
+      setResponseImage(successResponseList[randomImgNum].name);
+      setResponseMessage(successMessages[randomNum]);
     } else if (result === "blunder") {
       const randomNum = Math.floor(Math.random() * blunderMessages.length);
-      const randomImgNum = Math.floor(Math.random() * badgeList.length);
-      setResponseImage(badgeList[randomImgNum]);
-      setMessage(blunderMessages[randomNum]);
-      setResponseOpen(true);
+      const randomImgNum = Math.floor(
+        Math.random() * blunderResponseList.length
+      );
+      setResponseImage(blunderResponseList[randomImgNum].name);
+      setResponseMessage(blunderMessages[randomNum]);
     }
   }, [result]);
 
@@ -238,15 +246,6 @@ const StreakPractice = ({ setStatus }) => {
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <SuccessRate percentage={percentage} resetStreak={resetStreak} />
       </RegularModal>
-      <RegularModal
-        open={responseOpen}
-        onRequestClose={() => {
-          setMessage(null);
-          setResponseOpen(false);
-        }}
-      >
-        <ResponseMessage message={message} responseImage={responseImage} />
-      </RegularModal>
       <Card variant="outlined" sx={styles.streakCard}>
         <Tries
           numTries={numTries}
@@ -255,21 +254,29 @@ const StreakPractice = ({ setStatus }) => {
           resetStreak={resetStreak}
         />
 
-        <Grid sx={{ display: "flex" }}>
-          <Counter
-            title={"Successes"}
-            count={successCount}
-            setCount={setSuccessCount}
-            numTries={numTries}
-            setResult={setResult}
-          />
-          <Counter
-            title={"Blunders"}
-            count={blunderCount}
-            setCount={setBlunderCount}
-            numTries={numTries}
-            setResult={setResult}
-          />
+        <Grid container sx={{ display: "flex" }}>
+          <Grid lg={6} sm={12}>
+            <Response
+              responseImage={responseImage}
+              responseMessage={responseMessage}
+            />
+          </Grid>
+          <Grid lg={6} sm={12}>
+            <Counter
+              title={"Successes"}
+              count={successCount}
+              setCount={setSuccessCount}
+              numTries={numTries}
+              setResult={setResult}
+            />
+            <Counter
+              title={"Blunders"}
+              count={blunderCount}
+              setCount={setBlunderCount}
+              numTries={numTries}
+              setResult={setResult}
+            />
+          </Grid>
         </Grid>
       </Card>
     </Grid>

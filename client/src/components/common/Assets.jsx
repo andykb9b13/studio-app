@@ -111,6 +111,9 @@ import response25 from "../../assets/streak/response25.png";
 import response26 from "../../assets/streak/response26.png";
 import response27 from "../../assets/streak/response27.png";
 import response28 from "../../assets/streak/response28.png";
+import response29 from "../../assets/streak/response29.png";
+import response30 from "../../assets/streak/response30.png";
+import response31 from "../../assets/streak/response31.png";
 
 export const avatarList = [
   { id: 0, name: avatar0 },
@@ -204,33 +207,39 @@ export const pointsList = [
   { id: 4, name: points2000 },
 ];
 
-export const responseList = [
+export const successResponseList = [
   { id: 1, name: response1 },
   { id: 2, name: response2 },
-  { id: 3, name: response3 },
-  { id: 4, name: response4 },
-  { id: 5, name: response5 },
-  { id: 6, name: response6 },
-  { id: 7, name: response7 },
-  { id: 8, name: response8 },
-  { id: 9, name: response9 },
-  { id: 10, name: response10 },
-  { id: 11, name: response11 },
-  { id: 12, name: response12 },
-  { id: 13, name: response13 },
-  { id: 14, name: response14 },
-  { id: 15, name: response15 },
-  { id: 16, name: response16 },
-  { id: 17, name: response17 },
-  { id: 18, name: response18 },
-  { id: 19, name: response19 },
-  { id: 20, name: response20 },
-  { id: 21, name: response21 },
-  { id: 22, name: response22 },
-  { id: 23, name: response23 },
-  { id: 24, name: response24 },
-  { id: 25, name: response25 },
-  { id: 26, name: response26 },
-  { id: 27, name: response27 },
-  { id: 28, name: response28 },
+  { id: 3, name: response4 },
+  { id: 4, name: response6 },
+  { id: 5, name: response7 },
+  { id: 6, name: response16 },
+  { id: 7, name: response17 },
+  { id: 8, name: response20 },
+  { id: 9, name: response21 },
+  { id: 10, name: response22 },
+  { id: 11, name: response28 },
+  { id: 12, name: response29 },
+  { id: 13, name: response30 },
+  { id: 14, name: response31 },
+];
+
+export const blunderResponseList = [
+  { id: 1, name: response3 },
+  { id: 2, name: response5 },
+  { id: 3, name: response8 },
+  { id: 4, name: response9 },
+  { id: 5, name: response10 },
+  { id: 6, name: response11 },
+  { id: 7, name: response12 },
+  { id: 8, name: response13 },
+  { id: 9, name: response14 },
+  { id: 10, name: response15 },
+  { id: 11, name: response18 },
+  { id: 12, name: response19 },
+  { id: 13, name: response23 },
+  { id: 14, name: response24 },
+  { id: 15, name: response25 },
+  { id: 16, name: response26 },
+  { id: 17, name: response27 },
 ];
