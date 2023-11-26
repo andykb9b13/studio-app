@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -75,8 +75,8 @@ const blunderMessages = [
   "Really?...",
 ];
 
-function Counter({ title, count, setCount, numTries, setResult }) {
-  console.log("count", count);
+function Counter({ title, count, setCount, numTries, setResult, totalTried }) {
+  console.log("totalTried: ", totalTried, "numTries: ", numTries);
   return (
     <Card variant="outlined" sx={styles.counterCard}>
       <Typography level="h2">{title}</Typography>
@@ -89,7 +89,7 @@ function Counter({ title, count, setCount, numTries, setResult }) {
             setResult("success");
             console.log("clicked");
           }}
-          disabled={numTries === 0}
+          disabled={numTries === 0 || parseInt(numTries) === totalTried}
         >
           <ThumbUpIcon />
         </IconButton>
@@ -101,7 +101,7 @@ function Counter({ title, count, setCount, numTries, setResult }) {
             setCount(count + 1);
             setResult("blunder");
           }}
-          disabled={numTries === 0}
+          disabled={numTries === 0 || parseInt(numTries) === totalTried}
         >
           <ThumbDownIcon />
         </IconButton>
@@ -111,21 +111,28 @@ function Counter({ title, count, setCount, numTries, setResult }) {
 }
 
 function SuccessRate({ percentage, resetStreak }) {
-  let message = "Let's do this!";
+  let message = "";
+  let responseImage = "";
   if (percentage <= 25) {
-    message = "Don't give up!";
+    message = "Hmm... ";
+    responseImage = blunderResponseList[2].name;
   } else if (percentage <= 50) {
-    message = "Not bad! Keep working on it.";
+    message = "Still needs some work...";
+    responseImage = blunderResponseList[15].name;
   } else if (percentage <= 75) {
-    message = "You're doing great. Go for 100%";
+    message = "You're getting closer, keep it up...";
+    responseImage = successResponseList[2].name;
   } else if (percentage < 100) {
     message = "You're sooooo close!";
+    responseImage = successResponseList[12].name;
   } else if (percentage === 100) {
-    message = "Awesome! You got it!";
+    message = "Perfection!";
+    responseImage = successResponseList[9].name;
   }
 
   return (
     <Card variant="outlined">
+      <img src={responseImage} alt="emoji" style={{ maxWidth: "50%" }} />
       <Typography level="h2">Success Rate</Typography>
       <Typography level="h4">{percentage} % success rate</Typography>
       <Typography level="h4">{message}</Typography>
@@ -238,9 +245,7 @@ const StreakPractice = ({ setStatus }) => {
     setResponseMessage(blunderMessages[randomNum]);
   };
 
-  // TODO Need to redo this because if you do more than one success or blunder in a row, it won't rerender because it hasn't changed.
   useEffect(() => {
-    // Something like if success > prevSuccess
     if (result === "success" && tempCount !== totalTried && totalTried !== 0) {
       updateSuccess();
       setTempCount(tempCount + 1);
@@ -288,6 +293,7 @@ const StreakPractice = ({ setStatus }) => {
               setCount={setSuccessCount}
               numTries={numTries}
               setResult={setResult}
+              totalTried={totalTried}
             />
             <Counter
               title={"Blunders"}
@@ -295,6 +301,7 @@ const StreakPractice = ({ setStatus }) => {
               setCount={setBlunderCount}
               numTries={numTries}
               setResult={setResult}
+              totalTried={totalTried}
             />
           </Grid>
         </Grid>

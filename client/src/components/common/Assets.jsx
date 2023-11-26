@@ -67,6 +67,7 @@ import badge17 from "../../assets/badges/badge17.png";
 
 import skillSheetDefaultBadge from "../../assets/badges/skillSheetDefaultBadge.png";
 
+import level0 from "../../assets/badges/level0.png";
 import level1 from "../../assets/badges/level1.png";
 import level2 from "../../assets/badges/level2.png";
 import level3 from "../../assets/badges/level3.png";
@@ -76,7 +77,6 @@ import level6 from "../../assets/badges/level6.png";
 import level7 from "../../assets/badges/level7.png";
 import level8 from "../../assets/badges/level8.png";
 import level9 from "../../assets/badges/level9.png";
-import level10 from "../../assets/badges/level10.png";
 
 import points200 from "../../assets/badges/points200.png";
 import points500 from "../../assets/badges/points500.png";
@@ -188,6 +188,7 @@ export const badgeList = [
 ];
 
 export const levelList = [
+  { id: 0, name: level0 },
   { id: 1, name: level1 },
   { id: 2, name: level2 },
   { id: 3, name: level3 },
@@ -197,49 +198,48 @@ export const levelList = [
   { id: 7, name: level7 },
   { id: 8, name: level8 },
   { id: 9, name: level9 },
-  { id: 10, name: level10 },
 ];
 
 export const pointsList = [
-  { id: 1, name: points200 },
-  { id: 2, name: points500 },
-  { id: 3, name: points1000 },
-  { id: 4, name: points2000 },
+  { id: 0, name: points200 },
+  { id: 1, name: points500 },
+  { id: 2, name: points1000 },
+  { id: 3, name: points2000 },
 ];
 
 export const successResponseList = [
-  { id: 1, name: response1 },
-  { id: 2, name: response2 },
-  { id: 3, name: response4 },
-  { id: 4, name: response6 },
-  { id: 5, name: response7 },
-  { id: 6, name: response16 },
-  { id: 7, name: response17 },
-  { id: 8, name: response20 },
-  { id: 9, name: response21 },
-  { id: 10, name: response22 },
-  { id: 11, name: response28 },
-  { id: 12, name: response29 },
-  { id: 13, name: response30 },
-  { id: 14, name: response31 },
+  { id: 0, name: response1 },
+  { id: 1, name: response2 },
+  { id: 2, name: response4 },
+  { id: 3, name: response6 },
+  { id: 4, name: response7 },
+  { id: 5, name: response16 },
+  { id: 6, name: response17 },
+  { id: 7, name: response20 },
+  { id: 8, name: response21 },
+  { id: 9, name: response22 },
+  { id: 10, name: response28 },
+  { id: 11, name: response29 },
+  { id: 12, name: response30 },
+  { id: 13, name: response31 },
 ];
 
 export const blunderResponseList = [
-  { id: 1, name: response3 },
-  { id: 2, name: response5 },
-  { id: 3, name: response8 },
-  { id: 4, name: response9 },
-  { id: 5, name: response10 },
-  { id: 6, name: response11 },
-  { id: 7, name: response12 },
-  { id: 8, name: response13 },
-  { id: 9, name: response14 },
-  { id: 10, name: response15 },
-  { id: 11, name: response18 },
-  { id: 12, name: response19 },
-  { id: 13, name: response23 },
-  { id: 14, name: response24 },
-  { id: 15, name: response25 },
-  { id: 16, name: response26 },
-  { id: 17, name: response27 },
+  { id: 0, name: response3 },
+  { id: 1, name: response5 },
+  { id: 2, name: response8 },
+  { id: 3, name: response9 },
+  { id: 4, name: response10 },
+  { id: 5, name: response11 },
+  { id: 6, name: response12 },
+  { id: 7, name: response13 },
+  { id: 8, name: response14 },
+  { id: 9, name: response15 },
+  { id: 10, name: response18 },
+  { id: 11, name: response19 },
+  { id: 12, name: response23 },
+  { id: 13, name: response24 },
+  { id: 14, name: response25 },
+  { id: 15, name: response26 },
+  { id: 16, name: response27 },
 ];
