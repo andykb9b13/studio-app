@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Button,
   Card,
@@ -208,6 +208,7 @@ const StreakPractice = ({ setStatus }) => {
   const [responseImage, setResponseImage] = useState(
     successResponseList[3].name
   );
+  const [tempCount, setTempCount] = useState(0);
   const triesLeft = numTries - successCount - blunderCount;
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
@@ -221,24 +222,35 @@ const StreakPractice = ({ setStatus }) => {
     setResponseMessage("Let's do this!");
   }
 
+  const updateSuccess = () => {
+    const randomNum = Math.floor(Math.random() * successMessages.length);
+    const randomImgNum = Math.floor(Math.random() * successResponseList.length);
+    setResponseImage(successResponseList[randomImgNum].name);
+    setResponseMessage(successMessages[randomNum]);
+  };
+
+  const updateBlunder = () => {
+    const randomNum = Math.floor(Math.random() * blunderMessages.length);
+    const randomImgNum = Math.floor(Math.random() * blunderResponseList.length);
+    setResponseImage(blunderResponseList[randomImgNum].name);
+    setResponseMessage(blunderMessages[randomNum]);
+  };
+
   // TODO Need to redo this because if you do more than one success or blunder in a row, it won't rerender because it hasn't changed.
   useEffect(() => {
-    if (result === "success") {
-      const randomNum = Math.floor(Math.random() * successMessages.length);
-      const randomImgNum = Math.floor(
-        Math.random() * successResponseList.length
-      );
-      setResponseImage(successResponseList[randomImgNum].name);
-      setResponseMessage(successMessages[randomNum]);
-    } else if (result === "blunder") {
-      const randomNum = Math.floor(Math.random() * blunderMessages.length);
-      const randomImgNum = Math.floor(
-        Math.random() * blunderResponseList.length
-      );
-      setResponseImage(blunderResponseList[randomImgNum].name);
-      setResponseMessage(blunderMessages[randomNum]);
+    // Something like if success > prevSuccess
+    if (result === "success" && tempCount !== totalTried && totalTried !== 0) {
+      updateSuccess();
+      setTempCount(tempCount + 1);
+    } else if (
+      result === "blunder" &&
+      tempCount !== totalTried &&
+      totalTried !== 0
+    ) {
+      updateBlunder();
+      setTempCount(tempCount + 1);
     }
-  }, [result]);
+  }, [result, tempCount, totalTried]);
 
   useEffect(() => {
     if ((successCount !== 0 || blunderCount !== 0) && triesLeft === 0) {
