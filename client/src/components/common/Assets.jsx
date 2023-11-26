@@ -83,6 +83,35 @@ import points500 from "../../assets/badges/points500.png";
 import points1000 from "../../assets/badges/points1000.png";
 import points2000 from "../../assets/badges/points2000.png";
 
+import response1 from "../../assets/streak/response1.png";
+import response2 from "../../assets/streak/response2.png";
+import response3 from "../../assets/streak/response3.png";
+import response4 from "../../assets/streak/response4.png";
+import response5 from "../../assets/streak/response5.png";
+import response6 from "../../assets/streak/response6.png";
+import response7 from "../../assets/streak/response7.png";
+import response8 from "../../assets/streak/response8.png";
+import response9 from "../../assets/streak/response9.png";
+import response10 from "../../assets/streak/response10.png";
+import response11 from "../../assets/streak/response11.png";
+import response12 from "../../assets/streak/response12.png";
+import response13 from "../../assets/streak/response13.png";
+import response14 from "../../assets/streak/response14.png";
+import response15 from "../../assets/streak/response15.png";
+import response16 from "../../assets/streak/response16.png";
+import response17 from "../../assets/streak/response17.png";
+import response18 from "../../assets/streak/response18.png";
+import response19 from "../../assets/streak/response19.png";
+import response20 from "../../assets/streak/response20.png";
+import response21 from "../../assets/streak/response21.png";
+import response22 from "../../assets/streak/response22.png";
+import response23 from "../../assets/streak/response23.png";
+import response24 from "../../assets/streak/response24.png";
+import response25 from "../../assets/streak/response25.png";
+import response26 from "../../assets/streak/response26.png";
+import response27 from "../../assets/streak/response27.png";
+import response28 from "../../assets/streak/response28.png";
+
 export const avatarList = [
   { id: 0, name: avatar0 },
   { id: 1, name: avatar1 },
@@ -153,7 +182,6 @@ export const badgeList = [
   { id: 15, name: badge15 },
   { id: 16, name: badge16 },
   { id: 17, name: badge17 },
-  
 ];
 
 export const levelList = [
@@ -174,4 +202,35 @@ export const pointsList = [
   { id: 2, name: points500 },
   { id: 3, name: points1000 },
   { id: 4, name: points2000 },
+];
+
+export const responseList = [
+  { id: 1, name: response1 },
+  { id: 2, name: response2 },
+  { id: 3, name: response3 },
+  { id: 4, name: response4 },
+  { id: 5, name: response5 },
+  { id: 6, name: response6 },
+  { id: 7, name: response7 },
+  { id: 8, name: response8 },
+  { id: 9, name: response9 },
+  { id: 10, name: response10 },
+  { id: 11, name: response11 },
+  { id: 12, name: response12 },
+  { id: 13, name: response13 },
+  { id: 14, name: response14 },
+  { id: 15, name: response15 },
+  { id: 16, name: response16 },
+  { id: 17, name: response17 },
+  { id: 18, name: response18 },
+  { id: 19, name: response19 },
+  { id: 20, name: response20 },
+  { id: 21, name: response21 },
+  { id: 22, name: response22 },
+  { id: 23, name: response23 },
+  { id: 24, name: response24 },
+  { id: 25, name: response25 },
+  { id: 26, name: response26 },
+  { id: 27, name: response27 },
+  { id: 28, name: response28 },
 ];
