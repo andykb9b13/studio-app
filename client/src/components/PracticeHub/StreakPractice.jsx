@@ -138,8 +138,7 @@ function SuccessRate({ percentage, resetStreak }) {
   );
 }
 
-function Tries({ numTries, setNumTries, triesLeft, resetStreak }) {
-  const [active, setActive] = useState(false);
+function Tries({ setNumTries, triesLeft, resetStreak, active, setActive }) {
   let tries = 0;
 
   return (
@@ -209,6 +208,7 @@ const StreakPractice = ({ setStatus }) => {
     successResponseList[3].name
   );
   const [tempCount, setTempCount] = useState(0);
+  const [active, setActive] = useState(false);
   const triesLeft = numTries - successCount - blunderCount;
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
@@ -218,8 +218,10 @@ const StreakPractice = ({ setStatus }) => {
     setSuccessCount(0);
     setBlunderCount(0);
     setNumTries(0);
+    setActive(false);
     setOpen(false);
     setResponseMessage("Let's do this!");
+    setTempCount(0);
   }
 
   const updateSuccess = () => {
@@ -265,7 +267,8 @@ const StreakPractice = ({ setStatus }) => {
       </RegularModal>
       <Card variant="outlined" sx={styles.streakCard}>
         <Tries
-          numTries={numTries}
+          active={active}
+          setActive={setActive}
           setNumTries={setNumTries}
           triesLeft={triesLeft}
           resetStreak={resetStreak}
