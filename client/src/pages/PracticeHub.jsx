@@ -6,6 +6,7 @@ import {
   Grid,
   Sheet,
   Typography,
+  Box,
 } from "@mui/joy";
 import TimedPractice from "../components/PracticeHub/TimedPractice";
 import StreakPractice from "../components/PracticeHub/StreakPractice";
@@ -90,16 +91,25 @@ const PracticeHub = () => {
                   m={1}
                 >
                   <Card className="practiceHubAppCard" sx={styles.card}>
-                    <Typography level="h2" sx={{ mb: 0.5 }}>
-                      {button.label}
-                    </Typography>
-
+                    <Box
+                      sx={{ backgroundColor: "white", borderRadius: "10px" }}
+                    >
+                      <Typography
+                        level="h2"
+                        sx={{ mb: 0.5 }}
+                        textAlign="center"
+                      >
+                        {button.label}
+                      </Typography>
+                    </Box>
                     <CardContent orientation="vertical">
-                      <img
-                        src={button.image}
-                        alt="streak icon"
-                        style={{ maxWidth: "50%" }}
-                      />
+                      <Box display="flex" justifyContent="center">
+                        <img
+                          src={button.image}
+                          alt="streak icon"
+                          style={{ maxWidth: "50%" }}
+                        />
+                      </Box>
                       <Typography
                         level="body1"
                         endDecorator={
