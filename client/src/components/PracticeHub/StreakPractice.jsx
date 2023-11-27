@@ -7,6 +7,8 @@ import {
   Grid,
   CardActions,
   IconButton,
+  Sheet,
+  Box,
 } from "@mui/joy";
 import RegularModal from "../common/Modal/RegularModal";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -76,11 +78,14 @@ const blunderMessages = [
 ];
 
 function Counter({ title, count, setCount, numTries, setResult, totalTried }) {
-  console.log("totalTried: ", totalTried, "numTries: ", numTries);
   return (
     <Card variant="outlined" sx={styles.counterCard}>
-      <Typography level="h2">{title}</Typography>
-      <Typography level="h3">{count}</Typography>
+      <Typography level="h2" textAlign="center">
+        {title}
+      </Typography>
+      <Typography level="h3" textAlign="center">
+        {count}
+      </Typography>
       {title === "Successes" && (
         <IconButton
           color="success"
@@ -196,10 +201,16 @@ function Tries({ setNumTries, triesLeft, resetStreak, active, setActive }) {
 const Response = ({ responseMessage, responseImage }) => {
   return (
     <>
-      <img src={responseImage} alt="emoji avatar" style={{ width: "300px" }} />
-      <Typography level="h2" sx={{ color: "white" }}>
+      <Typography level="h2" sx={{ color: "white" }} textAlign="center">
         "{responseMessage}"
       </Typography>
+      <Box display="flex" justifyContent="center">
+        <img
+          src={responseImage}
+          alt="emoji avatar"
+          style={{ width: "300px" }}
+        />
+      </Box>
     </>
   );
 };
@@ -266,7 +277,7 @@ const StreakPractice = ({ setStatus }) => {
   }, [triesLeft, successCount, blunderCount]);
 
   return (
-    <Grid container mt={4}>
+    <Grid container mt={1}>
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
         <SuccessRate percentage={percentage} resetStreak={resetStreak} />
       </RegularModal>
@@ -286,7 +297,7 @@ const StreakPractice = ({ setStatus }) => {
               responseMessage={responseMessage}
             />
           </Grid>
-          <Grid lg={6} sm={12}>
+          <Grid lg={6}>
             <Counter
               title={"Successes"}
               count={successCount}

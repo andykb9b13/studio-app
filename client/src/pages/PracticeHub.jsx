@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  AspectRatio,
+  IconButton,
   Card,
   CardContent,
   Grid,
@@ -10,14 +10,15 @@ import {
 import TimedPractice from "../components/PracticeHub/TimedPractice";
 import StreakPractice from "../components/PracticeHub/StreakPractice";
 import SkillSheets from "../components/TeacherDashboard/SkillSheets/SkillSheetContainer";
-import TimerIcon from "@mui/icons-material/Timer";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import ArticleIcon from "@mui/icons-material/Article";
 import Auth from "../utils/auth";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { styles } from "../styles/studentDetailsStyles";
 import { useStudentContext } from "../utils/Context";
+import mountainBkgd from "../assets/mountainBkgd.png";
+import response22 from "../assets/streak/response22.png";
+import timer from "../assets/timer.png";
+import badge12 from "../assets/badges/badge12.png";
 
 const PracticeHub = () => {
   const [status, setStatus] = useState("home");
@@ -32,19 +33,19 @@ const PracticeHub = () => {
     {
       label: "Timed Practice",
       description: "Set a timer for yourself",
-      image: <TimerIcon />,
+      image: timer,
       id: "timedPractice",
     },
     {
       label: "Streak Practice",
       description: "Get on a winning streak!",
-      image: <CheckCircleIcon />,
+      image: response22,
       id: "streakPractice",
     },
     {
       label: "Skill Sheets",
       description: "View your skill sheets",
-      image: <ArticleIcon />,
+      image: badge12,
       id: "skillSheets",
     },
   ];
@@ -57,8 +58,18 @@ const PracticeHub = () => {
   return (
     <>
       {Auth.loggedIn() ? (
-        <Sheet id="mainPracticeHubContainer">
-          <Typography level="h1">Practice Hub</Typography>
+        <Sheet
+          id="mainPracticeHubContainer"
+          sx={{
+            backgroundImage: `url(${mountainBkgd})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            height: "100%",
+          }}
+        >
+          <Typography level="h1" textAlign="center">
+            Practice Hub
+          </Typography>
 
           {!home && <KeyboardArrowLeftIcon onClick={() => setStatus("home")} />}
           {home && (
@@ -79,22 +90,31 @@ const PracticeHub = () => {
                   m={1}
                 >
                   <Card className="practiceHubAppCard" sx={styles.card}>
-                    <Typography level="h2" fontSize="lg" sx={{ mb: 0.5 }}>
+                    <Typography level="h2" sx={{ mb: 0.5 }}>
                       {button.label}
                     </Typography>
-                    <AspectRatio minHeight="120px" maxHeight="200px">
-                      {button.image}
-                    </AspectRatio>
-                    <CardContent orientation="horizontal">
-                      <Typography level="body1">
+
+                    <CardContent orientation="vertical">
+                      <img
+                        src={button.image}
+                        alt="streak icon"
+                        style={{ maxWidth: "50%" }}
+                      />
+                      <Typography
+                        level="body1"
+                        endDecorator={
+                          <IconButton>
+                            <KeyboardArrowRightIcon
+                              key={button.id}
+                              onClick={() => {
+                                handleClick(button.id);
+                              }}
+                            />
+                          </IconButton>
+                        }
+                      >
                         {button.description}
                       </Typography>
-                      <KeyboardArrowRightIcon
-                        key={button.id}
-                        onClick={() => {
-                          handleClick(button.id);
-                        }}
-                      />
                     </CardContent>
                   </Card>
                 </Grid>
