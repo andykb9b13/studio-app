@@ -37,7 +37,7 @@ export function Tries({
           <SpeechToText
             componentType="input"
             setOutputValue={setExerciseName}
-            output={exerciseName}
+            outputValue={exerciseName}
           />
           <Typography level="h4">Set the number of tries</Typography>
           <Input

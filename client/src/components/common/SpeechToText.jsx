@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import { IconButton, Box, Input, Textarea } from "@mui/joy";
 import MicIcon from "@mui/icons-material/Mic";
 
-export const SpeechToText = ({ componentType, setOutputValue, output }) => {
+export const SpeechToText = ({
+  componentType,
+  setOutputValue,
+  outputValue,
+}) => {
   const [isListening, setIsListening] = useState(false);
   const recognition = new window.webkitSpeechRecognition(); // Using webkitSpeechRecognition for Chrome
 
   console.log(recognition);
+  console.log(outputValue);
 
   recognition.continuous = false;
   recognition.interimResults = false;
@@ -46,7 +51,8 @@ export const SpeechToText = ({ componentType, setOutputValue, output }) => {
       {componentType === "input" && (
         <Input
           type="text"
-          value={output}
+          value={outputValue}
+          onChange={(e) => setOutputValue(e.target.value)}
           endDecorator={
             <IconButton
               onClick={toggleListening}
@@ -57,7 +63,9 @@ export const SpeechToText = ({ componentType, setOutputValue, output }) => {
           }
         />
       )}
-      {componentType === "textArea" && <Textarea minRows={4} value={output} />}
+      {componentType === "textArea" && (
+        <Textarea minRows={4} value={outputValue} />
+      )}
     </Box>
   );
 };
