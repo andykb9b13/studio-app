@@ -58,7 +58,9 @@ export function Tries({
         </Card>
       ) : (
         <>
-          <Typography level="h2">{exerciseName}</Typography>
+          <Typography level="h2" sx={{ color: "var(--color5)" }}>
+            {exerciseName}
+          </Typography>
           <Typography level="h2">Tries Left: {triesLeft}</Typography>
         </>
       )}

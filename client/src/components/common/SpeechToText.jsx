@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IconButton, Box, Input, Textarea } from "@mui/joy";
 import MicIcon from "@mui/icons-material/Mic";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 export const SpeechToText = ({
   componentType,
@@ -46,6 +47,10 @@ export const SpeechToText = ({
     }
   };
 
+  const resetValue = () => {
+    setOutputValue("");
+  };
+
   return (
     <Box>
       {componentType === "input" && (
@@ -53,6 +58,11 @@ export const SpeechToText = ({
           type="text"
           value={outputValue}
           onChange={(e) => setOutputValue(e.target.value)}
+          startDecorator={
+            <IconButton onClick={() => resetValue()}>
+              <RestartAltIcon />
+            </IconButton>
+          }
           endDecorator={
             <IconButton
               onClick={toggleListening}
@@ -64,7 +74,19 @@ export const SpeechToText = ({
         />
       )}
       {componentType === "textArea" && (
-        <Textarea minRows={4} value={outputValue} />
+        <Textarea
+          minRows={4}
+          value={outputValue}
+          onChange={(e) => setOutputValue(e.target.value)}
+          endDecorator={
+            <IconButton
+              onClick={toggleListening}
+              sx={isListening ? { color: "red" } : { color: "neutral" }}
+            >
+              <MicIcon />
+            </IconButton>
+          }
+        />
       )}
     </Box>
   );
