@@ -23,6 +23,7 @@ const StreakPractice = ({ setStatus }) => {
   );
   const [tempCount, setTempCount] = useState(0);
   const [active, setActive] = useState(false);
+  const [exerciseName, setExerciseName] = useState("");
   const triesLeft = numTries - successCount - blunderCount;
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
@@ -36,6 +37,7 @@ const StreakPractice = ({ setStatus }) => {
     setOpen(false);
     setResponseMessage("Let's do this!");
     setTempCount(0);
+    setExerciseName("");
   }
 
   const updateSuccess = () => {
@@ -84,6 +86,8 @@ const StreakPractice = ({ setStatus }) => {
           setNumTries={setNumTries}
           triesLeft={triesLeft}
           resetStreak={resetStreak}
+          exerciseName={exerciseName}
+          setExerciseName={setExerciseName}
         />
 
         <Grid container sx={{ display: "flex" }}>

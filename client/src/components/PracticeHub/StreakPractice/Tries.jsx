@@ -1,6 +1,7 @@
 import { Card, Typography, IconButton, Input } from "@mui/joy";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import CheckIcon from "@mui/icons-material/Check";
+import { SpeechToText } from "../../common/SpeechToText";
 
 export function Tries({
   setNumTries,
@@ -8,6 +9,8 @@ export function Tries({
   resetStreak,
   active,
   setActive,
+  exerciseName,
+  setExerciseName,
 }) {
   let tries = 0;
 
@@ -30,6 +33,12 @@ export function Tries({
       </Typography>
       {!active ? (
         <Card>
+          <Typography level="h4">What are you working on?</Typography>
+          <SpeechToText
+            componentType="input"
+            setOutputValue={setExerciseName}
+            output={exerciseName}
+          />
           <Typography level="h4">Set the number of tries</Typography>
           <Input
             type="number"
@@ -49,6 +58,7 @@ export function Tries({
         </Card>
       ) : (
         <>
+          <Typography level="h2">{exerciseName}</Typography>
           <Typography level="h2">Tries Left: {triesLeft}</Typography>
         </>
       )}
