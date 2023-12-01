@@ -10,6 +10,7 @@ import { successMessages } from "./StreakPractice/ResponseMessages";
 import { SuccessRate } from "./StreakPractice/SuccessRate";
 import { Tries } from "./StreakPractice/Tries";
 import { Response } from "./StreakPractice/Response";
+import StreakTrends from "./StreakPractice/StreakTrends";
 
 const StreakPractice = ({ setStatus }) => {
   const [successCount, setSuccessCount] = useState(0);
@@ -150,6 +151,9 @@ const StreakPractice = ({ setStatus }) => {
             />
           </Grid>
         </Grid>
+      </Card>
+      <Card variant="outlined" sx={styles.streakCard}>
+        <StreakTrends />
       </Card>
     </Grid>
   );
