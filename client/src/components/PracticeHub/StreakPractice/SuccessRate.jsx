@@ -2,7 +2,7 @@ import { successResponseList } from "../../common/Assets";
 import { blunderResponseList } from "../../common/Assets";
 import { Card, Typography, CardActions, Button } from "@mui/joy";
 
-export function SuccessRate({ percentage, resetStreak }) {
+export function SuccessRate({ percentage, resetStreak, repeatStreak }) {
   let message = "";
   let responseImage = "";
   if (percentage <= 25) {
@@ -29,8 +29,11 @@ export function SuccessRate({ percentage, resetStreak }) {
       <Typography level="h4">{percentage} % success rate</Typography>
       <Typography level="h4">{message}</Typography>
       <CardActions>
-        <Button color="success" onClick={resetStreak}>
-          Try Again
+        <Button color="info" onClick={repeatStreak}>
+          Repeat Streak
+        </Button>
+        <Button color="danger" variant="soft" onClick={resetStreak}>
+          Reset
         </Button>
       </CardActions>
     </Card>

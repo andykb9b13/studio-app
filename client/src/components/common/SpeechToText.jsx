@@ -7,6 +7,7 @@ export const SpeechToText = ({
   componentType,
   setOutputValue,
   outputValue,
+  placeholder,
 }) => {
   const [isListening, setIsListening] = useState(false);
   const recognition = new window.webkitSpeechRecognition(); // Using webkitSpeechRecognition for Chrome
@@ -56,6 +57,7 @@ export const SpeechToText = ({
       {componentType === "input" && (
         <Input
           type="text"
+          placeholder={placeholder}
           value={outputValue}
           onChange={(e) => setOutputValue(e.target.value)}
           startDecorator={
@@ -77,6 +79,7 @@ export const SpeechToText = ({
         <Textarea
           minRows={4}
           value={outputValue}
+          placeholder={placeholder}
           onChange={(e) => setOutputValue(e.target.value)}
           endDecorator={
             <IconButton

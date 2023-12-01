@@ -15,6 +15,8 @@ const StreakPractice = ({ setStatus }) => {
   const [successCount, setSuccessCount] = useState(0);
   const [blunderCount, setBlunderCount] = useState(0);
   const [numTries, setNumTries] = useState(0);
+  const [bpm, setBpm] = useState(null);
+  const [perfectStreak, setPerfectStreak] = useState(false);
   const [open, setOpen] = useState(false);
   const [result, setResult] = useState(null);
   const [responseMessage, setResponseMessage] = useState("Let's do this!");
@@ -28,8 +30,10 @@ const StreakPractice = ({ setStatus }) => {
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
 
+  console.log(perfectStreak);
+
   function resetStreak() {
-    setResponseImage(successResponseList[3].name);
+    setResponseImage(successResponseList[3].name); // This image in the list just happens to be the one I like as the default
     setSuccessCount(0);
     setBlunderCount(0);
     setNumTries(0);
@@ -38,6 +42,17 @@ const StreakPractice = ({ setStatus }) => {
     setResponseMessage("Let's do this!");
     setTempCount(0);
     setExerciseName("");
+    setBpm(null);
+    setPerfectStreak(false);
+  }
+
+  function repeatStreak() {
+    setResponseImage(successResponseList[3].name);
+    setSuccessCount(0);
+    setBlunderCount(0);
+    setOpen(false);
+    setResponseMessage("Let's do it again!");
+    setTempCount(0);
   }
 
   const updateSuccess = () => {
@@ -77,17 +92,26 @@ const StreakPractice = ({ setStatus }) => {
   return (
     <Grid container mt={1}>
       <RegularModal open={open} onRequestClose={() => setOpen(false)}>
-        <SuccessRate percentage={percentage} resetStreak={resetStreak} />
+        <SuccessRate
+          percentage={percentage}
+          resetStreak={resetStreak}
+          repeatStreak={repeatStreak}
+        />
       </RegularModal>
       <Card variant="outlined" sx={styles.streakCard}>
         <Tries
           active={active}
           setActive={setActive}
+          numTries={numTries}
           setNumTries={setNumTries}
           triesLeft={triesLeft}
           resetStreak={resetStreak}
           exerciseName={exerciseName}
           setExerciseName={setExerciseName}
+          bpm={bpm}
+          setBpm={setBpm}
+          perfectStreak={perfectStreak}
+          setPerfectStreak={setPerfectStreak}
         />
 
         <Grid container sx={{ display: "flex" }}>
