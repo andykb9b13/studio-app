@@ -24,6 +24,16 @@ export function SuccessRate({ percentage, resetStreak, repeatStreak }) {
 
   return (
     <Card variant="outlined">
+      {percentage === 100 && (
+        <Typography
+          level="h2"
+          textAlign="center"
+          fontWeight="bold"
+          sx={{ color: "var(--color3)" }}
+        >
+          PERFECT STREAK!
+        </Typography>
+      )}
       <img src={responseImage} alt="emoji" style={{ maxWidth: "50%" }} />
       <Typography level="h2">Success Rate</Typography>
       <Typography level="h4">{percentage} % success rate</Typography>

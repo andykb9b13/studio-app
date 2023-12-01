@@ -30,31 +30,33 @@ const StreakPractice = ({ setStatus }) => {
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;
 
-  console.log(perfectStreak);
-
+  // If the user wants to reset the parameters of the streak.
   function resetStreak() {
     setResponseImage(successResponseList[3].name); // This image in the list just happens to be the one I like as the default
+    setActive(false); //setting the counters to be inactive and the tries component to be editable
+    setOpen(false); // sets the modal to be closed
+    setResponseMessage("Let's do this!");
+    setTempCount(0);
     setSuccessCount(0);
     setBlunderCount(0);
     setNumTries(0);
-    setActive(false);
-    setOpen(false);
-    setResponseMessage("Let's do this!");
-    setTempCount(0);
     setExerciseName("");
     setBpm(null);
     setPerfectStreak(false);
   }
 
+  // If the user wants to keep the same settings for their streak and log another one.
   function repeatStreak() {
     setResponseImage(successResponseList[3].name);
     setSuccessCount(0);
     setBlunderCount(0);
-    setOpen(false);
+    setOpen(false); // sets the modal to be closed
     setResponseMessage("Let's do it again!");
     setTempCount(0);
   }
 
+  /* This generates a random image from the successResponseList and a random message from the successMesssages list
+  and then updates the state */
   const updateSuccess = () => {
     const randomNum = Math.floor(Math.random() * successMessages.length);
     const randomImgNum = Math.floor(Math.random() * successResponseList.length);
@@ -62,6 +64,8 @@ const StreakPractice = ({ setStatus }) => {
     setResponseMessage(successMessages[randomNum]);
   };
 
+  /* This generates a random image from the blunderResponseList and a random message form the blunderMessages list
+  and then updates the state */
   const updateBlunder = () => {
     const randomNum = Math.floor(Math.random() * blunderMessages.length);
     const randomImgNum = Math.floor(Math.random() * blunderResponseList.length);
@@ -69,6 +73,10 @@ const StreakPractice = ({ setStatus }) => {
     setResponseMessage(blunderMessages[randomNum]);
   };
 
+  /* This checks which result is triggered from the counter components (success or blunder).
+  The tempCount is used to update the state in the event that there are two "successes" or "blunders" in a row.
+  Otherwise, the state wouldn't update because the value of result would not have changed. 
+  Temp count should always be 1 behind totalTried */
   useEffect(() => {
     if (result === "success" && tempCount !== totalTried && totalTried !== 0) {
       updateSuccess();
@@ -83,6 +91,8 @@ const StreakPractice = ({ setStatus }) => {
     }
   }, [result, tempCount, totalTried]);
 
+  // This opens the modal if the tries are at 0 but the user has logged at least 1 success or blunder.
+  // Otherwise, the modal would open immediately and the user would not be able to do a streak.
   useEffect(() => {
     if ((successCount !== 0 || blunderCount !== 0) && triesLeft === 0) {
       setOpen(true);
