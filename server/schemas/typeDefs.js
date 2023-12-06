@@ -106,11 +106,14 @@ const typeDefs = gql`
 
   type Streak {
     _id: ID
-    date: String!
-    assignmentId: String!
-    numTries: Int
-    numSuccess: Int
-    numFail: Int
+    blunders: Int!
+    date: Date!
+    exerciseName: String!
+    mostInARow: Int
+    studentId: String!
+    successes: Int!
+    totalTries: Int!
+    successPercentage: Int
   }
 
   type Student {

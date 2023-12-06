@@ -2,18 +2,32 @@ const { Schema, model } = require("mongoose");
 
 const streakSchema = new Schema({
   date: {
-    type: String,
+    type: Date,
   },
-  assignmentId: {
+  studentId: {
     type: String,
+    required: true,
   },
-  numTries: {
+  exerciseName: {
+    type: String,
+    required: true,
+  },
+  totalTries: {
+    type: Number,
+    required: true,
+  },
+  successes: {
+    type: Number,
+    required: true,
+  },
+  blunders: {
+    type: Number,
+    required: true,
+  },
+  mostInARow: {
     type: Number,
   },
-  numSuccess: {
-    type: Number,
-  },
-  numFail: {
+  successPercentage: {
     type: Number,
   },
 });

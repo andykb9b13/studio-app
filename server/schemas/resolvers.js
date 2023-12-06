@@ -106,6 +106,9 @@ const resolvers = {
     resources: async () => {
       return await Resource.find({});
     },
+    streaks: async (parent, { studentId: _id }) => {
+      return await Student.findById(_id).populate("streaks");
+    },
     student: async (parent, { studentId: _id }) => {
       return await Student.findById(_id)
         .populate({
