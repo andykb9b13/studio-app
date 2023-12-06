@@ -112,39 +112,40 @@ const typeDefs = gql`
     mostInARow: Int
     studentId: String!
     successes: Int!
-    totalTries: Int!
     successPercentage: Int
+    totalTries: Int!
   }
 
   type Student {
     _id: ID
+    assignments: [Assignment]
+    avatarId: Int
+    comments: [Comment]
+    email: String
+    goals: [Goal]
+    grade: String
+    instrument: String
+    isActive: Boolean
     firstName: String
     lastName: String
-    email: String
-    password: String
-    username: String
-    primaryContact: String
-    primaryContactEmail: String
-    instrument: String
     lessonDay: String
-    lessonTime: String
-    grade: String
-    school: String
     lessonLocation: String
-    isActive: Boolean
-    avatarId: Int
-    teacherId: String
-    totalPlanPoints: Int
-    totalCompletedPoints: Int
-    totalSheetPoints: Int
-    assignments: [Assignment]
-    goals: [Goal]
-    skillSheets: [SkillSheet]
-    practicePlans: [PracticePlan]
+    lessonTime: String
+    likes: [Like]
+    password: String
     pieces: [Piece]
     posts: [Post]
-    comments: [Comment]
-    likes: [Like]
+    practicePlans: [PracticePlan]
+    primaryContact: String
+    primaryContactEmail: String
+    school: String
+    skillSheets: [SkillSheet]
+    streaks: [Streak]
+    teacherId: String
+    totalCompletedPoints: Int
+    totalPlanPoints: Int
+    totalSheetPoints: Int
+    username: String
   }
 
   type StudentAuth {

@@ -363,13 +363,13 @@ const resolvers = {
       return skillSheet;
     },
 
-    addStreak: async (parent, { date, assignmentId, ...args }) => {
+    addStreak: async (parent, { studentId, ...args }) => {
       const streak = await Streak.create({
-        date,
+        studentId,
         ...args,
       });
-      await Assignment.findByIdAndUpdate(
-        assignmentId,
+      await Student.findByIdAndUpdate(
+        studentId,
         { $addToSet: { streaks: streak._id } },
         { new: true }
       );

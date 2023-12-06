@@ -99,6 +99,7 @@ const studentSchema = new Schema({
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   likes: [{ type: Schema.Types.ObjectId, ref: "Like" }],
+  streaks: [{ type: Schema.Types.ObjectId, ref: "Streak" }],
 });
 
 // hash user password
