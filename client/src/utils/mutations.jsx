@@ -231,6 +231,7 @@ export const ADD_STREAK = gql`
     $assignmentId: String
     $mostInARow: Int
     $successPercentage: Float
+    $tempo: Int
   ) {
     addStreak(
       blunders: $blunders
@@ -242,6 +243,7 @@ export const ADD_STREAK = gql`
       assignmentId: $assignmentId
       mostInARow: $mostInARow
       successPercentage: $successPercentage
+      tempo: $tempo
     ) {
       _id
       assignmentId
@@ -253,6 +255,7 @@ export const ADD_STREAK = gql`
       successPercentage
       successes
       totalTries
+      tempo
     }
   }
 `;
