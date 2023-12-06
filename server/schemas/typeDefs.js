@@ -112,7 +112,7 @@ const typeDefs = gql`
     mostInARow: Int
     studentId: String!
     successes: Int!
-    successPercentage: Int
+    successPercentage: Float
     totalTries: Int!
   }
 
@@ -198,6 +198,7 @@ const typeDefs = gql`
     practicePlan(planId: ID!): PracticePlan
     resources: [Resource]
     resource: Resource
+    streaks(studentId: ID!): [Streak]
     students(teacherId: ID!): [Student]!
     student(studentId: ID!): Student
     teachers: [Teacher]!
@@ -282,11 +283,14 @@ const typeDefs = gql`
     ): SkillSheet
 
     addStreak(
-      date: String
-      assignmentId: String
-      numTries: Int
-      numSuccess: Int
-      numFail: Int
+      blunders: Int!
+      date: Date!
+      exerciseName: String!
+      mostInARow: Int
+      studentId: String!
+      successes: Int!
+      successPercentage: Float
+      totalTries: Int!
     ): Streak
 
     addStudent(
