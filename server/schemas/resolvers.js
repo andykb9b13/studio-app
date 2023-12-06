@@ -48,7 +48,7 @@ const resolvers = {
 
   Query: {
     assignment: async (parent, { assignmentId: _id }) => {
-      return await Assignment.findById(_id).populate("resources");
+      return await Assignment.findById(_id).populate("streaks");
     },
     assignments: async () => {
       return await Assignment.find({});
@@ -124,9 +124,18 @@ const resolvers = {
             },
           ],
         })
-        .populate("assignments")
+        .populate({
+          path: "assignments",
+          populate: [
+            {
+              path: "streaks",
+              model: "Streak",
+            },
+          ],
+        })
         .populate("skillSheets")
-        .populate("pieces");
+        .populate("pieces")
+        .populate("streaks");
     },
     students: async (parent, { teacherId: _id }) => {
       const teacher = await Teacher.findById(_id).populate("students");
@@ -363,11 +372,19 @@ const resolvers = {
       return skillSheet;
     },
 
-    addStreak: async (parent, { studentId, ...args }) => {
+    addStreak: async (parent, { studentId, assignmentId, ...args }) => {
       const streak = await Streak.create({
+        assignmentId,
         studentId,
         ...args,
       });
+      if (assignmentId) {
+        await Assignment.findByIdAndUpdate(
+          assignmentId,
+          { $addToSet: { streaks: streak._id } },
+          { new: true }
+        );
+      }
       await Student.findByIdAndUpdate(
         studentId,
         { $addToSet: { streaks: streak._id } },

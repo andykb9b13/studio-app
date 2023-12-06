@@ -1,6 +1,9 @@
 const { Schema, model } = require("mongoose");
 
 const streakSchema = new Schema({
+  assignmentId: {
+    type: String,
+  },
   blunders: {
     type: Number,
     required: true,
