@@ -124,6 +124,16 @@ export const QUERY_STUDENT = gql`
       totalPlanPoints
       totalCompletedPoints
       totalSheetPoints
+      streaks {
+        _id
+        assignmentId
+        blunders
+        date
+        exerciseName
+        mostInARow
+        successes
+        successPercentage
+      }
       pieces {
         _id
         pieceName
@@ -177,10 +187,14 @@ export const QUERY_STUDENT = gql`
           streaks {
             _id
             assignmentId
+            blunders
             date
-            numFail
-            numSuccess
-            numTries
+            exerciseName
+            mostInARow
+            studentId
+            successes
+            successPercentage
+            totalTries
           }
         }
         goals {

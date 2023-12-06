@@ -106,6 +106,7 @@ const typeDefs = gql`
 
   type Streak {
     _id: ID
+    assignmentId: String
     blunders: Int!
     date: Date!
     exerciseName: String!
@@ -283,6 +284,7 @@ const typeDefs = gql`
     ): SkillSheet
 
     addStreak(
+      assignmentId: String
       blunders: Int!
       date: Date!
       exerciseName: String!
