@@ -220,6 +220,46 @@ export const ADD_SKILLSHEET = gql`
   }
 `;
 
+export const ADD_STREAK = gql`
+  mutation Mutation(
+    $blunders: Int!
+    $date: Date!
+    $exerciseName: String!
+    $studentId: String!
+    $successes: Int!
+    $totalTries: Int!
+    $assignmentId: String
+    $mostInARow: Int
+    $successPercentage: Float
+    $tempo: Int
+  ) {
+    addStreak(
+      blunders: $blunders
+      date: $date
+      exerciseName: $exerciseName
+      studentId: $studentId
+      successes: $successes
+      totalTries: $totalTries
+      assignmentId: $assignmentId
+      mostInARow: $mostInARow
+      successPercentage: $successPercentage
+      tempo: $tempo
+    ) {
+      _id
+      assignmentId
+      blunders
+      date
+      exerciseName
+      mostInARow
+      studentId
+      successPercentage
+      successes
+      totalTries
+      tempo
+    }
+  }
+`;
+
 export const ADD_STUDENT = gql`
   mutation addStudent(
     $firstName: String!

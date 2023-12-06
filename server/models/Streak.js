@@ -29,6 +29,9 @@ const streakSchema = new Schema({
   successPercentage: {
     type: Number,
   },
+  tempo: {
+    type: Number,
+  },
   totalTries: {
     type: Number,
     required: true,

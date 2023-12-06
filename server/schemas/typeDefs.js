@@ -114,6 +114,7 @@ const typeDefs = gql`
     studentId: String!
     successes: Int!
     successPercentage: Float
+    tempo: Int
     totalTries: Int!
   }
 
@@ -292,6 +293,7 @@ const typeDefs = gql`
       studentId: String!
       successes: Int!
       successPercentage: Float
+      tempo: Int
       totalTries: Int!
     ): Streak
 
