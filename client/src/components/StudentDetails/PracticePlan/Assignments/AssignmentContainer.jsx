@@ -14,13 +14,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteModalContent from "../../../common/Modal/DeleteModalContent";
 import RegularModal from "../../../common/Modal/RegularModal";
 import { useMutation } from "@apollo/client";
-import {
-  DELETE_ASSIGNMENT,
-  EDIT_ASSIGNMENT,
-} from "../../../../utils/mutations";
+import { DELETE_ASSIGNMENT } from "../../../../utils/mutations";
 import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
-
+import { EDIT_ASSIGNMENT } from "../../../../utils/mutations";
 import Auth from "../../../../utils/auth";
+import EditAssignment from "./EditAssignment";
 
 const AssignmentContainer = ({
   assignment,
@@ -29,11 +27,34 @@ const AssignmentContainer = ({
   setAssignments,
   setCompletedOpen,
 }) => {
-  const [open, setOpen] = useState(false);
-  const [deleteAssignment, { error }] = useMutation(DELETE_ASSIGNMENT);
+  const [open, setOpen] = useState(null);
+  const [deleteAssignment] = useMutation(DELETE_ASSIGNMENT);
   const [completeAssignment] = useMutation(COMPLETE_ASSIGNMENT);
   const [editAssignment] = useMutation(EDIT_ASSIGNMENT);
   const [checked, setChecked] = useState(assignment.completed);
+
+  const editAssignmentFunc = async (userInput) => {
+    const assignmentId = assignment._id;
+    try {
+      const editedAssignment = await editAssignment({
+        variables: {
+          assignmentId: assignment?._id,
+          pointsWorth: parseInt(userInput.points),
+          ...userInput,
+        },
+      });
+      const filteredArr = assignments.filter(
+        (assignment) => assignment._id !== assignmentId
+      );
+      setAssignments([...filteredArr, editedAssignment.data.editAssignment]);
+      setOpen(null);
+      alert("Assignment successfully edited!");
+    } catch (err) {
+      console.error(err);
+      setOpen(null);
+      alert("Could not edit assignment");
+    }
+  };
 
   const deleteAssignmentFunc = async () => {
     try {
@@ -43,7 +64,7 @@ const AssignmentContainer = ({
         },
       });
       alert("Assignment Deleted");
-      setOpen(false);
+      setOpen(null);
       onDelete();
     } catch (err) {
       console.error(err);
@@ -102,28 +123,45 @@ const AssignmentContainer = ({
       >
         {/* Modal for displaying the delete prompt */}
         {Auth.teacherLoggedIn() && (
-          <RegularModal
-            name="deleteAssignment"
-            open={open}
-            onRequestClose={() => setOpen(false)}
-          >
-            <DeleteModalContent
-              onRequestClose={() => setOpen(false)}
-              confirmAction={() => deleteAssignmentFunc()}
-              resourceName="Assignment"
-            />
-          </RegularModal>
+          <>
+            <RegularModal
+              name="deleteAssignment"
+              open={open === "delete"}
+              onRequestClose={() => setOpen(null)}
+            >
+              <DeleteModalContent
+                onRequestClose={() => setOpen(null)}
+                confirmAction={() => deleteAssignmentFunc()}
+                resourceName="Assignment"
+              />
+            </RegularModal>
+            <RegularModal
+              name="editAssignment"
+              onRequestClose={() => setOpen(null)}
+              open={open === "edit"}
+            >
+              <EditAssignment
+                editAssignmentFunc={editAssignmentFunc}
+                assignment={assignment}
+                setAssignments={setAssignments}
+                assignments={assignments}
+                setOpen={setOpen}
+              />
+            </RegularModal>
+          </>
         )}
 
         {Auth.teacherLoggedIn() && (
-          <IconButton color="danger" onClick={() => setOpen(true)}>
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton color="danger" onClick={() => setOpen("delete")}>
+              <DeleteIcon />
+            </IconButton>
+            <IconButton onClick={() => setOpen("edit")}>
+              <EditIcon />
+            </IconButton>
+          </>
         )}
 
-        <IconButton>
-          <EditIcon />
-        </IconButton>
         <CardContent>
           <Typography>
             <b>Points: {assignment.pointsWorth}</b>

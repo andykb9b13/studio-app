@@ -356,6 +356,7 @@ const typeDefs = gql`
     deleteTeacher(teacherId: ID!): Teacher!
 
     editAssignment(
+      assignmentId: ID
       exerciseName: String
       studentId: String
       planId: String

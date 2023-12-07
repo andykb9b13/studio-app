@@ -113,7 +113,7 @@ const StudentPiecesContainer = ({ student, teacher, pieces }) => {
                 {!isMobile && <td>{piece.description}</td>}
                 {!isMobile && <td>{piece.pieceType}</td>}
                 {!isMobile && <td>{piece.difficulty}</td>}
-                <Typography>
+                <td>
                   <a href={piece.url} target="blank">
                     <IconButton
                       color={piece.url ? "success" : "neutral"}
@@ -122,7 +122,7 @@ const StudentPiecesContainer = ({ student, teacher, pieces }) => {
                       <FilePresentIcon />
                     </IconButton>
                   </a>
-                </Typography>
+                </td>
                 <td>
                   <IconButton
                     color="danger"
