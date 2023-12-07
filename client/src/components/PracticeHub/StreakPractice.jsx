@@ -12,7 +12,7 @@ import { Tries } from "./StreakPractice/Tries";
 import { Response } from "./StreakPractice/Response";
 import StreakTrends from "./StreakPractice/StreakTrends";
 
-const StreakPractice = ({ setStatus }) => {
+const StreakPractice = ({ assignmentExerciseName }) => {
   const [successCount, setSuccessCount] = useState(0);
   const [blunderCount, setBlunderCount] = useState(0);
   const [numTries, setNumTries] = useState(0);
@@ -26,7 +26,7 @@ const StreakPractice = ({ setStatus }) => {
   );
   const [tempCount, setTempCount] = useState(0);
   const [active, setActive] = useState(false);
-  const [exerciseName, setExerciseName] = useState("");
+  const [exerciseName, setExerciseName] = useState(assignmentExerciseName);
   const triesLeft = numTries - successCount - blunderCount;
   const totalTried = successCount + blunderCount;
   const percentage = Math.floor((successCount / totalTried) * 100) || 0;

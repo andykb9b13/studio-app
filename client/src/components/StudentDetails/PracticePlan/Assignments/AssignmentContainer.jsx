@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   Card,
   Typography,
@@ -19,6 +18,7 @@ import { COMPLETE_ASSIGNMENT } from "../../../../utils/mutations";
 import { EDIT_ASSIGNMENT } from "../../../../utils/mutations";
 import Auth from "../../../../utils/auth";
 import EditAssignment from "./EditAssignment";
+import StreakPractice from "../../../PracticeHub/StreakPractice";
 
 const AssignmentContainer = ({
   assignment,
@@ -28,6 +28,7 @@ const AssignmentContainer = ({
   setCompletedOpen,
 }) => {
   const [open, setOpen] = useState(null);
+  const [streakOpen, setStreakOpen] = useState(false);
   const [deleteAssignment] = useMutation(DELETE_ASSIGNMENT);
   const [completeAssignment] = useMutation(COMPLETE_ASSIGNMENT);
   const [editAssignment] = useMutation(EDIT_ASSIGNMENT);
@@ -197,9 +198,15 @@ const AssignmentContainer = ({
             }}
           />
         </CardContent>
+        {streakOpen && (
+          <StreakPractice
+            assignmentExerciseName={assignment.exerciseName}
+            tempo={assignment.metronome}
+          />
+        )}
         <CardActions>
-          <Button component={Link} to="/student/:id/streakPractice">
-            Start a Streak
+          <Button onClick={() => setStreakOpen(!streakOpen)}>
+            {streakOpen ? "Close" : "Start a Streak"}
           </Button>
         </CardActions>
       </Card>
