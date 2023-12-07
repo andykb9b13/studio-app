@@ -387,6 +387,18 @@ export const DELETE_TEACHER = gql`
   }
 `;
 
+export const DELETE_STREAK = gql`
+  mutation Mutation($studentId: ID!, $streakId: ID!, $assignmentId: ID) {
+    deleteStreak(
+      studentId: $studentId
+      streakId: $streakId
+      assignmentId: $assignmentId
+    ) {
+      _id
+    }
+  }
+`;
+
 export const DELETE_STUDENT = gql`
   mutation deleteStudent($studentId: ID!) {
     deleteStudent(studentId: $studentId) {
