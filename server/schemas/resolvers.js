@@ -734,9 +734,7 @@ const resolvers = {
       }
     },
 
-    editAssignment: async (parent, { assignmentId, ...args }) => {
-      console.log("in edit assignment");
-      console.log(...args);
+    editAssignment: async (parent, { assignmentId, pointsWorth, ...args }) => {
       try {
         const assignment = await Assignment.findById(assignmentId);
         if (!assignment) {
@@ -760,8 +758,8 @@ const resolvers = {
         if (args.pages) {
           assignment.pages = args.pages;
         }
-        if (args.pointsWorth) {
-          assignment.pointsWorth = args.pointsWorth;
+        if (pointsWorth) {
+          assignment.pointsWorth = pointsWorth;
         }
         if (args.completed) {
           assignment.completed = args.completed;
