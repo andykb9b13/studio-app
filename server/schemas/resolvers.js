@@ -116,20 +116,16 @@ const resolvers = {
           populate: [
             {
               path: "assignments",
-              model: "Assignment",
+              populate: [
+                {
+                  path: "streaks",
+                  model: "Streak",
+                },
+              ],
             },
             {
               path: "resources",
               model: "Resource",
-            },
-          ],
-        })
-        .populate({
-          path: "assignments",
-          populate: [
-            {
-              path: "streaks",
-              model: "Streak",
             },
           ],
         })
@@ -656,6 +652,30 @@ const resolvers = {
         return deletedSkillSheet;
       } catch (error) {
         throw new Error("Error deleting Skill Sheet: " + error.message);
+      }
+    },
+
+    deleteStreak: async (parent, { studentId, assignmentId, streakId }) => {
+      try {
+        const deletedStreak = await Streak.findOneAndDelete({
+          _id: streakId,
+        });
+        if (!deletedStreak) {
+          throw new Error("Streak not found");
+        }
+        if (assignmentId) {
+          await Assignment.updateMany(
+            { streaks: streakId },
+            { $pull: { streaks: streakId } }
+          );
+        }
+        await Student.updateMany(
+          { streaks: streakId },
+          { $pull: { streaks: streakId } }
+        );
+        return deletedStreak;
+      } catch (error) {
+        throw new Error("Error deleting Streak" + error.message);
       }
     },
 

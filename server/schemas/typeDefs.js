@@ -349,7 +349,7 @@ const typeDefs = gql`
 
     deleteSkillSheet(skillSheetId: ID!): SkillSheet!
 
-    deleteStreak(streakId: ID!): Streak!
+    deleteStreak(assignmentId: ID, studentId: ID!, streakId: ID!): Streak!
 
     deleteStudent(studentId: ID!): Student!
 
