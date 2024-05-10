@@ -115,11 +115,13 @@ const AssignmentContainer = ({
           mt: 2,
           boxShadow: "md",
           maxHeight: "max-content",
+          width: "500px",
           maxWidth: "100%",
           mx: "auto",
           overflow: "auto",
           resize: "vertical",
           whiteSpace: "pre-line",
+          backgroundColor: "lightblue",
         }}
       >
         {/* Modal for displaying the delete prompt */}
@@ -152,6 +154,54 @@ const AssignmentContainer = ({
           </>
         )}
 
+        <CardContent>
+          <Card sx={{ marginBottom: "10px" }}>
+            <Typography level="h4">
+              <b>Goal:</b> {assignment.goal}
+            </Typography>
+          </Card>
+          <Card sx={{ marginBottom: "10px" }}>
+            <Typography>
+              <b>Special Notes:</b> {assignment.specialNotes}
+            </Typography>
+          </Card>
+          <Card>
+            <Typography>
+              <b>Points: {assignment.pointsWorth}</b>
+            </Typography>
+            <Typography>
+              <b>Assignment Type:</b> {assignment.assignmentType}
+            </Typography>
+            <Typography>
+              <b>Source:</b> {assignment.source}
+            </Typography>
+            <Typography>
+              <b>Pages:</b> {assignment.pages}
+            </Typography>
+            <Typography>
+              <b>Metronome:</b> {assignment.metronome}
+            </Typography>
+
+            <Typography>
+              <b>Points Worth:</b> {assignment.pointsWorth}
+            </Typography>
+
+            <Typography>
+              <b>Completed?</b> {checked ? "Yes" : "No"}
+            </Typography>
+
+            <Switch
+              checked={checked}
+              color={checked ? "success" : "danger"}
+              onChange={(event) => {
+                const newChecked = event.target.checked;
+                setChecked(newChecked);
+                handleCompleteAssignment(newChecked, assignment._id);
+              }}
+            />
+          </Card>
+        </CardContent>
+
         {Auth.teacherLoggedIn() && (
           <>
             <IconButton color="danger" onClick={() => setOpen("delete")}>
@@ -162,42 +212,6 @@ const AssignmentContainer = ({
             </IconButton>
           </>
         )}
-
-        <CardContent>
-          <Typography>
-            <b>Points: {assignment.pointsWorth}</b>
-          </Typography>
-          <Typography>
-            <b>Assignment Type:</b> {assignment.assignmentType}
-          </Typography>
-          <Typography>
-            <b>Source:</b> {assignment.source}
-          </Typography>
-          <Typography>
-            <b>Pages:</b> {assignment.pages}
-          </Typography>
-          <Typography>
-            <b>Metronome:</b> {assignment.metronome}
-          </Typography>
-          <Typography>
-            <b>Special Notes:</b> {assignment.specialNotes}
-          </Typography>
-          <Typography>
-            <b>Points Worth:</b> {assignment.pointsWorth}
-          </Typography>
-          <Typography>
-            <b>Completed?</b> {checked ? "Yes" : "No"}
-          </Typography>
-          <Switch
-            checked={checked}
-            color={checked ? "success" : "danger"}
-            onChange={(event) => {
-              const newChecked = event.target.checked;
-              setChecked(newChecked);
-              handleCompleteAssignment(newChecked, assignment._id);
-            }}
-          />
-        </CardContent>
         {streakOpen && (
           <StreakPractice
             assignmentExerciseName={assignment.exerciseName}

@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { Sheet, Typography, IconButton, Grid } from "@mui/joy";
+import {
+  Sheet,
+  Typography,
+  IconButton,
+  Grid,
+  dividerClasses,
+  Container,
+  Card,
+} from "@mui/joy";
 import { DELETE_PRACTICE_PLAN } from "../../../utils/mutations";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
@@ -38,6 +46,8 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
   const [revealed, setRevealed] = useState(false); // for revealing the practice plan details
   const [progressBarPercentage, setProgressBarPercentage] = useState(0); // progress bar percentage
   const [activePlan, setActivePlan] = useState(practicePlan); // active practice plan
+
+  console.log(practicePlan);
 
   // Setting the total points available to earn for the plan
   useEffect(() => {
@@ -139,13 +149,33 @@ const PracticePlanCard = ({ practicePlan, onDelete }) => {
 
           <Typography level="h4">Plan Points: {planPoints}</Typography>
           <Typography level="h4">Points Earned: {completedPoints}</Typography>
+          {practicePlan.resources.length > 0 && (
+            <Typography
+              level="h5"
+              sx={{
+                borderRadius: "5px",
+                backgroundColor: "lightblue",
+                width: "150px",
+                textAlign: "center",
+                margin: "10px",
+              }}
+            >
+              Resources
+            </Typography>
+          )}
         </Grid>
         <Grid xs={12} md={6}>
-          <ProgressBar
-            percentage={progressBarPercentage}
-            width={"175px"}
-            height={"175px"}
-          />
+          {practicePlan.assignments.length > 0 ? (
+            <ProgressBar
+              percentage={progressBarPercentage}
+              width={"175px"}
+              height={"175px"}
+            />
+          ) : (
+            <Card sx={{ textAlign: "center", width: "50%" }}>
+              <Typography level="h4">No Assignments</Typography>
+            </Card>
+          )}
         </Grid>
         <Grid xs={12}>
           <Typography level="body1">{activePlan?.planNotes}</Typography>

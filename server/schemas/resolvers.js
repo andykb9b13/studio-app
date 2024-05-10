@@ -180,7 +180,7 @@ const resolvers = {
   Mutation: {
     addAssignment: async (
       parent,
-      { studentId, planId, pointsWorth, resourceUrl, completed, ...args }
+      { studentId, planId, pointsWorth, resourceUrl, goal, completed, ...args }
     ) => {
       console.log({ ...args });
       const assignment = await Assignment.create({
@@ -189,6 +189,7 @@ const resolvers = {
         pointsWorth,
         completed,
         resourceUrl,
+        goal,
         ...args,
       });
       await PracticePlan.findByIdAndUpdate(
@@ -763,6 +764,9 @@ const resolvers = {
         }
         if (args.completed) {
           assignment.completed = args.completed;
+        }
+        if (args.goal) {
+          assignment.goal = args.goal;
         }
         await assignment.save();
         return assignment;

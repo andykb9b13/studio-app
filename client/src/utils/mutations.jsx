@@ -13,6 +13,7 @@ export const ADD_ASSIGNMENT = gql`
     $pointsWorth: Int
     $completed: Boolean
     $pages: String
+    $goal: String
   ) {
     addAssignment(
       exerciseName: $exerciseName
@@ -25,11 +26,13 @@ export const ADD_ASSIGNMENT = gql`
       pointsWorth: $pointsWorth
       completed: $completed
       pages: $pages
+      goal: $goal
     ) {
       exerciseName
       studentId
       planId
       source
+      goal
       assignmentType
       specialNotes
       metronome
@@ -476,6 +479,7 @@ export const EDIT_ASSIGNMENT = gql`
     $pages: String
     $pointsWorth: Int
     $completed: Boolean
+    $goal: String
   ) {
     editAssignment(
       assignmentId: $assignmentId
@@ -487,6 +491,7 @@ export const EDIT_ASSIGNMENT = gql`
       pages: $pages
       pointsWorth: $pointsWorth
       completed: $completed
+      goal: $goal
     ) {
       exerciseName
       studentId
@@ -498,6 +503,7 @@ export const EDIT_ASSIGNMENT = gql`
       pages
       pointsWorth
       completed
+      goal
     }
   }
 `;

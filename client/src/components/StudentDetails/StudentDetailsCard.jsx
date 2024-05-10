@@ -14,6 +14,7 @@ import { useStudentContext, useTeacherContext } from "../../utils/Context";
 import Clock from "../../utils/Clock";
 import RegularModal from "../common/Modal/RegularModal";
 import ResourceContainer from "./PracticePlan/Resources/ResourceContainer";
+import TeacherResourceContainer from "../TeacherDashboard/Resources/TeacherResourceContainer";
 
 // Parent Component for all the Student Details
 export default function StudentDetailsCard({ active, setActive }) {
@@ -104,6 +105,10 @@ export default function StudentDetailsCard({ active, setActive }) {
         <Grid id="resourceContainerGrid">
           <ResourceContainer resources={resourceArr} />
         </Grid>
+
+        {/* <Grid id="teacherResourceContainerGrid">
+          <TeacherResourceContainer />
+        </Grid> */}
       </CardContent>
 
       {/* Modal for editing the student */}

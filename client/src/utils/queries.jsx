@@ -78,6 +78,7 @@ export const QUERY_PRACTICEPLANS = gql`
         specialNotes
         metronome
         pages
+        goal
       }
       goals {
         practiceTime
@@ -184,6 +185,7 @@ export const QUERY_STUDENT = gql`
           completed
           pointsWorth
           planId
+          goal
           streaks {
             _id
             assignmentId

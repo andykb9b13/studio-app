@@ -15,6 +15,7 @@ const typeDefs = gql`
     pages: String
     pointsWorth: Int
     completed: Boolean
+    goal: String
     streaks: [Streak]
   }
 
@@ -34,6 +35,8 @@ const typeDefs = gql`
     practiceTime: Int
     practiceDays: Int
     skillSheet: SkillSheet
+    studentId: Student
+    assignmentId: Assignment
   }
 
   type Like {
@@ -219,6 +222,7 @@ const typeDefs = gql`
       pointsWorth: Int
       completed: Boolean
       pages: String
+      goal: String
     ): Assignment
 
     addComment(
@@ -367,6 +371,7 @@ const typeDefs = gql`
       pages: String
       pointsWorth: Int
       completed: Boolean
+      goal: String
     ): Assignment!
 
     editGoal(goalId: ID!, practiceTime: Int, practiceDays: Int): Goal!

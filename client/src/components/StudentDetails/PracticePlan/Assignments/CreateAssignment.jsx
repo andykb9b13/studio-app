@@ -12,6 +12,7 @@ const CreateAssignment = ({
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (userInput) => {
+    console.log("userInput", userInput);
     try {
       await createAssignmentFunc(userInput);
       // setResources(...resources);
@@ -29,7 +30,7 @@ const CreateAssignment = ({
         mt: 1,
         boxShadow: "md",
         maxHeight: "max-content",
-        maxWidth: "100%",
+        width: "500px",
         mx: "auto",
         overflow: "auto",
         resize: "horizontal",
@@ -45,10 +46,10 @@ const CreateAssignment = ({
         <Input type="text" {...register("assignmentType")} />
         <Typography>Special Notes</Typography>
         <Textarea minRows={3} {...register("specialNotes")} />
+        <Typography>Goal</Typography>
+        <Textarea minRows={3} {...register("goal")} />
         <Typography>Metronome</Typography>
         <Input type="text" {...register("metronome")} />
-        <Typography>Pages</Typography>
-        <Input type="text" {...register("pages")} />
         <Typography>Points Worth</Typography>
         <Input type="number" {...register("points")} />
         <Typography>Resources</Typography>

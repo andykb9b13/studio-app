@@ -7,9 +7,20 @@ const goalSchema = new Schema({
   practiceDays: {
     type: Number,
   },
+  goal: {
+    type: String,
+  },
   skillSheet: {
     type: Schema.Types.ObjectId,
     ref: "SkillSheet",
+  },
+  assignmentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Assignment",
+  },
+  studentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Student",
   },
 });
 

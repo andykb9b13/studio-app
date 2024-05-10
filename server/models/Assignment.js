@@ -32,6 +32,9 @@ const assignmentSchema = new Schema({
   completed: {
     type: Boolean,
   },
+  goal: {
+    type: String,
+  },
   streaks: [
     {
       type: Schema.Types.ObjectId,
