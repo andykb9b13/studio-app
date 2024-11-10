@@ -40,7 +40,7 @@ const StudentInfo = ({ handleClick, teacher }) => {
         <Typography
           level="h2"
           component="h2"
-          endDecorator={<EditIcon onClick={() => handleClick(1)} />}
+          endDecorator={<EditIcon onClick={() => setOpen(true)} />}
         >
           {student.firstName} {student.lastName}
         </Typography>
@@ -59,7 +59,7 @@ const StudentInfo = ({ handleClick, teacher }) => {
           }}
         />
         {/* Modal for selecting an avatar */}
-        <IconButton onClick={() => setOpen(true)}>
+        <IconButton onClick={() => handleClick(1)}>
           <Edit />
         </IconButton>
         <RegularModal open={open} onRequestClose={() => setOpen(false)}>
@@ -72,6 +72,16 @@ const StudentInfo = ({ handleClick, teacher }) => {
         {/* Displaying the student's information */}
         <Typography>
           <b>Teacher:</b> {teacher.firstName} {teacher.lastName}
+        </Typography>
+        <Typography>
+          <b>Teacher Email: </b>
+          <a
+            href="mailto:andy.kleindienst@gmail.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {teacher.email}
+          </a>
         </Typography>
         <Typography>
           <b>Username: </b> {student.username}
@@ -99,6 +109,9 @@ const StudentInfo = ({ handleClick, teacher }) => {
         </Typography>
         <Typography>
           <b>Lesson Location:</b> {student.lessonLocation}
+        </Typography>
+        <Typography>
+          <b>Is Active?</b> {student.isActive === true ? "Yes" : "No"}
         </Typography>
         <Card>
           <Typography level="h2">Goals</Typography>

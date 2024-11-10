@@ -418,7 +418,7 @@ const typeDefs = gql`
       school: String
       lessonLocation: String
       avatarId: Int
-      isActive: Boolean
+      isActive: String
       teacherId: String
       pieceId: ID
     ): Student!

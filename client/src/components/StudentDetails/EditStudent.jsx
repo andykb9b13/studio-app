@@ -14,6 +14,7 @@ const EditStudent = () => {
 
   // Function for handling the submit of the form and calling the editStudent mutation
   const onSubmit = async (userInput) => {
+    console.log(userInput);
     try {
       await editStudent({
         variables: {
@@ -27,6 +28,7 @@ const EditStudent = () => {
       alert("Could Not Edit Student");
     }
   };
+
   return (
     <Sheet id="editStudent" sx={styles.editStudent}>
       <Typography level="h2">Edit Student</Typography>
@@ -106,6 +108,15 @@ const EditStudent = () => {
           {...register("lessonLocation")}
           defaultValue={student.lessonLocation}
         />
+        <Typography>Is Active?</Typography>
+        <select
+          placeholder="select"
+          {...register("isActive")}
+          defaultValue={student.isActive ? "Yes" : "No"}
+        >
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
         <Button type="submit">Save Changes</Button>
       </form>
     </Sheet>

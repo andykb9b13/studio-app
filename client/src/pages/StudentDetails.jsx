@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_STUDENT, QUERY_TEACHER } from "../utils/queries";
-import { Sheet, Typography, Tabs, TabList, Tab, TabPanel } from "@mui/joy";
+import { Sheet, Tabs, TabList, Tab, TabPanel } from "@mui/joy";
 import StudentDetailsCard from "../components/StudentDetails/StudentDetailsCard";
 import Auth from "../utils/auth";
 import { useStudentContext, useTeacherContext } from "../utils/Context";

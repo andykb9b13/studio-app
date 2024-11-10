@@ -31,9 +31,13 @@ const Leaderboard = () => {
   // Sorts the students by their total points using the sortArray function from utilities
   useEffect(() => {
     if (Array.isArray(students)) {
-      setSortedStudents(sortArray(students));
+      console.log(students);
+      const activeStudents = students.filter(
+        (student) => student.isActive === true
+      );
+      setSortedStudents(sortArray(activeStudents));
     }
-  }, [setSortedStudents, students]);
+  }, [students]);
 
   return (
     <Sheet id="leaderboard" sx={!isMobile ? styles.card : styles.mobileCard}>

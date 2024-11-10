@@ -215,6 +215,7 @@ export const QUERY_STUDENTS = gql`
   query students($teacherId: ID!) {
     students(teacherId: $teacherId) {
       _id
+      isActive
       avatarId
       username
       totalSheetPoints

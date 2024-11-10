@@ -798,6 +798,8 @@ const resolvers = {
     },
 
     editStudent: async (parent, { studentId, ...args }) => {
+      console.log(args.isActive);
+
       const student = await Student.findByIdAndUpdate(studentId).populate(
         "pieces"
       );
@@ -848,7 +850,11 @@ const resolvers = {
         student.avatarId = args.avatarId;
       }
       if (args.isActive) {
-        student.isActive = args.isActive;
+        if (args.isActive === "Yes") {
+          student.isActive = true;
+        } else if (args.isActive === "No") {
+          student.isActive = false;
+        }
       }
       if (args.pieceId) {
         student.pieces = [...student.pieces, args.pieceId];

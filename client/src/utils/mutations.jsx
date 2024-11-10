@@ -548,7 +548,7 @@ export const EDIT_STUDENT = gql`
     $lessonLocation: String
     $teacherId: String
     $avatarId: Int
-    $isActive: Boolean
+    $isActive: String
     $pieceId: ID
   ) {
     editStudent(

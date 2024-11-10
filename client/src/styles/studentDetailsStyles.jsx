@@ -63,6 +63,7 @@ export const styles = {
     p: 1,
     borderRadius: "4px",
     mt: 1,
+    width: "500px",
     boxShadow: "md",
     maxHeight: "max-content",
     maxWidth: "100%",

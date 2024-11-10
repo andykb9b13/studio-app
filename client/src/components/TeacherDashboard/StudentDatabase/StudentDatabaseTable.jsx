@@ -76,6 +76,7 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
             {!isMobile ? <th>Instrument</th> : null}
             {!isMobile ? <th>Primary Contact</th> : null}
             {!isMobile ? <th>Grade</th> : null}
+            {!isMobile ? <th>Status</th> : null}
             <th>Info</th>
           </tr>
         </thead>
@@ -89,6 +90,9 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
                 {!isMobile ? <td>{student.instrument}</td> : null}
                 {!isMobile ? <td>{student.primaryContact}</td> : null}
                 {!isMobile ? <td>{student.grade}</td> : null}
+                {!isMobile ? (
+                  <td>{student.isActive ? "Active" : "Inactive"}</td>
+                ) : null}
                 <td>
                   {/* Button and Modal for deleting a student */}
                   <IconButton

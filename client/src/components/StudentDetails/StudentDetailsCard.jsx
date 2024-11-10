@@ -107,7 +107,11 @@ export default function StudentDetailsCard({ active, setActive }) {
       </CardContent>
 
       {/* Modal for editing the student */}
-      <RegularModal open={active === 1} onRequestClose={() => setActive(null)}>
+      <RegularModal
+        open={active === 1}
+        onRequestClose={() => setActive(null)}
+        style={{ width: "1000px" }}
+      >
         <EditStudent studentId={student._id} />
       </RegularModal>
     </Card>
