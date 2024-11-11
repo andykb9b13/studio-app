@@ -46,7 +46,7 @@ const studentColDefs = ({ open, setOpen, deleteStudentFunc, isMobile }) => {
           <>
             {/* Button and Modal for deleting a student */}
             <IconButton
-              onClick={() => setOpen(true)}
+              onClick={() => deleteStudentFunc(params.data._id)}
               color="danger"
               sx={{ mx: 1, color: "#bb2124" }}
             >

@@ -20,6 +20,8 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
 
   // function for deleting a student
   const deleteStudentFunc = async (studentId) => {
+    console.log(studentId);
+    alert("you are about to delete student: ", studentId);
     await deleteStudent({ variables: { studentId: studentId } });
     alert("Student successfully deleted");
     setOpen(false);

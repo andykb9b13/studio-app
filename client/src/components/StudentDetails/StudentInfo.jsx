@@ -16,6 +16,8 @@ const StudentInfo = ({ handleClick, teacher }) => {
   const [open, setOpen] = useState(false); // state for opening the SelectAvatar modal
   const [editStudent] = useMutation(EDIT_STUDENT); // mutation for editing the student
 
+  console.log(student);
+
   // mutation for editing the student's avatar
   const editAvatarFunc = async (avatarId) => {
     console.log(avatarId);
