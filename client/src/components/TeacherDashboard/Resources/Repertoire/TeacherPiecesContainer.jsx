@@ -48,7 +48,7 @@ const TeacherPiecesContainer = () => {
   };
 
   return (
-    <Sheet id="teacherPiecesContainer" sx={styles.card}>
+    <Sheet id="teacherPiecesContainer">
       <Typography
         level="h2"
         endDecorator={

@@ -3,7 +3,7 @@ import { Delete } from "@mui/icons-material";
 import RegularModal from "../../common/Modal/RegularModal";
 import DeleteModalContent from "../../common/Modal/DeleteModalContent";
 
-const studentColDefs = ({ open, setOpen, deleteStudentFunc }) => {
+const studentColDefs = ({ open, setOpen, deleteStudentFunc, isMobile }) => {
   return [
     {
       header: "First Name",

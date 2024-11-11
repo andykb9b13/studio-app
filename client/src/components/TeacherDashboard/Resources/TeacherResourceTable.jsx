@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Table, Link, Typography, IconButton, Sheet } from "@mui/joy";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteModalContent from "../../common/Modal/DeleteModalContent";
-import RegularModal from "../../common/Modal/RegularModal";
+import React, { useContext, useEffect, useState } from "react";
+import { Sheet } from "@mui/joy";
 import { sortResources } from "../../../utils/utilities";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
+import { AgGridReact } from "ag-grid-react";
+import teacherResourceColDefs from "./teacherResourceColDefs";
+import { MobileContext } from "../../../App";
 
 // Component for displaying the resources a teacher has created in a table
 const TeacherReasourceTable = ({
@@ -13,6 +15,21 @@ const TeacherReasourceTable = ({
   setOpen,
 }) => {
   const [sortedResources, setSortedResources] = useState(); // state for the resources to be sorted
+  const [rowData, setRowData] = useState([]);
+  const [colDefs, setColDefs] = useState([]);
+  const { isMobile } = useContext(MobileContext);
+
+  useEffect(() => {
+    setRowData(resources);
+    setColDefs(
+      teacherResourceColDefs({
+        open: open,
+        setOpen: setOpen,
+        deleteResourceFunc: deleteResourceFunc,
+        isMobile: isMobile,
+      })
+    );
+  }, [resources, open, setOpen, deleteResourceFunc, isMobile]);
 
   // sort the resources when the resources prop changes
   useEffect(() => {
@@ -21,52 +38,12 @@ const TeacherReasourceTable = ({
 
   return (
     <Sheet>
-      <Table id="teacherResourceTable">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Resource Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedResources &&
-            sortedResources?.map((resource) => (
-              <tr key={resource._id}>
-                <td>
-                  <Link
-                    href={resource.url}
-                    alt="resource url"
-                    target="_blank"
-                    sx={{ color: "blue" }}
-                    level="h5"
-                  >
-                    <b>{resource.resourceName}</b>
-                  </Link>
-                </td>
-                <td>{resource.resourceType}</td>
-                <td>
-                  <Typography>{resource.description}</Typography>
-                </td>
-
-                {/* Modal for deleting a resource */}
-                <IconButton onClick={() => setOpen(true)} color="danger">
-                  <DeleteIcon />
-                </IconButton>
-                <RegularModal
-                  name="deleteResource"
-                  open={open}
-                  onRequestClose={() => setOpen(false)}
-                >
-                  <DeleteModalContent
-                    onRequestClose={() => setOpen(false)}
-                    confirmAction={() => deleteResourceFunc(resource._id)}
-                  />
-                </RegularModal>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
+      <div
+        className="ag-theme-quartz"
+        style={{ height: 500, marginBottom: "50px" }}
+      >
+        <AgGridReact rowData={rowData} columnDefs={colDefs}></AgGridReact>
+      </div>
     </Sheet>
   );
 };

@@ -4,7 +4,7 @@ import { IconButton } from "@mui/joy";
 import { useMutation } from "@apollo/client";
 import CreateResource from "../../StudentDetails/PracticePlan/Resources/CreateResource";
 import { ADD_RESOURCE } from "../../../utils/mutations";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
+import AddIcon from "@mui/icons-material/Add";
 import Auth from "../../../utils/auth";
 import { useTeacherContext } from "../../../utils/Context";
 
@@ -44,7 +44,7 @@ const CreateTeacherResourceContainer = ({ resources, setResources }) => {
       </RegularModal>
       {Auth.teacherLoggedIn() && (
         <IconButton onClick={() => setOpen(true)}>
-          <AttachFileIcon color="success" />
+          <AddIcon />
         </IconButton>
       )}
     </>

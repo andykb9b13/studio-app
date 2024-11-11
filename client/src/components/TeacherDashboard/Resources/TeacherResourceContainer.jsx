@@ -30,24 +30,20 @@ const TeacherResourceContainer = ({ resources, setResources }) => {
   return (
     <Sheet id="teacherResourceContainer">
       {/* Displays the pieces a teacher has created */}
-      <Card id="teacherPiecesContainerCard" variant="outlined">
-        <TeacherPiecesContainer />
-      </Card>
-
-      {/* Displays the container for a teacher to create a resource */}
-      <Card id="createTeacherResourceContainerCard" variant="outlined">
-        <Typography level="h2" textAlign={"center"}>
-          Create Resource
-        </Typography>
-        <CreateTeacherResourceContainer
-          resources={resources}
-          setResources={setResources}
-        />
-      </Card>
+      <TeacherPiecesContainer />
 
       {/* Diplays all of the resources a teacher has created */}
       <Card id="teacherResourceTableCard" variant="outlined">
-        <Typography level="h2" textAlign={"center"}>
+        <Typography
+          level="h2"
+          textAlign={"center"}
+          endDecorator={
+            <CreateTeacherResourceContainer
+              resources={resources}
+              setResources={setResources}
+            />
+          }
+        >
           Resource Links
         </Typography>
         <TeacherReasourceTable

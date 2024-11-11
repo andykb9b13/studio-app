@@ -18,11 +18,14 @@ import MessageIcon from "@mui/icons-material/Message";
 import PracticeHub from "./PracticeHub";
 import MessageBoard from "../components/MessageBoard/MessageBoardContainer";
 import PleaseLogin from "../components/common/PleaseLogin";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import TeacherResourceContainer from "../components/TeacherDashboard/Resources/TeacherResourceContainer";
 
 // Top component in the tree for students. This is the main entry point for students.
 export default function StudentDetails() {
   const [active, setActive] = useState(0);
   const { teacher, setTeacher } = useTeacherContext();
+  const [resources, setResources] = useState([]);
   const { id } = useParams();
   // query for finding individual student information
   const { data } = useQuery(QUERY_STUDENT, {
@@ -49,6 +52,10 @@ export default function StudentDetails() {
   useEffect(() => {
     setTeacher(activeTeacher.data?.teacher || {});
   }, [activeTeacher, setTeacher]);
+
+  useEffect(() => {
+    setResources(teacher.resources);
+  }, [teacher]);
 
   return (
     <>
@@ -83,6 +90,10 @@ export default function StudentDetails() {
                 <HubIcon />
                 {!isMobile && <b>Practice Hub</b>}
               </Tab>
+              <Tab>
+                <HandymanIcon />
+                {!isMobile && <b>Resources</b>}
+              </Tab>
             </TabList>
             {/* Main student details section  */}
             <TabPanel className="studentTabPanel" value={0}>
@@ -104,6 +115,12 @@ export default function StudentDetails() {
             {/* Section for accessing the Practice Hub */}
             <TabPanel className="studentTabPanel" value={4}>
               <PracticeHub />
+            </TabPanel>
+            <TabPanel className="resources" value={5}>
+              <TeacherResourceContainer
+                resources={resources}
+                setResources={setResources}
+              />
             </TabPanel>
           </Tabs>
         </Sheet>
