@@ -7,14 +7,13 @@ import { useForm } from "react-hook-form";
 import { styles } from "../../styles/studentDetailsStyles";
 
 // Component for displaying the EditStudent modal
-const EditStudent = () => {
+const EditStudent = ({ setActive }) => {
   const { student } = useStudentContext(); // get student from context
   const [editStudent, { error }] = useMutation(EDIT_STUDENT); // mutation for editing a student
   const { register, handleSubmit } = useForm(); // react-hook-form for handling the form
 
   // Function for handling the submit of the form and calling the editStudent mutation
   const onSubmit = async (userInput) => {
-    console.log(userInput);
     try {
       await editStudent({
         variables: {
@@ -23,6 +22,7 @@ const EditStudent = () => {
         },
       });
       alert("Student Successfully Edited!");
+      setActive(false);
     } catch (err) {
       console.error(err);
       alert("Could Not Edit Student");

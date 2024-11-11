@@ -152,9 +152,6 @@ const TeacherDashboard = () => {
                 flexDirection: "column",
               }}
             >
-              {/* Component for searching students */}
-              <StudentSearch students={students} setStudents={setStudents} />
-
               {/* Button toggles clicked to open and close CreateStudent */}
               <Button
                 id="addStudentBtn"
@@ -192,6 +189,7 @@ const TeacherDashboard = () => {
                 id="deleteTeacherBtn"
                 onClick={() => setOpen(true)}
                 color="danger"
+                style={{ marginTop: "20px" }}
               >
                 Delete Teacher Account
               </Button>
