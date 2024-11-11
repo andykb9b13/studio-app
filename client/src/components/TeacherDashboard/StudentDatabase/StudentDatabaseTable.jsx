@@ -45,11 +45,13 @@ const StudentDatabaseTable = ({ students, setStudents }) => {
       {/* Table for displaying the students */}
       <div
         className="ag-theme-quartz"
-        style={{ height: 500, marginBottom: "50px" }}
+        style={{ height: 600, marginBottom: "50px" }}
       >
         <AgGridReact
           rowData={rowData}
           columnDefs={colDefs}
+          pagination={true}
+          paginationAutoPageSize={true}
           onRowClicked={(params) =>
             navigate(`/teacher/studentDetails/${params.data._id}`)
           }

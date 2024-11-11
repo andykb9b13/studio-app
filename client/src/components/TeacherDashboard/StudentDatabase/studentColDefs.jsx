@@ -9,7 +9,6 @@ const studentColDefs = ({ open, setOpen, deleteStudentFunc, isMobile }) => {
       header: "First Name",
       field: "firstName",
       filter: "agSetColumnFilter",
-      sort: "asc",
     },
     {
       headerName: "Last Name",
@@ -24,6 +23,7 @@ const studentColDefs = ({ open, setOpen, deleteStudentFunc, isMobile }) => {
       headerName: "Is Active?",
       field: "isActive",
       filter: "agSetColumnFilter",
+      sort: "desc",
       valueGetter: (params) => {
         if (params.data.isActive) {
           return "Yes";

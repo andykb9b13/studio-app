@@ -20,7 +20,12 @@ const TeacherPieceTable = ({ teacherPieces, isMobile }) => {
         className="ag-theme-quartz"
         style={{ height: 300, marginBottom: "50px" }}
       >
-        <AgGridReact rowData={rowData} columnDefs={colDefs}></AgGridReact>
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={colDefs}
+          pagination={true}
+          paginationAutoPageSize={true}
+        ></AgGridReact>
       </div>
     </>
   );
